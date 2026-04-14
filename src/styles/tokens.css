@@ -1,0 +1,32 @@
+@layer base {
+  :root {
+    /* Brand — 로고 파일에서 확정 전까지 임시값 */
+    --color-primary: 245 124 0; /* #F57C00 */
+    --color-primary-hover: 230 81 0; /* #E65100 */
+    --color-accent: 200 16 46; /* #C8102E */
+
+    /* Ink & Surface */
+    --color-ink: 11 31 58; /* #0B1F3A */
+    --color-ink-muted: 71 85 105; /* #475569 */
+    --color-bg: 247 248 250; /* #F7F8FA */
+    --color-surface: 255 255 255; /* #FFFFFF */
+
+    /* Spacing Scale (8pt) */
+    --space-section: 7.5rem; /* 120px */
+    --space-section-mobile: 4rem; /* 64px */
+
+    /* Motion */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration-fast: 200ms;
+    --duration-base: 320ms;
+    --duration-slow: 480ms;
+
+    /* Typography */
+    --font-heading: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Inter", "Pretendard", ui-sans-serif, system-ui, sans-serif;
+
+    /* Grid */
+    --max-width: 1440px;
+    --gutter: 24px;
+  }
+}

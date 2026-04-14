@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "about": "About Us",
+    "solutions": "Solutions",
+    "portfolios": "Portfolios",
+    "locations": "Locations",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "headline": "Perfect Work. Safe Operations.",
+    "subheadline": "Delivering precision maintenance with uncompromised safety.",
+    "cta_solutions": "Explore Solutions",
+    "cta_contact": "Contact Us"
+  },
+  "keyNumbers": {
+    "fleet": "Total Maintenance Fleet",
+    "cases": "Maintenance Cases/year",
+    "countries": "Countries of Operations",
+    "workforce": "Total Workforce"
+  },
+  "footer": {
+    "tagline": "Ready to build the future of rail with us?",
+    "cta": "Contact Us",
+    "copyright": "© 2026 Xapika Engineering. All rights reserved.",
+    "polandHq": "Poland HQ",
+    "seoulOffice": "Seoul Office",
+    "warsawOffice": "Warsaw Office"
+  },
+  "designSystem": {
+    "title": "Design System",
+    "colors": "Colors",
+    "typography": "Typography",
+    "buttons": "Buttons",
+    "inputs": "Inputs",
+    "cards": "Cards",
+    "badges": "Badges",
+    "spacing": "Section Spacing",
+    "motion": "Motion Primitives"
+  }
+}

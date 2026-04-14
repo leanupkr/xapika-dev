@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "about": "회사 소개",
+    "solutions": "솔루션",
+    "portfolios": "포트폴리오",
+    "locations": "글로벌 네트워크",
+    "contact": "문의하기"
+  },
+  "hero": {
+    "headline": "완벽한 작업. 안전한 운영.",
+    "subheadline": "타협 없는 안전으로 정밀 유지보수를 제공합니다.",
+    "cta_solutions": "솔루션 보기",
+    "cta_contact": "문의하기"
+  },
+  "keyNumbers": {
+    "fleet": "유지보수 관리 차량",
+    "cases": "연간 유지보수 건수",
+    "countries": "운영 국가",
+    "workforce": "전체 인력"
+  },
+  "footer": {
+    "tagline": "철도의 미래를 함께 만들어가시겠습니까?",
+    "cta": "문의하기",
+    "copyright": "© 2026 Xapika Engineering. All rights reserved.",
+    "polandHq": "폴란드 본사",
+    "seoulOffice": "서울 오피스",
+    "warsawOffice": "바르샤바 오피스"
+  },
+  "designSystem": {
+    "title": "디자인 시스템",
+    "colors": "컬러",
+    "typography": "타이포그래피",
+    "buttons": "버튼",
+    "inputs": "인풋",
+    "cards": "카드",
+    "badges": "뱃지",
+    "spacing": "섹션 스페이싱",
+    "motion": "모션 프리미티브"
+  }
+}
