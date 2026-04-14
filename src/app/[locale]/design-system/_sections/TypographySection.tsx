@@ -7,20 +7,35 @@ type TypeSample = {
   sample: string;
   style: React.CSSProperties;
   className?: string;
+  isHero?: boolean;
+};
+
+const heroSample: TypeSample = {
+  tag: "Hero",
+  label: "Hero H1",
+  spec: "72–96px / 700 / letter-spacing -0.02em / line-height 1.05",
+  sample: "Perfect Work. Safe Operations.",
+  style: {
+    fontSize: "clamp(4.5rem, 8vw, 6rem)",
+    fontWeight: 700,
+    lineHeight: 1.05,
+    letterSpacing: "-0.02em",
+  },
+  isHero: true,
 };
 
 const typeSamples: TypeSample[] = [
   {
     tag: "H1",
     label: "Heading 1",
-    spec: "clamp(2.5rem, 5vw, 4.5rem) / 700",
+    spec: "clamp(2rem, 4vw, 3.5rem) / 700 / line-height 1.08",
     sample: "Perfect Work. Safe Operations.",
     style: { fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, lineHeight: 1.08 },
   },
   {
     tag: "H2",
     label: "Heading 2",
-    spec: "clamp(1.75rem, 3vw, 2.5rem) / 600",
+    spec: "clamp(1.5rem, 2.5vw, 2.25rem) / 600",
     sample: "Delivering Precision Maintenance",
     style: { fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 600, lineHeight: 1.15 },
   },
@@ -88,7 +103,31 @@ export function TypographySection() {
   return (
     <section>
       <SectionHeader label="02" title="Typography Scale" />
-      <div className="mt-8 divide-y divide-[rgb(var(--color-ink)/0.06)]">
+
+      {/* Hero H1 — 별도 섹션 */}
+      <div className="mt-8 overflow-hidden rounded-xl border border-[rgb(var(--color-primary)/0.15)] bg-[rgb(var(--color-ink))] p-6 sm:p-10">
+        <div className="mb-4 flex items-center gap-3">
+          <span className="inline-block rounded bg-[rgb(var(--color-primary)/0.2)] px-2 py-0.5 font-mono text-xs font-semibold text-[rgb(var(--color-primary))]">
+            Hero
+          </span>
+          <span className="text-xs text-[rgb(255_255_255/0.4)]">{heroSample.spec}</span>
+        </div>
+        <p
+          style={{ fontFamily: "Inter, sans-serif", ...heroSample.style }}
+          className="text-white"
+        >
+          {heroSample.sample}
+        </p>
+        <div className="mt-4 flex items-center gap-2">
+          <span className="h-0.5 w-8 bg-[rgb(var(--color-primary))]" />
+          <p className="text-xs text-[rgb(255_255_255/0.4)]">
+            Hero H1 — 다크 배경 Hero 섹션 전용. 일반 H1과 구분하여 사용.
+          </p>
+        </div>
+      </div>
+
+      {/* 일반 타입 스케일 */}
+      <div className="mt-6 divide-y divide-[rgb(var(--color-ink)/0.06)]">
         {typeSamples.map((t) => (
           <div key={t.tag} className="grid grid-cols-[4rem_1fr] gap-6 py-5 sm:grid-cols-[5rem_1fr]">
             <div className="pt-1">

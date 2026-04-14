@@ -4,6 +4,7 @@
 @theme inline {
   --color-primary: rgb(var(--color-primary));
   --color-primary-hover: rgb(var(--color-primary-hover));
+  --color-primary-subtle: rgb(var(--color-primary-subtle));
   --color-accent: rgb(var(--color-accent));
   --color-ink: rgb(var(--color-ink));
   --color-ink-muted: rgb(var(--color-ink-muted));
@@ -37,10 +38,20 @@
   background: rgb(var(--color-ink-muted) / 0.5);
 }
 
-/* Focus ring */
+/* Focus ring — 통일된 주황 ring (WCAG AA 대응) */
 *:focus-visible {
-  outline: 2px solid rgb(var(--color-primary));
-  outline-offset: 2px;
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgb(var(--color-surface)),
+    0 0 0 4px rgb(246 163 23 / 0.4);
+}
+
+/* 다크 배경 내부 focus — ring-offset을 ink 색상으로 */
+.dark-bg *:focus-visible,
+[data-bg="dark"] *:focus-visible {
+  box-shadow:
+    0 0 0 2px rgb(var(--color-ink)),
+    0 0 0 4px rgb(246 163 23 / 0.5);
 }
 
 /* Smooth scroll */

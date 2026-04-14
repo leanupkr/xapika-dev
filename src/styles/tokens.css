@@ -1,8 +1,9 @@
 @layer base {
   :root {
-    /* Brand — 로고 파일에서 확정 전까지 임시값 */
-    --color-primary: 245 124 0; /* #F57C00 */
-    --color-primary-hover: 230 81 0; /* #E65100 */
+    /* Brand — Extracted from official logo on 2026-04-15 */
+    --color-primary: 246 163 23; /* #f6a317 — 공식 로고 주황 (최빈 223회, PDF 벡터 소스) */
+    --color-primary-hover: 209 134 8; /* #d18608 — hover용 (L -10) */
+    --color-primary-subtle: 253 239 215; /* #fdefd7 — 밝은 배경용 (L=92) */
     --color-accent: 200 16 46; /* #C8102E */
 
     /* Ink & Surface */
