@@ -11,7 +11,7 @@
   --color-bg: rgb(var(--color-bg));
   --color-surface: rgb(var(--color-surface));
 
-  --font-heading: var(--font-inter), var(--font-heading);
+  --font-heading: var(--font-space-grotesk), var(--font-heading);
   --font-body: var(--font-inter), var(--font-body);
 }
 

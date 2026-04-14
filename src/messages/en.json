@@ -4,11 +4,17 @@
     "solutions": "Solutions",
     "portfolios": "Portfolios",
     "locations": "Locations",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "solutions_heavy_maintenance": "Heavy Maintenance",
+    "solutions_light_maintenance": "Light Maintenance",
+    "solutions_supply_chain": "Supply Chain",
+    "solutions_digital_asset": "Digital Asset Management",
+    "solutions_commercial": "Commercial Services"
   },
   "hero": {
     "headline": "Perfect Work. Safe Operations.",
     "subheadline": "Delivering precision maintenance with uncompromised safety.",
+    "overline": "Rail Maintenance Excellence",
     "cta_solutions": "Explore Solutions",
     "cta_contact": "Contact Us"
   },

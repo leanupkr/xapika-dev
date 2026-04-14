@@ -1,0 +1,238 @@
+/*
+ * hero.css — Xapika Hero 사진 톤 통일 + Ken Burns 크로스페이드
+ *
+ * 추천 전략: Strategy C (filter + overlay 혼합)
+ * - CSS filter로 기본 색보정(밝기·채도·대비) → 3장 균일 베이스
+ * - ::after overlay로 브랜드 네이비(#0B1F3A) 그라데이션 입혀 시네마틱 룩 완성
+ * - 결과: 차가운 네이비 블루 톤, 흰색 텍스트 가독성 확보
+ *
+ * 브라우저 호환성: Chrome 18+, Firefox 35+, Safari 9.1+, Edge 12+
+ * (CSS filter: caniuse.com 97%+, mix-blend-mode: caniuse.com 94%+)
+ */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. Hero Slideshow 컨테이너
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero-slideshow {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgb(11 31 58); /* --color-ink: fallback */
+}
+
+/* 모바일: 100svh (주소창 포함 안 함) */
+@supports (height: 100svh) {
+  .hero-slideshow {
+    height: 100svh;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   2. 개별 슬라이드 슬롯
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  /* 크로스페이드: 5초 hold → 1.2초 fade-out → 다음 슬라이드 fade-in */
+  animation: hero-fade var(--hero-cycle, 18s) ease-in-out infinite;
+}
+
+/* 3장 슬라이드 → 18초 사이클 (슬라이드당 6초)
+   각 슬라이드를 1/3씩 오프셋 */
+.hero-slide:nth-child(1) { animation-delay: 0s; }
+.hero-slide:nth-child(2) { animation-delay: 6s; }
+.hero-slide:nth-child(3) { animation-delay: 12s; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   3. 사진 요소 — Strategy C: filter + overlay
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero-slide__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+
+  /*
+   * [Strategy C — 추천]
+   * brightness(0.70) : 전체 노출 어둡게 → 공통 베이스 확보
+   * contrast(1.10)   : 어두운 영역 깊이감 강화
+   * saturate(0.80)   : 채도 낮춤 → 차가운 시네마틱 톤
+   *
+   * 3장 원본이 서로 다른 노출/화이트밸런스를 갖더라도
+   * 이 값으로 균일한 베이스로 수렴시킴.
+   */
+  filter: brightness(0.70) contrast(1.10) saturate(0.80);
+
+  /* Ken Burns 줌 인 — 슬라이드별 독립 animation */
+  animation: ken-burns-zoom var(--hero-cycle, 18s) ease-out infinite;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   4. 브랜드 컬러 오버레이 — multiply 블렌드
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero-slide__img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  /*
+   * 좌상단 alpha 0.60 → 우하단 alpha 0.30
+   * → 텍스트가 위치하는 왼쪽 상단은 더 진하게,
+   *   이미지 피사체가 있는 오른쪽 하단은 덜 가려짐
+   */
+  background: linear-gradient(
+    135deg,
+    rgba(11, 31, 58, 0.60) 0%,
+    rgba(11, 31, 58, 0.30) 60%,
+    rgba(11, 31, 58, 0.15) 100%
+  );
+
+  /*
+   * mix-blend-mode: multiply
+   * → 오버레이 색상과 사진 픽셀을 곱해서 네이비 캐스트 부여
+   * → normal보다 자연스럽게 사진 질감 유지
+   * Fallback: mix-blend-mode 미지원 시 normal과 동일 (반투명 덮기)
+   */
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   5. 하단 그라데이션 — 텍스트 가독성 보조
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero-slideshow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(11, 31, 58, 0.55) 70%,
+    rgba(11, 31, 58, 0.85) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   6. Hero 텍스트 콘텐츠
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.5rem, 4vw, 4rem);
+  color: #ffffff;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   7. Ken Burns 줌 인 keyframes
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@keyframes ken-burns-zoom {
+  /*
+   * 슬라이드 활성 구간(0~100%)에서 부드럽게 줌 인
+   * scale(1.0) → scale(1.06) : 6% 줌 — 너무 크면 잘림 발생
+   * transform-origin: 피사체에 따라 슬라이드별 재정의 가능
+   */
+  0%   { transform: scale(1.00); transform-origin: center center; }
+  100% { transform: scale(1.07); transform-origin: center center; }
+}
+
+/* 슬라이드별 Ken Burns 방향 다변화 — 단조로움 방지 */
+.hero-slide:nth-child(1) .hero-slide__img {
+  animation: ken-burns-zoom var(--hero-cycle, 18s) ease-out infinite;
+  transform-origin: center center;
+}
+.hero-slide:nth-child(2) .hero-slide__img {
+  animation: ken-burns-zoom-right var(--hero-cycle, 18s) ease-out infinite;
+}
+.hero-slide:nth-child(3) .hero-slide__img {
+  animation: ken-burns-zoom-left var(--hero-cycle, 18s) ease-out infinite;
+}
+
+@keyframes ken-burns-zoom-right {
+  0%   { transform: scale(1.00) translateX(0%); }
+  100% { transform: scale(1.06) translateX(-2%); }
+}
+
+@keyframes ken-burns-zoom-left {
+  0%   { transform: scale(1.00) translateX(0%); }
+  100% { transform: scale(1.06) translateX(2%); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   8. 크로스페이드 keyframes
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/*
+ * 18초 사이클 (슬라이드당 6초):
+ *   0%    — fade-in 시작 (opacity 0)
+ *   6.7%  — fade-in 완료 (opacity 1, ~1.2초)
+ *   55.6% — hold 상태 (opacity 1, 약 4.4초 유지)
+ *   66.7% — fade-out 완료 (opacity 0, ~2초)
+ *   100%  — 비활성 대기
+ *
+ * ease-in-out curve 사용:
+ * → 밝기 점프를 최소화하는 S커브 전환
+ * → linear 대비 크로스오버 구간의 "이중 노출" 효과 감소
+ */
+@keyframes hero-fade {
+  0%    { opacity: 0; }
+  6.7%  { opacity: 1; }
+  55.6% { opacity: 1; }
+  66.7% { opacity: 0; }
+  100%  { opacity: 0; }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   9. 접근성 — 모션 감소 설정
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    animation: hero-fade-static var(--hero-cycle, 18s) ease-in-out infinite;
+  }
+  .hero-slide__img,
+  .hero-slide:nth-child(1) .hero-slide__img,
+  .hero-slide:nth-child(2) .hero-slide__img,
+  .hero-slide:nth-child(3) .hero-slide__img {
+    animation: none;
+    transform: none;
+  }
+
+  /* Ken Burns 제거, 크로스페이드는 유지 */
+  @keyframes hero-fade-static {
+    0%    { opacity: 0; }
+    6.7%  { opacity: 1; }
+    55.6% { opacity: 1; }
+    66.7% { opacity: 0; }
+    100%  { opacity: 0; }
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   10. 전략 A 유틸리티 클래스 (Strategy A 단독 사용 시)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero-slide__img--strategy-a {
+  filter: contrast(1.1) saturate(0.85) brightness(0.65);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   11. 전략 B 유틸리티 클래스 (Strategy B 단독 사용 시)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero-slide__img--strategy-b {
+  filter: none; /* 필터 없이 overlay만 */
+}
+.hero-slide__img--strategy-b::after {
+  background: linear-gradient(
+    135deg,
+    rgba(11, 31, 58, 0.85) 0%,
+    rgba(11, 31, 58, 0.50) 100%
+  );
+  mix-blend-mode: multiply;
+}

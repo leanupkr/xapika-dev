@@ -1,24 +1,30 @@
 import { getTranslations } from "next-intl/server";
+import Hero from "@/components/sections/Hero";
 
 export default async function HomePage() {
-  const t = await getTranslations("hero");
+  const tHero = await getTranslations("hero");
+
+  // headline에서 accent 부분 ("Safe Operations." / "안전한 운영.")을 분리
+  const headline = tHero("headline");
+  // 마지막 문장(마침표 포함)을 accent로 처리
+  const headlineAccent = headline.includes("Safe Operations.")
+    ? "Safe Operations."
+    : headline.includes("안전한 운영.")
+    ? "안전한 운영."
+    : "";
 
   return (
-    <section className="flex min-h-screen items-center justify-center bg-bg">
-      <div className="text-center px-6">
-        <h1
-          className="font-heading font-bold text-ink"
-          style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
-        >
-          {t("headline")}
-        </h1>
-        <p
-          className="mt-4 text-ink-muted"
-          style={{ fontSize: "clamp(1rem, 2vw, 1.25rem)" }}
-        >
-          {t("subheadline")}
-        </p>
-      </div>
-    </section>
+    <>
+      <Hero
+        headline={headline}
+        headlineAccent={headlineAccent}
+        subheadline={tHero("subheadline")}
+        overline={tHero("overline")}
+        ctaSolutions={tHero("cta_solutions")}
+        ctaContact={tHero("cta_contact")}
+        ctaSolutionsHref="/solutions"
+        ctaContactHref="/contact"
+      />
+    </>
   );
 }
