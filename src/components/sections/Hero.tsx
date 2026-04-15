@@ -179,6 +179,8 @@ export default function Hero({
             {word}
           </span>
         ))}
+        {/* 줄바꿈: "Perfect Work." 뒤에서 강제 줄바꿈 */}
+        <br className="hidden sm:block" />
         {accentWords.map((word, i) => (
           <span
             key={`a-${i}`}
@@ -240,22 +242,32 @@ export default function Hero({
           {/* Overline */}
           <span
             ref={overlineRef}
-            className="block font-heading font-medium uppercase tracking-[0.15em] mb-5 opacity-0"
+            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 opacity-0"
             style={{
-              fontSize: "12px",
-              color: "rgb(var(--color-primary))",
+              fontSize: "14px",
+              letterSpacing: "0.2em",
+              color: "rgba(255,255,255,0.90)",
             }}
           >
+            <span
+              className="inline-block flex-shrink-0"
+              style={{
+                width: "24px",
+                height: "2px",
+                backgroundColor: "rgb(var(--color-primary))",
+              }}
+            />
             {overline}
           </span>
 
           {/* H1 */}
           <h1
             ref={headlineRef}
-            className="font-heading font-bold text-white leading-[1.05] mb-6"
+            className="font-heading font-bold text-white mb-8"
             style={{
-              fontSize: "clamp(3rem, 7vw, 6rem)",
-              letterSpacing: "-0.02em",
+              fontSize: "clamp(3.5rem, 8.5vw, 7.5rem)",
+              letterSpacing: "-0.025em",
+              lineHeight: 0.97,
             }}
           >
             {renderHeadline(headline, headlineAccent)}
@@ -267,8 +279,8 @@ export default function Hero({
             className="font-body opacity-0 mb-10"
             style={{
               fontSize: "clamp(1.0625rem, 1.5vw, 1.25rem)",
-              color: "rgba(255,255,255,0.80)",
-              maxWidth: "38rem",
+              color: "rgba(255,255,255,0.85)",
+              maxWidth: "520px",
               lineHeight: 1.65,
             }}
           >
@@ -337,6 +349,16 @@ export default function Hero({
           </div>
         </div>
       </div>
+
+      {/* 하단 그라데이션 — 다음 섹션과 자연스러운 전환 */}
+      <div
+        className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
+        style={{
+          height: "160px",
+          background:
+            "linear-gradient(to bottom, transparent 0%, rgba(11,31,58,0.70) 50%, #0b1f3a 100%)",
+        }}
+      />
 
       {/* 스크롤 인디케이터 — 철도 레일 모티프 */}
       <div
