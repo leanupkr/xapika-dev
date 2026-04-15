@@ -233,10 +233,9 @@ export default function Hero({
       {/* 콘텐츠 */}
       <div className="hero-content">
         <div
-          className="w-full"
+          className="w-full pb-[180px] md:pb-[clamp(3rem,6vw,5rem)]"
           style={{
             maxWidth: "56rem",
-            paddingBottom: "clamp(3rem, 6vw, 5rem)",
           }}
         >
           {/* Overline */}
@@ -263,9 +262,9 @@ export default function Hero({
           {/* H1 */}
           <h1
             ref={headlineRef}
-            className="font-heading font-bold text-white mb-8"
+            className="font-heading font-bold text-white mb-8 max-w-[90vw] md:max-w-none"
             style={{
-              fontSize: "clamp(3.5rem, 8.5vw, 7.5rem)",
+              fontSize: "clamp(3rem, 7.5vw, 7.5rem)",
               letterSpacing: "-0.025em",
               lineHeight: 0.97,
             }}
@@ -352,9 +351,8 @@ export default function Hero({
 
       {/* 하단 그라데이션 — 다음 섹션과 자연스러운 전환 */}
       <div
-        className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none h-[80px] md:h-[160px]"
         style={{
-          height: "160px",
           background:
             "linear-gradient(to bottom, transparent 0%, rgba(11,31,58,0.70) 50%, #0b1f3a 100%)",
         }}
