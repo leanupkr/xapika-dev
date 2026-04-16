@@ -1,10 +1,12 @@
 import { getTranslations } from "next-intl/server";
 import Hero from "@/components/sections/Hero";
 import KeyNumbers from "@/components/sections/KeyNumbers";
+import SolutionsGrid from "@/components/sections/SolutionsGrid";
 
 export default async function HomePage() {
   const tHero = await getTranslations("hero");
   const tKN = await getTranslations("keyNumbers");
+  const tSol = await getTranslations("solutions");
 
   // headline에서 accent 부분 ("Safe Operations." / "안전한 운영.")을 분리
   const headline = tHero("headline");
@@ -53,6 +55,38 @@ export default async function HomePage() {
             note: tKN("workforce_note"),
           },
         ]}
+      />
+      <SolutionsGrid
+        overline={tSol("overline")}
+        title={tSol("title")}
+        subtitle={tSol("subtitle")}
+        items={{
+          light: {
+            title: tSol("items.light.title"),
+            description: tSol("items.light.description"),
+            metric: tSol("items.light.metric"),
+          },
+          heavy: {
+            title: tSol("items.heavy.title"),
+            description: tSol("items.heavy.description"),
+            metric: tSol("items.heavy.metric"),
+          },
+          supply: {
+            title: tSol("items.supply.title"),
+            description: tSol("items.supply.description"),
+            metric: tSol("items.supply.metric"),
+          },
+          digital: {
+            title: tSol("items.digital.title"),
+            description: tSol("items.digital.description"),
+            metric: tSol("items.digital.metric"),
+          },
+          commercial: {
+            title: tSol("items.commercial.title"),
+            description: tSol("items.commercial.description"),
+            metric: tSol("items.commercial.metric"),
+          },
+        }}
       />
     </>
   );

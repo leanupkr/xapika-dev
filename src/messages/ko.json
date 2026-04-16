@@ -36,6 +36,39 @@
     "workforce_label": "전체 인력",
     "workforce_note": "엔지니어 · 기술자 · 운영자"
   },
+  "solutions": {
+    "overline": "솔루션",
+    "title": "다섯 가지 역량. 하나의 안전 기준.",
+    "subtitle": "모든 서비스는 측정·감사되며, 운영 국가의 규제 요구사항에 맞게 정렬되어 있습니다.",
+    "cta": "자세히 보기",
+    "items": {
+      "light": {
+        "title": "경정비",
+        "description": "일일 점검과 기능 검사를 통해 차량 가동률을 유지합니다.",
+        "metric": "연 18,500+ 건"
+      },
+      "heavy": {
+        "title": "중정비",
+        "description": "전체 오버홀과 부품 교체를 안전 보증 아래 수행합니다.",
+        "metric": "연 3,500+ 건"
+      },
+      "supply": {
+        "title": "차량 공급망 관리",
+        "description": "50+ 파트너 네트워크를 통한 부품 조달과 재고 오케스트레이션.",
+        "metric": "8,000+ 부품 관리"
+      },
+      "digital": {
+        "title": "디지털 자산 관리",
+        "description": "VISION IT의 MMIS 플랫폼 — 예측 작업 지시와 재고 관리.",
+        "metric": "25,000+ 작업 지시 추적"
+      },
+      "commercial": {
+        "title": "상업 및 부대 서비스",
+        "description": "역사 리테일, 컨세션, 운영 수익 프로그램.",
+        "metric": "수익 최적화"
+      }
+    }
+  },
   "footer": {
     "tagline": "철도의 미래를 함께 만들어가시겠습니까?",
     "cta": "문의하기",

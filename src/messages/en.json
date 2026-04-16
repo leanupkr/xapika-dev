@@ -36,6 +36,39 @@
     "workforce_label": "Total Workforce",
     "workforce_note": "Engineers, technicians, operators"
   },
+  "solutions": {
+    "overline": "Solutions",
+    "title": "Five disciplines. One standard of safety.",
+    "subtitle": "Every service is measured, audited, and aligned with regulator requirements across all operating countries.",
+    "cta": "Learn more",
+    "items": {
+      "light": {
+        "title": "Light Maintenance",
+        "description": "Daily inspections and functional checks that keep fleets operational.",
+        "metric": "18,500+ activities / year"
+      },
+      "heavy": {
+        "title": "Heavy Maintenance",
+        "description": "Full overhauls and component replacement under full safety warranty.",
+        "metric": "3,500+ activities / year"
+      },
+      "supply": {
+        "title": "Rolling Stock Supply Chain",
+        "description": "Parts sourcing and inventory orchestration across 50+ partners.",
+        "metric": "8,000+ parts managed"
+      },
+      "digital": {
+        "title": "Digital Asset Management",
+        "description": "MMIS platform via VISION IT — predictive work orders and inventory.",
+        "metric": "25,000+ work orders tracked"
+      },
+      "commercial": {
+        "title": "Commercial & Ancillary Services",
+        "description": "Station retail, concessions, and operational revenue programs.",
+        "metric": "Revenue optimization"
+      }
+    }
+  },
   "footer": {
     "tagline": "Ready to build the future of rail with us?",
     "cta": "Contact Us",
