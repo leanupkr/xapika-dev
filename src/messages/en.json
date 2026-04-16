@@ -69,6 +69,49 @@
       }
     }
   },
+  "portfolios": {
+    "overline": "Portfolios",
+    "title": "Nine years of unbroken service.",
+    "subtitle": "Project commitments that survived war, weather, and regulator change — delivered under continuous audit.",
+    "viewAll": "View all portfolios",
+    "ukraine": {
+      "number": "CASE 01",
+      "country": "Ukraine",
+      "project": "HRCS2 Fleet — Ukrzaliznytsia",
+      "since": "Since 2017",
+      "badge": "Uninterrupted Since War",
+      "m1_value": "100",
+      "m1_label": "HRCS2 units",
+      "m2_value": "82,000+",
+      "m2_label": "Maintenance actions",
+      "m3_value": "9 yrs",
+      "m3_label": "Continuous service",
+      "cta": "Read case study"
+    },
+    "poland": {
+      "number": "CASE 02",
+      "country": "Poland",
+      "project": "Tramwaje Warszawskie",
+      "since": "Since 2022",
+      "m1_value": "123",
+      "m1_label": "Tram units",
+      "m2_value": "Warsaw",
+      "m2_label": "Depot city",
+      "cta": "Program details"
+    },
+    "uzbekistan": {
+      "number": "CASE 03",
+      "country": "Uzbekistan",
+      "project": "High-Speed Rail Maintenance Hub",
+      "since": "Coming May 2026",
+      "badge": "In preparation",
+      "m1_value": "HSR",
+      "m1_label": "Service class",
+      "m2_value": "Tashkent",
+      "m2_label": "Depot city",
+      "cta": "Partnership notice"
+    }
+  },
   "footer": {
     "tagline": "Ready to build the future of rail with us?",
     "cta": "Contact Us",

@@ -69,6 +69,49 @@
       }
     }
   },
+  "portfolios": {
+    "overline": "포트폴리오",
+    "title": "9년, 단 한번의 중단 없이.",
+    "subtitle": "전쟁과 기후, 규제 변화를 지나며 연속 감사 아래 완수한 프로젝트.",
+    "viewAll": "모든 포트폴리오 보기",
+    "ukraine": {
+      "number": "CASE 01",
+      "country": "우크라이나",
+      "project": "HRCS2 차량 — Ukrzaliznytsia",
+      "since": "2017년부터",
+      "badge": "전쟁 중에도 무중단",
+      "m1_value": "100",
+      "m1_label": "HRCS2 차량",
+      "m2_value": "82,000+",
+      "m2_label": "유지보수 작업",
+      "m3_value": "9년",
+      "m3_label": "연속 운영",
+      "cta": "케이스 스터디 보기"
+    },
+    "poland": {
+      "number": "CASE 02",
+      "country": "폴란드",
+      "project": "바르샤바 트램",
+      "since": "2022년부터",
+      "m1_value": "123",
+      "m1_label": "트램 차량",
+      "m2_value": "Warsaw",
+      "m2_label": "운영 도시",
+      "cta": "프로그램 상세"
+    },
+    "uzbekistan": {
+      "number": "CASE 03",
+      "country": "우즈베키스탄",
+      "project": "고속철 정비 허브",
+      "since": "2026년 5월 예정",
+      "badge": "준비 중",
+      "m1_value": "HSR",
+      "m1_label": "서비스 등급",
+      "m2_value": "Tashkent",
+      "m2_label": "운영 도시",
+      "cta": "파트너십 안내"
+    }
+  },
   "footer": {
     "tagline": "철도의 미래를 함께 만들어가시겠습니까?",
     "cta": "문의하기",

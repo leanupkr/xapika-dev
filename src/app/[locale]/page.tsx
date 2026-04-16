@@ -2,11 +2,13 @@ import { getTranslations } from "next-intl/server";
 import Hero from "@/components/sections/Hero";
 import KeyNumbers from "@/components/sections/KeyNumbers";
 import SolutionsGrid from "@/components/sections/SolutionsGrid";
+import PortfoliosPreview from "@/components/sections/PortfoliosPreview";
 
 export default async function HomePage() {
   const tHero = await getTranslations("hero");
   const tKN = await getTranslations("keyNumbers");
   const tSol = await getTranslations("solutions");
+  const tPf = await getTranslations("portfolios");
 
   // headline에서 accent 부분 ("Safe Operations." / "안전한 운영.")을 분리
   const headline = tHero("headline");
@@ -85,6 +87,51 @@ export default async function HomePage() {
             title: tSol("items.commercial.title"),
             description: tSol("items.commercial.description"),
             metric: tSol("items.commercial.metric"),
+          },
+        }}
+      />
+      <PortfoliosPreview
+        overline={tPf("overline")}
+        title={tPf("title")}
+        subtitle={tPf("subtitle")}
+        viewAll={tPf("viewAll")}
+        items={{
+          ukraine: {
+            number: tPf("ukraine.number"),
+            country: tPf("ukraine.country"),
+            project: tPf("ukraine.project"),
+            since: tPf("ukraine.since"),
+            badge: tPf("ukraine.badge"),
+            m1_value: tPf("ukraine.m1_value"),
+            m1_label: tPf("ukraine.m1_label"),
+            m2_value: tPf("ukraine.m2_value"),
+            m2_label: tPf("ukraine.m2_label"),
+            m3_value: tPf("ukraine.m3_value"),
+            m3_label: tPf("ukraine.m3_label"),
+            cta: tPf("ukraine.cta"),
+          },
+          poland: {
+            number: tPf("poland.number"),
+            country: tPf("poland.country"),
+            project: tPf("poland.project"),
+            since: tPf("poland.since"),
+            m1_value: tPf("poland.m1_value"),
+            m1_label: tPf("poland.m1_label"),
+            m2_value: tPf("poland.m2_value"),
+            m2_label: tPf("poland.m2_label"),
+            cta: tPf("poland.cta"),
+          },
+          uzbekistan: {
+            number: tPf("uzbekistan.number"),
+            country: tPf("uzbekistan.country"),
+            project: tPf("uzbekistan.project"),
+            since: tPf("uzbekistan.since"),
+            badge: tPf("uzbekistan.badge"),
+            m1_value: tPf("uzbekistan.m1_value"),
+            m1_label: tPf("uzbekistan.m1_label"),
+            m2_value: tPf("uzbekistan.m2_value"),
+            m2_label: tPf("uzbekistan.m2_label"),
+            cta: tPf("uzbekistan.cta"),
           },
         }}
       />
