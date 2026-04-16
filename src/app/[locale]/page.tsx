@@ -43,6 +43,7 @@ export default async function HomePage() {
           },
           {
             value: tKN("countries_value"),
+            unit: tKN("countries_unit"),
             label: tKN("countries_label"),
             note: tKN("countries_note"),
           },

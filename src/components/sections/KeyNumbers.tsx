@@ -7,6 +7,7 @@ type Stat = {
   value: string;
   label: string;
   note: string;
+  unit?: string;
 };
 
 type KeyNumbersProps = {
@@ -102,7 +103,7 @@ function StatBlock({
       </span>
 
       {/* 숫자 */}
-      <div className="flex items-baseline gap-1 mb-4 overflow-hidden">
+      <div className="flex items-baseline gap-2 mb-4 overflow-hidden">
         <span
           className="font-heading font-medium text-[rgb(var(--color-ink))] leading-none tabular-nums whitespace-nowrap"
           style={{
@@ -124,6 +125,17 @@ function StatBlock({
             }}
           >
             {suffix}
+          </span>
+        )}
+        {stat.unit && (
+          <span
+            className="font-heading font-medium text-[rgb(var(--color-primary))] leading-[1.1]"
+            style={{
+              fontSize: "clamp(1rem, 1.4vw, 1.375rem)",
+              letterSpacing: "-0.005em",
+            }}
+          >
+            {stat.unit}
           </span>
         )}
       </div>

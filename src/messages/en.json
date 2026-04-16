@@ -29,6 +29,7 @@
     "cases_label": "Maintenance Cases / Year",
     "cases_note": "Verified service actions",
     "countries_value": "5",
+    "countries_unit": "countries",
     "countries_label": "Countries of Operations",
     "countries_note": "Active depots and crews",
     "workforce_value": "110+",

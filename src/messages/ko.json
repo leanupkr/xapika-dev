@@ -29,6 +29,7 @@
     "cases_label": "연간 유지보수 건수",
     "cases_note": "검증된 정비 작업",
     "countries_value": "5",
+    "countries_unit": "개국",
     "countries_label": "운영 국가",
     "countries_note": "활성 디팟과 크루",
     "workforce_value": "110+",
