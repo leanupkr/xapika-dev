@@ -19,10 +19,21 @@
     "cta_contact": "문의하기"
   },
   "keyNumbers": {
-    "fleet": "유지보수 관리 차량",
-    "cases": "연간 유지보수 건수",
-    "countries": "운영 국가",
-    "workforce": "전체 인력"
+    "overline": "숫자로 증명합니다",
+    "title": "차량, 거리, 가동률로 측정됩니다.",
+    "subtitle": "5개국 운영 스케일, 고객사와 규제 기관이 검증했습니다.",
+    "fleet_value": "227",
+    "fleet_label": "유지보수 관리 차량",
+    "fleet_note": "실제 운영 중인 차량",
+    "cases_value": "22,000+",
+    "cases_label": "연간 유지보수 건수",
+    "cases_note": "검증된 정비 작업",
+    "countries_value": "5",
+    "countries_label": "운영 국가",
+    "countries_note": "활성 디팟과 크루",
+    "workforce_value": "110+",
+    "workforce_label": "전체 인력",
+    "workforce_note": "엔지니어 · 기술자 · 운영자"
   },
   "footer": {
     "tagline": "철도의 미래를 함께 만들어가시겠습니까?",

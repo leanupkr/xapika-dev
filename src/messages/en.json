@@ -19,10 +19,21 @@
     "cta_contact": "Contact Us"
   },
   "keyNumbers": {
-    "fleet": "Total Maintenance Fleet",
-    "cases": "Maintenance Cases/year",
-    "countries": "Countries of Operations",
-    "workforce": "Total Workforce"
+    "overline": "By the Numbers",
+    "title": "Measured in fleet, miles, and uptime.",
+    "subtitle": "Operational scale across five countries, verified by customers and regulators.",
+    "fleet_value": "227",
+    "fleet_label": "Total Maintenance Fleet",
+    "fleet_note": "Trains actively maintained",
+    "cases_value": "22,000+",
+    "cases_label": "Maintenance Cases / Year",
+    "cases_note": "Verified service actions",
+    "countries_value": "5",
+    "countries_label": "Countries of Operations",
+    "countries_note": "Active depots and crews",
+    "workforce_value": "110+",
+    "workforce_label": "Total Workforce",
+    "workforce_note": "Engineers, technicians, operators"
   },
   "footer": {
     "tagline": "Ready to build the future of rail with us?",

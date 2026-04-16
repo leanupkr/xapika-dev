@@ -1,12 +1,13 @@
 import { getTranslations } from "next-intl/server";
 import Hero from "@/components/sections/Hero";
+import KeyNumbers from "@/components/sections/KeyNumbers";
 
 export default async function HomePage() {
   const tHero = await getTranslations("hero");
+  const tKN = await getTranslations("keyNumbers");
 
   // headline에서 accent 부분 ("Safe Operations." / "안전한 운영.")을 분리
   const headline = tHero("headline");
-  // 마지막 문장(마침표 포함)을 accent로 처리
   const headlineAccent = headline.includes("Safe Operations.")
     ? "Safe Operations."
     : headline.includes("안전한 운영.")
@@ -24,6 +25,33 @@ export default async function HomePage() {
         ctaContact={tHero("cta_contact")}
         ctaSolutionsHref="/solutions"
         ctaContactHref="/contact"
+      />
+      <KeyNumbers
+        overline={tKN("overline")}
+        title={tKN("title")}
+        subtitle={tKN("subtitle")}
+        stats={[
+          {
+            value: tKN("fleet_value"),
+            label: tKN("fleet_label"),
+            note: tKN("fleet_note"),
+          },
+          {
+            value: tKN("cases_value"),
+            label: tKN("cases_label"),
+            note: tKN("cases_note"),
+          },
+          {
+            value: tKN("countries_value"),
+            label: tKN("countries_label"),
+            note: tKN("countries_note"),
+          },
+          {
+            value: tKN("workforce_value"),
+            label: tKN("workforce_label"),
+            note: tKN("workforce_note"),
+          },
+        ]}
       />
     </>
   );
