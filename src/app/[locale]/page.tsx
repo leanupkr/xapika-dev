@@ -3,12 +3,14 @@ import Hero from "@/components/sections/Hero";
 import KeyNumbers from "@/components/sections/KeyNumbers";
 import SolutionsGrid from "@/components/sections/SolutionsGrid";
 import PortfoliosPreview from "@/components/sections/PortfoliosPreview";
+import TrustedBy from "@/components/sections/TrustedBy";
 
 export default async function HomePage() {
   const tHero = await getTranslations("hero");
   const tKN = await getTranslations("keyNumbers");
   const tSol = await getTranslations("solutions");
   const tPf = await getTranslations("portfolios");
+  const tPartners = await getTranslations("partners");
 
   // headline에서 accent 부분 ("Safe Operations." / "안전한 운영.")을 분리
   const headline = tHero("headline");
@@ -135,6 +137,7 @@ export default async function HomePage() {
           },
         }}
       />
+      <TrustedBy overline={tPartners("overline")} />
     </>
   );
 }
