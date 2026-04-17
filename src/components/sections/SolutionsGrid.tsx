@@ -37,18 +37,18 @@ type SolutionsGridProps = {
 
 const SIZE_TO_CLASSES: Record<Size, { grid: string; minH: string; titleSize: string }> = {
   featured: {
-    grid: "lg:col-span-8",
-    minH: "min-h-[420px] lg:min-h-[480px]",
+    grid: "sm:col-span-2 lg:col-span-8",
+    minH: "min-h-[340px] sm:min-h-[420px] lg:min-h-[480px]",
     titleSize: "clamp(1.75rem, 2.8vw, 2.25rem)",
   },
   secondary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[380px] lg:min-h-[480px]",
+    minH: "min-h-[280px] sm:min-h-[340px] lg:min-h-[480px]",
     titleSize: "clamp(1.25rem, 1.7vw, 1.5rem)",
   },
   tertiary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[300px] lg:min-h-[320px]",
+    minH: "min-h-[240px] sm:min-h-[280px] lg:min-h-[320px]",
     titleSize: "clamp(1.25rem, 1.7vw, 1.5rem)",
   },
 };
@@ -367,7 +367,7 @@ export default function SolutionsGrid({
         {/* 카드 편집 레이아웃: 12-col grid
             Row 1: Featured (8) + Secondary (4)
             Row 2: Tertiary (4) × 3 */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 md:gap-5">
           {solutions.map((item, i) => (
             <SolutionCard key={item.key} item={item} index={i} inView={inView} />
           ))}

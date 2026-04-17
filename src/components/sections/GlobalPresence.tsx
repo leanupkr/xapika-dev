@@ -56,6 +56,17 @@ export default function GlobalPresence({
   // 한 번만 play하는 entry 애니메이션용
   const [hasEntered, setHasEntered] = useState(false);
 
+  // 모바일 감지 — 지도 viewBox/projection을 모바일에 맞게 조정
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   // hover(수동) vs auto-spotlight(자동) 두 출처를 분리
   const [userHovered, setUserHovered] = useState<string | null>(null);
   const [autoSpot, setAutoSpot] = useState<string | null>(null);
@@ -199,12 +210,12 @@ export default function GlobalPresence({
               <StatCell value="1" unit="Standard" />
             </motion.div>
 
-            {/* 국가 리스트 */}
+            {/* 국가 리스트 — 모바일 2열, 데스크톱 1열 */}
             <motion.ul
               initial={{ opacity: 0, y: 12 }}
               animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
-              className="space-y-1"
+              className="grid grid-cols-2 lg:grid-cols-1 gap-x-2 gap-y-1"
             >
               {PINS.map((pin) => {
                 const isActive = activePin === pin.id;
@@ -318,11 +329,11 @@ export default function GlobalPresence({
             <ComposableMap
               projection="geoMercator"
               projectionConfig={{
-                center: [45, 35],
-                scale: 380,
+                center: isMobile ? [55, 40] : [40, 42],
+                scale: isMobile ? 280 : 420,
               }}
-              width={800}
-              height={520}
+              width={isMobile ? 500 : 800}
+              height={isMobile ? 420 : 430}
               style={{ width: "100%", height: "auto" }}
             >
               <Geographies geography={GEO_URL}>
