@@ -56,9 +56,11 @@ export default function GlobalPresence({
   // 한 번만 play하는 entry 애니메이션용
   const [hasEntered, setHasEntered] = useState(false);
 
-  // 모바일 감지 — 지도 viewBox/projection을 모바일에 맞게 조정
+  // 클라이언트 마운트 후에만 지도 렌더 (SSR과 client의 부동소수점 차이로 인한 path d-attr hydration mismatch 방지)
+  const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
+    setMounted(true);
     if (typeof window === "undefined") return;
     const mq = window.matchMedia("(max-width: 1023px)");
     const update = () => setIsMobile(mq.matches);
@@ -326,6 +328,16 @@ export default function GlobalPresence({
               7 Hubs · Live
             </div>
 
+            {!mounted && (
+              <div
+                aria-hidden
+                style={{
+                  width: "100%",
+                  aspectRatio: `${isMobile ? 500 : 800} / ${isMobile ? 420 : 430}`,
+                }}
+              />
+            )}
+            {mounted && (
             <ComposableMap
               projection="geoMercator"
               projectionConfig={{
@@ -551,6 +563,7 @@ export default function GlobalPresence({
                 );
               })}
             </ComposableMap>
+            )}
           </motion.div>
         </div>
       </div>
