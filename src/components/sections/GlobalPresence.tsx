@@ -118,7 +118,7 @@ export default function GlobalPresence({
     <section
       ref={ref}
       data-bg="light"
-      className="relative py-20 md:py-28 lg:py-32 overflow-hidden"
+      className="relative py-14 md:py-20 lg:py-24 overflow-hidden"
       style={{ backgroundColor: "#fafbfc" }}
       aria-labelledby="global-presence-title"
     >

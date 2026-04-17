@@ -93,7 +93,7 @@ function PortfolioCard({
         delay: 0.12 * index,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className={`relative ${isFeatured ? "md:col-span-2 min-h-[460px] lg:min-h-[520px]" : "min-h-[360px] lg:min-h-[400px]"}`}
+      className={`relative ${isFeatured ? "col-span-2 min-h-[340px] md:min-h-[460px] lg:min-h-[520px]" : "min-h-[260px] md:min-h-[360px] lg:min-h-[400px]"}`}
     >
       <Link
         href={item.href}
@@ -340,7 +340,7 @@ export default function PortfoliosPreview({
     <section
       ref={ref}
       data-bg="light"
-      className="relative py-20 md:py-28 lg:py-32"
+      className="relative py-14 md:py-20 lg:py-24"
       style={{ backgroundColor: "#fafbfc" }}
       aria-labelledby="portfolios-title"
     >
@@ -403,7 +403,7 @@ export default function PortfoliosPreview({
         </div>
 
         {/* 카드 그리드: Featured(풀폭) + Standard(2개, 반반) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+        <div className="grid grid-cols-2 gap-4 md:gap-5">
           {portfolios.map((item, i) => (
             <PortfolioCard key={item.key} item={item} index={i} inView={inView} />
           ))}
