@@ -72,7 +72,10 @@ export default function Header() {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={[
           "fixed top-0 left-0 right-0 z-30 transition-all duration-300",
           scrolled
@@ -227,7 +230,7 @@ export default function Header() {
             {/* Hamburger */}
             <button
               className={[
-                "md:hidden p-2 -mr-2 transition-colors duration-200",
+                "md:hidden p-2.5 -mr-2 transition-colors duration-200",
                 scrolled
                   ? "text-ink hover:text-primary"
                   : "text-white hover:text-white/70",
@@ -239,7 +242,7 @@ export default function Header() {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       <MobileMenu isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>

@@ -115,7 +115,7 @@ function SolutionCard({
         {isFeatured && (
           <svg
             aria-hidden="true"
-            className="absolute top-6 right-6 md:top-8 md:right-8 w-[200px] md:w-[280px] h-[90px] md:h-[112px] opacity-70"
+            className="hidden sm:block absolute top-6 right-6 md:top-8 md:right-8 w-[200px] md:w-[280px] h-[90px] md:h-[112px] opacity-70"
             viewBox="0 0 280 112"
             fill="none"
           >

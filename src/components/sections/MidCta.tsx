@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 
 export type MidCtaProps = {
@@ -22,6 +22,7 @@ export default function MidCta({
 }: MidCtaProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
 
   return (
     <section
@@ -30,7 +31,6 @@ export default function MidCta({
       className="relative overflow-hidden"
       style={{
         backgroundColor: "rgb(var(--color-ink))",
-        minHeight: "360px",
       }}
       aria-labelledby="mid-cta-title"
     >
@@ -48,20 +48,25 @@ export default function MidCta({
       >
         <defs>
           <pattern
-            id="rail-grid"
+            id="rail-grid-midcta"
             width="80"
             height="80"
             patternUnits="userSpaceOnUse"
           >
-            {/* 수직 레일 2줄 */}
-            <line x1="20" y1="0" x2="20" y2="80" stroke="#fff" strokeWidth="1" />
-            <line x1="60" y1="0" x2="60" y2="80" stroke="#fff" strokeWidth="1" />
-            {/* 수평 침목 */}
-            <line x1="10" y1="20" x2="70" y2="20" stroke="#fff" strokeWidth="1.5" />
-            <line x1="10" y1="50" x2="70" y2="50" stroke="#fff" strokeWidth="1.5" />
+            <motion.g
+              animate={{ x: [0, -80] }}
+              transition={{ repeat: Infinity, duration: 22, ease: "linear" }}
+            >
+              {/* 수직 레일 2줄 */}
+              <line x1="20" y1="0" x2="20" y2="80" stroke="#fff" strokeWidth="1" />
+              <line x1="60" y1="0" x2="60" y2="80" stroke="#fff" strokeWidth="1" />
+              {/* 수평 침목 */}
+              <line x1="10" y1="20" x2="70" y2="20" stroke="#fff" strokeWidth="1.5" />
+              <line x1="10" y1="50" x2="70" y2="50" stroke="#fff" strokeWidth="1.5" />
+            </motion.g>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#rail-grid)" />
+        <rect width="100%" height="100%" fill="url(#rail-grid-midcta)" />
       </svg>
 
       {/* 좌측 주황 그라디언트 액센트 */}
@@ -75,16 +80,16 @@ export default function MidCta({
       />
 
       <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-12 py-20 md:py-28 lg:py-32 flex flex-col md:flex-row md:items-center md:justify-between gap-10"
-        style={{ maxWidth: "1360px" }}
+        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16 py-12 md:py-14 lg:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12"
+        style={{ maxWidth: "var(--max-width)" }}
       >
         {/* 텍스트 */}
-        <div className="max-w-xl">
+        <div className="max-w-2xl">
           <motion.span
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
+            className="flex items-center gap-3 font-heading font-medium uppercase mb-4 text-[rgb(var(--color-primary))]"
             style={{ fontSize: "13px", letterSpacing: "0.2em" }}
           >
             <span
@@ -103,11 +108,11 @@ export default function MidCta({
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading font-bold text-white mb-5"
+            className="font-heading font-bold text-white mb-4"
             style={{
-              fontSize: "clamp(2.25rem, 5vw, 4rem)",
-              letterSpacing: "-0.025em",
-              lineHeight: 1.05,
+              fontSize: "clamp(1.875rem, 3.6vw, 2.75rem)",
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
             }}
           >
             {title}
@@ -119,9 +124,9 @@ export default function MidCta({
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-body text-white/60"
             style={{
-              fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
-              lineHeight: 1.65,
-              maxWidth: "480px",
+              fontSize: "clamp(0.9375rem, 1.1vw, 1.0625rem)",
+              lineHeight: 1.6,
+              maxWidth: "560px",
             }}
           >
             {subtitle}
@@ -141,23 +146,18 @@ export default function MidCta({
             style={{
               fontSize: "15px",
               padding: "14px 28px",
-              backgroundColor: "rgb(var(--color-primary))",
+              backgroundColor:
+                hoverIdx === 0
+                  ? "rgb(var(--color-primary-hover))"
+                  : "rgb(var(--color-primary))",
               color: "#fff",
               boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 16px rgba(246,163,23,0.35)",
+                hoverIdx === 0
+                  ? "inset 0 1px 0 rgba(255,255,255,0.18), 0 6px 24px rgba(246,163,23,0.55)"
+                  : "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 16px rgba(246,163,23,0.35)",
             }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget;
-              el.style.backgroundColor = "rgb(var(--color-primary-hover))";
-              el.style.boxShadow =
-                "inset 0 1px 0 rgba(255,255,255,0.18), 0 6px 24px rgba(246,163,23,0.55)";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget;
-              el.style.backgroundColor = "rgb(var(--color-primary))";
-              el.style.boxShadow =
-                "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 16px rgba(246,163,23,0.35)";
-            }}
+            onMouseEnter={() => setHoverIdx(0)}
+            onMouseLeave={() => setHoverIdx(null)}
           >
             {ctaPrimary}
             <ArrowRight size={16} strokeWidth={2} />
@@ -169,20 +169,13 @@ export default function MidCta({
             style={{
               fontSize: "15px",
               padding: "14px 28px",
-              border: "1px solid rgba(255,255,255,0.25)",
-              backgroundColor: "rgba(255,255,255,0.05)",
+              border: `1px solid ${hoverIdx === 1 ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.25)"}`,
+              backgroundColor:
+                hoverIdx === 1 ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.05)",
               color: "#fff",
             }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget;
-              el.style.backgroundColor = "rgba(255,255,255,0.12)";
-              el.style.borderColor = "rgba(255,255,255,0.45)";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget;
-              el.style.backgroundColor = "rgba(255,255,255,0.05)";
-              el.style.borderColor = "rgba(255,255,255,0.25)";
-            }}
+            onMouseEnter={() => setHoverIdx(1)}
+            onMouseLeave={() => setHoverIdx(null)}
           >
             {ctaSecondary}
           </Link>

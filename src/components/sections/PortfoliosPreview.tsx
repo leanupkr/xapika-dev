@@ -87,6 +87,7 @@ function PortfolioCard({
     <motion.div
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : undefined}
+      whileHover={{ y: -4 }}
       transition={{
         duration: 0.8,
         delay: 0.12 * index,
@@ -202,6 +203,8 @@ function PortfolioCard({
               letterSpacing: "-0.02em",
               lineHeight: 1.15,
               maxWidth: isFeatured ? "22ch" : "22ch",
+              wordBreak: "break-word",
+              overflowWrap: "break-word",
             }}
           >
             {item.project}

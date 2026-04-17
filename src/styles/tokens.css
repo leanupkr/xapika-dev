@@ -23,8 +23,8 @@
     --duration-slow: 480ms;
 
     /* Typography */
-    --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-    --font-body: "Inter", "Pretendard", ui-sans-serif, system-ui, sans-serif;
+    --font-heading: "Space Grotesk", "Pretendard Variable", "Pretendard", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Inter", "Pretendard Variable", "Pretendard", ui-sans-serif, system-ui, sans-serif;
 
     /* Grid */
     --max-width: 1440px;

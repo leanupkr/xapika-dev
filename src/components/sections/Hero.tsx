@@ -180,7 +180,7 @@ export default function Hero({
           </span>
         ))}
         {/* 줄바꿈: "Perfect Work." 뒤에서 강제 줄바꿈 */}
-        <br className="hidden sm:block" />
+        <br />
         {accentWords.map((word, i) => (
           <span
             key={`a-${i}`}

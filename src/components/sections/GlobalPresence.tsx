@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   ComposableMap,
@@ -17,20 +17,27 @@ type Pin = {
   name: string;
   label: string;
   coords: [number, number]; // [longitude, latitude]
+  countryId: string;
   isHQ?: boolean;
 };
 
 const PINS: Pin[] = [
-  { id: "poland", name: "Poland", label: "HQ · Kraków", coords: [19.94, 50.06], isHQ: true },
-  { id: "ukraine", name: "Ukraine", label: "Kyiv", coords: [30.52, 50.45] },
-  { id: "korea", name: "South Korea", label: "Seoul", coords: [126.98, 37.57] },
-  { id: "uzbekistan", name: "Uzbekistan", label: "Tashkent", coords: [69.28, 41.30] },
-  { id: "turkey", name: "Turkey", label: "Ankara", coords: [32.87, 39.93] },
-  { id: "egypt", name: "Egypt", label: "Cairo", coords: [31.24, 30.04] },
-  { id: "morocco", name: "Morocco", label: "Casablanca", coords: [-7.59, 33.57] },
+  { id: "poland",     name: "Poland",      label: "HQ · Kraków", coords: [19.94, 50.06], countryId: "616", isHQ: true },
+  { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45], countryId: "804" },
+  { id: "korea",      name: "South Korea", label: "Seoul",       coords: [126.98, 37.57], countryId: "410" },
+  { id: "uzbekistan", name: "Uzbekistan",  label: "Tashkent",    coords: [69.28, 41.30], countryId: "860" },
+  { id: "turkey",     name: "Turkey",      label: "Ankara",      coords: [32.87, 39.93], countryId: "792" },
+  { id: "egypt",      name: "Egypt",       label: "Cairo",       coords: [31.24, 30.04], countryId: "818" },
+  { id: "morocco",    name: "Morocco",     label: "Casablanca",  coords: [-7.59, 33.57], countryId: "504" },
 ];
 
-const HQ_COORDS = PINS.find((p) => p.isHQ)!.coords;
+const HQ = PINS.find((p) => p.isHQ)!;
+const SPOKES = PINS.filter((p) => !p.isHQ);
+const PIN_BY_COUNTRY = Object.fromEntries(PINS.map((p) => [p.countryId, p])) as Record<string, Pin | undefined>;
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const CYCLE_INTERVAL_MS = 3500;
+const SPOTLIGHT_HOLD_MS = 2800; // 나머지 700ms는 rest
 
 export type GlobalPresenceProps = {
   overline: string;
@@ -44,8 +51,57 @@ export default function GlobalPresence({
   subtitle,
 }: GlobalPresenceProps) {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.15 });
-  const [hoveredPin, setHoveredPin] = useState<string | null>(null);
+  const inView = useInView(ref, { amount: 0.15 });
+
+  // 한 번만 play하는 entry 애니메이션용
+  const [hasEntered, setHasEntered] = useState(false);
+
+  // hover(수동) vs auto-spotlight(자동) 두 출처를 분리
+  const [userHovered, setUserHovered] = useState<string | null>(null);
+  const [autoSpot, setAutoSpot] = useState<string | null>(null);
+  const activePin = userHovered ?? autoSpot;
+  const isHovering = activePin !== null;
+
+  const pausedRef = useRef(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const restRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const idxRef = useRef(0);
+
+  // entry 애니메이션 한 번만
+  useEffect(() => {
+    if (inView && !hasEntered) setHasEntered(true);
+  }, [inView, hasEntered]);
+
+  // 자동 순환 (hybrid spotlight)
+  useEffect(() => {
+    if (!inView || typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    intervalRef.current = setInterval(() => {
+      if (pausedRef.current) return;
+      const next = SPOKES[idxRef.current];
+      setAutoSpot(next.id);
+      idxRef.current = (idxRef.current + 1) % SPOKES.length;
+
+      if (restRef.current) clearTimeout(restRef.current);
+      restRef.current = setTimeout(() => setAutoSpot(null), SPOTLIGHT_HOLD_MS);
+    }, CYCLE_INTERVAL_MS);
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (restRef.current) clearTimeout(restRef.current);
+      setAutoSpot(null);
+    };
+  }, [inView]);
+
+  const handleEnter = (id: string) => {
+    pausedRef.current = true;
+    setUserHovered(id);
+  };
+  const handleLeave = () => {
+    pausedRef.current = false;
+    setUserHovered(null);
+  };
 
   return (
     <section
@@ -55,8 +111,27 @@ export default function GlobalPresence({
       style={{ backgroundColor: "#fafbfc" }}
       aria-labelledby="global-presence-title"
     >
+      {/* 배경 데코 */}
       <div
-        className="mx-auto px-6 md:px-10 lg:px-12"
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        style={{
+          width: "80%",
+          height: "60%",
+          background:
+            "radial-gradient(ellipse at center, rgba(246,163,23,0.06) 0%, rgba(246,163,23,0) 60%)",
+        }}
+      />
+
+      {/* 스크린리더용 라이브 영역 */}
+      <p className="sr-only" aria-live="polite">
+        {activePin
+          ? `Active hub: ${PINS.find((p) => p.id === activePin)?.name ?? ""}`
+          : ""}
+      </p>
+
+      <div
+        className="relative mx-auto px-6 md:px-10 lg:px-12"
         style={{ maxWidth: "1360px" }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
@@ -64,8 +139,8 @@ export default function GlobalPresence({
           <div className="lg:col-span-4 lg:sticky lg:top-28">
             <motion.span
               initial={{ opacity: 0, x: -20 }}
-              animate={inView ? { opacity: 1, x: 0 } : undefined}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              animate={hasEntered ? { opacity: 1, x: 0 } : undefined}
+              transition={{ duration: 0.5, ease: EASE }}
               className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
               style={{ fontSize: "13px", letterSpacing: "0.2em" }}
             >
@@ -83,8 +158,8 @@ export default function GlobalPresence({
             <motion.h2
               id="global-presence-title"
               initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : undefined}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
               className="font-heading font-semibold mb-5"
               style={{
                 fontSize: "clamp(2rem, 4vw, 3rem)",
@@ -98,9 +173,9 @@ export default function GlobalPresence({
 
             <motion.p
               initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : undefined}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-body mb-10"
+              animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+              className="font-body mb-8"
               style={{
                 fontSize: "clamp(0.9375rem, 1.1vw, 1.0625rem)",
                 lineHeight: 1.65,
@@ -111,77 +186,140 @@ export default function GlobalPresence({
               {subtitle}
             </motion.p>
 
+            {/* 통계 바 */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.6, delay: 0.25, ease: EASE }}
+              className="grid grid-cols-3 gap-2 sm:gap-4 mb-10 pb-8"
+              style={{ borderBottom: "1px solid rgba(11,31,58,0.08)" }}
+            >
+              <StatCell value="7" unit="Countries" />
+              <StatCell value="24/7" unit="On-call" />
+              <StatCell value="1" unit="Standard" />
+            </motion.div>
+
             {/* 국가 리스트 */}
             <motion.ul
               initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : undefined}
-              transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-3"
+              animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
+              className="space-y-1"
             >
-              {PINS.map((pin) => (
-                <li
-                  key={pin.id}
-                  className="flex items-center gap-3 cursor-default"
-                  onMouseEnter={() => setHoveredPin(pin.id)}
-                  onMouseLeave={() => setHoveredPin(null)}
-                >
-                  <span
-                    className="inline-block h-2 w-2 rounded-full flex-shrink-0"
+              {PINS.map((pin) => {
+                const isActive = activePin === pin.id;
+                return (
+                  <li
+                    key={pin.id}
+                    className="relative flex items-center gap-3 cursor-default py-3 px-3 -mx-3 rounded-md"
                     style={{
-                      backgroundColor:
-                        hoveredPin === pin.id || pin.isHQ
-                          ? "rgb(var(--color-primary))"
-                          : "rgba(11,31,58,0.25)",
-                      transition: "background-color 0.3s",
+                      backgroundColor: isActive
+                        ? "rgba(246,163,23,0.08)"
+                        : "transparent",
+                      transition: "background-color 0.25s",
                     }}
-                  />
-                  <span
-                    className="font-heading font-medium"
-                    style={{
-                      fontSize: "14px",
-                      color:
-                        hoveredPin === pin.id
+                    onMouseEnter={() => handleEnter(pin.id)}
+                    onMouseLeave={handleLeave}
+                    onClick={() => handleEnter(pin.id)}
+                  >
+                    <span
+                      aria-hidden
+                      className="absolute left-0 top-2 bottom-2 rounded-full"
+                      style={{
+                        width: "2px",
+                        backgroundColor: "rgb(var(--color-primary))",
+                        opacity: isActive ? 1 : 0,
+                        transition: "opacity 0.25s",
+                      }}
+                    />
+                    <span
+                      className="inline-block h-1.5 w-1.5 rounded-full flex-shrink-0"
+                      style={{
+                        backgroundColor: "rgb(var(--color-primary))",
+                        boxShadow: isActive
+                          ? "0 0 0 3px rgba(246,163,23,0.25)"
+                          : "0 0 0 0 rgba(246,163,23,0)",
+                        transition: "box-shadow 0.25s",
+                      }}
+                    />
+                    <span
+                      className="font-heading font-medium flex-1"
+                      style={{
+                        fontSize: "14px",
+                        color: isActive
                           ? "rgb(var(--color-ink))"
-                          : "rgba(11,31,58,0.65)",
-                      transition: "color 0.3s",
-                    }}
-                  >
-                    {pin.name}
-                    {pin.isHQ && (
-                      <span
-                        className="ml-2 font-normal text-[rgb(var(--color-primary))]"
-                        style={{ fontSize: "11px", letterSpacing: "0.15em" }}
-                      >
-                        HQ
-                      </span>
-                    )}
-                  </span>
-                  <span
-                    className="font-body"
-                    style={{
-                      fontSize: "12px",
-                      color: "rgba(11,31,58,0.40)",
-                    }}
-                  >
-                    {pin.label}
-                  </span>
-                </li>
-              ))}
+                          : "rgba(11,31,58,0.72)",
+                        transition: "color 0.25s",
+                      }}
+                    >
+                      {pin.name}
+                      {pin.isHQ && (
+                        <span
+                          className="ml-2 font-normal text-[rgb(var(--color-primary))] align-middle"
+                          style={{
+                            fontSize: "10px",
+                            letterSpacing: "0.18em",
+                            padding: "2px 6px",
+                            border: "1px solid rgba(246,163,23,0.35)",
+                            borderRadius: "3px",
+                          }}
+                        >
+                          HQ
+                        </span>
+                      )}
+                    </span>
+                    <span
+                      className="font-body"
+                      style={{
+                        fontSize: "12px",
+                        color: isActive
+                          ? "rgba(11,31,58,0.70)"
+                          : "rgba(11,31,58,0.40)",
+                        letterSpacing: "0.02em",
+                        transition: "color 0.25s",
+                      }}
+                    >
+                      {pin.label.replace(/^HQ · /, "")}
+                    </span>
+                  </li>
+                );
+              })}
             </motion.ul>
           </div>
 
           {/* 우측: SVG 지도 */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : undefined}
-            transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            animate={hasEntered ? { opacity: 1 } : undefined}
+            transition={{ duration: 1, delay: 0.3, ease: EASE }}
             className="lg:col-span-8 relative"
           >
+            <div
+              className="absolute top-0 right-0 flex items-center gap-2 pointer-events-none"
+              style={{
+                fontSize: "11px",
+                fontFamily: "'Space Grotesk', sans-serif",
+                letterSpacing: "0.2em",
+                color: "rgba(11,31,58,0.45)",
+                textTransform: "uppercase",
+              }}
+            >
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full"
+                style={{
+                  backgroundColor: "rgb(246,163,23)",
+                  boxShadow: "0 0 0 3px rgba(246,163,23,0.2)",
+                  animation: "livepulse 1.8s ease-in-out infinite",
+                }}
+              />
+              7 Hubs · Live
+            </div>
+
             <ComposableMap
               projection="geoMercator"
               projectionConfig={{
-                center: [35, 38],
-                scale: 420,
+                center: [45, 35],
+                scale: 380,
               }}
               width={800}
               height={520}
@@ -189,111 +327,215 @@ export default function GlobalPresence({
             >
               <Geographies geography={GEO_URL}>
                 {({ geographies }) =>
-                  geographies.map((geo) => (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill="rgba(11,31,58,0.06)"
-                      stroke="rgba(11,31,58,0.12)"
-                      strokeWidth={0.5}
-                      style={{
-                        default: { outline: "none" },
-                        hover: { outline: "none", fill: "rgba(11,31,58,0.10)" },
-                        pressed: { outline: "none" },
-                      }}
-                    />
-                  ))
+                  geographies.map((geo) => {
+                    const pin = PIN_BY_COUNTRY[String(geo.id)];
+                    const isActiveCountry = pin && activePin === pin.id;
+                    const isAnchor = !!pin;
+                    const baseFill = isActiveCountry
+                      ? "rgba(246,163,23,0.22)"
+                      : isAnchor
+                        ? "rgba(11,31,58,0.11)"
+                        : "rgba(11,31,58,0.055)";
+                    return (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        fill={baseFill}
+                        stroke="rgba(11,31,58,0.15)"
+                        strokeWidth={isActiveCountry ? 0.9 : 0.4}
+                        onMouseEnter={() => {
+                          if (pin) handleEnter(pin.id);
+                        }}
+                        onMouseLeave={() => {
+                          if (pin) handleLeave();
+                        }}
+                        onClick={() => {
+                          if (pin) handleEnter(pin.id);
+                        }}
+                        style={{
+                          default: {
+                            outline: "none",
+                            transition: "fill 0.25s, stroke-width 0.25s",
+                            cursor: isAnchor ? "pointer" : "default",
+                          },
+                          hover: {
+                            outline: "none",
+                            fill: isAnchor
+                              ? "rgba(246,163,23,0.22)"
+                              : "rgba(11,31,58,0.09)",
+                          },
+                          pressed: { outline: "none" },
+                        }}
+                      />
+                    );
+                  })
                 }
               </Geographies>
 
-              {/* HQ까지 선로 연결 (호버) */}
-              {hoveredPin &&
-                hoveredPin !== "poland" &&
-                (() => {
-                  const pin = PINS.find((p) => p.id === hoveredPin);
-                  if (!pin) return null;
-                  return (
+              {/* 상시 허브-스포크 연결선 */}
+              {SPOKES.map((pin, i) => {
+                const isActive = activePin === pin.id;
+                const isDimmed = isHovering && !isActive;
+                const lineOpacity = isActive ? 1 : isDimmed ? 0.08 : 0.28;
+                const lineDelay = 0.5 + i * 0.15;
+                return (
+                  <motion.g
+                    key={`line-${pin.id}`}
+                    initial={{ opacity: 0 }}
+                    animate={hasEntered ? { opacity: 1 } : undefined}
+                    transition={{ delay: lineDelay, duration: 0.6, ease: EASE }}
+                    style={{ pointerEvents: "none" }}
+                  >
+                    {isActive && (
+                      <Line
+                        from={pin.coords}
+                        to={HQ.coords}
+                        stroke="rgb(246,163,23)"
+                        strokeWidth={4}
+                        strokeLinecap="round"
+                        style={{ opacity: 0.18 }}
+                      />
+                    )}
                     <Line
                       from={pin.coords}
-                      to={HQ_COORDS}
+                      to={HQ.coords}
                       stroke="rgb(246,163,23)"
-                      strokeWidth={1.5}
+                      strokeWidth={isActive ? 1.8 : 1.1}
                       strokeDasharray="4 3"
                       strokeLinecap="round"
-                      style={{ opacity: 0.6 }}
+                      style={{
+                        opacity: lineOpacity,
+                        animation: `dashflow ${isActive ? 0.8 : 1.6}s linear infinite`,
+                        transition:
+                          "opacity 0.35s cubic-bezier(0.4,0,0.2,1), stroke-width 0.35s cubic-bezier(0.4,0,0.2,1)",
+                      }}
                     />
-                  );
-                })()}
+                  </motion.g>
+                );
+              })}
 
               {/* 핀 */}
               {PINS.map((pin) => {
-                const isActive = hoveredPin === pin.id;
-                const dotSize = pin.isHQ ? 6 : 4;
+                const isActive = activePin === pin.id;
+                const isDimmed = isHovering && !isActive && !pin.isHQ;
+                const dotSize = pin.isHQ ? 7 : 4.5;
+                const spokeIndex = SPOKES.findIndex((p) => p.id === pin.id);
+                const dotDelay = pin.isHQ ? 0.3 : 0.5 + spokeIndex * 0.15 + 0.5;
+                const labelDelay = pin.isHQ ? 0.45 : 0.5 + spokeIndex * 0.15 + 0.7;
+
                 return (
                   <Marker
                     key={pin.id}
                     coordinates={pin.coords}
-                    onMouseEnter={() => setHoveredPin(pin.id)}
-                    onMouseLeave={() => setHoveredPin(null)}
-                    style={{ cursor: "default" }}
+                    onMouseEnter={() => handleEnter(pin.id)}
+                    onMouseLeave={handleLeave}
+                    style={{ cursor: "pointer" }}
                   >
-                    {/* pulse ring */}
+                    {/* 모바일 터치 히트박스 */}
+                    <circle
+                      r={dotSize + 16}
+                      fill="transparent"
+                      stroke="none"
+                      onClick={() => handleEnter(pin.id)}
+                      style={{ cursor: "pointer" }}
+                    />
+                    {/* pulse ring — HQ 상시, 비-HQ는 active 시 */}
                     {(pin.isHQ || isActive) && (
                       <circle
                         r={dotSize + 6}
                         fill="none"
                         stroke="rgb(246,163,23)"
                         strokeWidth={1}
-                        opacity={0.4}
+                        opacity={0.5}
                       >
                         <animate
                           attributeName="r"
                           from={dotSize + 2}
-                          to={dotSize + 10}
+                          to={dotSize + 14}
                           dur="2s"
                           repeatCount="indefinite"
                         />
                         <animate
                           attributeName="opacity"
-                          from="0.5"
+                          from="0.6"
                           to="0"
                           dur="2s"
                           repeatCount="indefinite"
                         />
                       </circle>
                     )}
-                    {/* 점 */}
-                    <circle
-                      r={isActive ? dotSize + 1 : dotSize}
-                      fill={
-                        pin.isHQ || isActive
-                          ? "rgb(246,163,23)"
-                          : "rgba(11,31,58,0.35)"
-                      }
-                      stroke={isActive ? "rgba(255,255,255,0.8)" : "none"}
-                      strokeWidth={isActive ? 1.5 : 0}
-                      style={{ transition: "all 0.3s" }}
-                    />
-                    {/* 라벨 (호버 or HQ) */}
-                    {(pin.isHQ || isActive) && (
-                      <g>
-                        <text
-                          textAnchor="middle"
-                          y={-dotSize - 10}
-                          style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
-                            fontSize: pin.isHQ ? "11px" : "10px",
-                            fontWeight: 500,
-                            fill: pin.isHQ
-                              ? "rgb(246,163,23)"
-                              : "rgb(11,31,58)",
-                            letterSpacing: "0.12em",
-                          }}
-                        >
-                          {pin.name.toUpperCase()}
-                        </text>
-                      </g>
+
+                    {/* active 시 outer ring (비-HQ) */}
+                    {isActive && !pin.isHQ && (
+                      <circle
+                        r={dotSize + 5}
+                        fill="none"
+                        stroke="rgb(246,163,23)"
+                        strokeWidth={1.2}
+                        opacity={0.6}
+                      />
                     )}
+
+                    {/* 점 */}
+                    <motion.g
+                      initial={{ scale: 0 }}
+                      animate={hasEntered ? { scale: 1 } : undefined}
+                      transition={{ delay: dotDelay, duration: 0.4, ease: EASE }}
+                    >
+                      <circle
+                        r={isActive ? dotSize + 1.5 : dotSize}
+                        fill="rgb(246,163,23)"
+                        stroke="#ffffff"
+                        strokeWidth={pin.isHQ ? 2 : 1.5}
+                        opacity={isDimmed ? 0.55 : 1}
+                        style={{
+                          transition:
+                            "r 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.35s cubic-bezier(0.4,0,0.2,1)",
+                          filter: isActive
+                            ? "drop-shadow(0 2px 6px rgba(246,163,23,0.45))"
+                            : "drop-shadow(0 1px 2px rgba(246,163,23,0.25))",
+                        }}
+                      />
+                    </motion.g>
+
+                    {/* 라벨 — 상시 표시, 강조 시 텍스트 크기/굵기 + 흰색 halo */}
+                    <motion.g
+                      initial={{ opacity: 0 }}
+                      animate={hasEntered ? { opacity: 1 } : undefined}
+                      transition={{ delay: labelDelay, duration: 0.5, ease: EASE }}
+                      style={{ pointerEvents: "none" }}
+                    >
+                      <text
+                        textAnchor="middle"
+                        y={-dotSize - 10}
+                        style={{
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontSize: pin.isHQ
+                            ? "11px"
+                            : isActive
+                              ? "11px"
+                              : "10px",
+                          fontWeight: pin.isHQ ? 700 : isActive ? 700 : 500,
+                          fill: pin.isHQ
+                            ? "rgb(246,163,23)"
+                            : isActive
+                              ? "rgb(11,31,58)"
+                              : "rgba(11,31,58,0.65)",
+                          letterSpacing: "0.14em",
+                          opacity: isDimmed ? 0.35 : 1,
+                          paintOrder: "stroke",
+                          stroke: isActive
+                            ? "rgba(250,251,252,0.95)"
+                            : "rgba(250,251,252,0.7)",
+                          strokeWidth: isActive ? 3.5 : 2.5,
+                          strokeLinejoin: "round",
+                          transition:
+                            "fill 0.35s cubic-bezier(0.4,0,0.2,1), font-size 0.35s cubic-bezier(0.4,0,0.2,1), font-weight 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.35s cubic-bezier(0.4,0,0.2,1), stroke-width 0.35s cubic-bezier(0.4,0,0.2,1)",
+                        }}
+                      >
+                        {pin.name.toUpperCase()}
+                      </text>
+                    </motion.g>
                   </Marker>
                 );
               })}
@@ -302,5 +544,33 @@ export default function GlobalPresence({
         </div>
       </div>
     </section>
+  );
+}
+
+function StatCell({ value, unit }: { value: string; unit: string }) {
+  return (
+    <div>
+      <div
+        className="font-heading font-semibold"
+        style={{
+          fontSize: "clamp(1.5rem, 2.2vw, 1.875rem)",
+          color: "rgb(var(--color-ink))",
+          letterSpacing: "-0.02em",
+          lineHeight: 1,
+        }}
+      >
+        {value}
+      </div>
+      <div
+        className="font-heading uppercase mt-1"
+        style={{
+          fontSize: "10px",
+          letterSpacing: "0.18em",
+          color: "rgba(11,31,58,0.50)",
+        }}
+      >
+        {unit}
+      </div>
+    </div>
   );
 }
