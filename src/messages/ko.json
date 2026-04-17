@@ -115,6 +115,18 @@
   "partners": {
     "overline": "7개국 철도 운영사가 선택한 파트너"
   },
+  "globalPresence": {
+    "overline": "글로벌 네트워크",
+    "title": "7개국. 하나의 기준.",
+    "subtitle": "유럽, 중앙아시아, 동아시아에 걸친 정비 거점과 엔지니어링 크루."
+  },
+  "midCta": {
+    "overline": "함께 이야기하세요",
+    "title": "숫자가 증명합니다.",
+    "subtitle": "227대 차량. 연간 22,000+ 유지보수 작업. 어떻게 해내는지 확인하세요.",
+    "ctaPrimary": "솔루션 보기",
+    "ctaSecondary": "문의하기"
+  },
   "footer": {
     "tagline": "철도의 미래를 함께 만들어가시겠습니까?",
     "cta": "문의하기",

@@ -115,6 +115,18 @@
   "partners": {
     "overline": "Trusted by operators across 7 countries"
   },
+  "globalPresence": {
+    "overline": "Global Network",
+    "title": "Seven countries. One standard.",
+    "subtitle": "Active depots and engineering crews across Europe, Central Asia, and East Asia."
+  },
+  "midCta": {
+    "overline": "Let's talk",
+    "title": "Numbers speak louder.",
+    "subtitle": "227 trains. 22,000+ maintenance actions per year. See how we deliver.",
+    "ctaPrimary": "Explore Solutions",
+    "ctaSecondary": "Contact Us"
+  },
   "footer": {
     "tagline": "Ready to build the future of rail with us?",
     "cta": "Contact Us",

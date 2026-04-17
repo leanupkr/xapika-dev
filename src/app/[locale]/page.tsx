@@ -4,6 +4,8 @@ import KeyNumbers from "@/components/sections/KeyNumbers";
 import SolutionsGrid from "@/components/sections/SolutionsGrid";
 import PortfoliosPreview from "@/components/sections/PortfoliosPreview";
 import TrustedBy from "@/components/sections/TrustedBy";
+import GlobalPresence from "@/components/sections/GlobalPresence";
+import MidCta from "@/components/sections/MidCta";
 
 export default async function HomePage() {
   const tHero = await getTranslations("hero");
@@ -11,6 +13,8 @@ export default async function HomePage() {
   const tSol = await getTranslations("solutions");
   const tPf = await getTranslations("portfolios");
   const tPartners = await getTranslations("partners");
+  const tGlobal = await getTranslations("globalPresence");
+  const tMidCta = await getTranslations("midCta");
 
   // headline에서 accent 부분 ("Safe Operations." / "안전한 운영.")을 분리
   const headline = tHero("headline");
@@ -138,6 +142,18 @@ export default async function HomePage() {
         }}
       />
       <TrustedBy overline={tPartners("overline")} />
+      <GlobalPresence
+        overline={tGlobal("overline")}
+        title={tGlobal("title")}
+        subtitle={tGlobal("subtitle")}
+      />
+      <MidCta
+        overline={tMidCta("overline")}
+        title={tMidCta("title")}
+        subtitle={tMidCta("subtitle")}
+        ctaPrimary={tMidCta("ctaPrimary")}
+        ctaSecondary={tMidCta("ctaSecondary")}
+      />
     </>
   );
 }
