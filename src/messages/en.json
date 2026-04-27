@@ -644,6 +644,71 @@
         "stats": "Operating Stats",
         "photos": "From the Depot",
         "cta": "Talk through how we sustained service through the conflict."
+      },
+      "story": {
+        "overline": "Program story",
+        "title": "Trains that don't stop, even when everything else does.",
+        "paragraphs": [
+          "In 2017, Ukrainian Railways awarded the long-horizon contract for 100 high-speed HRCS2 units. The depot teams have run the same operating routine every day since: pre-departure inspection at 04:30, functional checks before each journey, scheduled overhauls on a 90-day cadence.",
+          "On the morning of February 24, 2022, the schedule did not change. Trains kept moving — for civilians evacuating, for press crews, for cargo headed to where the rail still ran. Ground staff worked under blackout conditions. Inventory adapted to disrupted supply lines. The maintenance log kept its same columns.",
+          "Nine years on, the program has logged over 82,000 maintenance actions, and not a single contractual default has been recorded in the regulator's audit. We do not describe this as resilience. We describe it as the work.",
+          "Continuity here is not a posture. It is the sum of an accountable team, an audited maintenance regime, and a partner who structured the contract to outlast the conditions around it."
+        ],
+        "photoCaption": "Photo · HRCS2 fleet, in service",
+        "photoKicker": "Ukraine · 2017–"
+      },
+      "gallery": {
+        "sectionLabel": "Field log",
+        "sectionTitle": "Six moments on the line.",
+        "photoCaption": "Photo · HRCS2 depot, Ukraine",
+        "slides": [
+          {
+            "overline": "2017",
+            "caption": "First HRCS2 fleet enters service.",
+            "metric": "100 units"
+          },
+          {
+            "overline": "Daily ops",
+            "caption": "Pre-departure checks at 04:30.",
+            "metric": "365 days / year"
+          },
+          {
+            "overline": "2022.02",
+            "caption": "War begins. Service does not stop.",
+            "metric": "Day 1"
+          },
+          {
+            "overline": "Operations",
+            "caption": "1 million+ passengers transported since invasion.",
+            "metric": "1M+ passengers"
+          },
+          {
+            "overline": "Depot",
+            "caption": "Heavy maintenance under continuous audit.",
+            "metric": "82,000+ actions"
+          },
+          {
+            "overline": "Today",
+            "caption": "Nine years. Zero contract default.",
+            "metric": "9 yrs · 0 default"
+          }
+        ]
+      },
+      "stats": {
+        "overline": "Operating record",
+        "title": "Nine years. Audited every quarter.",
+        "stats": [
+          { "value": "100", "label": "HRCS2 fleet" },
+          { "value": "9 yrs", "label": "Continuous service" },
+          { "value": "82,000+", "label": "Maintenance actions" },
+          { "value": "1M+", "label": "Passengers since invasion" }
+        ]
+      },
+      "cta": {
+        "overline": "Ready",
+        "title": "We don't talk about resilience. We measure it.",
+        "subtitle": "Nine years of audited records — available to qualified operators evaluating long-horizon programs.",
+        "button": "Discuss your fleet"
       }
     },
     "warsaw": {
