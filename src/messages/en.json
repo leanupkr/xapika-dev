@@ -373,6 +373,77 @@
         "subtitle": "Our maintenance team can scope your fleet and deliver a written program within two weeks.",
         "button": "Contact our maintenance team"
       }
+    },
+    "supplyChain": {
+      "hero": {
+        "overline": "Solutions",
+        "title": "Parts that arrive before the train stops.",
+        "subtitle": "Sourcing, warehousing, and inventory orchestration across 50+ partners on three continents."
+      },
+      "whatWeDo": {
+        "overline": "What We Do",
+        "title": "Five disciplines that keep parts flowing.",
+        "items": [
+          {
+            "index": "01",
+            "title": "Sourcing",
+            "desc": "OEM and approved-aftermarket parts procured across European and Asian supplier networks under a single accountable contract."
+          },
+          {
+            "index": "02",
+            "title": "Warehousing",
+            "desc": "Climate-controlled facilities in Poland and Korea hold critical inventory close to the depots that consume it."
+          },
+          {
+            "index": "03",
+            "title": "Inventory orchestration",
+            "desc": "Real-time stock visibility across depots, with reorder thresholds tuned to fleet maintenance cycles."
+          },
+          {
+            "index": "04",
+            "title": "Logistics",
+            "desc": "Just-in-time delivery routed straight to maintenance crews — measured against the work order, not the warehouse."
+          },
+          {
+            "index": "05",
+            "title": "Quality assurance",
+            "desc": "Incoming inspection and serialized traceability on every part — origin to installation, recorded."
+          }
+        ]
+      },
+      "keyStats": {
+        "overline": "Key Stats",
+        "title": "A supply network built for distance.",
+        "stats": [
+          { "value": "50+", "label": "Global partners" },
+          { "value": "8,000+", "label": "Parts SKUs managed" },
+          { "value": "3", "label": "Continental warehouses" },
+          { "value": "99.1%", "label": "Stock availability" }
+        ]
+      },
+      "relatedProjects": {
+        "overline": "Related Projects",
+        "title": "Programs running this discipline.",
+        "items": [
+          {
+            "key": "ukraine",
+            "country": "Ukraine",
+            "project": "HRCS2 Fleet — Ukrzaliznytsia",
+            "desc": "Cross-border parts pipeline sustaining 100 high-speed units through wartime logistics constraints since 2022."
+          },
+          {
+            "key": "poland",
+            "country": "Poland",
+            "project": "Tramwaje Warszawskie",
+            "desc": "Warsaw depot inventory orchestration covering the 123-tram fleet — reorder cycles tuned to municipal service windows."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Need a supply chain that survives geography?",
+        "subtitle": "We design parts pipelines that hold up across borders, sanctions, and weather — engineered for the depots that depend on them.",
+        "button": "Contact our supply team"
+      }
     }
   },
   "designSystem": {
