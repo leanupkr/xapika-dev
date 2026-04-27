@@ -232,6 +232,77 @@
     }
   },
   "solutionsDetail": {
+    "lightMaintenance": {
+      "hero": {
+        "overline": "Solutions",
+        "title": "Daily precision. Continuous uptime.",
+        "subtitle": "Inspections, functional checks, and minor repairs that keep fleets running every single day."
+      },
+      "whatWeDo": {
+        "overline": "What We Do",
+        "title": "Five routines that protect daily uptime.",
+        "items": [
+          {
+            "index": "01",
+            "title": "Daily inspection",
+            "desc": "Pre-departure visual and functional checks against a regulator-aligned checklist — signed before release."
+          },
+          {
+            "index": "02",
+            "title": "Functional check",
+            "desc": "Brake, door, HVAC, and pantograph response tests verified against threshold values, not gut feel."
+          },
+          {
+            "index": "03",
+            "title": "Minor repair",
+            "desc": "In-depot fixes that don't require shop time — closed within the same operating window."
+          },
+          {
+            "index": "04",
+            "title": "Cleaning & sanitation",
+            "desc": "Interior and exterior cleaning to regulator-grade specification, scheduled around revenue service."
+          },
+          {
+            "index": "05",
+            "title": "Trip-back diagnostics",
+            "desc": "Quick fault triage on returning units — escalates to heavy maintenance only when warranted."
+          }
+        ]
+      },
+      "keyStats": {
+        "overline": "Key Stats",
+        "title": "Quiet output. Loud accountability.",
+        "stats": [
+          { "value": "18,500+", "label": "Activities / year" },
+          { "value": "99.4%", "label": "On-time departure" },
+          { "value": "4hrs", "label": "Average response time" },
+          { "value": "0", "label": "Lost-time incidents (12mo)" }
+        ]
+      },
+      "relatedProjects": {
+        "overline": "Related Projects",
+        "title": "Programs running this discipline.",
+        "items": [
+          {
+            "key": "ukraine",
+            "country": "Ukraine",
+            "project": "HRCS2 Fleet — Ukrzaliznytsia",
+            "desc": "Daily inspection and functional checks across 100 high-speed units, sustained through wartime conditions since 2022."
+          },
+          {
+            "key": "poland",
+            "country": "Poland",
+            "project": "Tramwaje Warszawskie",
+            "desc": "Round-the-clock light maintenance for 123 trams from the Warsaw depot, scheduled around municipal service windows."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Need round-the-clock fleet readiness?",
+        "subtitle": "We deploy depot crews on rolling shifts so your trains depart on time, every day, with no surprises.",
+        "button": "Contact our maintenance team"
+      }
+    },
     "heavyMaintenance": {
       "hero": {
         "overline": "Solutions",
