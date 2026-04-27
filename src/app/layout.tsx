@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import "pretendard/dist/web/variable/pretendardvariable.css";
 import "./globals.css";
 import { BASE_URL, SITE_NAME } from "@/lib/seo";
@@ -53,7 +55,11 @@ export default function RootLayout({
 }>) {
   return (
     <html className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SpeedInsights />
+        <Analytics />
+      </body>
     </html>
   );
 }

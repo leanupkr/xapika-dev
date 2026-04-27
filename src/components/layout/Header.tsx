@@ -95,7 +95,7 @@ export default function Header() {
           style={{ maxWidth: "var(--max-width)" }}
         >
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
+          <Link href="/" className="flex-shrink-0" aria-label="Xapika Engineering — Home">
             <Image
               src={scrolled ? "/logo.png" : "/logo-white.png"}
               alt="Xapika Engineering"
@@ -103,13 +103,14 @@ export default function Header() {
               height={32}
               className="object-contain transition-opacity duration-300"
               style={{ height: "32px", width: "auto" }}
-              priority
             />
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
             {NAV_LINKS.map(({ key, href, hasDropdown }) => {
+              const isActive =
+                pathname === href || pathname.startsWith(`${href}/`);
               if (hasDropdown && key === "solutions") {
                 return (
                   <div
@@ -129,6 +130,7 @@ export default function Header() {
                       style={{ fontSize: "13px" }}
                       aria-expanded={solutionsOpen}
                       aria-haspopup="true"
+                      aria-current={isActive ? "page" : undefined}
                     >
                       {t(key)}
                       <ChevronDown
@@ -177,6 +179,7 @@ export default function Header() {
                 <Link
                   key={key}
                   href={href}
+                  aria-current={isActive ? "page" : undefined}
                   className={[
                     "font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
                     scrolled
@@ -236,6 +239,8 @@ export default function Header() {
                   : "text-white hover:text-white/70",
               ].join(" ")}
               aria-label="Open menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu-drawer"
               onClick={() => setMobileOpen(true)}
             >
               <Menu size={24} strokeWidth={1.5} />
