@@ -21,7 +21,7 @@
   "keyNumbers": {
     "overline": "숫자로 증명합니다",
     "title": "차량, 거리, 가동률로 측정됩니다.",
-    "subtitle": "5개국 운영 스케일, 고객사와 규제 기관이 검증했습니다.",
+    "subtitle": "5개국에 걸친 운영 규모, 고객사와 규제 기관이 검증했습니다.",
     "fleet_value": "227",
     "fleet_label": "유지보수 관리 차량",
     "fleet_note": "실제 운영 중인 차량",
@@ -71,15 +71,15 @@
   },
   "portfolios": {
     "overline": "포트폴리오",
-    "title": "9년, 단 한번의 중단 없이.",
-    "subtitle": "전쟁과 기후, 규제 변화를 지나며 연속 감사 아래 완수한 프로젝트.",
+    "title": "9년, 단 한 번의 중단 없이.",
+    "subtitle": "전쟁과 기후, 규제 변화를 견디며 연속된 감사 아래 완수한 프로그램.",
     "viewAll": "모든 포트폴리오 보기",
     "ukraine": {
       "number": "CASE 01",
       "country": "우크라이나",
       "project": "HRCS2 차량 — Ukrzaliznytsia",
       "since": "2017년부터",
-      "badge": "전쟁 중에도 무중단",
+      "badge": "전쟁 중에도 단절 없이",
       "m1_value": "100",
       "m1_label": "HRCS2 차량",
       "m2_value": "82,000+",
@@ -164,7 +164,7 @@
         { "year": "2019", "month": "06", "country": "브라질", "event": "상파울루 사무소 설립" },
         { "year": "2021", "month": "07", "country": "폴란드", "event": "폴란드 사무소 설립" },
         { "year": "2021", "month": "10", "country": "폴란드", "event": "바르샤바 트램 정비 운영 개시" },
-        { "year": "2022", "month": "03", "country": "폴란드", "event": "폴란드 본사 신규 시설 이전" },
+        { "year": "2022", "month": "03", "country": "폴란드", "event": "바르샤바 본사 신규 시설 이전" },
         { "year": "2022", "month": "05", "country": "폴란드", "event": "폴란드 물류 창고 운영 개시" },
         { "year": "2023", "month": "06", "country": "미국", "event": "버지니아 사무소 설립" },
         { "year": "2023", "month": "10", "country": "이집트", "event": "카이로 사무소 설립" },
@@ -198,9 +198,9 @@
     "ceo": {
       "overline": "리더십",
       "title": "대표이사 메시지.",
-      "subtitle": "하리카 측 제공 대기 — 곧 업데이트됩니다.",
+      "subtitle": "CEO 메시지 도착 대기 — 하리카에서 곧 제공합니다.",
       "placeholderName": "대표이사 · 창립자",
-      "awaitingNote": "CEO 메시지 제공 대기 중 · 하리카 제공 예정"
+      "awaitingNote": "CEO 메시지 도착 대기 · 하리카 제공 예정"
     },
     "org": {
       "overline": "조직",
