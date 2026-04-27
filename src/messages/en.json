@@ -756,15 +756,56 @@
     "uzbekistan": {
       "hero": {
         "overline": "Portfolios",
-        "title": "Uzbekistan HSR O&M.",
-        "subtitle": "New high-speed maintenance program at the Tashkent hub — opening May 2026 in partnership with Uzbekistan Railways.",
+        "title": "A new high-speed program. Opening this year.",
+        "subtitle": "O&M operations launching May 2026 — content arriving as we go live.",
+        "comingBadge": "Coming 2026.05",
         "placeholderKicker": "Uzbekistan · Coming 2026"
       },
-      "body": {
-        "story": "Program Preview",
-        "stats": "Scope at Launch",
-        "photos": "Site Mobilization",
-        "cta": "Partner with us before launch."
+      "notice": {
+        "overline": "Program Preview",
+        "kicker": "May 2026 · Tashkent · O&M kickoff",
+        "title": "Mobilizing for the Tashkent high-speed program.",
+        "paragraphs": [
+          "Uzbekistan's new high-speed corridor is the country's first program of its scale, and Xapika is mobilizing the Tashkent hub for daily operations and maintenance from launch day. We are entering the program early — with crew recruitment, parts pipeline design, and platform integration already underway alongside Uzbekistan Railways.",
+          "Detailed operating record, photographs from the depot, and verified metrics will be added here as the program goes live. Bookmark this page or reach out below to be notified when the program enters service."
+        ]
+      },
+      "planned": {
+        "overline": "What's Planned",
+        "title": "Five disciplines, deployed from day one.",
+        "items": [
+          {
+            "index": "01",
+            "title": "Daily inspection",
+            "desc": "Pre-departure and functional checks aligned to operator and regulator standards — running from the first revenue day."
+          },
+          {
+            "index": "02",
+            "title": "Heavy maintenance program",
+            "desc": "Scheduled overhauls and component recertification under written warranty, scoped to the high-speed fleet from launch."
+          },
+          {
+            "index": "03",
+            "title": "Component supply chain",
+            "desc": "OEM and approved-aftermarket parts pipeline designed before service begins, not improvised after the first stockout."
+          },
+          {
+            "index": "04",
+            "title": "Digital asset platform (MMIS)",
+            "desc": "Through our affiliate VISION IT, the MMIS platform is configured for the program — work orders, parts, and audit reports tracked from day one."
+          },
+          {
+            "index": "05",
+            "title": "Local crew training",
+            "desc": "Tashkent-based technicians and engineers trained to Xapika operating standard, with knowledge transfer engineered into the contract."
+          }
+        ]
+      },
+      "cta": {
+        "overline": "Stay updated",
+        "title": "Stay informed when we go live.",
+        "subtitle": "Reach out through the contact form to be notified the moment Tashkent operations begin.",
+        "button": "Subscribe via contact form"
       }
     }
   },

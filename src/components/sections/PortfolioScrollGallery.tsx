@@ -99,7 +99,7 @@ export default function PortfolioScrollGallery({
       >
         <div
           className="mx-auto px-6 md:px-10 lg:px-16 flex items-center gap-4"
-          style={{ maxWidth: "var(--max-width)" }}
+          style={{ maxWidth: "1280px" }}
         >
           <span
             className="flex items-center gap-3 font-heading font-medium uppercase text-white/80"
@@ -196,7 +196,7 @@ export default function PortfolioScrollGallery({
             >
               <div
                 className="mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 px-6 md:px-10 lg:px-16"
-                style={{ maxWidth: "var(--max-width)" }}
+                style={{ maxWidth: "1280px" }}
               >
                 {/* Photo */}
                 <div className="lg:col-span-7">

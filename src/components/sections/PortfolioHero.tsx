@@ -8,9 +8,8 @@ type PortfolioHeroProps = {
   title: string;
   subtitle: string;
   index: string;
-  /** When true, renders the small "Uninterrupted Since War" accent badge in the top-right. */
-  showWarBadge?: boolean;
-  warBadgeLabel?: string;
+  /** When set, renders a small accent badge in the top-right (e.g., "Uninterrupted Since War", "Coming 2026.05"). */
+  accentBadge?: string;
   /** Photo placeholder microcopy (e.g., "Site photograph arriving"). */
   placeholder: string;
   /** Visual hint shown above placeholder (country / year). */
@@ -22,8 +21,7 @@ export default function PortfolioHero({
   title,
   subtitle,
   index,
-  showWarBadge = false,
-  warBadgeLabel,
+  accentBadge,
   placeholder,
   placeholderKicker,
 }: PortfolioHeroProps) {
@@ -159,8 +157,8 @@ export default function PortfolioHero({
         }}
       />
 
-      {/* War badge — top-right, Ukraine-only */}
-      {showWarBadge && warBadgeLabel ? (
+      {/* Accent badge — top-right (per-program: war record, coming-soon, etc.) */}
+      {accentBadge ? (
         <div
           ref={badgeRef}
           className="absolute opacity-0 hidden md:flex items-center gap-3"
@@ -187,7 +185,7 @@ export default function PortfolioHero({
               color: "rgb(var(--color-primary))",
             }}
           >
-            {warBadgeLabel}
+            {accentBadge}
           </span>
           <span
             aria-hidden="true"

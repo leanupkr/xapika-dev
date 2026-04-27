@@ -89,7 +89,7 @@ export default function PortfolioStory({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-12 items-start"
-        style={{ maxWidth: "var(--max-width)" }}
+        style={{ maxWidth: "1280px" }}
       >
         {/* Text */}
         <div className="lg:col-span-6">

@@ -44,8 +44,7 @@ export default async function UkraineEmuPage() {
         title={tHero("title")}
         subtitle={tHero("subtitle")}
         index="01 / 03"
-        showWarBadge
-        warBadgeLabel={tHero("warBadge")}
+        accentBadge={tHero("warBadge")}
         placeholder={tCommon("photoPlaceholder")}
         placeholderKicker={tHero("placeholderKicker")}
       />
