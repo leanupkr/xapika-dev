@@ -231,6 +231,79 @@
       "placeholder": "Detail content arriving"
     }
   },
+  "solutionsDetail": {
+    "heavyMaintenance": {
+      "hero": {
+        "overline": "Solutions",
+        "title": "Comprehensive overhaul. Verified safety.",
+        "subtitle": "Heavy maintenance to restore performance, enhance reliability, and ensure long-term operational safety — every action audited."
+      },
+      "whatWeDo": {
+        "overline": "What We Do",
+        "title": "Five disciplines under one safety warranty.",
+        "items": [
+          {
+            "index": "01",
+            "title": "Overhaul",
+            "desc": "Full vehicle disassembly, inspection, and rebuild against OEM specification — closed under warranty."
+          },
+          {
+            "index": "02",
+            "title": "Bogie maintenance",
+            "desc": "Frame inspection, suspension renewal, and traction motor recertification under controlled depot conditions."
+          },
+          {
+            "index": "03",
+            "title": "Brake system",
+            "desc": "Pneumatic and electric brake overhaul, valve replacement, and full system pressure verification."
+          },
+          {
+            "index": "04",
+            "title": "Wheelset turning",
+            "desc": "Profile re-machining, axle inspection, and reassembly to UIC tolerance — measured before release."
+          },
+          {
+            "index": "05",
+            "title": "Component refurbishment",
+            "desc": "Couplers, doors, HVAC, and electrical assemblies stripped, restored, and benchmarked before reinstallation."
+          }
+        ]
+      },
+      "keyStats": {
+        "overline": "Key Stats",
+        "title": "Measured by output, not promises.",
+        "stats": [
+          { "value": "3,500+", "label": "Activities / year" },
+          { "value": "100+", "label": "Overhauls / year" },
+          { "value": "24h", "label": "Average MTBF response" },
+          { "value": "99.7%", "label": "On-time release" }
+        ]
+      },
+      "relatedProjects": {
+        "overline": "Related Projects",
+        "title": "Programs running this discipline.",
+        "items": [
+          {
+            "key": "ukraine",
+            "country": "Ukraine",
+            "project": "HRCS2 Fleet — Ukrzaliznytsia",
+            "desc": "100 high-speed units under continuous heavy overhaul cycle since 2017 — uninterrupted through wartime."
+          },
+          {
+            "key": "poland",
+            "country": "Poland",
+            "project": "Tramwaje Warszawskie",
+            "desc": "123-unit tram fleet on a rolling overhaul schedule from the Warsaw depot, delivered to municipal audit standard."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Ready to schedule a heavy overhaul cycle?",
+        "subtitle": "Our maintenance team can scope your fleet and deliver a written program within two weeks.",
+        "button": "Contact our maintenance team"
+      }
+    }
+  },
   "designSystem": {
     "title": "Design System",
     "colors": "Colors",

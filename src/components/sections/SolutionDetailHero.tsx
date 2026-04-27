@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -18,10 +19,15 @@ type SolutionDetailHeroProps = {
   subtitle: string;
   metric: string;
   index: string;
-  sectionLabels: SectionLabels;
-  placeholder: string;
-  ctaLabel: string;
-  ctaHref: string;
+  /**
+   * When provided, replaces the default placeholder body (4 dashed sections + CTA).
+   * Children are expected to be full <section> elements with their own padding/background.
+   */
+  children?: ReactNode;
+  sectionLabels?: SectionLabels;
+  placeholder?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
 };
 
 export default function SolutionDetailHero({
@@ -30,6 +36,7 @@ export default function SolutionDetailHero({
   subtitle,
   metric,
   index,
+  children,
   sectionLabels,
   placeholder,
   ctaLabel,
@@ -325,107 +332,109 @@ export default function SolutionDetailHero({
         />
       </section>
 
-      {/* BODY — 4 placeholder sections */}
-      <section
-        className="relative bg-[rgb(var(--color-bg))]"
-        style={{
-          paddingTop: "clamp(4rem, 10vh, 7rem)",
-          paddingBottom: "clamp(4rem, 10vh, 7rem)",
-        }}
-      >
-        <div
-          ref={sectionsRef}
-          className="mx-auto px-6 md:px-10 lg:px-16"
-          style={{ maxWidth: "1280px" }}
+      {/* BODY — children if provided, otherwise 4 placeholder sections */}
+      {children ?? (
+        <section
+          className="relative bg-[rgb(var(--color-bg))]"
+          style={{
+            paddingTop: "clamp(4rem, 10vh, 7rem)",
+            paddingBottom: "clamp(4rem, 10vh, 7rem)",
+          }}
         >
-          {/* What We Do — full row */}
-          <div data-detail-block className="opacity-0">
-            <PlaceholderBlock
-              kicker="01"
-              label={sectionLabels.whatWeDo}
-              placeholder={placeholder}
-              variant="paragraphs"
-            />
-          </div>
-
-          {/* Key Stats + Related Projects — 12-col grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-14 md:mt-20">
-            <div data-detail-block className="lg:col-span-5 opacity-0">
-              <PlaceholderBlock
-                kicker="02"
-                label={sectionLabels.keyStats}
-                placeholder={placeholder}
-                variant="stats"
-              />
-            </div>
-            <div data-detail-block className="lg:col-span-7 opacity-0">
-              <PlaceholderBlock
-                kicker="03"
-                label={sectionLabels.relatedProjects}
-                placeholder={placeholder}
-                variant="cards"
-              />
-            </div>
-          </div>
-
-          {/* CTA */}
           <div
-            data-detail-block
-            className="mt-14 md:mt-24 opacity-0 relative"
-            style={{
-              borderTop: "1px solid rgb(var(--color-ink) / 0.08)",
-              paddingTop: "clamp(3rem, 7vh, 4.5rem)",
-            }}
+            ref={sectionsRef}
+            className="mx-auto px-6 md:px-10 lg:px-16"
+            style={{ maxWidth: "1280px" }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
-              <div className="lg:col-span-8">
-                <span
-                  className="flex items-center gap-3 font-heading font-medium uppercase mb-5 text-[rgb(var(--color-primary))]"
-                  style={{ fontSize: "12px", letterSpacing: "0.22em" }}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="inline-block flex-shrink-0"
-                    style={{
-                      width: "20px",
-                      height: "2px",
-                      backgroundColor: "rgb(var(--color-primary))",
-                    }}
-                  />
-                  04
-                </span>
-                <h2
-                  className="font-heading font-semibold text-[rgb(var(--color-ink))]"
-                  style={{
-                    fontSize: "clamp(1.625rem, 3.2vw, 2.5rem)",
-                    letterSpacing: "-0.02em",
-                    lineHeight: 1.1,
-                  }}
-                >
-                  {sectionLabels.cta}
-                </h2>
+            {/* What We Do — full row */}
+            <div data-detail-block className="opacity-0">
+              <PlaceholderBlock
+                kicker="01"
+                label={sectionLabels?.whatWeDo ?? ""}
+                placeholder={placeholder ?? ""}
+                variant="paragraphs"
+              />
+            </div>
+
+            {/* Key Stats + Related Projects — 12-col grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-14 md:mt-20">
+              <div data-detail-block className="lg:col-span-5 opacity-0">
+                <PlaceholderBlock
+                  kicker="02"
+                  label={sectionLabels?.keyStats ?? ""}
+                  placeholder={placeholder ?? ""}
+                  variant="stats"
+                />
               </div>
-              <div className="lg:col-span-4 lg:flex lg:justify-end">
-                <Link
-                  href={ctaHref}
-                  className="group inline-flex items-center gap-3 px-6 py-4 bg-[rgb(var(--color-ink))] text-white font-heading font-semibold transition-colors duration-300 hover:bg-[rgb(var(--color-primary))]"
-                  style={{
-                    fontSize: "14px",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {ctaLabel}
-                  <ArrowRight
-                    size={16}
-                    strokeWidth={2}
-                    className="transition-transform duration-300 group-hover:translate-x-1"
-                  />
-                </Link>
+              <div data-detail-block className="lg:col-span-7 opacity-0">
+                <PlaceholderBlock
+                  kicker="03"
+                  label={sectionLabels?.relatedProjects ?? ""}
+                  placeholder={placeholder ?? ""}
+                  variant="cards"
+                />
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div
+              data-detail-block
+              className="mt-14 md:mt-24 opacity-0 relative"
+              style={{
+                borderTop: "1px solid rgb(var(--color-ink) / 0.08)",
+                paddingTop: "clamp(3rem, 7vh, 4.5rem)",
+              }}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+                <div className="lg:col-span-8">
+                  <span
+                    className="flex items-center gap-3 font-heading font-medium uppercase mb-5 text-[rgb(var(--color-primary))]"
+                    style={{ fontSize: "12px", letterSpacing: "0.22em" }}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="inline-block flex-shrink-0"
+                      style={{
+                        width: "20px",
+                        height: "2px",
+                        backgroundColor: "rgb(var(--color-primary))",
+                      }}
+                    />
+                    04
+                  </span>
+                  <h2
+                    className="font-heading font-semibold text-[rgb(var(--color-ink))]"
+                    style={{
+                      fontSize: "clamp(1.625rem, 3.2vw, 2.5rem)",
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    {sectionLabels?.cta}
+                  </h2>
+                </div>
+                <div className="lg:col-span-4 lg:flex lg:justify-end">
+                  <Link
+                    href={ctaHref ?? "#"}
+                    className="group inline-flex items-center gap-3 px-6 py-4 bg-[rgb(var(--color-ink))] text-white font-heading font-semibold transition-colors duration-300 hover:bg-[rgb(var(--color-primary))]"
+                    style={{
+                      fontSize: "14px",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    {ctaLabel}
+                    <ArrowRight
+                      size={16}
+                      strokeWidth={2}
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }
