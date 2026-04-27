@@ -1,0 +1,120 @@
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import AboutHeader from "@/components/sections/AboutHeader";
+import LocationsWorldMap, {
+  type WorldMapOffice,
+} from "@/components/sections/LocationsWorldMap";
+import OfficeGrid, {
+  type OfficeGridItem,
+} from "@/components/sections/OfficeGrid";
+import LocationsCta from "@/components/sections/LocationsCta";
+
+type OfficeRow = {
+  id: string;
+  city: string;
+  country: string;
+  flag: string;
+  role: "headquarters" | "office" | "warehouse";
+  since: string;
+  lat: number;
+  lng: number;
+  showOnMap: boolean;
+  blurb: string;
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const tMeta = await getTranslations({
+    locale,
+    namespace: "locationsPage.meta",
+  });
+  return {
+    title: "Locations — Xapika Engineering",
+    description: tMeta("description"),
+  };
+}
+
+export default async function LocationsPage() {
+  const tHeader = await getTranslations("locationsPage.header");
+  const tMap = await getTranslations("locationsPage.map");
+  const tGrid = await getTranslations("locationsPage.grid");
+  const tCta = await getTranslations("locationsPage.cta");
+  const tPage = await getTranslations("locationsPage");
+
+  const offices = tPage.raw("offices") as ReadonlyArray<OfficeRow>;
+
+  const mapOffices: ReadonlyArray<WorldMapOffice> = offices
+    .filter((o) => o.showOnMap)
+    .map(({ id, city, country, role, since, lat, lng, blurb }) => ({
+      id,
+      city,
+      country,
+      role,
+      since,
+      lat,
+      lng,
+      blurb,
+    }));
+
+  const gridOffices: ReadonlyArray<OfficeGridItem> = offices.map(
+    ({ id, city, country, flag, role, since, lat, lng, blurb }) => ({
+      id,
+      city,
+      country,
+      flag,
+      role,
+      since,
+      lat,
+      lng,
+      blurb,
+    })
+  );
+
+  return (
+    <>
+      <AboutHeader
+        overline={tHeader("overline")}
+        title={tHeader("title")}
+        subtitle={tHeader("subtitle")}
+      />
+      <LocationsWorldMap
+        overline={tMap("overline")}
+        title={tMap("title")}
+        subtitle={tMap("subtitle")}
+        hqLabel={tMap("hqLabel")}
+        officeLabel={tMap("officeLabel")}
+        warehouseLabel={tMap("warehouseLabel")}
+        sinceLabel={tMap("sinceLabel")}
+        legendHq={tMap("legendHq")}
+        legendOffice={tMap("legendOffice")}
+        liveTag={tMap("liveTag")}
+        offices={mapOffices}
+      />
+      <OfficeGrid
+        overline={tGrid("overline")}
+        title={tGrid("title")}
+        subtitle={tGrid("subtitle")}
+        hqLabel={tMap("hqLabel")}
+        officeLabel={tMap("officeLabel")}
+        warehouseLabel={tMap("warehouseLabel")}
+        sinceLabel={tMap("sinceLabel")}
+        comingLabel={tMap("comingLabel")}
+        addressPlaceholder={tGrid("addressPlaceholder")}
+        emailPlaceholder={tGrid("emailPlaceholder")}
+        googleMapsLink={tGrid("googleMapsLink")}
+        awaitingNote={tGrid("awaitingNote")}
+        offices={gridOffices}
+      />
+      <LocationsCta
+        overline={tCta("overline")}
+        title={tCta("title")}
+        subtitle={tCta("subtitle")}
+        button={tCta("button")}
+      />
+    </>
+  );
+}

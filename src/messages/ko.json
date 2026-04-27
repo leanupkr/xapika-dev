@@ -809,6 +809,55 @@
       }
     }
   },
+  "locationsPage": {
+    "meta": {
+      "description": "유럽 · 아메리카 · MENA · 중앙아시아에 걸친 9개 Xapika 사무소. 현지 크루, 지역 창고, 규제 기관 정합 운영."
+    },
+    "header": {
+      "overline": "글로벌 네트워크",
+      "title": "9개 사무소. 하나의 운영 시간.",
+      "subtitle": "바르샤바에서 타슈켄트까지 — 현지 크루, 지역 창고, 규제 기관에 정합된 운영."
+    },
+    "map": {
+      "overline": "운영 거점",
+      "title": "9개 도시에 살아 있는 네트워크.",
+      "subtitle": "마커 위에 마우스를 올리면 해당 사무소 정보가 표시됩니다. 바르샤바는 본사이며, 나머지는 영업 거점이 아닌 실제 운영 사무소입니다.",
+      "hqLabel": "본사",
+      "officeLabel": "사무소",
+      "warehouseLabel": "물류 창고",
+      "comingLabel": "예정",
+      "sinceLabel": "운영 개시",
+      "legendHq": "본사",
+      "legendOffice": "사무소",
+      "liveTag": "9개 거점 · 가동 중"
+    },
+    "grid": {
+      "overline": "사무소 디렉토리",
+      "title": "어디에서 만날 수 있나요.",
+      "subtitle": "각 사무소는 디팟, 부품 파이프라인, 고객 대응 엔지니어링 팀 중 하나 이상을 운영합니다. 주소는 임대인과의 사이니지 작업이 마무리되는 대로 업데이트됩니다.",
+      "addressPlaceholder": "주소 추후 제공",
+      "emailPlaceholder": "이메일 추후 제공",
+      "googleMapsLink": "구글 지도에서 보기",
+      "awaitingNote": "주소 · 연락처 · 추후 제공"
+    },
+    "offices": [
+      { "id": "warsaw-hq",     "city": "바르샤바",   "country": "폴란드",       "flag": "\ud83c\uddf5\ud83c\uddf1", "role": "headquarters", "since": "2022.03", "lat": 52.2297,  "lng": 21.0118,   "showOnMap": true,  "blurb": "본사 · 그룹 운영, 재무, 차량 프로그램 관리." },
+      { "id": "warsaw-office", "city": "바르샤바",   "country": "폴란드",       "flag": "\ud83c\uddf5\ud83c\uddf1", "role": "office",       "since": "2021.07", "lat": 52.2297,  "lng": 21.0118,   "showOnMap": false, "blurb": "트램 및 메트로 유지보수 프로그램 — Tramwaje Warszawskie 협력." },
+      { "id": "kyiv",          "city": "키이우",     "country": "우크라이나",   "flag": "\ud83c\uddfa\ud83c\udde6", "role": "office",       "since": "2018.11", "lat": 50.4501,  "lng": 30.5234,   "showOnMap": true,  "blurb": "EMU 중정비 크루 · 2022년 이후 전시 환경에서도 운영을 유지." },
+      { "id": "seoul",         "city": "서울",       "country": "대한민국",     "flag": "\ud83c\uddf0\ud83c\uddf7", "role": "office",       "since": "2026.03", "lat": 37.5665,  "lng": 126.9780,  "showOnMap": true,  "blurb": "APAC 거점 · 디지털 자산 플랫폼과 공급망 코디네이션." },
+      { "id": "sao-paulo",     "city": "상파울루",   "country": "브라질",       "flag": "\ud83c\udde7\ud83c\uddf7", "role": "office",       "since": "2019.06", "lat": -23.5505, "lng": -46.6333,  "showOnMap": true,  "blurb": "라틴아메리카 허브 · 컴포넌트 오버홀과 기술자 교육." },
+      { "id": "virginia",      "city": "버지니아",   "country": "미국",         "flag": "\ud83c\uddfa\ud83c\uddf8", "role": "office",       "since": "2023.06", "lat": 37.5407,  "lng": -77.4360,  "showOnMap": true,  "blurb": "북미 운영 · 도시철도 차량과 상업 서비스." },
+      { "id": "istanbul",      "city": "이스탄불",   "country": "튀르키예",     "flag": "\ud83c\uddf9\ud83c\uddf7", "role": "office",       "since": "2016.10", "lat": 41.0082,  "lng": 28.9784,   "showOnMap": true,  "blurb": "창립 사무소 · 국경 간 물류와 MENA 프로그램 리드." },
+      { "id": "tashkent",      "city": "타슈켄트",   "country": "우즈베키스탄", "flag": "\ud83c\uddfa\ud83c\uddff", "role": "office",       "since": "2026.04", "lat": 41.2995,  "lng": 69.2401,   "showOnMap": true,  "blurb": "중앙아시아 허브 · 고속철 회랑 O&M과 크루 양성." },
+      { "id": "cairo",         "city": "카이로",     "country": "이집트",       "flag": "\ud83c\uddea\ud83c\uddec", "role": "office",       "since": "2023.10", "lat": 30.0444,  "lng": 31.2357,   "showOnMap": true,  "blurb": "MENA 딜리버리 노드 · 부품 파이프라인과 현장 엔지니어링." }
+    ],
+    "cta": {
+      "overline": "방문",
+      "title": "귀국에서 운영 중이신가요?",
+      "subtitle": "가장 가까운 사무소를 방문하시거나 문의해 주세요. 영업 라인이 아닌 운영 팀으로 바로 연결해 드립니다.",
+      "button": "문의하기"
+    }
+  },
   "designSystem": {
     "title": "디자인 시스템",
     "colors": "컬러",
