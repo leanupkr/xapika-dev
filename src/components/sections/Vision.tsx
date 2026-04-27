@@ -132,7 +132,7 @@ export default function Vision({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width)" }}
+        style={{ maxWidth: "1280px" }}
       >
         {/* Header — left-aligned, max 580px */}
         <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">

@@ -188,6 +188,20 @@
         }
       ]
     },
+    "ceo": {
+      "overline": "리더십",
+      "title": "대표이사 메시지.",
+      "subtitle": "하리카 측 제공 대기 — 곧 업데이트됩니다.",
+      "placeholderName": "대표이사 · 창립자",
+      "awaitingNote": "CEO 메시지 제공 대기 중 · 하리카 제공 예정"
+    },
+    "org": {
+      "overline": "조직",
+      "title": "5개국에 걸친 기능별 협업 조직.",
+      "subtitle": "바르샤바 본사부터 카이로 · 타슈켄트까지, 모든 팀이 하나로 움직입니다.",
+      "placeholderText": "조직도 · 추후 제공",
+      "awaitingNote": "조직도 제공 대기 중"
+    },
     "clients": {
       "overline": "주요 고객사",
       "title": "각국의 철도 운영사들이 선택했습니다.",

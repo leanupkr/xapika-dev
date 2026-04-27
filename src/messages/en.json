@@ -188,6 +188,20 @@
         }
       ]
     },
+    "ceo": {
+      "overline": "Leadership",
+      "title": "A message from our CEO.",
+      "subtitle": "Awaiting CEO content — Harika provides next.",
+      "placeholderName": "CEO Name · Founder & CEO",
+      "awaitingNote": "Awaiting CEO message — content arriving from Harika"
+    },
+    "org": {
+      "overline": "Organization",
+      "title": "Cross-functional teams across five countries.",
+      "subtitle": "From Warsaw HQ to Cairo and Tashkent, our teams operate as one unit.",
+      "placeholderText": "Organization Chart · diagram arriving from Harika",
+      "awaitingNote": "Awaiting org chart"
+    },
     "clients": {
       "overline": "Our Clients",
       "title": "Trusted by national rail operators.",

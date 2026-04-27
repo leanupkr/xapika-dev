@@ -143,10 +143,10 @@ export default function OurClients({
     >
       <div
         className="relative mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width)" }}
+        style={{ maxWidth: "1280px" }}
       >
         {/* Header */}
-        <div ref={headerRef} className="max-w-[580px] mb-12 md:mb-16">
+        <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">
           <span
             data-header-item
             className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))] opacity-0"

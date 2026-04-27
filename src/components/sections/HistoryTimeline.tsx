@@ -265,15 +265,27 @@ export default function HistoryTimeline({
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[rgb(var(--color-surface))] py-20 md:py-32"
+      data-bg="light"
+      className="relative bg-[rgb(var(--color-surface))]"
+      style={{
+        paddingTop: "clamp(5rem, 12vh, 8rem)",
+        paddingBottom: "clamp(5rem, 12vh, 8rem)",
+      }}
       aria-labelledby="history-title"
     >
+      {/* Top hairline — soft transition from dark hero (AboutHeader) */}
       <div
-        className="mx-auto px-6 md:px-10 lg:px-16"
+        aria-hidden="true"
+        className="absolute top-0 left-0 right-0"
+        style={{ height: "1px", backgroundColor: "rgb(var(--color-ink) / 0.06)" }}
+      />
+
+      <div
+        className="relative mx-auto px-6 md:px-10 lg:px-16"
         style={{ maxWidth: "1100px" }}
       >
         {/* Header */}
-        <div ref={headerRef} className="max-w-2xl mb-16 md:mb-24">
+        <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">
           <span
             data-header-item
             className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))] opacity-0"
