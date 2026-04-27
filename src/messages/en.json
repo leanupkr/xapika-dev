@@ -131,9 +131,16 @@
     "tagline": "Ready to build the future of rail with us?",
     "cta": "Contact Us",
     "copyright": "© 2026 Xapika Engineering. All rights reserved.",
-    "polandHq": "Poland HQ",
-    "seoulOffice": "Seoul Office",
-    "warsawOffice": "Warsaw Office"
+    "brandTagline": "Precision rail maintenance with uncompromised safety.",
+    "rightTagline": "Engineering excellence in rail maintenance",
+    "navHeading": "Navigation",
+    "officesHeading": "Global Offices",
+    "warsawHq": "Warsaw HQ",
+    "warsawHqDetail": "Headquarters",
+    "seoul": "Seoul",
+    "seoulDetail": "Asia Pacific",
+    "istanbul": "Istanbul",
+    "istanbulDetail": "Founding Office"
   },
   "about": {
     "meta": {

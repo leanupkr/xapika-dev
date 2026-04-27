@@ -12,6 +12,7 @@ import { MotionSection } from "./_sections/MotionSection";
 export const metadata = {
   title: "Design System — Xapika Engineering",
   description: "Internal style guide: colors, typography, components, and motion.",
+  robots: { index: false, follow: false },
 };
 
 const NAV_ITEMS = [

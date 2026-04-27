@@ -8,25 +8,14 @@ const FOOTER_LINKS = [
   { key: "about", href: "/about" },
   { key: "solutions", href: "/solutions" },
   { key: "portfolios", href: "/portfolios" },
+  { key: "locations", href: "/locations" },
   { key: "contact", href: "/contact" },
 ] as const;
 
 const OFFICES = [
-  {
-    key: "polandHq",
-    city: "Kraków, Poland",
-    detail: "Headquarters",
-  },
-  {
-    key: "seoulOffice",
-    city: "Seoul, Korea",
-    detail: "Asia Pacific",
-  },
-  {
-    key: "warsawOffice",
-    city: "Warsaw, Poland",
-    detail: "Operations",
-  },
+  { nameKey: "warsawHq", country: "Poland", detailKey: "warsawHqDetail" },
+  { nameKey: "seoul", country: "Korea", detailKey: "seoulDetail" },
+  { nameKey: "istanbul", country: "Türkiye", detailKey: "istanbulDetail" },
 ] as const;
 
 export default async function Footer() {
@@ -63,7 +52,7 @@ export default async function Footer() {
               className="text-white/50 leading-relaxed"
               style={{ fontSize: "0.875rem" }}
             >
-              Precision rail maintenance with uncompromised safety.
+              {tFooter("brandTagline")}
             </p>
           </div>
 
@@ -73,7 +62,7 @@ export default async function Footer() {
               className="font-heading font-semibold tracking-widest uppercase text-white/40 mb-5"
               style={{ fontSize: "0.6875rem" }}
             >
-              Navigation
+              {tFooter("navHeading")}
             </h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.map(({ key, href }) => (
@@ -96,11 +85,11 @@ export default async function Footer() {
               className="font-heading font-semibold tracking-widest uppercase text-white/40 mb-5"
               style={{ fontSize: "0.6875rem" }}
             >
-              Global Offices
+              {tFooter("officesHeading")}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {OFFICES.map(({ key, city, detail }) => (
-                <div key={key} className="flex gap-3">
+              {OFFICES.map(({ nameKey, country, detailKey }) => (
+                <div key={nameKey} className="flex gap-3">
                   <MapPin
                     size={14}
                     className="text-primary mt-0.5 flex-shrink-0"
@@ -111,19 +100,19 @@ export default async function Footer() {
                       className="text-white/80 font-medium"
                       style={{ fontSize: "0.8125rem" }}
                     >
-                      {tFooter(key)}
+                      {tFooter(nameKey)}
                     </p>
                     <p
                       className="text-white/40"
                       style={{ fontSize: "0.75rem" }}
                     >
-                      {city}
+                      {country}
                     </p>
                     <p
                       className="text-white/30"
                       style={{ fontSize: "0.75rem" }}
                     >
-                      {detail}
+                      {tFooter(detailKey)}
                     </p>
                   </div>
                 </div>
@@ -148,7 +137,7 @@ export default async function Footer() {
             {tFooter("copyright")}
           </p>
           <p className="text-white/20" style={{ fontSize: "0.75rem" }}>
-            Engineering excellence in rail maintenance
+            {tFooter("rightTagline")}
           </p>
         </div>
       </div>
