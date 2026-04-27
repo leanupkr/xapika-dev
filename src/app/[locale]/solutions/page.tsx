@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { buildPageMetadata } from "@/lib/seo";
 import SolutionsIndex, {
   type SolutionItem,
 } from "@/components/sections/SolutionsIndex";
@@ -11,10 +12,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const tMeta = await getTranslations({ locale, namespace: "solutionsPage.meta" });
-  return {
-    title: "Solutions — Xapika Engineering",
+  return buildPageMetadata({
+    locale,
+    path: "/solutions",
+    title: "Solutions",
     description: tMeta("description"),
-  };
+  });
 }
 
 export default async function SolutionsPage() {

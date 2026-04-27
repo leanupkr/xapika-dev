@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { buildPageMetadata } from "@/lib/seo";
 import PortfoliosIndex, {
   type PortfolioCardItem,
 } from "@/components/sections/PortfoliosIndex";
@@ -14,10 +15,12 @@ export async function generateMetadata({
     locale,
     namespace: "portfoliosPage.meta",
   });
-  return {
-    title: "Portfolios — Xapika Engineering",
+  return buildPageMetadata({
+    locale,
+    path: "/portfolios",
+    title: "Portfolios",
     description: tMeta("description"),
-  };
+  });
 }
 
 export default async function PortfoliosIndexPage() {

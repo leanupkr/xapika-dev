@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { buildPageMetadata } from "@/lib/seo";
+import JsonLd, { aboutPageLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import HistoryTimeline, {
   type HistoryEvent,
@@ -16,25 +18,34 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const tMeta = await getTranslations({ locale, namespace: "about.meta" });
-  return {
-    title: "About — Xapika Engineering",
+  return buildPageMetadata({
+    locale,
+    path: "/about",
+    title: "About",
     description: tMeta("description"),
-  };
+  });
 }
 
-export default async function AboutPage() {
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const tHeader = await getTranslations("about.header");
   const tHist = await getTranslations("about.history");
   const tCeo = await getTranslations("about.ceo");
   const tVision = await getTranslations("about.vision");
   const tOrg = await getTranslations("about.org");
   const tClients = await getTranslations("about.clients");
+  const tMeta = await getTranslations("about.meta");
 
   const events = tHist.raw("events") as ReadonlyArray<HistoryEvent>;
   const visionItems = tVision.raw("items") as ReadonlyArray<VisionItem>;
 
   return (
     <>
+      <JsonLd id="ld-about" data={aboutPageLd(locale, tMeta("description"))} />
       <AboutHeader
         overline={tHeader("overline")}
         title={tHeader("title")}

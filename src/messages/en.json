@@ -954,5 +954,21 @@
     "badges": "Badges",
     "spacing": "Section Spacing",
     "motion": "Motion Primitives"
+  },
+  "notFound": {
+    "code": "404",
+    "overline": "Off track",
+    "title": "This stop isn't on our network.",
+    "subtitle": "The page you requested doesn't exist — or has been moved to another route.",
+    "backHome": "Back to home",
+    "viewSolutions": "View solutions"
+  },
+  "errorPage": {
+    "code": "500",
+    "overline": "Signal disrupted",
+    "title": "Something derailed.",
+    "subtitle": "We've logged the issue. Try again, or return home and we'll get you back on track.",
+    "retry": "Try again",
+    "backHome": "Back to home"
   }
 }

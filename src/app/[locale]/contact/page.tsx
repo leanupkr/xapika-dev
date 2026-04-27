@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { buildPageMetadata } from "@/lib/seo";
 import AboutHeader from "@/components/sections/AboutHeader";
 import ContactInfo from "@/components/sections/ContactInfo";
 import ContactForm from "@/components/sections/ContactForm";
@@ -14,10 +15,12 @@ export async function generateMetadata({
     locale,
     namespace: "contactPage.meta",
   });
-  return {
-    title: "Contact — Xapika Engineering",
+  return buildPageMetadata({
+    locale,
+    path: "/contact",
+    title: "Contact",
     description: tMeta("description"),
-  };
+  });
 }
 
 export default async function ContactPage() {

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { buildPageMetadata } from "@/lib/seo";
+import JsonLd, { serviceLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
@@ -19,13 +21,20 @@ export async function generateMetadata({
     locale,
     namespace: "solutionsDetail.digitalAssetManagement.hero",
   });
-  return {
-    title: `${tHero("title")} — Xapika Engineering`,
+  return buildPageMetadata({
+    locale,
+    path: "/solutions/digital-asset-management",
+    title: tHero("title"),
     description: tHero("subtitle"),
-  };
+  });
 }
 
-export default async function DigitalAssetManagementPage() {
+export default async function DigitalAssetManagementPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const tHero = await getTranslations(
     "solutionsDetail.digitalAssetManagement.hero"
   );
@@ -46,7 +55,17 @@ export default async function DigitalAssetManagementPage() {
   const relatedItems = tRelated.raw("items") as ReadonlyArray<RelatedProjectItem>;
 
   return (
-    <SolutionDetailHero
+    <>
+      <JsonLd
+        id="ld-service-digital"
+        data={serviceLd({
+          locale,
+          slug: "digital-asset-management",
+          name: tHero("title"),
+          description: tHero("subtitle"),
+        })}
+      />
+      <SolutionDetailHero
       overline={tHero("overline")}
       index="04 / 05"
       title={tHero("title")}
@@ -76,6 +95,7 @@ export default async function DigitalAssetManagementPage() {
         visitVisionIt={tCta("visitVisionIt")}
       />
     </SolutionDetailHero>
+    </>
   );
 }
 

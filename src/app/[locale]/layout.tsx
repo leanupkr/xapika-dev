@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import JsonLd, { organizationLd, websiteLd } from "@/components/seo/JsonLd";
 
 type Props = {
   children: React.ReactNode;
@@ -25,6 +26,8 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
+      <JsonLd id="ld-organization" data={organizationLd(locale)} />
+      <JsonLd id="ld-website" data={websiteLd(locale)} />
       <Header />
       <main>{children}</main>
       <Footer />

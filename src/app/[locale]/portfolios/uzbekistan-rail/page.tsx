@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { buildPageMetadata } from "@/lib/seo";
+import JsonLd, { caseStudyLd } from "@/components/seo/JsonLd";
 import PortfolioHero from "@/components/sections/PortfolioHero";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 
@@ -15,13 +17,20 @@ export async function generateMetadata({
     locale,
     namespace: "portfoliosDetail.uzbekistan.hero",
   });
-  return {
-    title: `${t("title")} — Xapika Engineering`,
+  return buildPageMetadata({
+    locale,
+    path: "/portfolios/uzbekistan-rail",
+    title: t("title"),
     description: t("subtitle"),
-  };
+  });
 }
 
-export default async function UzbekistanRailPage() {
+export default async function UzbekistanRailPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const tHero = await getTranslations("portfoliosDetail.uzbekistan.hero");
   const tNotice = await getTranslations("portfoliosDetail.uzbekistan.notice");
   const tPlanned = await getTranslations("portfoliosDetail.uzbekistan.planned");
@@ -33,6 +42,16 @@ export default async function UzbekistanRailPage() {
 
   return (
     <>
+      <JsonLd
+        id="ld-case-uzbekistan"
+        data={caseStudyLd({
+          locale,
+          slug: "uzbekistan-rail",
+          name: tHero("title"),
+          description: tHero("subtitle"),
+          country: "Uzbekistan",
+        })}
+      />
       <PortfolioHero
         overline={tHero("overline")}
         title={tHero("title")}

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { buildPageMetadata } from "@/lib/seo";
+import JsonLd, { serviceLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
@@ -19,13 +21,20 @@ export async function generateMetadata({
     locale,
     namespace: "solutionsDetail.commercialServices.hero",
   });
-  return {
-    title: `${tHero("title")} — Xapika Engineering`,
+  return buildPageMetadata({
+    locale,
+    path: "/solutions/commercial-services",
+    title: tHero("title"),
     description: tHero("subtitle"),
-  };
+  });
 }
 
-export default async function CommercialServicesPage() {
+export default async function CommercialServicesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const tHero = await getTranslations(
     "solutionsDetail.commercialServices.hero"
   );
@@ -46,7 +55,17 @@ export default async function CommercialServicesPage() {
   const relatedItems = tRelated.raw("items") as ReadonlyArray<RelatedProjectItem>;
 
   return (
-    <SolutionDetailHero
+    <>
+      <JsonLd
+        id="ld-service-commercial"
+        data={serviceLd({
+          locale,
+          slug: "commercial-services",
+          name: tHero("title"),
+          description: tHero("subtitle"),
+        })}
+      />
+      <SolutionDetailHero
       overline={tHero("overline")}
       index="05 / 05"
       title={tHero("title")}
@@ -75,6 +94,7 @@ export default async function CommercialServicesPage() {
         button={tCta("button")}
       />
     </SolutionDetailHero>
+    </>
   );
 }
 

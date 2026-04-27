@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { buildPageMetadata } from "@/lib/seo";
+import JsonLd, { placesLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import LocationsWorldMap, {
   type WorldMapOffice,
@@ -32,10 +34,12 @@ export async function generateMetadata({
     locale,
     namespace: "locationsPage.meta",
   });
-  return {
-    title: "Locations — Xapika Engineering",
+  return buildPageMetadata({
+    locale,
+    path: "/locations",
+    title: "Locations",
     description: tMeta("description"),
-  };
+  });
 }
 
 export default async function LocationsPage() {
@@ -76,6 +80,18 @@ export default async function LocationsPage() {
 
   return (
     <>
+      <JsonLd
+        id="ld-places"
+        data={placesLd(
+          offices.map((o) => ({
+            city: o.city,
+            country: o.country,
+            role: o.role,
+            lat: o.lat,
+            lng: o.lng,
+          }))
+        )}
+      />
       <AboutHeader
         overline={tHeader("overline")}
         title={tHeader("title")}

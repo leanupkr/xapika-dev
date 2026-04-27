@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { buildPageMetadata } from "@/lib/seo";
+import JsonLd, { caseStudyLd } from "@/components/seo/JsonLd";
 import PortfolioHero from "@/components/sections/PortfolioHero";
 import PortfolioStory from "@/components/sections/PortfolioStory";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
@@ -16,13 +18,20 @@ export async function generateMetadata({
     locale,
     namespace: "portfoliosDetail.warsaw.hero",
   });
-  return {
-    title: `${t("title")} — Xapika Engineering`,
+  return buildPageMetadata({
+    locale,
+    path: "/portfolios/warsaw-tram",
+    title: t("title"),
     description: t("subtitle"),
-  };
+  });
 }
 
-export default async function WarsawTramPage() {
+export default async function WarsawTramPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const tHero = await getTranslations("portfoliosDetail.warsaw.hero");
   const tStory = await getTranslations("portfoliosDetail.warsaw.story");
   const tStats = await getTranslations("portfoliosDetail.warsaw.stats");
@@ -34,6 +43,16 @@ export default async function WarsawTramPage() {
 
   return (
     <>
+      <JsonLd
+        id="ld-case-warsaw"
+        data={caseStudyLd({
+          locale,
+          slug: "warsaw-tram",
+          name: tHero("title"),
+          description: tHero("subtitle"),
+          country: "Poland",
+        })}
+      />
       <PortfolioHero
         overline={tHero("overline")}
         title={tHero("title")}

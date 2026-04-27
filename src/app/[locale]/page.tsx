@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { buildPageMetadata } from "@/lib/seo";
 import Hero from "@/components/sections/Hero";
 import KeyNumbers from "@/components/sections/KeyNumbers";
 import SolutionsGrid from "@/components/sections/SolutionsGrid";
@@ -6,6 +8,21 @@ import PortfoliosPreview from "@/components/sections/PortfoliosPreview";
 import TrustedBy from "@/components/sections/TrustedBy";
 import GlobalPresence from "@/components/sections/GlobalPresence";
 import MidCta from "@/components/sections/MidCta";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const tHero = await getTranslations({ locale, namespace: "hero" });
+  return buildPageMetadata({
+    locale,
+    path: "",
+    title: "Xapika Engineering",
+    description: tHero("subheadline"),
+  });
+}
 
 export default async function HomePage() {
   const tHero = await getTranslations("hero");
