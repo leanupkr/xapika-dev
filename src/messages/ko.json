@@ -135,6 +135,38 @@
     "seoulOffice": "서울 오피스",
     "warsawOffice": "바르샤바 오피스"
   },
+  "about": {
+    "meta": {
+      "description": "5개국에서 쌓아온 10년의 철도 정비 정밀함 — Xapika Engineering의 여정, 원칙, 그리고 운영 기준."
+    },
+    "header": {
+      "overline": "우리의 여정",
+      "title": "이스탄불에서 타슈켄트까지, 하나의 운영 기준.",
+      "subtitle": "5개국에서 단 한 번의 계약 불이행 없이 쌓아온 10년의 철도 정비 정밀함."
+    },
+    "history": {
+      "overline": "연혁",
+      "title": "5개국에서 쌓아온 10년의 정밀함.",
+      "subtitle": "모든 기록은 고객사 정비 로그와 규제 기관의 감사 결과로 검증되었습니다.",
+      "sinceWar": "2022년 이후, 단 한 번의 중단 없이.",
+      "comingBadge": "예정",
+      "events": [
+        { "year": "2016", "month": "10", "country": "튀르키예", "event": "이스탄불 사무소 설립" },
+        { "year": "2017", "month": "06", "country": "우크라이나", "event": "고속철 정비 운영 개시" },
+        { "year": "2018", "month": "11", "country": "우크라이나", "event": "우크라이나 본사 이전" },
+        { "year": "2019", "month": "06", "country": "브라질", "event": "상파울루 사무소 설립" },
+        { "year": "2021", "month": "07", "country": "폴란드", "event": "폴란드 사무소 설립" },
+        { "year": "2021", "month": "10", "country": "폴란드", "event": "바르샤바 트램 정비 운영 개시" },
+        { "year": "2022", "month": "03", "country": "폴란드", "event": "폴란드 본사 신규 시설 이전" },
+        { "year": "2022", "month": "05", "country": "폴란드", "event": "폴란드 물류 창고 운영 개시" },
+        { "year": "2023", "month": "06", "country": "미국", "event": "버지니아 사무소 설립" },
+        { "year": "2023", "month": "10", "country": "이집트", "event": "카이로 사무소 설립" },
+        { "year": "2026", "month": "03", "country": "한국", "event": "서울 사무소 설립" },
+        { "year": "2026", "month": "04", "country": "우즈베키스탄", "event": "타슈켄트 사무소 설립" },
+        { "year": "2026", "month": "05", "country": "우즈베키스탄", "event": "우즈베키스탄 고속철 정비 개시" }
+      ]
+    }
+  },
   "designSystem": {
     "title": "디자인 시스템",
     "colors": "컬러",
