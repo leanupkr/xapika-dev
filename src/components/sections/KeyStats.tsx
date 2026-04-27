@@ -12,6 +12,11 @@ type KeyStatsProps = {
   overline: string;
   title: string;
   stats: ReadonlyArray<KeyStatItem>;
+  /**
+   * Render non-numeric stat values at a smaller, wrappable scale —
+   * use when stats are qualitative phrases (e.g. "Operator-aligned") instead of numbers.
+   */
+  qualitative?: boolean;
 };
 
 type ParsedValue = {
@@ -46,10 +51,12 @@ function StatBlock({
   stat,
   index,
   inView,
+  qualitative,
 }: {
   stat: KeyStatItem;
   index: number;
   inView: boolean;
+  qualitative: boolean;
 }) {
   const parsed = parseValue(stat.value);
   const useCommas = stat.value.includes(",");
@@ -150,10 +157,16 @@ function StatBlock({
           </>
         ) : (
           <span
-            className="font-heading font-medium text-[rgb(var(--color-ink))] leading-none whitespace-nowrap"
+            className={
+              qualitative
+                ? "font-heading font-medium text-[rgb(var(--color-ink))] leading-tight"
+                : "font-heading font-medium text-[rgb(var(--color-ink))] leading-none whitespace-nowrap"
+            }
             style={{
-              fontSize: "clamp(2.25rem, 4vw, 3rem)",
-              letterSpacing: "-0.03em",
+              fontSize: qualitative
+                ? "clamp(1.25rem, 1.9vw, 1.625rem)"
+                : "clamp(2.25rem, 4vw, 3rem)",
+              letterSpacing: qualitative ? "-0.018em" : "-0.03em",
             }}
           >
             {stat.value}
@@ -178,7 +191,12 @@ function StatBlock({
   );
 }
 
-export default function KeyStats({ overline, title, stats }: KeyStatsProps) {
+export default function KeyStats({
+  overline,
+  title,
+  stats,
+  qualitative = false,
+}: KeyStatsProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.25 });
 
@@ -237,7 +255,13 @@ export default function KeyStats({ overline, title, stats }: KeyStatsProps) {
         {/* Stat grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-8 md:gap-x-10">
           {stats.map((stat, i) => (
-            <StatBlock key={i} stat={stat} index={i} inView={inView} />
+            <StatBlock
+              key={i}
+              stat={stat}
+              index={i}
+              inView={inView}
+              qualitative={qualitative}
+            />
           ))}
         </div>
       </div>

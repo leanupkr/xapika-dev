@@ -517,6 +517,77 @@
         "secondaryButton": "Go to VISION IT",
         "visitVisionIt": "https://visionit.kr"
       }
+    },
+    "commercialServices": {
+      "hero": {
+        "overline": "Solutions",
+        "title": "Revenue, designed into operations.",
+        "subtitle": "Station retail, concessions, and operational revenue programs that turn maintenance overhead into managed margin."
+      },
+      "whatWeDo": {
+        "overline": "What We Do",
+        "title": "Five disciplines that move cost into revenue.",
+        "items": [
+          {
+            "index": "01",
+            "title": "Station retail concessions",
+            "desc": "Operator-side leasing of platform retail with tenant mix designed for commuter dwell time, not airport spend."
+          },
+          {
+            "index": "02",
+            "title": "Ancillary revenue",
+            "desc": "Advertising, kiosks, and premium amenities structured into the operating contract — not bolted on after."
+          },
+          {
+            "index": "03",
+            "title": "Service-level agreements",
+            "desc": "Custom commercial frameworks tying maintenance availability to revenue share, with measurable triggers."
+          },
+          {
+            "index": "04",
+            "title": "Operational consulting",
+            "desc": "Revenue-stream design for new lines — modeled before track is laid, not after the first deficit year."
+          },
+          {
+            "index": "05",
+            "title": "Stakeholder coordination",
+            "desc": "Operator, regulator, and vendor alignment held together through written governance — not goodwill."
+          }
+        ]
+      },
+      "keyStats": {
+        "overline": "Programme Profile",
+        "title": "Built per operator. Not per template.",
+        "stats": [
+          { "value": "Custom", "label": "Programs per operator" },
+          { "value": "Long-term", "label": "Contract horizon" },
+          { "value": "Operator-aligned", "label": "Risk model" },
+          { "value": "Margin-positive", "label": "Within first cycle" }
+        ]
+      },
+      "relatedProjects": {
+        "overline": "Related Projects",
+        "title": "Programs running this discipline.",
+        "items": [
+          {
+            "key": "poland",
+            "country": "Poland",
+            "project": "Tramwaje Warszawskie",
+            "desc": "Commercial structuring layered onto the 123-tram maintenance contract — concession framework aligned to municipal policy."
+          },
+          {
+            "key": "ukraine",
+            "country": "Ukraine",
+            "project": "HRCS2 Fleet — Ukrzaliznytsia",
+            "desc": "Long-horizon commercial agreement on the 100 high-speed unit programme, structured to hold through wartime operations."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Designing a new line? Let's structure the revenue side together.",
+        "subtitle": "We bring commercial design into the engineering conversation early — before the construction tender, not after the first operating year.",
+        "button": "Contact our commercial team"
+      }
     }
   },
   "designSystem": {
