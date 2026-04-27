@@ -714,15 +714,43 @@
     "warsaw": {
       "hero": {
         "overline": "Portfolios",
-        "title": "Tramwaje Warszawskie.",
-        "subtitle": "Round-the-clock light maintenance for 123 trams from the Warsaw depot — scheduled around 150 years of municipal service tradition.",
-        "placeholderKicker": "Poland · 2022"
+        "title": "150 years of urban motion.",
+        "subtitle": "Tram operations and maintenance for Warsaw — one of Europe's oldest continuously operating tram systems.",
+        "placeholderKicker": "Poland · 1882–"
       },
       "body": {
         "story": "Program Story",
         "stats": "Operating Stats",
         "photos": "From the Depot",
         "cta": "Talk through the Warsaw operating model."
+      },
+      "story": {
+        "overline": "Program story",
+        "title": "A network older than the country it now serves.",
+        "paragraphs": [
+          "Warsaw's tram network began carrying passengers in 1882 — first horse-drawn, electrified within a generation, and continuously operating across two world wars. By the time Xapika joined the maintenance partnership in 2022, the system had logged more than 140 unbroken years of public service.",
+          "We service 123 units across the active fleet, working alongside Tramwaje Warszawskie's own depot teams. Every car is inspected before its first run of the day. The network moves more than 1,500 trips per day, and on-time performance is measured against the city's published timetable, not internal targets.",
+          "In the months following the 2022 invasion, the network adapted to a sharp rise in cross-border ridership. Refugee passengers travelled free, and operating frequency held to schedule under heavier loads. The work was kept routine — that was the point.",
+          "Maintenance here is not a young system imported into an old one. It is a discipline matched to a network that has already proved itself for a century and a half. Our role is to keep that record intact."
+        ],
+        "photoCaption": "Photo · Warsaw tram, mainline",
+        "photoKicker": "Poland · 1882–"
+      },
+      "stats": {
+        "overline": "Operating record",
+        "title": "Daily metrics. Public timetable.",
+        "stats": [
+          { "value": "123", "label": "Tram units" },
+          { "value": "2022", "label": "Operating since" },
+          { "value": "1,500+", "label": "Trips per day" },
+          { "value": "99.2%", "label": "On-time performance" }
+        ]
+      },
+      "cta": {
+        "overline": "Ready",
+        "title": "Operating one of Europe's oldest networks. We'd be glad to discuss yours.",
+        "subtitle": "From legacy systems to brand-new lines — we adapt operating discipline to the network you actually run.",
+        "button": "Discuss your network"
       }
     },
     "uzbekistan": {
