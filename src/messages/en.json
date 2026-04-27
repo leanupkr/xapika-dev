@@ -590,6 +590,91 @@
       }
     }
   },
+  "portfoliosPage": {
+    "meta": {
+      "description": "Operational portfolios verified by client records, regulator audits, and uninterrupted service hours — Xapika Engineering's three live programs."
+    },
+    "header": {
+      "overline": "Portfolios",
+      "title": "Where the work proves itself.",
+      "subtitle": "Operational portfolios verified by client records, regulator audits, and uninterrupted service hours."
+    },
+    "card": {
+      "readMore": "Read case study",
+      "placeholder": "Project photograph arriving"
+    },
+    "cases": {
+      "ukraine": {
+        "country": "Ukraine",
+        "project": "Ukraine HRCS2 EMU",
+        "metric": "100 units · since 2017",
+        "summary": "Operating uninterrupted since the 2022 invasion."
+      },
+      "warsaw": {
+        "country": "Poland",
+        "project": "Tramwaje Warszawskie",
+        "metric": "123 units · since 2022",
+        "summary": "150-year-old transit lifeline, modern maintenance discipline."
+      },
+      "uzbekistan": {
+        "country": "Uzbekistan",
+        "project": "Uzbekistan HSR O&M",
+        "metric": "Coming 2026.05",
+        "summary": "New high-speed program, opening this year.",
+        "comingBadge": "Coming"
+      }
+    }
+  },
+  "portfoliosDetail": {
+    "common": {
+      "placeholder": "Detail content arriving",
+      "photoPlaceholder": "Site photograph arriving",
+      "ctaLabel": "Discuss this program"
+    },
+    "ukraine": {
+      "hero": {
+        "overline": "Portfolios",
+        "title": "Ukraine HRCS2 EMU.",
+        "subtitle": "Daily inspection, functional checks, and heavy overhauls across 100 high-speed units — sustained through wartime conditions since 2022.",
+        "warBadge": "Uninterrupted Since War",
+        "placeholderKicker": "Ukraine · 2017"
+      },
+      "body": {
+        "story": "Program Story",
+        "stats": "Operating Stats",
+        "photos": "From the Depot",
+        "cta": "Talk through how we sustained service through the conflict."
+      }
+    },
+    "warsaw": {
+      "hero": {
+        "overline": "Portfolios",
+        "title": "Tramwaje Warszawskie.",
+        "subtitle": "Round-the-clock light maintenance for 123 trams from the Warsaw depot — scheduled around 150 years of municipal service tradition.",
+        "placeholderKicker": "Poland · 2022"
+      },
+      "body": {
+        "story": "Program Story",
+        "stats": "Operating Stats",
+        "photos": "From the Depot",
+        "cta": "Talk through the Warsaw operating model."
+      }
+    },
+    "uzbekistan": {
+      "hero": {
+        "overline": "Portfolios",
+        "title": "Uzbekistan HSR O&M.",
+        "subtitle": "New high-speed maintenance program at the Tashkent hub — opening May 2026 in partnership with Uzbekistan Railways.",
+        "placeholderKicker": "Uzbekistan · Coming 2026"
+      },
+      "body": {
+        "story": "Program Preview",
+        "stats": "Scope at Launch",
+        "photos": "Site Mobilization",
+        "cta": "Partner with us before launch."
+      }
+    }
+  },
   "designSystem": {
     "title": "Design System",
     "colors": "Colors",
