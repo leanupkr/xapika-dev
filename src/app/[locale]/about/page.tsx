@@ -4,6 +4,8 @@ import AboutHeader from "@/components/sections/AboutHeader";
 import HistoryTimeline, {
   type HistoryEvent,
 } from "@/components/sections/HistoryTimeline";
+import Vision, { type VisionItem } from "@/components/sections/Vision";
+import OurClients from "@/components/sections/OurClients";
 
 export async function generateMetadata({
   params,
@@ -21,8 +23,11 @@ export async function generateMetadata({
 export default async function AboutPage() {
   const tHeader = await getTranslations("about.header");
   const tHist = await getTranslations("about.history");
+  const tVision = await getTranslations("about.vision");
+  const tClients = await getTranslations("about.clients");
 
   const events = tHist.raw("events") as ReadonlyArray<HistoryEvent>;
+  const visionItems = tVision.raw("items") as ReadonlyArray<VisionItem>;
 
   return (
     <>
@@ -38,6 +43,18 @@ export default async function AboutPage() {
         sinceWar={tHist("sinceWar")}
         comingBadge={tHist("comingBadge")}
         events={events}
+      />
+      <Vision
+        overline={tVision("overline")}
+        title={tVision("title")}
+        subtitle={tVision("subtitle")}
+        items={visionItems}
+      />
+      <OurClients
+        overline={tClients("overline")}
+        title={tClients("title")}
+        subtitle={tClients("subtitle")}
+        logoArrivingNote={tClients("logoArrivingNote")}
       />
     </>
   );
