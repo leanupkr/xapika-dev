@@ -444,6 +444,79 @@
         "subtitle": "We design parts pipelines that hold up across borders, sanctions, and weather — engineered for the depots that depend on them.",
         "button": "Contact our supply team"
       }
+    },
+    "digitalAssetManagement": {
+      "hero": {
+        "overline": "Solutions",
+        "title": "Maintenance is data.",
+        "subtitle": "Through our affiliate VISION IT's MMIS platform, every work order is timestamped, every part is traced, every fleet is observable."
+      },
+      "whatWeDo": {
+        "overline": "What We Do",
+        "title": "Five capabilities running on one platform.",
+        "items": [
+          {
+            "index": "01",
+            "title": "Work order management",
+            "desc": "Predictive scheduling that sequences maintenance against fleet availability, parts lead time, and crew capacity."
+          },
+          {
+            "index": "02",
+            "title": "Inventory tracking",
+            "desc": "Cross-depot visibility into every serialized part — consumption, location, and reorder threshold in one view."
+          },
+          {
+            "index": "03",
+            "title": "Fleet observability",
+            "desc": "Real-time component health from onboard telemetry, surfaced before symptoms reach the operator's ear."
+          },
+          {
+            "index": "04",
+            "title": "Regulator reporting",
+            "desc": "Auto-generated audit packages mapped to UIC, EBA, and operator-specific standards — submitted in days, not weeks."
+          },
+          {
+            "index": "05",
+            "title": "Predictive maintenance",
+            "desc": "Failure-before-failure flagging from telemetry patterns, escalated to the work order before the incident lands."
+          }
+        ]
+      },
+      "keyStats": {
+        "overline": "Key Stats",
+        "title": "Observable fleets behave better.",
+        "stats": [
+          { "value": "25,000+", "label": "Work orders tracked" },
+          { "value": "30%", "label": "Faster MTBF response" },
+          { "value": "93%", "label": "Inventory accuracy" },
+          { "value": "5", "label": "Countries on platform" }
+        ]
+      },
+      "relatedProjects": {
+        "overline": "Related Projects",
+        "title": "Programs running on this platform.",
+        "items": [
+          {
+            "key": "ukraine",
+            "country": "Ukraine",
+            "project": "HRCS2 Fleet — Ukrzaliznytsia",
+            "desc": "100 high-speed units fully tracked through MMIS — work orders, parts, and component health visible across borders."
+          },
+          {
+            "key": "poland",
+            "country": "Poland",
+            "project": "Tramwaje Warszawskie",
+            "desc": "Warsaw 123-tram fleet operated on MMIS — depot crews, inventory, and municipal audit reports flow through one system."
+          }
+        ]
+      },
+      "cta": {
+        "title": "See how the platform works.",
+        "subtitle": "VISION IT operates the MMIS platform that powers every Xapika maintenance program. Visit them directly for product detail and live demos.",
+        "button": "Contact our team",
+        "secondaryButton": "Go to VISION IT",
+        "visitVisionIt": "https://visionit.kr"
+      }
     }
   },
   "designSystem": {
