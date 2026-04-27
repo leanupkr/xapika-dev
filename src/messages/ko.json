@@ -209,6 +209,28 @@
       "logoArrivingNote": "로고 추후 제공"
     }
   },
+  "solutionsPage": {
+    "meta": {
+      "description": "다섯 가지 정비 역량, 하나의 운영 기준 — Xapika Engineering이 철도 운영사를 위해 제공하는 솔루션."
+    },
+    "header": {
+      "overline": "솔루션",
+      "title": "다섯 가지 역량. 하나의 운영 기준.",
+      "subtitle": "일일 점검부터 중정비까지, 모든 워크플로우가 동일한 감사 기준을 충족합니다."
+    },
+    "card": {
+      "learnMore": "자세히 보기"
+    },
+    "detail": {
+      "sections": {
+        "whatWeDo": "수행 업무",
+        "keyStats": "주요 지표",
+        "relatedProjects": "관련 프로젝트",
+        "cta": "귀사의 차량에 대해 상담하시죠."
+      },
+      "placeholder": "상세 콘텐츠 곧 추가"
+    }
+  },
   "designSystem": {
     "title": "디자인 시스템",
     "colors": "컬러",

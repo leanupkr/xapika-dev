@@ -209,6 +209,28 @@
       "logoArrivingNote": "Logo arriving"
     }
   },
+  "solutionsPage": {
+    "meta": {
+      "description": "Five maintenance disciplines under one operating standard — Xapika Engineering's solutions for rail operators."
+    },
+    "header": {
+      "overline": "Solutions",
+      "title": "Five disciplines. One operating discipline.",
+      "subtitle": "From daily inspection to heavy overhaul, every workstream meets the same audit standard."
+    },
+    "card": {
+      "learnMore": "Learn more"
+    },
+    "detail": {
+      "sections": {
+        "whatWeDo": "What We Do",
+        "keyStats": "Key Stats",
+        "relatedProjects": "Related Projects",
+        "cta": "Let's discuss your fleet."
+      },
+      "placeholder": "Detail content arriving"
+    }
+  },
   "designSystem": {
     "title": "Design System",
     "colors": "Colors",
