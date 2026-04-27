@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -13,9 +13,31 @@ import {
   type ContactInput,
   type ContactLocationId,
 } from "@/lib/contactSchema";
-import { submitContact } from "@/app/[locale]/contact/actions";
+import {
+  submitContact,
+  initialContactState,
+  type ContactState,
+} from "@/app/[locale]/contact/actions";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+function safeT(
+  t: (key: string) => string,
+  key: string,
+  fallback: string = "generic"
+): string {
+  try {
+    const v = t(key);
+    if (typeof v === "string" && !v.startsWith("contactPage.errors.")) return v;
+  } catch {
+    /* missing key */
+  }
+  try {
+    return t(fallback);
+  } catch {
+    return key;
+  }
+}
 
 const FIELD_INPUT_BASE: React.CSSProperties = {
   width: "100%",
@@ -36,13 +58,17 @@ export default function ContactForm() {
   const tErr = useTranslations("contactPage.errors");
   const router = useRouter();
 
-  const [isPending, startTransition] = useTransition();
+  const [state, formAction, pending] = useActionState<ContactState, FormData>(
+    submitContact,
+    initialContactState
+  );
   const [formError, setFormError] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setError,
     reset,
   } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
@@ -65,44 +91,53 @@ export default function ContactForm() {
 
   const onSubmit = handleSubmit((data) => {
     setFormError(null);
-    startTransition(async () => {
-      const fd = new FormData();
-      fd.set("firstName", data.firstName);
-      fd.set("lastName", data.lastName);
-      fd.set("company", data.company);
-      fd.set("email", data.email);
-      fd.set("phone", data.phone ?? "");
-      fd.set("location", data.location);
-      fd.set("subject", data.subject);
-      fd.set("message", data.message);
-      fd.set("consent", data.consent ? "on" : "");
-      fd.set("honeypot", data.honeypot ?? "");
-
-      try {
-        const result = await submitContact(fd);
-        if (result.ok) {
-          reset();
-          router.push("/contact/thank-you");
-        } else {
-          setFormError(tErr("formError"));
-        }
-      } catch {
-        setFormError(tErr("network"));
-      }
-    });
+    const fd = new FormData();
+    fd.set("firstName", data.firstName);
+    fd.set("lastName", data.lastName);
+    fd.set("company", data.company);
+    fd.set("email", data.email);
+    fd.set("phone", data.phone ?? "");
+    fd.set("location", data.location);
+    fd.set("subject", data.subject);
+    fd.set("message", data.message);
+    fd.set("consent", data.consent ? "on" : "");
+    fd.set("honeypot", data.honeypot ?? "");
+    formAction(fd);
   });
+
+  // React to server-action state changes.
+  useEffect(() => {
+    if (!state?.ts) return;
+    if (state.ok) {
+      reset();
+      router.replace("/contact/thank-you");
+      return;
+    }
+    if (state.errors) {
+      for (const [field, code] of Object.entries(state.errors)) {
+        if (!code) continue;
+        setError(field as keyof ContactInput, {
+          type: "server",
+          message: code,
+        });
+      }
+    }
+    if (state.formError) {
+      const known = new Set(["rate_limited", "send_failed"]);
+      const key = known.has(state.formError) ? state.formError : "formError";
+      setFormError(safeT(tErr, key, "formError"));
+    } else if (state.errors) {
+      setFormError(safeT(tErr, "formError"));
+    }
+  }, [state, reset, router, setError, tErr]);
 
   const errMsg = (key: keyof ContactInput): string | null => {
     const code = errors[key]?.message;
     if (!code) return null;
-    try {
-      return tErr(code as string);
-    } catch {
-      return tErr("generic");
-    }
+    return safeT(tErr, code as string, "generic");
   };
 
-  const busy = isPending || isSubmitting;
+  const busy = pending || isSubmitting;
 
   return (
     <motion.form

@@ -95,7 +95,7 @@ export default async function ThankYouPage() {
         </span>
 
         <h1
-          className="font-heading font-semibold text-white mb-6"
+          className="font-heading font-semibold text-white mb-4"
           style={{
             fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
             letterSpacing: "-0.02em",
@@ -104,6 +104,15 @@ export default async function ThankYouPage() {
         >
           {t("title")}
         </h1>
+
+        {/* Signature rail — draws in left → right on mount */}
+        <div
+          aria-hidden="true"
+          className="flex items-center justify-center mb-7"
+          style={{ height: "12px" }}
+        >
+          <span className="track-line" />
+        </div>
 
         <p
           className="font-body mb-10 mx-auto"

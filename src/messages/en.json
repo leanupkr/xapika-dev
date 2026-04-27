@@ -926,7 +926,9 @@
       "honeypot_invalid": "Submission rejected.",
       "generic": "Please review this field.",
       "formError": "Something went wrong. Please review the form and try again.",
-      "network": "We could not reach the server. Please retry in a moment."
+      "network": "We could not reach the server. Please retry in a moment.",
+      "rate_limited": "You're sending requests too quickly. Please wait a minute and try again.",
+      "send_failed": "We received your message but couldn't deliver it just now. Please try again or email us directly."
     },
     "success": {
       "overline": "Received",
