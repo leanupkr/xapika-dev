@@ -858,6 +858,83 @@
       "button": "문의하기"
     }
   },
+  "contactPage": {
+    "meta": {
+      "description": "귀사 차량 정보를 알려주세요. 영업일 기준 2일 이내, 영업 라인이 아닌 운영 팀이 직접 회신드립니다."
+    },
+    "header": {
+      "overline": "문의",
+      "title": "운영을 함께 이야기하시죠.",
+      "subtitle": "귀사 차량 정보를 보내주시면 영업일 기준 2일 내 답변 드리겠습니다."
+    },
+    "info": {
+      "overline": "직접 연락",
+      "email": "이메일",
+      "emailValue": "info@xapika.pl",
+      "hq": "본사",
+      "hqValue": "폴란드 바르샤바 · 주소 추후 제공",
+      "hours": "업무 시간",
+      "hoursValue": "월–금 · 09:00–18:00 (CET / KST)",
+      "officeLink": "9개 사무소 보기"
+    },
+    "form": {
+      "firstName": { "label": "이름", "placeholder": "예: 지민" },
+      "lastName": { "label": "성", "placeholder": "예: 김" },
+      "company": { "label": "회사", "placeholder": "회사 또는 기관명" },
+      "email": { "label": "업무 이메일", "placeholder": "you@company.com" },
+      "phone": { "label": "전화 (선택)", "placeholder": "+82 2 ..." },
+      "location": {
+        "label": "가까운 사무소",
+        "placeholder": "사무소를 선택해 주세요",
+        "options": {
+          "warsaw-hq": "바르샤바 — 본사",
+          "warsaw-office": "바르샤바 — 사무소",
+          "kyiv": "키이우",
+          "seoul": "서울",
+          "sao-paulo": "상파울루",
+          "virginia": "버지니아",
+          "istanbul": "이스탄불",
+          "tashkent": "타슈켄트",
+          "cairo": "카이로",
+          "other": "기타 / 목록에 없음"
+        }
+      },
+      "subject": { "label": "제목", "placeholder": "프로젝트명 또는 문의 주제" },
+      "message": { "label": "메시지", "placeholder": "운영 관련 요구사항을 알려주세요 — 차량 규모, 일정, 규제 기관 등." },
+      "consent": { "label": "개인정보 처리방침에 따른 개인정보 수집·이용에 동의합니다." },
+      "submit": "메시지 보내기",
+      "submitting": "전송 중…",
+      "responseNote": "영업일 2일 내 회신드립니다."
+    },
+    "errors": {
+      "firstName_min": "최소 2자 이상 입력해 주세요.",
+      "firstName_max": "이름이 너무 깁니다.",
+      "lastName_min": "최소 2자 이상 입력해 주세요.",
+      "lastName_max": "성이 너무 깁니다.",
+      "company_min": "회사명을 입력해 주세요.",
+      "company_max": "회사명이 너무 깁니다.",
+      "email_invalid": "올바른 이메일 주소를 입력해 주세요.",
+      "email_max": "이메일 주소가 너무 깁니다.",
+      "phone_format": "숫자와 공백, +, -, ()만 사용할 수 있습니다.",
+      "phone_max": "전화번호가 너무 깁니다.",
+      "location_required": "가까운 사무소를 선택해 주세요.",
+      "subject_min": "제목은 최소 3자 이상이어야 합니다.",
+      "subject_max": "제목이 너무 깁니다.",
+      "message_min": "정확한 안내를 위해 최소 20자 이상 작성해 주세요.",
+      "message_max": "메시지는 최대 2,000자까지 입력할 수 있습니다.",
+      "consent_required": "전송 전 개인정보 처리에 동의해 주세요.",
+      "honeypot_invalid": "전송이 거부되었습니다.",
+      "generic": "이 항목을 다시 확인해 주세요.",
+      "formError": "전송 중 문제가 발생했습니다. 입력을 확인하고 다시 시도해 주세요.",
+      "network": "서버에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요."
+    },
+    "success": {
+      "overline": "접수 완료",
+      "title": "메시지가 도착했습니다.",
+      "subtitle": "영업일 2일 내, 보통 그보다 빠르게 회신드립니다. 운영 관련 긴급 문의라면 제목에 표기해 주세요.",
+      "backHome": "홈으로 돌아가기"
+    }
+  },
   "designSystem": {
     "title": "디자인 시스템",
     "colors": "컬러",

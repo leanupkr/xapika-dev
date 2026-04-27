@@ -858,6 +858,83 @@
       "button": "Contact us"
     }
   },
+  "contactPage": {
+    "meta": {
+      "description": "Tell us about your fleet. We respond within two business days — directly to the operating team, not a sales line."
+    },
+    "header": {
+      "overline": "Contact",
+      "title": "Let's talk operations.",
+      "subtitle": "Tell us about your fleet and we'll respond within two business days."
+    },
+    "info": {
+      "overline": "Direct lines",
+      "email": "Email",
+      "emailValue": "info@xapika.pl",
+      "hq": "Headquarters",
+      "hqValue": "Warsaw, Poland · Address arriving",
+      "hours": "Business hours",
+      "hoursValue": "Mon–Fri · 09:00–18:00 CET / KST",
+      "officeLink": "View 9 offices"
+    },
+    "form": {
+      "firstName": { "label": "First name", "placeholder": "Anna" },
+      "lastName": { "label": "Last name", "placeholder": "Kowalski" },
+      "company": { "label": "Company", "placeholder": "Company / Organization" },
+      "email": { "label": "Work email", "placeholder": "you@company.com" },
+      "phone": { "label": "Phone (optional)", "placeholder": "+48 22 ..." },
+      "location": {
+        "label": "Closest office",
+        "placeholder": "Select an office",
+        "options": {
+          "warsaw-hq": "Warsaw — HQ",
+          "warsaw-office": "Warsaw — Office",
+          "kyiv": "Kyiv",
+          "seoul": "Seoul",
+          "sao-paulo": "São Paulo",
+          "virginia": "Virginia",
+          "istanbul": "Istanbul",
+          "tashkent": "Tashkent",
+          "cairo": "Cairo",
+          "other": "Other / not listed"
+        }
+      },
+      "subject": { "label": "Subject", "placeholder": "Project name or inquiry topic" },
+      "message": { "label": "Message", "placeholder": "Tell us about your operations needs — fleet size, timeline, regulators." },
+      "consent": { "label": "I agree to the processing of my personal data per the privacy policy." },
+      "submit": "Send message",
+      "submitting": "Sending…",
+      "responseNote": "Typical response within 2 business days."
+    },
+    "errors": {
+      "firstName_min": "Please enter at least 2 characters.",
+      "firstName_max": "First name is too long.",
+      "lastName_min": "Please enter at least 2 characters.",
+      "lastName_max": "Last name is too long.",
+      "company_min": "Please enter your company name.",
+      "company_max": "Company name is too long.",
+      "email_invalid": "Please enter a valid email address.",
+      "email_max": "Email address is too long.",
+      "phone_format": "Phone may include digits, spaces, +, -, ().",
+      "phone_max": "Phone number is too long.",
+      "location_required": "Please select the closest office.",
+      "subject_min": "Subject must be at least 3 characters.",
+      "subject_max": "Subject is too long.",
+      "message_min": "Please share at least 20 characters so we can route your inquiry.",
+      "message_max": "Message is too long (2000 character limit).",
+      "consent_required": "Please agree before sending the message.",
+      "honeypot_invalid": "Submission rejected.",
+      "generic": "Please review this field.",
+      "formError": "Something went wrong. Please review the form and try again.",
+      "network": "We could not reach the server. Please retry in a moment."
+    },
+    "success": {
+      "overline": "Received",
+      "title": "Your message is on track.",
+      "subtitle": "We'll respond within 2 business days — usually faster. If your inquiry is operational and time-sensitive, mention it in the subject line.",
+      "backHome": "Back to home"
+    }
+  },
   "designSystem": {
     "title": "Design System",
     "colors": "Colors",
