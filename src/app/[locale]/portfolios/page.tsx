@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo";
+import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import PortfoliosIndex, {
   type PortfolioCardItem,
 } from "@/components/sections/PortfoliosIndex";
@@ -23,10 +24,18 @@ export async function generateMetadata({
   });
 }
 
-export default async function PortfoliosIndexPage() {
-  const tHeader = await getTranslations("portfoliosPage.header");
-  const tCard = await getTranslations("portfoliosPage.card");
-  const tCases = await getTranslations("portfoliosPage.cases");
+export default async function PortfoliosIndexPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const [tHeader, tCard, tCases, tNav] = await Promise.all([
+    getTranslations("portfoliosPage.header"),
+    getTranslations("portfoliosPage.card"),
+    getTranslations("portfoliosPage.cases"),
+    getTranslations("nav"),
+  ]);
 
   const items: ReadonlyArray<PortfolioCardItem> = [
     {
@@ -57,13 +66,22 @@ export default async function PortfoliosIndexPage() {
   ];
 
   return (
-    <PortfoliosIndex
-      overline={tHeader("overline")}
+    <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [{ name: tNav("portfolios"), path: "portfolios" }],
+        })}
+      />
+      <PortfoliosIndex
+        overline={tHeader("overline")}
       title={tHeader("title")}
       subtitle={tHeader("subtitle")}
-      readMore={tCard("readMore")}
-      placeholder={tCard("placeholder")}
-      items={items}
-    />
+        readMore={tCard("readMore")}
+        placeholder={tCard("placeholder")}
+        items={items}
+      />
+    </>
   );
 }

@@ -3,7 +3,7 @@
 // TODO(content): CEO Message — 하리카 측 W2 까지 제공 예정 (본문 + 사진 + 서명)
 
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 type CeoMessageProps = {
   overline: string;
@@ -11,6 +11,7 @@ type CeoMessageProps = {
   subtitle: string;
   placeholderName: string;
   awaitingNote: string;
+  portraitPlaceholder?: string;
 };
 
 const PARAGRAPH_BARS: ReadonlyArray<ReadonlyArray<number>> = [
@@ -26,6 +27,7 @@ export default function CeoMessage({
   subtitle,
   placeholderName,
   awaitingNote,
+  portraitPlaceholder = "Portrait · coming soon",
 }: CeoMessageProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -34,9 +36,7 @@ export default function CeoMessage({
 
   useGSAP(
     () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const prefersReduced = prefersReducedMotion();
 
       if (headerRef.current) {
         const headerTargets = headerRef.current.querySelectorAll(
@@ -140,7 +140,7 @@ export default function CeoMessage({
 
       <div
         className="relative mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         {/* Header */}
         <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">
@@ -322,7 +322,7 @@ export default function CeoMessage({
                       color: "rgb(var(--color-ink-muted))",
                     }}
                   >
-                    Portrait · 추후 제공
+                    {portraitPlaceholder}
                   </span>
                 </div>
 

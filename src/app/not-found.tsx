@@ -110,7 +110,7 @@ export default function NotFound() {
 
             <div className="flex flex-wrap items-center gap-4">
               <Link
-                href="/en"
+                href="/"
                 className="inline-flex items-center gap-2 px-7 py-4 bg-[rgb(var(--color-primary))] text-[rgb(var(--color-ink))] font-heading font-semibold transition-colors duration-300 hover:bg-white"
                 style={{ fontSize: "14px", letterSpacing: "0.05em" }}
               >

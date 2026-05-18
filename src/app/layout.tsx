@@ -1,23 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
-import "pretendard/dist/web/variable/pretendardvariable.css";
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
 import { BASE_URL, SITE_NAME } from "@/lib/seo";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -45,21 +29,17 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "#0B1F3A" },
     { media: "(prefers-color-scheme: dark)", color: "#0B1F3A" },
   ],
-  colorScheme: "light dark",
+  colorScheme: "light",
 };
 
+// Minimal root layout — html/body are rendered by the locale layout
+// so that <html lang={locale}> can be set from the [locale] segment.
+// This follows the Next.js 16 nested-layout i18n pattern:
+// https://nextjs.org/docs/app/guides/internationalization
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
-      <body>
-        {children}
-        <SpeedInsights />
-        <Analytics />
-      </body>
-    </html>
-  );
+  return <>{children}</>;
 }

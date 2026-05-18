@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buildPageMetadata } from "@/lib/seo";
-import JsonLd, { caseStudyLd } from "@/components/seo/JsonLd";
+import JsonLd, { caseStudyLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import PortfolioHero from "@/components/sections/PortfolioHero";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 
@@ -31,17 +31,30 @@ export default async function UzbekistanRailPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const tHero = await getTranslations("portfoliosDetail.uzbekistan.hero");
-  const tNotice = await getTranslations("portfoliosDetail.uzbekistan.notice");
-  const tPlanned = await getTranslations("portfoliosDetail.uzbekistan.planned");
-  const tCta = await getTranslations("portfoliosDetail.uzbekistan.cta");
-  const tCommon = await getTranslations("portfoliosDetail.common");
+  const [tHero, tNotice, tPlanned, tCta, tCommon, tNav] = await Promise.all([
+    getTranslations("portfoliosDetail.uzbekistan.hero"),
+    getTranslations("portfoliosDetail.uzbekistan.notice"),
+    getTranslations("portfoliosDetail.uzbekistan.planned"),
+    getTranslations("portfoliosDetail.uzbekistan.cta"),
+    getTranslations("portfoliosDetail.common"),
+    getTranslations("nav"),
+  ]);
 
   const noticeParagraphs = tNotice.raw("paragraphs") as ReadonlyArray<string>;
   const plannedItems = tPlanned.raw("items") as ReadonlyArray<WhatWeDoItem>;
 
   return (
     <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [
+            { name: tNav("portfolios"), path: "portfolios" },
+            { name: tHero("title"), path: "portfolios/uzbekistan-rail" },
+          ],
+        })}
+      />
       <JsonLd
         id="ld-case-uzbekistan"
         data={caseStudyLd({
@@ -125,7 +138,7 @@ function NoticeSection({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         <span
           className="flex items-center gap-3 font-heading font-medium uppercase mb-8 text-[rgb(var(--color-primary))]"
@@ -232,7 +245,7 @@ function CtaSection({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-y-0 lg:gap-x-12 items-end">
           <div className="lg:col-span-8">

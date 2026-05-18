@@ -16,7 +16,9 @@
     "subheadline": "Delivering precision maintenance with uncompromised safety.",
     "overline": "Rail Maintenance Excellence",
     "cta_solutions": "Explore Solutions",
-    "cta_contact": "Contact Us"
+    "cta_contact": "Contact Us",
+    "pauseAriaLabel": "Pause slideshow",
+    "playAriaLabel": "Play slideshow"
   },
   "keyNumbers": {
     "overline": "By the Numbers",
@@ -200,7 +202,8 @@
       "title": "A message from our CEO.",
       "subtitle": "Awaiting CEO content — Harika provides next.",
       "placeholderName": "CEO Name · Founder & CEO",
-      "awaitingNote": "Awaiting CEO message — content arriving from Harika"
+      "awaitingNote": "Awaiting CEO message — content arriving from Harika",
+      "portraitPlaceholder": "Portrait · coming soon"
     },
     "org": {
       "overline": "Organization",
@@ -845,7 +848,7 @@
       "addressPlaceholder": "Address arriving",
       "emailPlaceholder": "Email arriving",
       "googleMapsLink": "View on Google Maps",
-      "awaitingNote": "Address & contact details · 추후 제공"
+      "awaitingNote": "Address & contact details · arriving soon"
     },
     "offices": [
       { "id": "warsaw-hq",     "city": "Warsaw",    "country": "Poland",     "flag": "\ud83c\uddf5\ud83c\uddf1", "role": "headquarters", "since": "2022.03", "lat": 52.2297,  "lng": 21.0118,   "showOnMap": true,  "blurb": "Headquarters · group operations, finance, fleet program management." },

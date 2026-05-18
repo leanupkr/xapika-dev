@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo";
-import JsonLd, { placesLd } from "@/components/seo/JsonLd";
+import JsonLd, { placesLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import LocationsWorldMap, {
   type WorldMapOffice,
@@ -42,12 +42,20 @@ export async function generateMetadata({
   });
 }
 
-export default async function LocationsPage() {
-  const tHeader = await getTranslations("locationsPage.header");
-  const tMap = await getTranslations("locationsPage.map");
-  const tGrid = await getTranslations("locationsPage.grid");
-  const tCta = await getTranslations("locationsPage.cta");
-  const tPage = await getTranslations("locationsPage");
+export default async function LocationsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const [tHeader, tMap, tGrid, tCta, tPage, tNav] = await Promise.all([
+    getTranslations("locationsPage.header"),
+    getTranslations("locationsPage.map"),
+    getTranslations("locationsPage.grid"),
+    getTranslations("locationsPage.cta"),
+    getTranslations("locationsPage"),
+    getTranslations("nav"),
+  ]);
 
   const offices = tPage.raw("offices") as ReadonlyArray<OfficeRow>;
 
@@ -80,6 +88,13 @@ export default async function LocationsPage() {
 
   return (
     <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [{ name: tNav("locations"), path: "locations" }],
+        })}
+      />
       <JsonLd
         id="ld-places"
         data={placesLd(

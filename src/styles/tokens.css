@@ -28,6 +28,12 @@
 
     /* Grid */
     --max-width: 1440px;
+    --max-width-content: 1280px; /* 본문 섹션 표준 (Hero/Header는 1440px 유지) */
     --gutter: 24px;
+
+    /* GSAP Easing & Typography tokens */
+    --ease-power3-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --tracking-overline: 0.22em;
+    --tracking-tight: -0.02em;
   }
 }

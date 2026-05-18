@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 type PortfolioStoryProps = {
   overline: string;
@@ -22,9 +22,7 @@ export default function PortfolioStory({
 
   useGSAP(
     () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const prefersReduced = prefersReducedMotion();
       if (!sectionRef.current) return;
       const blocks = sectionRef.current.querySelectorAll("[data-fade]");
       if (prefersReduced) {
@@ -89,7 +87,7 @@ export default function PortfolioStory({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-12 items-start"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         {/* Text */}
         <div className="lg:col-span-6">

@@ -36,6 +36,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const solutionsRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -46,15 +47,27 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close dropdown on outside click
+  // Close dropdown on outside click or outside focus (keyboard tab-out)
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
       if (solutionsRef.current && !solutionsRef.current.contains(e.target as Node)) {
         setSolutionsOpen(false);
       }
     }
+    function onFocusOutside(e: FocusEvent) {
+      if (
+        solutionsRef.current &&
+        !solutionsRef.current.contains(e.target as Node)
+      ) {
+        setSolutionsOpen(false);
+      }
+    }
     document.addEventListener("mousedown", onClickOutside);
-    return () => document.removeEventListener("mousedown", onClickOutside);
+    document.addEventListener("focusin", onFocusOutside);
+    return () => {
+      document.removeEventListener("mousedown", onClickOutside);
+      document.removeEventListener("focusin", onFocusOutside);
+    };
   }, []);
 
   function switchLocale(nextLocale: string) {
@@ -68,6 +81,79 @@ export default function Header() {
 
   function handleSolutionsLeave() {
     closeTimer.current = setTimeout(() => setSolutionsOpen(false), 120);
+  }
+
+  // Keyboard: trigger button (Enter/Space/Arrow → open; Esc → close)
+  function handleTriggerKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setSolutionsOpen((prev) => {
+        if (!prev) {
+          requestAnimationFrame(() => {
+            const first = solutionsRef.current?.querySelector<HTMLElement>('[role="menuitem"]');
+            first?.focus();
+          });
+        }
+        return !prev;
+      });
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSolutionsOpen(true);
+      requestAnimationFrame(() => {
+        const first = solutionsRef.current?.querySelector<HTMLElement>('[role="menuitem"]');
+        first?.focus();
+      });
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSolutionsOpen(true);
+      requestAnimationFrame(() => {
+        const items = solutionsRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]');
+        items?.[items.length - 1]?.focus();
+      });
+    } else if (e.key === "Escape") {
+      setSolutionsOpen(false);
+    }
+  }
+
+  // Keyboard: within the menu (ArrowDown/Up/Home/End/Esc/Tab)
+  function handleMenuKeyDown(e: React.KeyboardEvent<HTMLElement>) {
+    const menu = solutionsRef.current?.querySelector<HTMLElement>('[role="menu"]');
+    if (!menu) return;
+    const items = Array.from(menu.querySelectorAll<HTMLElement>('[role="menuitem"]'));
+    const idx = items.indexOf(e.currentTarget as HTMLElement);
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        items[(idx + 1) % items.length]?.focus();
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        if (idx === 0) {
+          setSolutionsOpen(false);
+          triggerRef.current?.focus();
+        } else {
+          items[idx - 1]?.focus();
+        }
+        break;
+      case "Home":
+        e.preventDefault();
+        items[0]?.focus();
+        break;
+      case "End":
+        e.preventDefault();
+        items[items.length - 1]?.focus();
+        break;
+      case "Escape":
+        e.preventDefault();
+        setSolutionsOpen(false);
+        triggerRef.current?.focus();
+        break;
+      case "Tab":
+        // Tab closes the menu; natural tab order continues outside
+        setSolutionsOpen(false);
+        break;
+    }
   }
 
   return (
@@ -121,6 +207,8 @@ export default function Header() {
                     onMouseLeave={handleSolutionsLeave}
                   >
                     <button
+                      ref={triggerRef}
+                      id="solutions-trigger"
                       className={[
                         "flex items-center gap-1 font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
                         scrolled
@@ -129,8 +217,20 @@ export default function Header() {
                       ].join(" ")}
                       style={{ fontSize: "13px" }}
                       aria-expanded={solutionsOpen}
-                      aria-haspopup="true"
+                      aria-haspopup="menu"
                       aria-current={isActive ? "page" : undefined}
+                      onClick={() => {
+                        setSolutionsOpen((prev) => {
+                          if (!prev) {
+                            requestAnimationFrame(() => {
+                              const first = solutionsRef.current?.querySelector<HTMLElement>('[role="menuitem"]');
+                              first?.focus();
+                            });
+                          }
+                          return !prev;
+                        });
+                      }}
+                      onKeyDown={handleTriggerKeyDown}
                     >
                       {t(key)}
                       <ChevronDown
@@ -154,6 +254,8 @@ export default function Header() {
                           style={{
                             borderColor: "rgb(var(--color-ink) / 0.08)",
                           }}
+                          role="menu"
+                          aria-labelledby="solutions-trigger"
                           onMouseEnter={handleSolutionsEnter}
                           onMouseLeave={handleSolutionsLeave}
                         >
@@ -161,7 +263,9 @@ export default function Header() {
                             <Link
                               key={itemKey}
                               href={itemHref}
+                              role="menuitem"
                               onClick={() => setSolutionsOpen(false)}
+                              onKeyDown={handleMenuKeyDown}
                               className="block px-4 py-3 text-ink hover:text-primary hover:bg-primary-subtle transition-colors duration-150 font-heading font-medium"
                               style={{ fontSize: "13px" }}
                             >
@@ -212,8 +316,10 @@ export default function Header() {
                   )}
                   <button
                     onClick={() => switchLocale(lng)}
+                    aria-label={lng === "ko" ? "한국어로 전환" : "Switch to English"}
                     className={[
                       "font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
+                      "min-h-[44px] min-w-[44px] flex items-center justify-center",
                       locale === lng
                         ? scrolled
                           ? "text-primary"

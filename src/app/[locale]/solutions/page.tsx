@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo";
+import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionsIndex, {
   type SolutionItem,
 } from "@/components/sections/SolutionsIndex";
@@ -20,11 +21,19 @@ export async function generateMetadata({
   });
 }
 
-export default async function SolutionsPage() {
-  const tHeader = await getTranslations("solutionsPage.header");
-  const tCard = await getTranslations("solutionsPage.card");
-  const tDetail = await getTranslations("solutionsPage.detail");
-  const tSol = await getTranslations("solutions.items");
+export default async function SolutionsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const [tHeader, tCard, tDetail, tSol, tNav] = await Promise.all([
+    getTranslations("solutionsPage.header"),
+    getTranslations("solutionsPage.card"),
+    getTranslations("solutionsPage.detail"),
+    getTranslations("solutions.items"),
+    getTranslations("nav"),
+  ]);
 
   const items: ReadonlyArray<SolutionItem> = [
     {
@@ -65,13 +74,22 @@ export default async function SolutionsPage() {
   ];
 
   return (
-    <SolutionsIndex
-      overline={tHeader("overline")}
+    <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [{ name: tNav("solutions"), path: "solutions" }],
+        })}
+      />
+      <SolutionsIndex
+        overline={tHeader("overline")}
       title={tHeader("title")}
       subtitle={tHeader("subtitle")}
-      learnMore={tCard("learnMore")}
-      placeholder={tDetail("placeholder")}
-      items={items}
-    />
+        learnMore={tCard("learnMore")}
+        placeholder={tDetail("placeholder")}
+        items={items}
+      />
+    </>
   );
 }

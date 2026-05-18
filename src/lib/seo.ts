@@ -10,19 +10,25 @@ export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";
 
-export function buildAlternates(locale: string, path: string) {
+/**
+ * 절대 URL을 생성한다.
+ * `localePrefix: 'never'` 정책에 따라 모든 locale이 동일 URL을 공유.
+ * locale 인자는 시그니처 호환성을 위해 받지만 URL에는 반영하지 않는다.
+ */
+export function localeUrl(_locale: string, path: string = ""): string {
   const cleanPath = path.replace(/^\/+/, "");
-  const suffix = cleanPath ? `/${cleanPath}` : "";
-  const enUrl = `${BASE_URL}/en${suffix}`;
-  const koUrl = `${BASE_URL}/ko${suffix}`;
-  const canonical = `${BASE_URL}/${locale}${suffix}`;
+  return cleanPath ? `${BASE_URL}/${cleanPath}` : BASE_URL;
+}
 
+export function buildAlternates(_locale: string, path: string) {
+  const url = localeUrl(_locale, path);
+  // 모든 locale이 같은 URL이므로 alternates는 동일. hreflang은 cookie 기반 분기 안내용.
   return {
-    canonical,
+    canonical: url,
     languages: {
-      en: enUrl,
-      ko: koUrl,
-      "x-default": enUrl,
+      en: url,
+      ko: url,
+      "x-default": url,
     },
   };
 }
@@ -42,9 +48,7 @@ export function buildOpenGraph({
   description,
   ogPath,
 }: OgInput): NonNullable<Metadata["openGraph"]> {
-  const cleanPath = path.replace(/^\/+/, "");
-  const suffix = cleanPath ? `/${cleanPath}` : "";
-  const url = `${BASE_URL}/${locale}${suffix}`;
+  const url = localeUrl(locale, path);
   const ogImageUrl = ogPath ? `${BASE_URL}${ogPath}` : `${BASE_URL}/opengraph-image`;
 
   return {

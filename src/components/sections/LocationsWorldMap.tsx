@@ -2,12 +2,25 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-} from "react-simple-maps";
+import dynamic from "next/dynamic";
+import { useMediaQuery } from "@/lib/useMediaQuery";
+
+const ComposableMap = dynamic(
+  () => import("react-simple-maps").then((m) => m.ComposableMap),
+  { ssr: false },
+);
+const Geographies = dynamic(
+  () => import("react-simple-maps").then((m) => m.Geographies),
+  { ssr: false },
+);
+const Geography = dynamic(
+  () => import("react-simple-maps").then((m) => m.Geography),
+  { ssr: false },
+);
+const Marker = dynamic(
+  () => import("react-simple-maps").then((m) => m.Marker),
+  { ssr: false },
+);
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -53,17 +66,11 @@ export default function LocationsWorldMap({
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { amount: 0.15, once: true });
   const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 1023px)");
   const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(max-width: 1023px)");
-    const update = () => setIsMobile(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
   }, []);
 
   const roleLabel = (role: WorldMapOffice["role"]) =>

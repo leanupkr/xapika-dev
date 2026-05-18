@@ -3,7 +3,7 @@
 // TODO(content): Org chart 이미지 — 하리카 제공 예정 (실제 SVG/PNG 자리)
 
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 type OrgChartProps = {
   overline: string;
@@ -26,9 +26,7 @@ export default function OrgChart({
 
   useGSAP(
     () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const prefersReduced = prefersReducedMotion();
 
       if (headerRef.current) {
         const headerTargets = headerRef.current.querySelectorAll(
@@ -144,7 +142,7 @@ export default function OrgChart({
 
       <div
         className="relative mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         {/* Header */}
         <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">

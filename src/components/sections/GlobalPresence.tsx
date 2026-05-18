@@ -2,13 +2,29 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-  Line,
-} from "react-simple-maps";
+import dynamic from "next/dynamic";
+import { useMediaQuery } from "@/lib/useMediaQuery";
+
+const ComposableMap = dynamic(
+  () => import("react-simple-maps").then((m) => m.ComposableMap),
+  { ssr: false },
+);
+const Geographies = dynamic(
+  () => import("react-simple-maps").then((m) => m.Geographies),
+  { ssr: false },
+);
+const Geography = dynamic(
+  () => import("react-simple-maps").then((m) => m.Geography),
+  { ssr: false },
+);
+const Marker = dynamic(
+  () => import("react-simple-maps").then((m) => m.Marker),
+  { ssr: false },
+);
+const Line = dynamic(
+  () => import("react-simple-maps").then((m) => m.Line),
+  { ssr: false },
+);
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -58,15 +74,10 @@ export default function GlobalPresence({
 
   // 클라이언트 마운트 후에만 지도 렌더 (SSR과 client의 부동소수점 차이로 인한 path d-attr hydration mismatch 방지)
   const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 1023px)");
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   useEffect(() => {
     setMounted(true);
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(max-width: 1023px)");
-    const update = () => setIsMobile(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
   }, []);
 
   // hover(수동) vs auto-spotlight(자동) 두 출처를 분리
@@ -471,20 +482,24 @@ export default function GlobalPresence({
                         strokeWidth={1}
                         opacity={0.5}
                       >
-                        <animate
-                          attributeName="r"
-                          from={dotSize + 2}
-                          to={dotSize + 14}
-                          dur="2s"
-                          repeatCount="indefinite"
-                        />
-                        <animate
-                          attributeName="opacity"
-                          from="0.6"
-                          to="0"
-                          dur="2s"
-                          repeatCount="indefinite"
-                        />
+                        {!prefersReducedMotion && (
+                          <>
+                            <animate
+                              attributeName="r"
+                              from={dotSize + 2}
+                              to={dotSize + 14}
+                              dur="2s"
+                              repeatCount="indefinite"
+                            />
+                            <animate
+                              attributeName="opacity"
+                              from="0.6"
+                              to="0"
+                              dur="2s"
+                              repeatCount="indefinite"
+                            />
+                          </>
+                        )}
                       </circle>
                     )}
 

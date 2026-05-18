@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo";
+import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import ContactInfo from "@/components/sections/ContactInfo";
 import ContactForm from "@/components/sections/ContactForm";
@@ -23,12 +24,27 @@ export async function generateMetadata({
   });
 }
 
-export default async function ContactPage() {
-  const tHeader = await getTranslations("contactPage.header");
-  const tInfo = await getTranslations("contactPage.info");
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const [tHeader, tInfo, tNav] = await Promise.all([
+    getTranslations("contactPage.header"),
+    getTranslations("contactPage.info"),
+    getTranslations("nav"),
+  ]);
 
   return (
     <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [{ name: tNav("contact"), path: "contact" }],
+        })}
+      />
       <AboutHeader
         overline={tHeader("overline")}
         title={tHeader("title")}

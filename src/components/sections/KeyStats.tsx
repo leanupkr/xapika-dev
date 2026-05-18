@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView } from "framer-motion";
+import { prefersReducedMotion } from "@/lib/gsap";
 
 export type KeyStatItem = {
   value: string;
@@ -69,9 +70,7 @@ function StatBlock({
       return;
     }
 
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = prefersReducedMotion();
 
     if (prefersReduced) {
       setDisplay(formatNumber(parsed.target, useCommas));
@@ -213,7 +212,7 @@ export default function KeyStats({
     >
       <div
         className="mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         {/* Header */}
         <div className="max-w-2xl mb-12 md:mb-16">

@@ -16,7 +16,9 @@
     "subheadline": "타협 없는 안전으로 정밀 유지보수를 제공합니다.",
     "overline": "철도 유지보수 전문",
     "cta_solutions": "솔루션 보기",
-    "cta_contact": "문의하기"
+    "cta_contact": "문의하기",
+    "pauseAriaLabel": "슬라이드쇼 일시정지",
+    "playAriaLabel": "슬라이드쇼 재생"
   },
   "keyNumbers": {
     "overline": "숫자로 증명합니다",
@@ -200,7 +202,8 @@
       "title": "대표이사 메시지.",
       "subtitle": "CEO 메시지 도착 대기 — 하리카에서 곧 제공합니다.",
       "placeholderName": "대표이사 · 창립자",
-      "awaitingNote": "CEO 메시지 도착 대기 · 하리카 제공 예정"
+      "awaitingNote": "CEO 메시지 도착 대기 · 하리카 제공 예정",
+      "portraitPlaceholder": "Portrait · 추후 제공"
     },
     "org": {
       "overline": "조직",

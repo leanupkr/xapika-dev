@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buildPageMetadata } from "@/lib/seo";
-import JsonLd, { caseStudyLd } from "@/components/seo/JsonLd";
+import JsonLd, { caseStudyLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import PortfolioHero from "@/components/sections/PortfolioHero";
 import PortfolioStory from "@/components/sections/PortfolioStory";
 import PortfolioScrollGallery, {
@@ -35,12 +35,15 @@ export default async function UkraineEmuPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const tHero = await getTranslations("portfoliosDetail.ukraine.hero");
-  const tStory = await getTranslations("portfoliosDetail.ukraine.story");
-  const tGallery = await getTranslations("portfoliosDetail.ukraine.gallery");
-  const tStats = await getTranslations("portfoliosDetail.ukraine.stats");
-  const tCta = await getTranslations("portfoliosDetail.ukraine.cta");
-  const tCommon = await getTranslations("portfoliosDetail.common");
+  const [tHero, tStory, tGallery, tStats, tCta, tCommon, tNav] = await Promise.all([
+    getTranslations("portfoliosDetail.ukraine.hero"),
+    getTranslations("portfoliosDetail.ukraine.story"),
+    getTranslations("portfoliosDetail.ukraine.gallery"),
+    getTranslations("portfoliosDetail.ukraine.stats"),
+    getTranslations("portfoliosDetail.ukraine.cta"),
+    getTranslations("portfoliosDetail.common"),
+    getTranslations("nav"),
+  ]);
 
   const storyParagraphs = tStory.raw("paragraphs") as ReadonlyArray<string>;
   const gallerySlides = tGallery.raw("slides") as ReadonlyArray<GallerySlide>;
@@ -48,6 +51,16 @@ export default async function UkraineEmuPage({
 
   return (
     <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [
+            { name: tNav("portfolios"), path: "portfolios" },
+            { name: tHero("title"), path: "portfolios/ukraine-emu" },
+          ],
+        })}
+      />
       <JsonLd
         id="ld-case-ukraine"
         data={caseStudyLd({
@@ -134,7 +147,7 @@ function CtaSection({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-y-0 lg:gap-x-12 items-end">
           <div className="lg:col-span-8">

@@ -375,7 +375,9 @@ function FieldShell({
       {children}
       {error && (
         <p
+          id={`${id}-error`}
           role="alert"
+          aria-live="assertive"
           className="mt-1.5 font-body"
           style={{
             fontSize: "12px",
@@ -454,6 +456,7 @@ function TextareaField({
         maxLength={maxLength}
         rows={5}
         aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
         {...register}
         onFocus={(e) => {
           setFocused(true);
@@ -501,6 +504,7 @@ function SelectField({
           id={id}
           disabled={disabled}
           aria-invalid={!!error}
+          aria-describedby={error ? `${id}-error` : undefined}
           {...register}
           onFocus={() => setFocused(true)}
           onBlur={(e) => {
@@ -569,6 +573,7 @@ function CheckboxField({
           type="checkbox"
           disabled={disabled}
           aria-invalid={!!error}
+          aria-describedby={error ? `${id}-error` : undefined}
           {...register}
           className="mt-0.5 flex-shrink-0"
           style={{
@@ -591,7 +596,9 @@ function CheckboxField({
       </label>
       {error && (
         <p
+          id={`${id}-error`}
           role="alert"
+          aria-live="assertive"
           className="mt-1.5 ml-7 font-body"
           style={{
             fontSize: "12px",

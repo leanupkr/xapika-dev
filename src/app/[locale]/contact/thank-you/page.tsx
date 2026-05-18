@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata({
   params,
@@ -17,13 +18,32 @@ export async function generateMetadata({
   };
 }
 
-export default async function ThankYouPage() {
-  const t = await getTranslations("contactPage.success");
+export default async function ThankYouPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const [t, tNav] = await Promise.all([
+    getTranslations("contactPage.success"),
+    getTranslations("nav"),
+  ]);
 
   return (
-    <section
-      data-bg="dark"
-      className="relative overflow-hidden flex items-center justify-center"
+    <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [
+            { name: tNav("contact"), path: "contact" },
+            { name: t("title"), path: "contact/thank-you" },
+          ],
+        })}
+      />
+      <section
+        data-bg="dark"
+        className="relative overflow-hidden flex items-center justify-center"
       style={{
         backgroundColor: "rgb(var(--color-ink))",
         minHeight: "calc(100vh - 80px)",
@@ -142,5 +162,6 @@ export default async function ThankYouPage() {
         </Link>
       </div>
     </section>
+    </>
   );
 }

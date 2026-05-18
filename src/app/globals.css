@@ -141,6 +141,22 @@ h1, h2, h3, h4 {
   }
 }
 
+/* dashflow · livepulse — prefers-reduced-motion 가드
+   GlobalPresence.tsx에서 inline style animation으로 사용되므로
+   class 선택자 대신 @keyframes를 정적으로 재정의 */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes dashflow {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes livepulse {
+    0%, 50%, 100% {
+      box-shadow: 0 0 0 0 rgba(246, 163, 23, 0.5);
+    }
+  }
+}
+
 /* Contact thank-you — "on track" rail signature, draws in left → right */
 @keyframes track-line-in {
   from {
@@ -193,5 +209,42 @@ h1, h2, h3, h4 {
   .track-line::after {
     animation: none;
     opacity: 1;
+  }
+}
+
+/* Page transition — thin orange line sweep on route change (signature detail §9.7-6) */
+@keyframes page-transition-sweep {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  55% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+.page-transition-sweep {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: rgb(var(--color-primary));
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 9999;
+  pointer-events: none;
+  animation: page-transition-sweep 720ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition-sweep {
+    animation: none;
+    opacity: 0;
   }
 }

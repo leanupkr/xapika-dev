@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 export type RelatedProjectItem = {
   key: string;
@@ -28,9 +28,7 @@ export default function RelatedProjects({
 
   useGSAP(
     () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const prefersReduced = prefersReducedMotion();
 
       if (headerRef.current) {
         const headerTargets = headerRef.current.querySelectorAll(
@@ -103,7 +101,7 @@ export default function RelatedProjects({
     >
       <div
         className="mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-y-0 lg:gap-x-12">
           {/* Left — sticky header */}

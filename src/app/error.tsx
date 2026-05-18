@@ -145,7 +145,7 @@ export default function GlobalError({ error, reset }: ErrorProps) {
                 Try again / 다시 시도
               </button>
               <Link
-                href="/en"
+                href="/"
                 className="inline-flex items-center gap-2 px-7 py-4 font-heading font-medium transition-colors duration-200"
                 style={{
                   fontSize: "14px",

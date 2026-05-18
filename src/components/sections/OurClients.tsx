@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 type Client = {
   name: string;
@@ -67,9 +67,7 @@ export default function OurClients({
 
   useGSAP(
     () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const prefersReduced = prefersReducedMotion();
 
       if (headerRef.current) {
         const headerTargets = headerRef.current.querySelectorAll(
@@ -143,7 +141,7 @@ export default function OurClients({
     >
       <div
         className="relative mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         {/* Header */}
         <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">

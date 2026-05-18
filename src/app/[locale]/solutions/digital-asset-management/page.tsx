@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buildPageMetadata } from "@/lib/seo";
-import JsonLd, { serviceLd } from "@/components/seo/JsonLd";
+import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
@@ -35,20 +35,15 @@ export default async function DigitalAssetManagementPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const tHero = await getTranslations(
-    "solutionsDetail.digitalAssetManagement.hero"
-  );
-  const tWwd = await getTranslations(
-    "solutionsDetail.digitalAssetManagement.whatWeDo"
-  );
-  const tStats = await getTranslations(
-    "solutionsDetail.digitalAssetManagement.keyStats"
-  );
-  const tRelated = await getTranslations(
-    "solutionsDetail.digitalAssetManagement.relatedProjects"
-  );
-  const tCta = await getTranslations("solutionsDetail.digitalAssetManagement.cta");
-  const tSol = await getTranslations("solutions.items.digital");
+  const [tHero, tWwd, tStats, tRelated, tCta, tSol, tNav] = await Promise.all([
+    getTranslations("solutionsDetail.digitalAssetManagement.hero"),
+    getTranslations("solutionsDetail.digitalAssetManagement.whatWeDo"),
+    getTranslations("solutionsDetail.digitalAssetManagement.keyStats"),
+    getTranslations("solutionsDetail.digitalAssetManagement.relatedProjects"),
+    getTranslations("solutionsDetail.digitalAssetManagement.cta"),
+    getTranslations("solutions.items.digital"),
+    getTranslations("nav"),
+  ]);
 
   const wwdItems = tWwd.raw("items") as ReadonlyArray<WhatWeDoItem>;
   const stats = tStats.raw("stats") as ReadonlyArray<KeyStatItem>;
@@ -56,6 +51,16 @@ export default async function DigitalAssetManagementPage({
 
   return (
     <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [
+            { name: tNav("solutions"), path: "solutions" },
+            { name: tHero("title"), path: "solutions/digital-asset-management" },
+          ],
+        })}
+      />
       <JsonLd
         id="ld-service-digital"
         data={serviceLd({
@@ -139,7 +144,7 @@ function CtaSection({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-y-0 lg:gap-x-12 items-end">
           <div className="lg:col-span-7">

@@ -25,13 +25,15 @@ export async function generateMetadata({
 }
 
 export default async function HomePage() {
-  const tHero = await getTranslations("hero");
-  const tKN = await getTranslations("keyNumbers");
-  const tSol = await getTranslations("solutions");
-  const tPf = await getTranslations("portfolios");
-  const tPartners = await getTranslations("partners");
-  const tGlobal = await getTranslations("globalPresence");
-  const tMidCta = await getTranslations("midCta");
+  const [tHero, tKN, tSol, tPf, tPartners, tGlobal, tMidCta] = await Promise.all([
+    getTranslations("hero"),
+    getTranslations("keyNumbers"),
+    getTranslations("solutions"),
+    getTranslations("portfolios"),
+    getTranslations("partners"),
+    getTranslations("globalPresence"),
+    getTranslations("midCta"),
+  ]);
 
   // headline에서 accent 부분 ("Safe Operations." / "안전한 운영.")을 분리
   const headline = tHero("headline");
@@ -52,6 +54,8 @@ export default async function HomePage() {
         ctaContact={tHero("cta_contact")}
         ctaSolutionsHref="/solutions"
         ctaContactHref="/contact"
+        pauseAriaLabel={tHero("pauseAriaLabel")}
+        playAriaLabel={tHero("playAriaLabel")}
       />
       <KeyNumbers
         overline={tKN("overline")}

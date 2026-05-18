@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buildPageMetadata } from "@/lib/seo";
-import JsonLd, { serviceLd } from "@/components/seo/JsonLd";
+import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
@@ -35,14 +35,15 @@ export default async function LightMaintenancePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const tHero = await getTranslations("solutionsDetail.lightMaintenance.hero");
-  const tWwd = await getTranslations("solutionsDetail.lightMaintenance.whatWeDo");
-  const tStats = await getTranslations("solutionsDetail.lightMaintenance.keyStats");
-  const tRelated = await getTranslations(
-    "solutionsDetail.lightMaintenance.relatedProjects"
-  );
-  const tCta = await getTranslations("solutionsDetail.lightMaintenance.cta");
-  const tSol = await getTranslations("solutions.items.light");
+  const [tHero, tWwd, tStats, tRelated, tCta, tSol, tNav] = await Promise.all([
+    getTranslations("solutionsDetail.lightMaintenance.hero"),
+    getTranslations("solutionsDetail.lightMaintenance.whatWeDo"),
+    getTranslations("solutionsDetail.lightMaintenance.keyStats"),
+    getTranslations("solutionsDetail.lightMaintenance.relatedProjects"),
+    getTranslations("solutionsDetail.lightMaintenance.cta"),
+    getTranslations("solutions.items.light"),
+    getTranslations("nav"),
+  ]);
 
   const wwdItems = tWwd.raw("items") as ReadonlyArray<WhatWeDoItem>;
   const stats = tStats.raw("stats") as ReadonlyArray<KeyStatItem>;
@@ -50,6 +51,16 @@ export default async function LightMaintenancePage({
 
   return (
     <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [
+            { name: tNav("solutions"), path: "solutions" },
+            { name: tHero("title"), path: "solutions/light-maintenance" },
+          ],
+        })}
+      />
       <JsonLd
         id="ld-service-light"
         data={serviceLd({
@@ -127,7 +138,7 @@ function CtaSection({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-y-0 lg:gap-x-12 items-end">
           <div className="lg:col-span-8">

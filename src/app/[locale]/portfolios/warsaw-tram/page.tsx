@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buildPageMetadata } from "@/lib/seo";
-import JsonLd, { caseStudyLd } from "@/components/seo/JsonLd";
+import JsonLd, { caseStudyLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import PortfolioHero from "@/components/sections/PortfolioHero";
 import PortfolioStory from "@/components/sections/PortfolioStory";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
@@ -32,17 +32,30 @@ export default async function WarsawTramPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const tHero = await getTranslations("portfoliosDetail.warsaw.hero");
-  const tStory = await getTranslations("portfoliosDetail.warsaw.story");
-  const tStats = await getTranslations("portfoliosDetail.warsaw.stats");
-  const tCta = await getTranslations("portfoliosDetail.warsaw.cta");
-  const tCommon = await getTranslations("portfoliosDetail.common");
+  const [tHero, tStory, tStats, tCta, tCommon, tNav] = await Promise.all([
+    getTranslations("portfoliosDetail.warsaw.hero"),
+    getTranslations("portfoliosDetail.warsaw.story"),
+    getTranslations("portfoliosDetail.warsaw.stats"),
+    getTranslations("portfoliosDetail.warsaw.cta"),
+    getTranslations("portfoliosDetail.common"),
+    getTranslations("nav"),
+  ]);
 
   const storyParagraphs = tStory.raw("paragraphs") as ReadonlyArray<string>;
   const stats = tStats.raw("stats") as ReadonlyArray<KeyStatItem>;
 
   return (
     <>
+      <JsonLd
+        id="ld-breadcrumb"
+        data={breadcrumbLd({
+          locale,
+          trail: [
+            { name: tNav("portfolios"), path: "portfolios" },
+            { name: tHero("title"), path: "portfolios/warsaw-tram" },
+          ],
+        })}
+      />
       <JsonLd
         id="ld-case-warsaw"
         data={caseStudyLd({
@@ -121,7 +134,7 @@ function CtaSection({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-y-0 lg:gap-x-12 items-end">
           <div className="lg:col-span-8">

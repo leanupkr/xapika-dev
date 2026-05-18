@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "Xapika",
     description:
       "Precision rail maintenance with uncompromised safety — operations across nine offices in eight countries.",
-    start_url: "/en",
+    start_url: "/",
     display: "standalone",
     background_color: "#0B1F3A",
     theme_color: "#0B1F3A",

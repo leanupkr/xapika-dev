@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { BASE_URL, LOCALES } from "@/lib/seo";
+import { localeUrl } from "@/lib/seo";
 
 type RouteConfig = {
   path: string;
@@ -26,27 +26,21 @@ const ROUTES: ReadonlyArray<RouteConfig> = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-  const entries: MetadataRoute.Sitemap = [];
-
-  for (const locale of LOCALES) {
-    for (const route of ROUTES) {
-      const enUrl = `${BASE_URL}/en${route.path}`;
-      const koUrl = `${BASE_URL}/ko${route.path}`;
-      entries.push({
-        url: `${BASE_URL}/${locale}${route.path}`,
-        lastModified,
-        changeFrequency: route.changeFrequency,
-        priority: route.priority,
-        alternates: {
-          languages: {
-            en: enUrl,
-            ko: koUrl,
-            "x-default": enUrl,
-          },
+  // localePrefix: 'never' — 모든 locale이 동일 URL이므로 route당 entry 한 개만 생성.
+  return ROUTES.map((route) => {
+    const url = localeUrl("en", route.path);
+    return {
+      url,
+      lastModified,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+      alternates: {
+        languages: {
+          en: url,
+          ko: url,
+          "x-default": url,
         },
-      });
-    }
-  }
-
-  return entries;
+      },
+    };
+  });
 }

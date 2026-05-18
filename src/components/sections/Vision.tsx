@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 export type VisionItem = {
   index: string;
@@ -28,9 +28,7 @@ export default function Vision({
 
   useGSAP(
     () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const prefersReduced = prefersReducedMotion();
 
       if (headerRef.current) {
         const headerTargets = headerRef.current.querySelectorAll(
@@ -132,7 +130,7 @@ export default function Vision({
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         {/* Header — left-aligned, max 580px */}
         <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">

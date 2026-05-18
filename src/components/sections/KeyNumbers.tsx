@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { prefersReducedMotion } from "@/lib/gsap";
 
 type Stat = {
   value: string;
@@ -49,9 +50,7 @@ function StatBlock({
   useEffect(() => {
     if (!inView) return;
 
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = prefersReducedMotion();
 
     if (prefersReduced) {
       setDisplay(formatNumber(target, format));
@@ -61,22 +60,30 @@ function StatBlock({
 
     const delay = index * 120;
     const duration = 1800;
+    const tickMs = 45;
+    const totalTicks = Math.max(8, Math.round(duration / tickMs));
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    let intervalId: ReturnType<typeof setInterval> | null = null;
 
     const startTimer = setTimeout(() => {
-      const controls = animate(0, target, {
-        duration: duration / 1000,
-        ease: [0.16, 1, 0.3, 1],
-        onUpdate: (latest) => {
-          setDisplay(formatNumber(latest, format));
-        },
-        onComplete: () => {
+      let tick = 0;
+      intervalId = setInterval(() => {
+        tick += 1;
+        const progress = Math.min(tick / totalTicks, 1);
+        const eased = easeOutCubic(progress);
+        setDisplay(formatNumber(target * eased, format));
+        if (progress >= 1) {
+          if (intervalId) clearInterval(intervalId);
           setBlurring(false);
-        },
-      });
-      return () => controls.stop();
+        }
+      }, tickMs);
     }, delay);
 
-    return () => clearTimeout(startTimer);
+    return () => {
+      clearTimeout(startTimer);
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [inView, target, format, index]);
 
   return (
@@ -182,7 +189,7 @@ export default function KeyNumbers({
     >
       <div
         className="mx-auto px-6 md:px-10 lg:px-12"
-        style={{ maxWidth: "1280px" }}
+        style={{ maxWidth: "var(--max-width-content)" }}
       >
         {/* 헤더 */}
         <div className="max-w-3xl mb-16 md:mb-24">
