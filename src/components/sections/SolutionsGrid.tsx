@@ -343,7 +343,7 @@ export default function SolutionsGrid({
     <section
       ref={ref}
       data-bg="dark"
-      className="relative py-14 md:py-20 lg:py-24"
+      className="relative py-10 md:py-20 lg:py-24"
       style={{ backgroundColor: "rgb(var(--color-ink))" }}
       aria-labelledby="solutions-title"
     >
