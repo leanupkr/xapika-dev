@@ -45,6 +45,9 @@ export default async function PortfoliosIndexPage({
       project: tCases("ukraine.project"),
       metric: tCases("ukraine.metric"),
       summary: tCases("ukraine.summary"),
+      image: "/portfolios/ukraine-emu/hero-main.jpg",
+      imgAlt:
+        "HRCS2 high-speed unit at Kyiv depot — Xapika maintenance program, 2017–",
     },
     {
       key: "warsaw",
@@ -53,6 +56,9 @@ export default async function PortfoliosIndexPage({
       project: tCases("warsaw.project"),
       metric: tCases("warsaw.metric"),
       summary: tCases("warsaw.summary"),
+      image: "/portfolios/warsaw-tram/hero-main.jpg",
+      imgAlt:
+        "Warsaw tram on mainline service — Tramwaje Warszawskie maintenance program, 2022–",
     },
     {
       key: "uzbekistan",

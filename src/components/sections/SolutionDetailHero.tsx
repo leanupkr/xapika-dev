@@ -7,6 +7,91 @@ import { ArrowRight } from "lucide-react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import PageHero from "@/components/ui/PageHero";
 
+// Solution-specific SVG pattern defs — each solution gets a distinctive
+// hero background motif so the 5 detail pages don't all look identical.
+// The `index` prop is the same "01" / "02" / ... or "01 / 05" string used
+// across the suite; we look at the leading number.
+function leadingPhase(index: string): "01" | "02" | "03" | "04" | "05" {
+  const match = index.match(/0([1-5])/);
+  return (match ? (`0${match[1]}` as "01") : "01") as
+    | "01"
+    | "02"
+    | "03"
+    | "04"
+    | "05";
+}
+
+function patternForIndex(index: string): ReactNode {
+  switch (leadingPhase(index)) {
+    case "01":
+      // Heavy — engineering drawing grid (dense orthogonal + center marker)
+      return (
+        <>
+          <line x1="0" y1="32" x2="64" y2="32" stroke="#fff" strokeWidth="0.6" />
+          <line x1="32" y1="0" x2="32" y2="64" stroke="#fff" strokeWidth="0.6" />
+          <circle cx="32" cy="32" r="1.4" fill="#fff" />
+        </>
+      );
+    case "02":
+      // Light — clock grid (small plus markers on a regular cadence)
+      return (
+        <>
+          <line x1="30" y1="22" x2="34" y2="22" stroke="#fff" strokeWidth="0.9" />
+          <line x1="32" y1="20" x2="32" y2="24" stroke="#fff" strokeWidth="0.9" />
+          <circle cx="32" cy="32" r="0.9" fill="#fff" />
+        </>
+      );
+    case "03":
+      // Supply — flow lines + branch nodes (horizontal flow with junctions)
+      return (
+        <>
+          <line x1="0" y1="32" x2="80" y2="32" stroke="#fff" strokeWidth="0.9" />
+          <line x1="20" y1="32" x2="20" y2="14" stroke="#fff" strokeWidth="0.6" />
+          <line x1="60" y1="32" x2="60" y2="50" stroke="#fff" strokeWidth="0.6" />
+          <circle cx="20" cy="32" r="1.6" fill="#fff" />
+          <circle cx="60" cy="32" r="1.6" fill="#fff" />
+        </>
+      );
+    case "04":
+      // Digital — data node graph (dots + diagonal connectors)
+      return (
+        <>
+          <circle cx="16" cy="16" r="1.5" fill="#fff" />
+          <circle cx="48" cy="48" r="1.5" fill="#fff" />
+          <circle cx="48" cy="16" r="1.5" fill="#fff" />
+          <circle cx="16" cy="48" r="1.5" fill="#fff" />
+          <line x1="16" y1="16" x2="48" y2="48" stroke="#fff" strokeWidth="0.4" />
+          <line x1="48" y1="16" x2="16" y2="48" stroke="#fff" strokeWidth="0.4" />
+        </>
+      );
+    case "05":
+    default:
+      // Commercial — route diagram (twin diagonal rails)
+      return (
+        <>
+          <line x1="0" y1="0" x2="64" y2="64" stroke="#fff" strokeWidth="0.8" />
+          <line x1="14" y1="0" x2="64" y2="50" stroke="#fff" strokeWidth="0.8" />
+        </>
+      );
+  }
+}
+
+function patternSizeForIndex(index: string): number {
+  switch (leadingPhase(index)) {
+    case "01":
+      return 64;
+    case "02":
+      return 64;
+    case "03":
+      return 80;
+    case "04":
+      return 64;
+    case "05":
+    default:
+      return 64;
+  }
+}
+
 type SectionLabels = {
   whatWeDo: string;
   keyStats: string;
@@ -122,6 +207,8 @@ export default function SolutionDetailHero({
         title={title}
         subtitle={subtitle}
         rightSlot={metricCallout}
+        patternDef={patternForIndex(index)}
+        patternSize={patternSizeForIndex(index)}
       />
 
       {/* BODY — children if provided, otherwise 4 placeholder sections */}

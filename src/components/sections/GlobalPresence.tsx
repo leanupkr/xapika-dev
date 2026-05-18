@@ -38,7 +38,7 @@ type Pin = {
 };
 
 const PINS: Pin[] = [
-  { id: "poland",     name: "Poland",      label: "HQ · Kraków", coords: [19.94, 50.06], countryId: "616", isHQ: true },
+  { id: "poland",     name: "Poland",      label: "HQ · Warsaw", coords: [21.0118, 52.2297], countryId: "616", isHQ: true },
   { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45], countryId: "804" },
   { id: "korea",      name: "South Korea", label: "Seoul",       coords: [126.98, 37.57], countryId: "410" },
   { id: "uzbekistan", name: "Uzbekistan",  label: "Tashkent",    coords: [69.28, 41.30], countryId: "860" },
@@ -59,12 +59,24 @@ export type GlobalPresenceProps = {
   overline: string;
   title: string;
   subtitle: string;
+  stat1Value: string;
+  stat1Unit: string;
+  stat2Value: string;
+  stat2Unit: string;
+  stat3Value: string;
+  stat3Unit: string;
 };
 
 export default function GlobalPresence({
   overline,
   title,
   subtitle,
+  stat1Value,
+  stat1Unit,
+  stat2Value,
+  stat2Unit,
+  stat3Value,
+  stat3Unit,
 }: GlobalPresenceProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { amount: 0.15 });
@@ -215,12 +227,12 @@ export default function GlobalPresence({
               initial={{ opacity: 0, y: 12 }}
               animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.6, delay: 0.25, ease: EASE }}
-              className="grid grid-cols-3 gap-2 sm:gap-4 mb-10 pb-8"
+              className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 pb-6"
               style={{ borderBottom: "1px solid rgba(11,31,58,0.08)" }}
             >
-              <StatCell value="7" unit="Countries" />
-              <StatCell value="24/7" unit="On-call" />
-              <StatCell value="1" unit="Standard" />
+              <StatCell value={stat1Value} unit={stat1Unit} />
+              <StatCell value={stat2Value} unit={stat2Unit} />
+              <StatCell value={stat3Value} unit={stat3Unit} />
             </motion.div>
 
             {/* 국가 리스트 — 모바일 2열, 데스크톱 1열 */}
@@ -235,7 +247,7 @@ export default function GlobalPresence({
                 return (
                   <li
                     key={pin.id}
-                    className="relative flex items-center gap-3 cursor-default py-3 px-3 -mx-3 rounded-md"
+                    className="relative flex items-center gap-3 cursor-default py-2 px-3 -mx-3 rounded-md"
                     style={{
                       backgroundColor: isActive
                         ? "rgba(246,163,23,0.08)"
@@ -344,7 +356,7 @@ export default function GlobalPresence({
                 aria-hidden
                 style={{
                   width: "100%",
-                  aspectRatio: `${isMobile ? 500 : 800} / ${isMobile ? 420 : 430}`,
+                  aspectRatio: `${isMobile ? 500 : 800} / ${isMobile ? 420 : 600}`,
                 }}
               />
             )}
@@ -352,11 +364,11 @@ export default function GlobalPresence({
             <ComposableMap
               projection="geoMercator"
               projectionConfig={{
-                center: isMobile ? [55, 40] : [40, 42],
-                scale: isMobile ? 280 : 420,
+                center: isMobile ? [70, 40] : [70, 38],
+                scale: isMobile ? 200 : 280,
               }}
               width={isMobile ? 500 : 800}
-              height={isMobile ? 420 : 430}
+              height={isMobile ? 420 : 600}
               style={{ width: "100%", height: "auto" }}
             >
               <Geographies geography={GEO_URL}>

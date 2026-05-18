@@ -3,13 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo";
 import JsonLd, { aboutPageLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
-import HistoryTimeline, {
-  type HistoryEvent,
-} from "@/components/sections/HistoryTimeline";
-import CeoMessage from "@/components/sections/CeoMessage";
-import Vision, { type VisionItem } from "@/components/sections/Vision";
-import OrgChart from "@/components/sections/OrgChart";
-import OurClients from "@/components/sections/OurClients";
+import AboutCardGrid from "@/components/sections/AboutCardGrid";
 
 export async function generateMetadata({
   params,
@@ -21,7 +15,7 @@ export async function generateMetadata({
   return buildPageMetadata({
     locale,
     path: "/about",
-    title: "About",
+    title: "About Us",
     description: tMeta("description"),
   });
 }
@@ -32,19 +26,12 @@ export default async function AboutPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [tHeader, tHist, tCeo, tVision, tOrg, tClients, tMeta, tNav] = await Promise.all([
+  const [tHeader, tIndex, tMeta, tNav] = await Promise.all([
     getTranslations("about.header"),
-    getTranslations("about.history"),
-    getTranslations("about.ceo"),
-    getTranslations("about.vision"),
-    getTranslations("about.org"),
-    getTranslations("about.clients"),
+    getTranslations("about.index"),
     getTranslations("about.meta"),
     getTranslations("nav"),
   ]);
-
-  const events = tHist.raw("events") as ReadonlyArray<HistoryEvent>;
-  const visionItems = tVision.raw("items") as ReadonlyArray<VisionItem>;
 
   return (
     <>
@@ -61,40 +48,31 @@ export default async function AboutPage({
         title={tHeader("title")}
         subtitle={tHeader("subtitle")}
       />
-      <HistoryTimeline
-        overline={tHist("overline")}
-        title={tHist("title")}
-        subtitle={tHist("subtitle")}
-        sinceWar={tHist("sinceWar")}
-        comingBadge={tHist("comingBadge")}
-        events={events}
-      />
-      <CeoMessage
-        overline={tCeo("overline")}
-        title={tCeo("title")}
-        subtitle={tCeo("subtitle")}
-        placeholderName={tCeo("placeholderName")}
-        awaitingNote={tCeo("awaitingNote")}
-        portraitPlaceholder={tCeo("portraitPlaceholder")}
-      />
-      <Vision
-        overline={tVision("overline")}
-        title={tVision("title")}
-        subtitle={tVision("subtitle")}
-        items={visionItems}
-      />
-      <OrgChart
-        overline={tOrg("overline")}
-        title={tOrg("title")}
-        subtitle={tOrg("subtitle")}
-        placeholderText={tOrg("placeholderText")}
-        awaitingNote={tOrg("awaitingNote")}
-      />
-      <OurClients
-        overline={tClients("overline")}
-        title={tClients("title")}
-        subtitle={tClients("subtitle")}
-        logoArrivingNote={tClients("logoArrivingNote")}
+      <AboutCardGrid
+        overline={tIndex("overline")}
+        title={tIndex("title")}
+        cards={{
+          ceo: {
+            title: tIndex("cards.ceo.title"),
+            description: tIndex("cards.ceo.description"),
+          },
+          history: {
+            title: tIndex("cards.history.title"),
+            description: tIndex("cards.history.description"),
+          },
+          vision: {
+            title: tIndex("cards.vision.title"),
+            description: tIndex("cards.vision.description"),
+          },
+          organization: {
+            title: tIndex("cards.organization.title"),
+            description: tIndex("cards.organization.description"),
+          },
+          clients: {
+            title: tIndex("cards.clients.title"),
+            description: tIndex("cards.clients.description"),
+          },
+        }}
       />
     </>
   );

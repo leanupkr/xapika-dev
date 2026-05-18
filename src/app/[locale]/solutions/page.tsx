@@ -35,41 +35,60 @@ export default async function SolutionsPage({
     getTranslations("nav"),
   ]);
 
+  function metricSummary(key: string): string {
+    const arr = tSol.raw(`${key}.metrics`) as ReadonlyArray<{
+      value: string;
+      label: string;
+    }>;
+    if (!arr || arr.length === 0) return "";
+    return arr.map((m) => `${m.value} ${m.label}`).join(" · ");
+  }
+
   const items: ReadonlyArray<SolutionItem> = [
     {
       key: "heavy",
       href: "/solutions/heavy-maintenance",
       title: tSol("heavy.title"),
       description: tSol("heavy.description"),
-      metric: tSol("heavy.metric"),
+      metric: metricSummary("heavy"),
+      image: "/solutions/index-heavy.jpg",
+      imgAlt: tSol("heavy.imgAlt"),
     },
     {
       key: "light",
       href: "/solutions/light-maintenance",
       title: tSol("light.title"),
       description: tSol("light.description"),
-      metric: tSol("light.metric"),
+      metric: metricSummary("light"),
+      image: "/solutions/index-light.jpg",
+      imgAlt: tSol("light.imgAlt"),
     },
     {
       key: "supply",
       href: "/solutions/supply-chain",
       title: tSol("supply.title"),
       description: tSol("supply.description"),
-      metric: tSol("supply.metric"),
+      metric: metricSummary("supply"),
+      image: "/solutions/index-supply.webp",
+      imgAlt: tSol("supply.imgAlt"),
     },
     {
       key: "digital",
       href: "/solutions/digital-asset-management",
       title: tSol("digital.title"),
       description: tSol("digital.description"),
-      metric: tSol("digital.metric"),
+      metric: metricSummary("digital"),
+      image: "/solutions/index-digital.jpg",
+      imgAlt: tSol("digital.imgAlt"),
     },
     {
       key: "commercial",
       href: "/solutions/commercial-services",
       title: tSol("commercial.title"),
       description: tSol("commercial.description"),
-      metric: tSol("commercial.metric"),
+      metric: metricSummary("commercial"),
+      image: "/solutions/index-commercial.jpg",
+      imgAlt: tSol("commercial.imgAlt"),
     },
   ];
 

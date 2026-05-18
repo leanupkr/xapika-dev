@@ -22,10 +22,11 @@ const CLIENTS: ReadonlyArray<Client> = [
     name: "Rotem SRS",
     fullName: "Rotem SRS",
     country: "Republic of Korea",
+    logo: { src: "/partners/rotem-srs.png", aspect: "wide" },
   },
   {
     name: "Tramwaje Warszawskie",
-    fullName: "Tramwaje Warszawskie",
+    fullName: "Tramwaje Warszawskie Sp. z o.o.",
     country: "Poland",
     logo: { src: "/partners/tramwaje-warszawskie.svg", aspect: "wide" },
   },
@@ -33,9 +34,10 @@ const CLIENTS: ReadonlyArray<Client> = [
     name: "National Authority for Tunnels",
     fullName: "National Authority for Tunnels",
     country: "Egypt",
+    logo: { src: "/partners/nat-egypt.png", aspect: "square" },
   },
   {
-    name: "Ukrzaliznytsia",
+    name: "Ukrainian Railways",
     fullName: "Ukrainian Railways (Ukrzaliznytsia)",
     country: "Ukraine",
     logo: { src: "/partners/ukrzaliznytsia.svg", aspect: "wide" },
@@ -217,21 +219,24 @@ export default function OurClients({
               </span>
 
               {/* Logo OR text */}
-              <div className="flex flex-1 items-center justify-center px-2">
+              <div
+                className="flex flex-1 items-center justify-center px-2"
+                style={{ minHeight: "120px" }}
+              >
                 {c.logo ? (
                   <div
-                    className="relative w-full transition-[filter,opacity] duration-[320ms] ease-out group-hover:[filter:grayscale(0)_opacity(1)]"
+                    className="relative"
                     style={{
-                      filter: "grayscale(100%) opacity(0.6)",
-                      maxWidth: "200px",
-                      height: "64px",
+                      width: c.logo.aspect === "square" ? "110px" : "180px",
+                      height: c.logo.aspect === "square" ? "110px" : "70px",
+                      maxWidth: "100%",
                     }}
                   >
                     <Image
                       src={c.logo.src}
                       alt={c.fullName}
                       fill
-                      sizes="(min-width: 1024px) 200px, (min-width: 640px) 30vw, 60vw"
+                      sizes={c.logo.aspect === "square" ? "110px" : "180px"}
                       style={{ objectFit: "contain" }}
                     />
                   </div>

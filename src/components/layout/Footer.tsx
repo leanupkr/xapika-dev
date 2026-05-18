@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Mail, MapPin } from "lucide-react";
-import FooterCta from "./FooterCta";
+import FooterCtaGate from "./FooterCtaGate";
 
 const FOOTER_LINKS = [
   { key: "about", href: "/about" },
@@ -13,9 +13,15 @@ const FOOTER_LINKS = [
 ] as const;
 
 const OFFICES = [
-  { nameKey: "warsawHq", country: "Poland", detailKey: "warsawHqDetail" },
-  { nameKey: "seoul", country: "Korea", detailKey: "seoulDetail" },
-  { nameKey: "istanbul", country: "Türkiye", detailKey: "istanbulDetail" },
+  { nameKey: "warsawHq",     country: "Poland",     detailKey: "warsawHqDetail" },
+  { nameKey: "warsawOffice", country: "Poland",     detailKey: "warsawOfficeDetail" },
+  { nameKey: "kyiv",         country: "Ukraine",    detailKey: "kyivDetail" },
+  { nameKey: "seoul",        country: "Korea",      detailKey: "seoulDetail" },
+  { nameKey: "tashkent",     country: "Uzbekistan", detailKey: "tashkentDetail" },
+  { nameKey: "cairo",        country: "Egypt",      detailKey: "cairoDetail" },
+  { nameKey: "virginia",     country: "USA",        detailKey: "virginiaDetail" },
+  { nameKey: "saoPaulo",     country: "Brazil",     detailKey: "saoPauloDetail" },
+  { nameKey: "istanbul",     country: "Türkiye",    detailKey: "istanbulDetail" },
 ] as const;
 
 export default async function Footer() {
@@ -32,7 +38,7 @@ export default async function Footer() {
         style={{ maxWidth: "var(--max-width)" }}
       >
         {/* CTA strip */}
-        <FooterCta tagline={tFooter("tagline")} cta={tFooter("cta")} />
+        <FooterCtaGate tagline={tFooter("tagline")} cta={tFooter("cta")} />
 
         {/* Main grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
@@ -48,6 +54,12 @@ export default async function Footer() {
                 style={{ height: "32px", width: "auto" }}
               />
             </Link>
+            <p
+              className="font-heading font-semibold text-[rgb(var(--color-primary))] mb-3"
+              style={{ fontSize: "0.875rem", letterSpacing: "0.02em" }}
+            >
+              {tFooter("slogan")}
+            </p>
             <p
               className="text-white/50 leading-relaxed"
               style={{ fontSize: "0.875rem" }}
@@ -87,7 +99,7 @@ export default async function Footer() {
             >
               {tFooter("officesHeading")}
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
               {OFFICES.map(({ nameKey, country, detailKey }) => (
                 <div key={nameKey} className="flex gap-3">
                   <MapPin
@@ -136,6 +148,26 @@ export default async function Footer() {
           <p className="text-white/30" style={{ fontSize: "0.8125rem" }}>
             {tFooter("copyright")}
           </p>
+          <div
+            className="flex items-center gap-5"
+            style={{ fontSize: "0.75rem" }}
+          >
+            <Link
+              href="/privacy"
+              className="text-white/40 hover:text-white/70 transition-colors duration-200"
+            >
+              {tFooter("privacyLink")}
+            </Link>
+            <span aria-hidden="true" className="text-white/20">
+              ·
+            </span>
+            <Link
+              href="/terms"
+              className="text-white/40 hover:text-white/70 transition-colors duration-200"
+            >
+              {tFooter("termsLink")}
+            </Link>
+          </div>
           <p className="text-white/20" style={{ fontSize: "0.75rem" }}>
             {tFooter("rightTagline")}
           </p>

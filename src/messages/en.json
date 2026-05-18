@@ -9,7 +9,43 @@
     "solutions_light_maintenance": "Light Maintenance",
     "solutions_supply_chain": "Supply Chain",
     "solutions_digital_asset": "Digital Asset Management",
-    "solutions_commercial": "Commercial Services"
+    "solutions_commercial": "Commercial Services",
+
+    "about_ceo": "CEO Message",
+    "about_history": "Our History",
+    "about_vision": "Vision & Principles",
+    "about_organization": "Organization",
+    "about_clients": "Our Clients",
+
+    "about_ceo_desc": "A note from the founder.",
+    "about_history_desc": "Ten years across five countries.",
+    "about_vision_desc": "Perfect work, safe operations.",
+    "about_organization_desc": "Cross-functional teams.",
+    "about_clients_desc": "National rail operators.",
+
+    "solutions_light_maintenance_desc": "Daily inspections & functional checks.",
+    "solutions_heavy_maintenance_desc": "Full overhauls under warranty.",
+    "solutions_supply_chain_desc": "Parts sourcing across 50+ partners.",
+    "solutions_digital_asset_desc": "MMIS platform via VISION IT.",
+    "solutions_commercial_desc": "Station retail & concessions.",
+
+    "portfolios_ukraine": "Ukraine HRCS2 EMU",
+    "portfolios_warsaw": "Tramwaje Warszawskie",
+    "portfolios_uzbekistan": "Uzbekistan HSR",
+    "portfolios_all": "View All Portfolios",
+
+    "portfolios_ukraine_desc": "100 high-speed units · since 2017.",
+    "portfolios_warsaw_desc": "123 trams · 140-year network.",
+    "portfolios_uzbekistan_desc": "Launching May 2026.",
+    "portfolios_all_desc": "Complete portfolio overview.",
+
+    "locations_map": "World Map",
+    "locations_directory": "Office Directory",
+    "locations_hq": "Headquarters · Warsaw",
+
+    "locations_map_desc": "Live network across nine cities.",
+    "locations_directory_desc": "Address & contact per office.",
+    "locations_hq_desc": "Our HQ since 2022."
   },
   "hero": {
     "headline": "Perfect Work. Safe Operations.",
@@ -46,28 +82,44 @@
     "items": {
       "light": {
         "title": "Light Maintenance",
-        "description": "Daily inspections and functional checks that keep fleets operational.",
-        "metric": "18,500+ activities / year"
+        "description": "We carry out daily inspections, functional checks, and light maintenance to maintain performance and ensure operational safety and reliability.",
+        "metrics": [
+          { "value": "18,500+", "label": "Activities Annually" }
+        ],
+        "imgAlt": "HRCS2 daily inspection at depot"
       },
       "heavy": {
         "title": "Heavy Maintenance",
-        "description": "Full overhauls and component replacement under full safety warranty.",
-        "metric": "3,500+ activities / year"
+        "description": "We perform comprehensive heavy maintenance to restore performance, enhance reliability, and ensure long-term operational safety.",
+        "metrics": [
+          { "value": "3,500+", "label": "Activities Annually" }
+        ],
+        "imgAlt": "heavy overhaul bay"
       },
       "supply": {
-        "title": "Rolling Stock Supply Chain",
-        "description": "Parts sourcing and inventory orchestration across 50+ partners.",
-        "metric": "8,000+ parts managed"
+        "title": "Rolling Stock SCM",
+        "description": "We ensure efficient and cost-effective supply of railway components through optimized procurement and bonded warehouse operations.",
+        "metrics": [
+          { "value": "50+", "label": "Global Partners" },
+          { "value": "8,000+", "label": "Parts Managed" }
+        ],
+        "imgAlt": "supply chain component photo"
       },
       "digital": {
-        "title": "Digital Asset Management",
-        "description": "MMIS platform via VISION IT — predictive work orders and inventory.",
-        "metric": "25,000+ work orders tracked"
+        "title": "Digital Solutions & Asset Management",
+        "description": "Through our affiliate VISION IT's MMIS platform, we optimize operations and asset management with data-driven insights.",
+        "metrics": [
+          { "value": "25,000+", "label": "Work Orders / Year" },
+          { "value": "30%", "label": "Faster Response" },
+          { "value": "93%", "label": "Inventory Accuracy" }
+        ],
+        "imgAlt": "VISION IT MMIS dashboard preview"
       },
       "commercial": {
-        "title": "Commercial & Ancillary Services",
-        "description": "Station retail, concessions, and operational revenue programs.",
-        "metric": "Revenue optimization"
+        "title": "Integrated Commercial & Ancillary Services",
+        "description": "We develop and manage value-added services, including vending, advertising, and commercial facilities, to enhance passenger experience and generate additional revenue.",
+        "metrics": [],
+        "imgAlt": "Warsaw tram interior"
       }
     }
   },
@@ -115,12 +167,18 @@
     }
   },
   "partners": {
-    "overline": "Trusted by operators across 7 countries"
+    "overline": "Strategic partners enabling global operations"
   },
   "globalPresence": {
     "overline": "Global Network",
     "title": "Seven countries. One standard.",
-    "subtitle": "Active depots and engineering crews across Europe, Central Asia, and East Asia."
+    "subtitle": "Active depots and engineering crews across Europe, Central Asia, and East Asia.",
+    "stat1_value": "3",
+    "stat1_unit": "Warehouses",
+    "stat2_value": "5",
+    "stat2_unit": "Engineering Locations",
+    "stat3_value": "8",
+    "stat3_unit": "Offices"
   },
   "midCta": {
     "overline": "Let's talk",
@@ -133,6 +191,7 @@
     "tagline": "Ready to build the future of rail with us?",
     "cta": "Contact Us",
     "copyright": "© 2026 Xapika Engineering. All rights reserved.",
+    "slogan": "Engineered for Perfection. Committed to Safety.",
     "brandTagline": "Precision rail maintenance with uncompromised safety.",
     "rightTagline": "Engineering excellence in rail maintenance",
     "navHeading": "Navigation",
@@ -142,7 +201,21 @@
     "seoul": "Seoul",
     "seoulDetail": "Asia Pacific",
     "istanbul": "Istanbul",
-    "istanbulDetail": "Founding Office"
+    "istanbulDetail": "Founding Office",
+    "warsawOffice": "Warsaw",
+    "warsawOfficeDetail": "Tram & Metro Office",
+    "kyiv": "Kyiv",
+    "kyivDetail": "EMU Crew",
+    "tashkent": "Tashkent",
+    "tashkentDetail": "Central Asia",
+    "cairo": "Cairo",
+    "cairoDetail": "MENA",
+    "virginia": "Virginia",
+    "virginiaDetail": "North America",
+    "saoPaulo": "São Paulo",
+    "saoPauloDetail": "Latin America",
+    "privacyLink": "Privacy Policy",
+    "termsLink": "Terms of Use"
   },
   "about": {
     "meta": {
@@ -154,6 +227,10 @@
       "subtitle": "Ten years of rail maintenance precision, delivered across five countries without a single contract default."
     },
     "history": {
+      "meta": {
+        "title": "Our History",
+        "description": "A decade of rail maintenance precision from Istanbul to Tashkent — milestone by milestone."
+      },
       "overline": "History",
       "title": "A decade of precision across five countries.",
       "subtitle": "Each milestone is verified by client records, regulator logs, and our internal incident-free index.",
@@ -162,20 +239,29 @@
       "events": [
         { "year": "2016", "month": "10", "country": "Turkiye", "event": "Istanbul Office Established" },
         { "year": "2017", "month": "06", "country": "Ukraine", "event": "HSR O&M Operations Begin" },
-        { "year": "2018", "month": "11", "country": "Ukraine", "event": "Ukraine Headquarters Relocated" },
+        { "year": "2018", "month": "11", "country": "Ukraine", "event": "Ukraine HQ Opened" },
         { "year": "2019", "month": "06", "country": "Brazil", "event": "São Paulo Office Established" },
         { "year": "2021", "month": "07", "country": "Poland", "event": "Poland Office Established" },
         { "year": "2021", "month": "10", "country": "Poland", "event": "Warsaw Tram O&M Operations Begin" },
         { "year": "2022", "month": "03", "country": "Poland", "event": "Warsaw HQ Relocated to New Facility" },
-        { "year": "2022", "month": "05", "country": "Poland", "event": "Poland Warehouse Operations Begin" },
+        { "year": "2022", "month": "05", "country": "Poland", "event": "Poland Warehouse Opened" },
         { "year": "2023", "month": "06", "country": "USA", "event": "Virginia Office Established" },
         { "year": "2023", "month": "10", "country": "Egypt", "event": "Cairo Office Established" },
         { "year": "2026", "month": "03", "country": "Korea", "event": "Seoul Office Established" },
         { "year": "2026", "month": "04", "country": "Uzbekistan", "event": "Tashkent Office Established" },
         { "year": "2026", "month": "05", "country": "Uzbekistan", "event": "Uzbekistan HSR O&M Begin" }
-      ]
+      ],
+      "cta": {
+        "title": "Continue the story with us.",
+        "subtitle": "Whether it's a new line or a legacy fleet, we'd be glad to discuss your network.",
+        "button": "Discuss your fleet"
+      }
     },
     "vision": {
+      "meta": {
+        "title": "Vision & Principles",
+        "description": "Perfect work, safe operations, precise engineering — the three commitments that define every Xapika contract."
+      },
       "overline": "Our Principles",
       "title": "Three commitments. Tested under fire.",
       "subtitle": "These are not slogans on a slide deck. They are the conditions under which our crews deploy, the metrics our regulators audit, and the standards our customers paid for.",
@@ -195,28 +281,87 @@
           "title": "Precise Engineering.",
           "body": "Every part replaced is traced. Every work order is timestamped. Precision is what makes a fleet of 230 cars feel like one."
         }
-      ]
+      ],
+      "cta": {
+        "title": "These principles shape every contract we sign.",
+        "subtitle": "Reach out to see how Perfect, Safe, Precise translates into your operating envelope.",
+        "button": "Contact us"
+      }
     },
     "ceo": {
+      "meta": {
+        "title": "CEO Message",
+        "description": "A founder note on continuous rail operations across five countries."
+      },
       "overline": "Leadership",
       "title": "A message from our CEO.",
       "subtitle": "Awaiting CEO content — Harika provides next.",
       "placeholderName": "CEO Name · Founder & CEO",
       "awaitingNote": "Awaiting CEO message — content arriving from Harika",
-      "portraitPlaceholder": "Portrait · coming soon"
+      "portraitPlaceholder": "Portrait · coming soon",
+      "cta": {
+        "title": "Talk to our leadership team.",
+        "subtitle": "Our CEO and senior engineers meet directly with operators evaluating long-horizon programs.",
+        "button": "Schedule a meeting"
+      }
     },
     "org": {
+      "meta": {
+        "title": "Organization",
+        "description": "Cross-functional teams across five countries — how Xapika Engineering is structured to operate as one unit."
+      },
       "overline": "Organization",
       "title": "Cross-functional teams across five countries.",
       "subtitle": "From Warsaw HQ to Cairo and Tashkent, our teams operate as one unit.",
       "placeholderText": "Organization Chart · diagram arriving from Harika",
-      "awaitingNote": "Awaiting org chart"
+      "awaitingNote": "Awaiting org chart",
+      "cta": {
+        "title": "Meet the team behind the work.",
+        "subtitle": "Our engineers and operators are the people you'll work with day-to-day. Reach out anytime.",
+        "button": "Get in touch"
+      }
     },
     "clients": {
+      "meta": {
+        "title": "Our Clients",
+        "description": "National rail operators from Seoul to Cairo that trust Xapika with their fleets and stations."
+      },
       "overline": "Our Clients",
       "title": "Trusted by national rail operators.",
       "subtitle": "From Seoul to Cairo, Xapika serves the operators that move millions every day.",
-      "logoArrivingNote": "Logo arriving"
+      "logoArrivingNote": "Logo arriving",
+      "cta": {
+        "title": "Join the operators that trust us.",
+        "subtitle": "From Hyundai Rotem to Ukrainian Railways, the operators we serve set the standard. Let's talk.",
+        "button": "Contact us"
+      }
+    },
+    "index": {
+      "overline": "Explore Sections",
+      "title": "Five threads of one operating standard.",
+      "subtitle": "From founder vision to client portfolio, each section is a different lens on the same operating discipline.",
+      "cards": {
+        "ceo": {
+          "title": "CEO Message",
+          "description": "A note from the founder on what continuous operation means in practice."
+        },
+        "history": {
+          "title": "Our History",
+          "description": "Ten years from Istanbul to Tashkent — one milestone at a time."
+        },
+        "vision": {
+          "title": "Vision & Principles",
+          "description": "Perfect work, safe operations, precise engineering — the three commitments behind every contract."
+        },
+        "organization": {
+          "title": "Organization",
+          "description": "Cross-functional teams across five countries, operating as one unit."
+        },
+        "clients": {
+          "title": "Our Clients",
+          "description": "National rail operators that trust Xapika with their fleets and stations."
+        }
+      }
     }
   },
   "solutionsPage": {
@@ -247,6 +392,32 @@
         "overline": "Solutions",
         "title": "Daily precision. Continuous uptime.",
         "subtitle": "Inspections, functional checks, and minor repairs that keep fleets running every single day."
+      },
+      "dailyTimeline": {
+        "overline": "The Daily Cycle",
+        "title": "Every revenue service begins at 04:30.",
+        "steps": [
+          {
+            "time": "04:30",
+            "label": "Pre-departure inspection",
+            "desc": "Visual and functional walk-around against a regulator-aligned checklist — signed before release."
+          },
+          {
+            "time": "05:00",
+            "label": "Functional checks",
+            "desc": "Brake, door, HVAC, and pantograph response tests verified against threshold values."
+          },
+          {
+            "time": "05:30",
+            "label": "Minor repair window",
+            "desc": "In-depot fixes closed within the same operating window — escalated to heavy maintenance only when warranted."
+          },
+          {
+            "time": "06:15",
+            "label": "Release for revenue service",
+            "desc": "Unit signed off and cleared for the day's first journey."
+          }
+        ]
       },
       "whatWeDo": {
         "overline": "What We Do",
@@ -283,10 +454,10 @@
         "overline": "Key Stats",
         "title": "Quiet output. Loud accountability.",
         "stats": [
-          { "value": "18,500+", "label": "Activities / year" },
-          { "value": "99.4%", "label": "On-time departure" },
-          { "value": "4hrs", "label": "Average response time" },
-          { "value": "0", "label": "Lost-time incidents (12mo)" }
+          { "value": "18,500+", "label": "Activities annually" },
+          { "value": "100", "label": "HRCS2 units served" },
+          { "value": "2017", "label": "Operations since" },
+          { "value": "82,000+", "label": "Maintenance delivered" }
         ]
       },
       "relatedProjects": {
@@ -297,13 +468,15 @@
             "key": "ukraine",
             "country": "Ukraine",
             "project": "HRCS2 Fleet — Ukrzaliznytsia",
-            "desc": "Daily inspection and functional checks across 100 high-speed units, sustained through wartime conditions since 2022."
+            "desc": "Daily inspection and functional checks across 100 high-speed units, sustained through wartime conditions since 2022.",
+            "imgAlt": "HRCS2 inspection at Ukrzaliznytsia depot"
           },
           {
             "key": "poland",
             "country": "Poland",
             "project": "Tramwaje Warszawskie",
-            "desc": "Round-the-clock light maintenance for 123 trams from the Warsaw depot, scheduled around municipal service windows."
+            "desc": "Round-the-clock light maintenance for 123 trams from the Warsaw depot, scheduled around municipal service windows.",
+            "imgAlt": "Warsaw tram depot"
           }
         ]
       },
@@ -318,6 +491,29 @@
         "overline": "Solutions",
         "title": "Comprehensive overhaul. Verified safety.",
         "subtitle": "Heavy maintenance to restore performance, enhance reliability, and ensure long-term operational safety — every action audited."
+      },
+      "overhaulProcess": {
+        "overline": "The Overhaul Sequence",
+        "title": "Four disciplines under one safety warranty.",
+        "subtitle": "Comprehensive heavy maintenance to restore performance, enhance reliability, and ensure long-term operational safety — every action audited.",
+        "phases": [
+          {
+            "label": "Overhaul",
+            "desc": "Full vehicle disassembly, inspection, and rebuild against OEM specification."
+          },
+          {
+            "label": "Bogie maintenance",
+            "desc": "Frame inspection, suspension renewal, and traction motor recertification under controlled depot conditions."
+          },
+          {
+            "label": "Brake system",
+            "desc": "Pneumatic and electric brake overhaul, valve replacement, and full system pressure verification."
+          },
+          {
+            "label": "Wheelset turning",
+            "desc": "Profile re-machining, axle inspection, and reassembly to UIC tolerance — measured before release."
+          }
+        ]
       },
       "whatWeDo": {
         "overline": "What We Do",
@@ -354,10 +550,10 @@
         "overline": "Key Stats",
         "title": "Measured by output, not promises.",
         "stats": [
-          { "value": "3,500+", "label": "Activities / year" },
-          { "value": "100+", "label": "Overhauls / year" },
-          { "value": "24h", "label": "Average MTBF response" },
-          { "value": "99.7%", "label": "On-time release" }
+          { "value": "3,500+", "label": "Activities annually" },
+          { "value": "100", "label": "Units in heavy overhaul cycle" },
+          { "value": "90", "label": "Day overhaul cadence" },
+          { "value": "2017", "label": "Continuous operations since" }
         ]
       },
       "relatedProjects": {
@@ -368,13 +564,15 @@
             "key": "ukraine",
             "country": "Ukraine",
             "project": "HRCS2 Fleet — Ukrzaliznytsia",
-            "desc": "100 high-speed units under continuous heavy overhaul cycle since 2017 — uninterrupted through wartime."
+            "desc": "100 high-speed units under continuous heavy overhaul cycle since 2017 — uninterrupted through wartime.",
+            "imgAlt": "HRCS2 heavy overhaul at Ukrzaliznytsia"
           },
           {
             "key": "poland",
             "country": "Poland",
             "project": "Tramwaje Warszawskie",
-            "desc": "123-unit tram fleet on a rolling overhaul schedule from the Warsaw depot, delivered to municipal audit standard."
+            "desc": "123-unit tram fleet on a rolling overhaul schedule from the Warsaw depot, delivered to municipal audit standard.",
+            "imgAlt": "Warsaw tram overhaul"
           }
         ]
       },
@@ -389,6 +587,14 @@
         "overline": "Solutions",
         "title": "Parts that arrive before the train stops.",
         "subtitle": "Sourcing, warehousing, and inventory orchestration across 50+ partners on three continents."
+      },
+      "partnerLogoGrid": {
+        "overline": "Global Partners",
+        "title": "A network of global railway suppliers.",
+        "subtitle": "50+ partners across three continents, under a single accountable contract."
+      },
+      "gearPhoto": {
+        "alt": "Rail drive gear units ready for dispatch from a partner facility."
       },
       "whatWeDo": {
         "overline": "What We Do",
@@ -426,9 +632,9 @@
         "title": "A supply network built for distance.",
         "stats": [
           { "value": "50+", "label": "Global partners" },
-          { "value": "8,000+", "label": "Parts SKUs managed" },
+          { "value": "8,000+", "label": "Parts managed" },
           { "value": "3", "label": "Continental warehouses" },
-          { "value": "99.1%", "label": "Stock availability" }
+          { "value": "22,000+", "label": "Maintenance cases supported / year" }
         ]
       },
       "relatedProjects": {
@@ -439,13 +645,15 @@
             "key": "ukraine",
             "country": "Ukraine",
             "project": "HRCS2 Fleet — Ukrzaliznytsia",
-            "desc": "Cross-border parts pipeline sustaining 100 high-speed units through wartime logistics constraints since 2022."
+            "desc": "Cross-border parts pipeline sustaining 100 high-speed units through wartime logistics constraints since 2022.",
+            "imgAlt": "Ukraine HRCS2 parts supply"
           },
           {
             "key": "poland",
             "country": "Poland",
             "project": "Tramwaje Warszawskie",
-            "desc": "Warsaw depot inventory orchestration covering the 123-tram fleet — reorder cycles tuned to municipal service windows."
+            "desc": "Warsaw depot inventory orchestration covering the 123-tram fleet — reorder cycles tuned to municipal service windows.",
+            "imgAlt": "Warsaw depot inventory"
           }
         ]
       },
@@ -460,6 +668,22 @@
         "overline": "Solutions",
         "title": "Maintenance is data.",
         "subtitle": "Through our affiliate VISION IT's MMIS platform, every work order is timestamped, every part is traced, every fleet is observable."
+      },
+      "mmisShowcase": {
+        "overline": "MMIS in operation",
+        "title": "The platform, at work in the field.",
+        "screens": [
+          { "caption": "Remote Monitoring", "alt": "MMIS multi-screen operations wall — live train tracking and condition monitoring." },
+          { "caption": "Onboard Telemetry", "alt": "Technician inspecting onboard server rack with MMIS tablet at trainside." },
+          { "caption": "Workforce & Workflows", "alt": "Depot technician logging maintenance actions into MMIS on a tablet." },
+          { "caption": "Component Traceability", "alt": "Gearbox component traceability label — serial number, test record, and sign-off." }
+        ]
+      },
+      "visionItCallout": {
+        "overline": "Platform Partner",
+        "title": "Powered by VISION IT.",
+        "body": "Through our affiliate VISION IT's MMIS platform, we optimize operations and asset management with data-driven insights — remote monitoring, fault analysis, condition-based maintenance, digital warehousing, and a digital workforce.",
+        "visitLabel": "Go to VISION IT"
       },
       "whatWeDo": {
         "overline": "What We Do",
@@ -496,10 +720,10 @@
         "overline": "Key Stats",
         "title": "Observable fleets behave better.",
         "stats": [
-          { "value": "25,000+", "label": "Work orders tracked" },
-          { "value": "30%", "label": "Faster MTBF response" },
+          { "value": "25,000+", "label": "Work orders managed annually" },
+          { "value": "30%", "label": "Faster response time" },
           { "value": "93%", "label": "Inventory accuracy" },
-          { "value": "5", "label": "Countries on platform" }
+          { "value": "Affiliate", "label": "VISION IT MMIS platform" }
         ]
       },
       "relatedProjects": {
@@ -510,13 +734,15 @@
             "key": "ukraine",
             "country": "Ukraine",
             "project": "HRCS2 Fleet — Ukrzaliznytsia",
-            "desc": "100 high-speed units fully tracked through MMIS — work orders, parts, and component health visible across borders."
+            "desc": "100 high-speed units fully tracked through MMIS — work orders, parts, and component health visible across borders.",
+            "imgAlt": "HRCS2 fleet on MMIS"
           },
           {
             "key": "poland",
             "country": "Poland",
             "project": "Tramwaje Warszawskie",
-            "desc": "Warsaw 123-tram fleet operated on MMIS — depot crews, inventory, and municipal audit reports flow through one system."
+            "desc": "Warsaw 123-tram fleet operated on MMIS — depot crews, inventory, and municipal audit reports flow through one system.",
+            "imgAlt": "Warsaw tram fleet on MMIS"
           }
         ]
       },
@@ -533,6 +759,14 @@
         "overline": "Solutions",
         "title": "Revenue, designed into operations.",
         "subtitle": "Station retail, concessions, and operational revenue programs that turn maintenance overhead into managed margin."
+      },
+      "editorialStatement": {
+        "overline": "Commercial Design",
+        "kicker": "Revenue, designed into operations.",
+        "paragraphs": [
+          "Vending, advertising, and commercial facilities — engineered into the operating contract from day one, not bolted on after the first deficit year.",
+          "Designed to enhance passenger experience and generate additional revenue across station retail and ancillary touchpoints."
+        ]
       },
       "whatWeDo": {
         "overline": "What We Do",
@@ -572,8 +806,18 @@
           { "value": "Custom", "label": "Programs per operator" },
           { "value": "Long-term", "label": "Contract horizon" },
           { "value": "Operator-aligned", "label": "Risk model" },
-          { "value": "Margin-positive", "label": "Within first cycle" }
+          { "value": "Programme-managed", "label": "Within first cycle" }
         ]
+      },
+      "bentoQualitative": {
+        "overline": "Programme Profile",
+        "title": "Built per operator. Not per template."
+      },
+      "tramPanel": {
+        "overline": "Field Evidence",
+        "note": "Live commercial integrations on the Warsaw tram network — passenger touchpoints designed into routine operations.",
+        "img1Alt": "Warsaw tram interior — passenger seating and commercial space.",
+        "img2Alt": "Warsaw tram station platform — context for commercial touchpoints."
       },
       "relatedProjects": {
         "overline": "Related Projects",
@@ -583,13 +827,15 @@
             "key": "poland",
             "country": "Poland",
             "project": "Tramwaje Warszawskie",
-            "desc": "Commercial structuring layered onto the 123-tram maintenance contract — concession framework aligned to municipal policy."
+            "desc": "Commercial structuring layered onto the 123-tram maintenance contract — concession framework aligned to municipal policy.",
+            "imgAlt": "Warsaw tram commercial program"
           },
           {
             "key": "ukraine",
             "country": "Ukraine",
             "project": "HRCS2 Fleet — Ukrzaliznytsia",
-            "desc": "Long-horizon commercial agreement on the 100 high-speed unit programme, structured to hold through wartime operations."
+            "desc": "Long-horizon commercial agreement on the 100 high-speed unit programme, structured to hold through wartime operations.",
+            "imgAlt": "HRCS2 long-horizon commercial agreement"
           }
         ]
       },
@@ -639,7 +885,11 @@
     "common": {
       "placeholder": "Detail content arriving",
       "photoPlaceholder": "Site photograph arriving",
-      "ctaLabel": "Discuss this program"
+      "ctaLabel": "Discuss this program",
+      "related": {
+        "overline": "Related programs",
+        "title": "Two more from the portfolio."
+      }
     },
     "ukraine": {
       "hero": {
@@ -669,38 +919,64 @@
       },
       "gallery": {
         "sectionLabel": "Field log",
-        "sectionTitle": "Six moments on the line.",
+        "sectionTitle": "Eight moments on the line.",
         "photoCaption": "Photo · HRCS2 depot, Ukraine",
         "slides": [
           {
             "overline": "2017",
             "caption": "First HRCS2 fleet enters service.",
-            "metric": "100 units"
+            "metric": "100 units",
+            "src": "/portfolios/ukraine-emu/gallery-01.jpg",
+            "alt": "HRCS2 unit at depot — first fleet, 2017"
           },
           {
             "overline": "Daily ops",
-            "caption": "Pre-departure checks at 04:30.",
-            "metric": "365 days / year"
+            "caption": "Pre-departure inspection at 04:30.",
+            "metric": "365 days / year",
+            "src": "/portfolios/ukraine-emu/gallery-02.jpg",
+            "alt": "Pre-departure inspection routine, HRCS2 fleet"
           },
           {
             "overline": "2022.02",
             "caption": "War begins. Service does not stop.",
-            "metric": "Day 1"
+            "metric": "Day 1",
+            "src": "/portfolios/ukraine-emu/gallery-03.jpg",
+            "alt": "HRCS2 mainline operations, sustained through wartime"
           },
           {
             "overline": "Operations",
             "caption": "1 million+ passengers transported since invasion.",
-            "metric": "1M+ passengers"
+            "metric": "1M+ passengers",
+            "src": "/portfolios/ukraine-emu/gallery-04.jpg",
+            "alt": "Night depot operations under blackout conditions"
           },
           {
             "overline": "Depot",
             "caption": "Heavy maintenance under continuous audit.",
-            "metric": "82,000+ actions"
+            "metric": "82,000+ actions",
+            "src": "/portfolios/ukraine-emu/gallery-05.jpg",
+            "alt": "Heavy maintenance bay — HRCS2 program"
+          },
+          {
+            "overline": "Detail",
+            "caption": "Components recertified on a 90-day cadence.",
+            "metric": "90-day cycle",
+            "src": "/portfolios/ukraine-emu/gallery-06.jpg",
+            "alt": "Component-level inspection, HRCS2 fleet"
+          },
+          {
+            "overline": "Crew",
+            "caption": "Ground teams kept the schedule intact.",
+            "metric": "0 contract default",
+            "src": "/portfolios/ukraine-emu/gallery-07.jpg",
+            "alt": "Depot crew on shift — HRCS2 maintenance program"
           },
           {
             "overline": "Today",
-            "caption": "Nine years. Zero contract default.",
-            "metric": "9 yrs · 0 default"
+            "caption": "Nine years. Audited every quarter.",
+            "metric": "9 yrs · 0 default",
+            "src": "/portfolios/ukraine-emu/gallery-08.jpg",
+            "alt": "HRCS2 unit in revenue service, present day"
           }
         ]
       },
@@ -719,6 +995,26 @@
         "title": "We don't talk about resilience. We measure it.",
         "subtitle": "Nine years of audited records — available to qualified operators evaluating long-horizon programs.",
         "button": "Discuss your fleet"
+      },
+      "related": {
+        "items": [
+          {
+            "key": "warsaw",
+            "country": "Poland",
+            "project": "Tramwaje Warszawskie — 123 trams",
+            "desc": "Daily inspection on Europe's oldest continuously running tram network. 1,500+ trips, 99.2% on-time.",
+            "image": "/portfolios/warsaw-tram/hero-main.jpg",
+            "imgAlt": "Warsaw tram on the mainline — Tramwaje Warszawskie program"
+          },
+          {
+            "key": "uzbekistan",
+            "country": "Uzbekistan",
+            "project": "Tashkent high-speed corridor",
+            "desc": "Mobilising for May 2026 launch — crew, parts pipeline and MMIS platform configured before day one.",
+            "imgAlt": "Uzbekistan high-speed program — launch frame",
+            "placeholderLabel": "Launching 31 May 2026 · Tashkent"
+          }
+        ]
       }
     },
     "warsaw": {
@@ -746,6 +1042,106 @@
         "photoCaption": "Photo · Warsaw tram, mainline",
         "photoKicker": "Poland · 1882–"
       },
+      "gallery": {
+        "overline": "Field log",
+        "title": "Three years, four seasons.",
+        "yearLabels": {
+          "2022": "2022 · Program launch",
+          "2023": "2023 · Network stabilisation",
+          "2024": "2024 · Fleet expansion",
+          "2025": "2025 · Current operations"
+        },
+        "entries": [
+          {
+            "year": "2022",
+            "month": "09",
+            "season": "Autumn",
+            "caption": "First inspection routine on the Warsaw line.",
+            "src": "/portfolios/warsaw-tram/season-2022-01.jpg",
+            "alt": "Warsaw tram on mainline service, September 2022"
+          },
+          {
+            "year": "2022",
+            "month": "10",
+            "season": "Autumn",
+            "caption": "Tram passing the Old Town stop.",
+            "src": "/portfolios/warsaw-tram/season-2022-02.jpg",
+            "alt": "Warsaw tram entering Old Town stop, October 2022"
+          },
+          {
+            "year": "2023",
+            "month": "02",
+            "season": "Winter",
+            "caption": "Cold-weather depot return after morning service.",
+            "src": "/portfolios/warsaw-tram/season-2023-01.jpg",
+            "alt": "Winter depot operations — Warsaw tram, February 2023"
+          },
+          {
+            "year": "2023",
+            "month": "06",
+            "season": "Summer",
+            "caption": "Summer line inspection — wheel and brake check.",
+            "src": "/portfolios/warsaw-tram/season-2023-02.jpg",
+            "alt": "Summer line inspection — Warsaw tram fleet, June 2023"
+          },
+          {
+            "year": "2023",
+            "month": "10",
+            "season": "Autumn",
+            "caption": "Autumn evening operations on the central loop.",
+            "src": "/portfolios/warsaw-tram/season-2023-03.jpg",
+            "alt": "Warsaw tram on central loop — October 2023"
+          },
+          {
+            "year": "2024",
+            "month": "01",
+            "season": "Winter",
+            "caption": "Mid-winter shift change at the depot.",
+            "src": "/portfolios/warsaw-tram/season-2024-01.jpg",
+            "alt": "Winter depot shift change — January 2024"
+          },
+          {
+            "year": "2024",
+            "month": "04",
+            "season": "Spring",
+            "caption": "Spring overhaul cycle — bogie maintenance.",
+            "src": "/portfolios/warsaw-tram/season-2024-02.jpg",
+            "alt": "Spring bogie overhaul — Warsaw tram, April 2024"
+          },
+          {
+            "year": "2024",
+            "month": "07",
+            "season": "Summer",
+            "caption": "Mid-summer mainline run, peak ridership.",
+            "src": "/portfolios/warsaw-tram/season-2024-03.jpg",
+            "alt": "Mid-summer mainline run — Warsaw, July 2024"
+          },
+          {
+            "year": "2025",
+            "month": "01",
+            "season": "Winter",
+            "caption": "First cold-weather inspection of the new year.",
+            "src": "/portfolios/warsaw-tram/season-2025-01.jpg",
+            "alt": "First inspection of 2025 — Warsaw tram fleet"
+          },
+          {
+            "year": "2025",
+            "month": "02",
+            "season": "Winter",
+            "caption": "February component check, mid-shift.",
+            "src": "/portfolios/warsaw-tram/season-2025-02.jpg",
+            "alt": "Component check, Warsaw depot, February 2025"
+          },
+          {
+            "year": "2025",
+            "month": "02",
+            "season": "Winter",
+            "caption": "Latest field record — fleet in service.",
+            "src": "/portfolios/warsaw-tram/season-2025-03.jpg",
+            "alt": "Warsaw tram in service — latest field record, 2025"
+          }
+        ]
+      },
       "stats": {
         "overline": "Operating record",
         "title": "Daily metrics. Public timetable.",
@@ -761,6 +1157,26 @@
         "title": "Operating one of Europe's oldest networks. We'd be glad to discuss yours.",
         "subtitle": "From legacy systems to brand-new lines — we adapt operating discipline to the network you actually run.",
         "button": "Discuss your network"
+      },
+      "related": {
+        "items": [
+          {
+            "key": "ukraine",
+            "country": "Ukraine",
+            "project": "HRCS2 EMU — 100 high-speed units",
+            "desc": "Nine years uninterrupted. 82,000+ audited maintenance actions, including through wartime conditions.",
+            "image": "/portfolios/ukraine-emu/hero-main.jpg",
+            "imgAlt": "HRCS2 unit at Kyiv depot — Xapika maintenance program"
+          },
+          {
+            "key": "uzbekistan",
+            "country": "Uzbekistan",
+            "project": "Tashkent high-speed corridor",
+            "desc": "Mobilising for May 2026 launch — crew, parts pipeline and MMIS platform configured before day one.",
+            "imgAlt": "Uzbekistan high-speed program — launch frame",
+            "placeholderLabel": "Launching 31 May 2026 · Tashkent"
+          }
+        ]
       }
     },
     "uzbekistan": {
@@ -771,13 +1187,60 @@
         "comingBadge": "Coming 2026.05",
         "placeholderKicker": "Uzbekistan · Coming 2026"
       },
-      "notice": {
-        "overline": "Program Preview",
-        "kicker": "May 2026 · Tashkent · O&M kickoff",
-        "title": "Mobilizing for the Tashkent high-speed program.",
-        "paragraphs": [
-          "Uzbekistan's new high-speed corridor is the country's first program of its scale, and Xapika is mobilizing the Tashkent hub for daily operations and maintenance from launch day. We are entering the program early — with crew recruitment, parts pipeline design, and platform integration already underway alongside Uzbekistan Railways.",
-          "Detailed operating record, photographs from the depot, and verified metrics will be added here as the program goes live. Bookmark this page or reach out below to be notified when the program enters service."
+      "map": {
+        "overline": "Network",
+        "title": "Three countries. One corridor.",
+        "subtitle": "The Tashkent high-speed program runs across an east–west corridor: O&M is anchored in Uzbekistan, the digital platform is engineered with our Korean partner, and program governance sits with the Kraków HQ.",
+        "pins": {
+          "tashkent": "Tashkent · O&M Hub",
+          "seoul": "Seoul · Tech Partner",
+          "krakow": "Kraków · Engineering HQ"
+        }
+      },
+      "countdown": {
+        "overline": "Launch",
+        "title": "Days to Tashkent operations.",
+        "subtitle": "Revenue service begins 31 May 2026. Counting forward from the contract signed in 2024 — every milestone scheduled, none improvised.",
+        "launchDate": "2026-05-31T00:00:00+05:00",
+        "labels": {
+          "days": "Days",
+          "hours": "Hrs",
+          "minutes": "Min",
+          "seconds": "Sec"
+        },
+        "partnerNote": "In partnership with VISION IT — MMIS platform configured before day one."
+      },
+      "timeline": {
+        "overline": "Mobilisation schedule",
+        "title": "From contract to day one.",
+        "comingBadge": "Coming",
+        "events": [
+          {
+            "year": "2024",
+            "month": "Q4",
+            "label": "Contract signed with Uzbekistan Railways — long-horizon O&M scope."
+          },
+          {
+            "year": "2025",
+            "month": "Q1",
+            "label": "Crew recruitment and parts pipeline design begin in Tashkent."
+          },
+          {
+            "year": "2025",
+            "month": "Q3",
+            "label": "MMIS platform configured with VISION IT — work orders, parts, audit trail."
+          },
+          {
+            "year": "2026",
+            "month": "04",
+            "label": "Tashkent office opens. Crew training enters final phase."
+          },
+          {
+            "year": "2026",
+            "month": "05",
+            "label": "Revenue operations begin — Tashkent.",
+            "isComing": true
+          }
         ]
       },
       "planned": {
@@ -816,6 +1279,26 @@
         "title": "Stay informed when we go live.",
         "subtitle": "Reach out through the contact form to be notified the moment Tashkent operations begin.",
         "button": "Subscribe via contact form"
+      },
+      "related": {
+        "items": [
+          {
+            "key": "ukraine",
+            "country": "Ukraine",
+            "project": "HRCS2 EMU — 100 high-speed units",
+            "desc": "Nine years uninterrupted. 82,000+ audited maintenance actions, including through wartime conditions.",
+            "image": "/portfolios/ukraine-emu/hero-main.jpg",
+            "imgAlt": "HRCS2 unit at Kyiv depot — Xapika maintenance program"
+          },
+          {
+            "key": "warsaw",
+            "country": "Poland",
+            "project": "Tramwaje Warszawskie — 123 trams",
+            "desc": "Daily inspection on Europe's oldest continuously running tram network. 1,500+ trips, 99.2% on-time.",
+            "image": "/portfolios/warsaw-tram/hero-main.jpg",
+            "imgAlt": "Warsaw tram on the mainline — Tramwaje Warszawskie program"
+          }
+        ]
       }
     }
   },
@@ -861,6 +1344,76 @@
       { "id": "tashkent",      "city": "Tashkent",  "country": "Uzbekistan", "flag": "\ud83c\uddfa\ud83c\uddff", "role": "office",       "since": "2026.04", "lat": 41.2995,  "lng": 69.2401,   "showOnMap": true,  "blurb": "Central Asia hub · high-speed corridor O&M and crew training." },
       { "id": "cairo",         "city": "Cairo",     "country": "Egypt",      "flag": "\ud83c\uddea\ud83c\uddec", "role": "office",       "since": "2023.10", "lat": 30.0444,  "lng": 31.2357,   "showOnMap": true,  "blurb": "MENA delivery node · parts pipeline & on-site engineering." }
     ],
+    "hero": {
+      "overline": "Locations",
+      "title": "Nine offices. One operating clock.",
+      "subtitle": "From Warsaw to Tashkent — local crews, regional warehouses, regulator-aligned operations.",
+      "statCitiesValue": "9",
+      "statCitiesLabel": "Cities",
+      "statCountriesValue": "8",
+      "statCountriesLabel": "Countries",
+      "statContinentsValue": "4",
+      "statContinentsLabel": "Continents"
+    },
+    "scale": {
+      "overline": "Global footprint",
+      "title": "A network built over a decade.",
+      "subtitle": "Nine operating sites across eight countries — each one a full depot or engineering team, not a representative office.",
+      "citiesValue": "9",
+      "citiesLabel": "Cities",
+      "citiesNote": "From Warsaw to Tashkent",
+      "countriesValue": "8",
+      "countriesLabel": "Countries",
+      "countriesNote": "Europe · Asia · Americas · Africa",
+      "continentsValue": "4",
+      "continentsLabel": "Continents",
+      "continentsNote": "No single-timezone dependency",
+      "yearsValue": "10",
+      "yearsLabel": "Years",
+      "yearsNote": "Istanbul 2016 — Seoul 2026"
+    },
+    "openings": {
+      "overline": "Company timeline",
+      "title": "Ten years of expansion.",
+      "subtitle": "Every node — office opening, HQ relocation, depot start — recorded the moment the program demanded it.",
+      "sinceLabel": "Since 2016",
+      "comingBadge": "Coming"
+    },
+    "opsContext": {
+      "overline": "Operations in context",
+      "title": "Where offices meet programs.",
+      "subtitle": "Each site exists because a specific program required it. Three examples of what that means in practice.",
+      "cards": {
+        "ukraine": {
+          "office": "Kyiv",
+          "flag": "🇺🇦",
+          "project": "Ukraine HRCS2 — EMU heavy maintenance",
+          "blurb": "Ukraine high-speed intercity EMU — maintenance operations since 2017, sustained through wartime.",
+          "metric": "100 units · 82,000+ maintenance delivered",
+          "cta": "View program record",
+          "href": "/portfolios/ukraine-emu"
+        },
+        "poland": {
+          "office": "Warsaw",
+          "flag": "🇵🇱",
+          "project": "Warsaw Tram — Tramwaje Warszawskie",
+          "blurb": "Tramwaje Warszawskie partnership — Warsaw Tram maintenance operations since 2022.",
+          "metric": "123 units · since 2022",
+          "cta": "View program record",
+          "href": "/portfolios/warsaw-tram"
+        },
+        "uzbekistan": {
+          "office": "Tashkent",
+          "flag": "🇺🇿",
+          "project": "Uzbekistan HSR — O&M mobilization",
+          "blurb": "Uzbekistan high-speed rail O&M commences 2026.05.",
+          "metric": "Launch · 2026.05",
+          "cta": "Program preview",
+          "href": "/portfolios/uzbekistan-rail",
+          "comingBadge": "Coming 2026.05"
+        }
+      }
+    },
     "cta": {
       "overline": "Visit us",
       "title": "Operating in your country?",
@@ -957,6 +1510,34 @@
     "badges": "Badges",
     "spacing": "Section Spacing",
     "motion": "Motion Primitives"
+  },
+  "privacyPage": {
+    "meta": {
+      "title": "Privacy Policy",
+      "description": "Privacy policy for Xapika Engineering — how we handle personal data and operator inquiries."
+    },
+    "breadcrumb": "Privacy Policy",
+    "overline": "Privacy",
+    "title": "Privacy Policy",
+    "subtitle": "How Xapika Engineering handles personal data submitted through this site and operator inquiries.",
+    "placeholderOverline": "Document Preparation",
+    "placeholderTitle": "Full privacy policy is being prepared.",
+    "placeholderBody": "We are finalising our privacy policy in line with EU GDPR and Polish data-protection law. The complete text — covering data collection, storage, processing, and your rights — will be published here once review is complete.",
+    "contactPrefix": "For inquiries about how we handle your data in the meantime, please contact"
+  },
+  "termsPage": {
+    "meta": {
+      "title": "Terms of Use",
+      "description": "Terms of use for the Xapika Engineering website and inquiry channels."
+    },
+    "breadcrumb": "Terms of Use",
+    "overline": "Terms",
+    "title": "Terms of Use",
+    "subtitle": "Conditions of access and use of the Xapika Engineering website and inquiry channels.",
+    "placeholderOverline": "Document Preparation",
+    "placeholderTitle": "Full terms of use are being prepared.",
+    "placeholderBody": "We are finalising our terms of use, including provisions on intellectual property, acceptable use, and the limited warranty applicable to information published on this site. The complete text will be published here once review is complete.",
+    "contactPrefix": "For inquiries about the use of this site or our content in the meantime, please contact"
   },
   "notFound": {
     "code": "404",

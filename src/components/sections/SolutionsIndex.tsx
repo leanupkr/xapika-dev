@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
@@ -19,6 +20,8 @@ export type SolutionItem = {
   title: string;
   description: string;
   metric: string;
+  image?: string;
+  imgAlt?: string;
 };
 
 type SolutionsIndexProps = {
@@ -232,7 +235,7 @@ function SolutionLargeCard({
         border: "1px solid rgb(var(--color-ink) / 0.10)",
       }}
     >
-      {/* Photo placeholder */}
+      {/* Photo or placeholder */}
       <div
         className="relative w-full overflow-hidden"
         style={{
@@ -240,75 +243,102 @@ function SolutionLargeCard({
           backgroundColor: "rgb(var(--color-bg))",
         }}
         role="img"
-        aria-label={`${item.title} photograph placeholder — image arriving`}
+        aria-label={
+          item.image
+            ? item.imgAlt ?? `${item.title} photograph`
+            : `${item.title} photograph placeholder — image arriving`
+        }
       >
-        {/* Subtle inner gradient */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 transition-transform duration-[3200ms] ease-out group-hover:scale-[1.03]"
-          style={{
-            background:
-              "radial-gradient(ellipse at 30% 20%, rgb(var(--color-ink) / 0.05) 0%, transparent 65%), radial-gradient(ellipse at 75% 90%, rgb(var(--color-primary) / 0.06) 0%, transparent 60%)",
-          }}
-        />
+        {item.image ? (
+          <>
+            <Image
+              src={item.image}
+              alt={item.imgAlt ?? ""}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 720px"
+              className="object-cover transition-transform duration-[3200ms] ease-out group-hover:scale-[1.03]"
+            />
+            {/* Bottom gradient overlay for number badge legibility */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(11,31,58,0.45) 0%, rgba(11,31,58,0) 35%, rgba(11,31,58,0) 70%, rgba(11,31,58,0.55) 100%)",
+              }}
+            />
+          </>
+        ) : (
+          <>
+            {/* Subtle inner gradient */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 transition-transform duration-[3200ms] ease-out group-hover:scale-[1.03]"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 30% 20%, rgb(var(--color-ink) / 0.05) 0%, transparent 65%), radial-gradient(ellipse at 75% 90%, rgb(var(--color-primary) / 0.06) 0%, transparent 60%)",
+              }}
+            />
 
-        {/* Dashed inner frame */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-3"
-          style={{
-            border: "1.5px dashed rgb(var(--color-ink-muted) / 0.35)",
-          }}
-        />
+            {/* Dashed inner frame */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-3"
+              style={{
+                border: "1.5px dashed rgb(var(--color-ink-muted) / 0.35)",
+              }}
+            />
 
-        {/* Centered glyph */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
-          <svg
-            aria-hidden="true"
-            width="42"
-            height="42"
-            viewBox="0 0 42 42"
-            fill="none"
-          >
-            <rect
-              x="6"
-              y="12"
-              width="30"
-              height="20"
-              rx="1.5"
-              stroke="rgb(var(--color-ink-muted))"
-              strokeOpacity="0.5"
-              strokeWidth="1.25"
-            />
-            <line
-              x1="6"
-              y1="20"
-              x2="36"
-              y2="20"
-              stroke="rgb(var(--color-ink-muted))"
-              strokeOpacity="0.4"
-              strokeWidth="1"
-              strokeDasharray="2 3"
-            />
-            <circle
-              cx="14"
-              cy="26"
-              r="2"
-              fill="rgb(var(--color-primary))"
-              fillOpacity="0.7"
-            />
-          </svg>
-          <span
-            className="font-heading font-medium uppercase"
-            style={{
-              fontSize: "10px",
-              letterSpacing: "0.22em",
-              color: "rgb(var(--color-ink-muted))",
-            }}
-          >
-            {placeholder}
-          </span>
-        </div>
+            {/* Centered glyph */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
+              <svg
+                aria-hidden="true"
+                width="42"
+                height="42"
+                viewBox="0 0 42 42"
+                fill="none"
+              >
+                <rect
+                  x="6"
+                  y="12"
+                  width="30"
+                  height="20"
+                  rx="1.5"
+                  stroke="rgb(var(--color-ink-muted))"
+                  strokeOpacity="0.5"
+                  strokeWidth="1.25"
+                />
+                <line
+                  x1="6"
+                  y1="20"
+                  x2="36"
+                  y2="20"
+                  stroke="rgb(var(--color-ink-muted))"
+                  strokeOpacity="0.4"
+                  strokeWidth="1"
+                  strokeDasharray="2 3"
+                />
+                <circle
+                  cx="14"
+                  cy="26"
+                  r="2"
+                  fill="rgb(var(--color-primary))"
+                  fillOpacity="0.7"
+                />
+              </svg>
+              <span
+                className="font-heading font-medium uppercase"
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.22em",
+                  color: "rgb(var(--color-ink-muted))",
+                }}
+              >
+                {placeholder}
+              </span>
+            </div>
+          </>
+        )}
 
         {/* Number — top left overlay */}
         <span

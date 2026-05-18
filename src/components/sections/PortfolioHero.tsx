@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import PageHero from "@/components/ui/PageHero";
 
 type PortfolioHeroProps = {
@@ -13,6 +14,13 @@ type PortfolioHeroProps = {
   placeholder: string;
   /** Visual hint shown above placeholder (country / year). */
   placeholderKicker?: string;
+  /** When set, renders an actual photograph in the right slot instead of the placeholder. */
+  imageSrc?: string;
+  imageAlt?: string;
+  /** Mark the hero photo as LCP priority. Set true on the page-level hero image. */
+  imagePriority?: boolean;
+  /** Custom node for the right slot (e.g., Uzbekistan route map). Overrides photo/placeholder. */
+  rightSlot?: React.ReactNode;
 };
 
 export default function PortfolioHero({
@@ -23,9 +31,81 @@ export default function PortfolioHero({
   accentBadge,
   placeholder,
   placeholderKicker,
+  imageSrc,
+  imageAlt,
+  imagePriority,
+  rightSlot,
 }: PortfolioHeroProps) {
-  /* Photo placeholder — passed as right slot into PageHero */
-  const photoSlot = (
+  /* Photo slot — actual image when provided, else dashed placeholder */
+  const photoSlot = rightSlot ? (
+    rightSlot
+  ) : imageSrc ? (
+    <div
+      className="relative ml-auto overflow-hidden"
+      style={{
+        aspectRatio: "4 / 3",
+        width: "100%",
+        maxWidth: "480px",
+        backgroundColor: "rgba(255,255,255,0.02)",
+      }}
+    >
+      <Image
+        src={imageSrc}
+        alt={imageAlt ?? ""}
+        fill
+        sizes="(max-width: 768px) 100vw, 480px"
+        priority={imagePriority ?? false}
+        quality={85}
+        className="object-cover"
+      />
+      {/* Subtle inner overlay to anchor with dark hero theme */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(11,31,58,0) 60%, rgba(11,31,58,0.32) 100%)",
+        }}
+      />
+      {/* Corner ticks — preserve framing motif even with real photo */}
+      {[
+        { top: 8, left: 8 },
+        { top: 8, right: 8 },
+        { bottom: 8, left: 8 },
+        { bottom: 8, right: 8 },
+      ].map((pos, i) => (
+        <span
+          key={i}
+          aria-hidden="true"
+          className="absolute block pointer-events-none"
+          style={{
+            top: pos.top,
+            left: pos.left,
+            right: pos.right,
+            bottom: pos.bottom,
+            width: "10px",
+            height: "10px",
+            borderTop:
+              pos.top !== undefined
+                ? "1.5px solid rgb(var(--color-primary))"
+                : undefined,
+            borderBottom:
+              pos.bottom !== undefined
+                ? "1.5px solid rgb(var(--color-primary))"
+                : undefined,
+            borderLeft:
+              pos.left !== undefined
+                ? "1.5px solid rgb(var(--color-primary))"
+                : undefined,
+            borderRight:
+              pos.right !== undefined
+                ? "1.5px solid rgb(var(--color-primary))"
+                : undefined,
+          }}
+        />
+      ))}
+    </div>
+  ) : (
     <div
       className="relative ml-auto"
       style={{

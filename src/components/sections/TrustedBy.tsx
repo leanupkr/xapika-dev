@@ -5,14 +5,10 @@ import { motion, useInView } from "framer-motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
 const PARTNERS = [
-  { name: "Ukrzaliznytsia", src: "/partners/ukrzaliznytsia.svg" },
-  { name: "Hyundai Rotem", src: "/partners/hyundai-rotem.svg" },
-  { name: "Tramwaje Warszawskie", src: "/partners/tramwaje-warszawskie.svg" },
-  { name: "Uzbekistan Temir Yo'llari", src: "/partners/uzbekistan-railways.svg" },
-  { name: "PKP Intercity", src: "/partners/pkp-intercity.svg" },
-  { name: "TCDD Taşımacılık", src: "/partners/tcdd-tasimacilik.png" },
-  { name: "Hanwha Corp", src: "/partners/hanwha.svg" },
-  { name: "KORAIL", src: "/partners/korail.svg" },
+  { name: "VISION IT", src: "/partners/vision-it.png" },
+  { name: "MSB Housing", src: null },
+  { name: "Intel", src: "/partners/intel.png" },
+  { name: "Member of Cambridge University", src: null },
 ] as const;
 
 export default function TrustedBy({ overline }: { overline: string }) {
@@ -145,21 +141,34 @@ export default function TrustedBy({ overline }: { overline: string }) {
                 }}
                 title={p.name}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={p.src}
-                  alt={p.name}
-                  loading="lazy"
-                  decoding="async"
-                  className="partner-logo"
-                  style={{
-                    maxHeight: "44px",
-                    maxWidth: "160px",
-                    width: "auto",
-                    height: "auto",
-                    objectFit: "contain",
-                  }}
-                />
+                {p.src ? (
+                  <img
+                    src={p.src}
+                    alt={p.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="partner-logo"
+                    style={{
+                      maxHeight: "44px",
+                      maxWidth: "160px",
+                      width: "auto",
+                      height: "auto",
+                      objectFit: "contain",
+                    }}
+                  />
+                ) : (
+                  <span
+                    className="font-heading font-semibold text-center leading-tight"
+                    style={{
+                      fontSize: "0.8125rem",
+                      letterSpacing: "0.03em",
+                      color: "rgb(var(--color-ink))",
+                      maxWidth: "140px",
+                    }}
+                  >
+                    {p.name}
+                  </span>
+                )}
               </div>
             </Fragment>
           ))}

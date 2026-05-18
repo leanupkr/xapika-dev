@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { ArrowRight } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 import { buildPageMetadata } from "@/lib/seo";
 import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
+import OverhaulProcess, {
+  type OverhaulPhase,
+} from "@/components/sections/OverhaulProcess";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
 import RelatedProjects, {
   type RelatedProjectItem,
 } from "@/components/sections/RelatedProjects";
+import CtaSection from "@/components/sections/CtaSection";
 
 export async function generateMetadata({
   params,
@@ -29,25 +31,45 @@ export async function generateMetadata({
   });
 }
 
+const RELATED_IMAGES: Record<string, string> = {
+  ukraine: "/solutions/heavy-maintenance/related-ukraine.jpg",
+  poland: "/solutions/heavy-maintenance/related-warsaw.jpg",
+};
+
+type SolutionMetric = { value: string; label: string };
+
+function formatMetric(metrics: ReadonlyArray<SolutionMetric>): string {
+  if (metrics.length === 0) return "";
+  return metrics.map((m) => `${m.value} ${m.label}`).join(" · ");
+}
+
 export default async function HeavyMaintenancePage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [tHero, tWwd, tStats, tRelated, tCta, tSol, tNav] = await Promise.all([
-    getTranslations("solutionsDetail.heavyMaintenance.hero"),
-    getTranslations("solutionsDetail.heavyMaintenance.whatWeDo"),
-    getTranslations("solutionsDetail.heavyMaintenance.keyStats"),
-    getTranslations("solutionsDetail.heavyMaintenance.relatedProjects"),
-    getTranslations("solutionsDetail.heavyMaintenance.cta"),
-    getTranslations("solutions.items.heavy"),
-    getTranslations("nav"),
-  ]);
+  const [tHero, tProcess, tWwd, tStats, tRelated, tCta, tSol, tNav] =
+    await Promise.all([
+      getTranslations("solutionsDetail.heavyMaintenance.hero"),
+      getTranslations("solutionsDetail.heavyMaintenance.overhaulProcess"),
+      getTranslations("solutionsDetail.heavyMaintenance.whatWeDo"),
+      getTranslations("solutionsDetail.heavyMaintenance.keyStats"),
+      getTranslations("solutionsDetail.heavyMaintenance.relatedProjects"),
+      getTranslations("solutionsDetail.heavyMaintenance.cta"),
+      getTranslations("solutions.items.heavy"),
+      getTranslations("nav"),
+    ]);
 
   const wwdItems = tWwd.raw("items") as ReadonlyArray<WhatWeDoItem>;
   const stats = tStats.raw("stats") as ReadonlyArray<KeyStatItem>;
-  const relatedItems = tRelated.raw("items") as ReadonlyArray<RelatedProjectItem>;
+  const phases = tProcess.raw("phases") as ReadonlyArray<OverhaulPhase>;
+  const metrics = tSol.raw("metrics") as ReadonlyArray<SolutionMetric>;
+  const rawRelated = tRelated.raw("items") as ReadonlyArray<RelatedProjectItem>;
+  const relatedItems = rawRelated.map((item) => ({
+    ...item,
+    image: RELATED_IMAGES[item.key],
+  }));
 
   return (
     <>
@@ -71,135 +93,44 @@ export default async function HeavyMaintenancePage({
         })}
       />
       <SolutionDetailHero
-      overline={tHero("overline")}
-      index="01 / 05"
-      title={tHero("title")}
-      subtitle={tHero("subtitle")}
-      metric={tSol("metric")}
-    >
-      <WhatWeDo
-        overline={tWwd("overline")}
-        title={tWwd("title")}
-        items={wwdItems}
-      />
-      <KeyStats
-        overline={tStats("overline")}
-        title={tStats("title")}
-        stats={stats}
-      />
-      <RelatedProjects
-        overline={tRelated("overline")}
-        title={tRelated("title")}
-        items={relatedItems}
-      />
-      <CtaSection
-        title={tCta("title")}
-        subtitle={tCta("subtitle")}
-        button={tCta("button")}
-      />
-    </SolutionDetailHero>
-    </>
-  );
-}
-
-function CtaSection({
-  title,
-  subtitle,
-  button,
-}: {
-  title: string;
-  subtitle: string;
-  button: string;
-}) {
-  return (
-    <section
-      data-bg="dark"
-      className="relative overflow-hidden"
-      style={{
-        backgroundColor: "rgb(var(--color-ink))",
-        paddingTop: "clamp(5rem, 12vh, 8rem)",
-        paddingBottom: "clamp(5rem, 12vh, 8rem)",
-      }}
-      aria-labelledby="solution-cta-title"
-    >
-      <div
-        aria-hidden="true"
-        className="absolute top-0 left-0 right-0"
-        style={{ height: "1px", backgroundColor: "rgba(255,255,255,0.08)" }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute top-0 right-0 w-[55%] h-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 100% 40%, rgba(246,163,23,0.08) 0%, transparent 65%)",
-        }}
-      />
-
-      <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
+        overline={tHero("overline")}
+        index="01 / 05"
+        title={tHero("title")}
+        subtitle={tHero("subtitle")}
+        metric={formatMetric(metrics)}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-y-0 lg:gap-x-12 items-end">
-          <div className="lg:col-span-8">
-            <span
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-              style={{ fontSize: "12px", letterSpacing: "0.22em" }}
-            >
-              <span
-                aria-hidden="true"
-                className="inline-block flex-shrink-0"
-                style={{
-                  width: "24px",
-                  height: "2px",
-                  backgroundColor: "rgb(var(--color-primary))",
-                }}
-              />
-              Ready
-            </span>
-            <h2
-              id="solution-cta-title"
-              className="font-heading font-semibold text-white"
-              style={{
-                fontSize: "clamp(1.875rem, 3.8vw, 2.875rem)",
-                letterSpacing: "-0.02em",
-                lineHeight: 1.1,
-                maxWidth: "22ch",
-              }}
-            >
-              {title}
-            </h2>
-            <p
-              className="font-body mt-5"
-              style={{
-                fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
-                color: "rgba(255,255,255,0.7)",
-                lineHeight: 1.65,
-                maxWidth: "560px",
-              }}
-            >
-              {subtitle}
-            </p>
-          </div>
-          <div className="lg:col-span-4 lg:flex lg:justify-end">
-            <Link
-              href="/contact"
-              className="group inline-flex items-center gap-3 px-7 py-4 bg-[rgb(var(--color-primary))] text-[rgb(var(--color-ink))] font-heading font-semibold transition-colors duration-300 hover:bg-white"
-              style={{
-                fontSize: "14px",
-                letterSpacing: "0.05em",
-              }}
-            >
-              {button}
-              <ArrowRight
-                size={16}
-                strokeWidth={2.25}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
+        <OverhaulProcess
+          overline={tProcess("overline")}
+          title={tProcess("title")}
+          subtitle={tProcess("subtitle")}
+          phases={phases}
+          heroImage="/solutions/heavy-maintenance/overhaul-hero.jpg"
+          heroImageAlt="Heavy overhaul — traction motor disassembly under depot crane."
+          traceabilityImage="/solutions/heavy-maintenance/traceability.jpg"
+          traceabilityImageAlt="Gearbox component traceability label — serial, test record, and sign-off."
+        />
+        <WhatWeDo
+          overline={tWwd("overline")}
+          title={tWwd("title")}
+          items={wwdItems}
+        />
+        <KeyStats
+          overline={tStats("overline")}
+          title={tStats("title")}
+          stats={stats}
+        />
+        <RelatedProjects
+          overline={tRelated("overline")}
+          title={tRelated("title")}
+          items={relatedItems}
+        />
+        <CtaSection
+          titleId="solution-cta-title"
+          title={tCta("title")}
+          subtitle={tCta("subtitle")}
+          button={tCta("button")}
+        />
+      </SolutionDetailHero>
+    </>
   );
 }

@@ -3,12 +3,10 @@ import { getTranslations } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo";
 import Hero from "@/components/sections/Hero";
 import KeyNumbers from "@/components/sections/KeyNumbers";
-import SolutionsGrid from "@/components/sections/SolutionsGrid";
+import SolutionsGrid, { type SolutionMetric } from "@/components/sections/SolutionsGrid";
 import PortfoliosPreview from "@/components/sections/PortfoliosPreview";
 import TrustedBy from "@/components/sections/TrustedBy";
 import GlobalPresence from "@/components/sections/GlobalPresence";
-import MidCta from "@/components/sections/MidCta";
-
 export async function generateMetadata({
   params,
 }: {
@@ -25,14 +23,13 @@ export async function generateMetadata({
 }
 
 export default async function HomePage() {
-  const [tHero, tKN, tSol, tPf, tPartners, tGlobal, tMidCta] = await Promise.all([
+  const [tHero, tKN, tSol, tPf, tPartners, tGlobal] = await Promise.all([
     getTranslations("hero"),
     getTranslations("keyNumbers"),
     getTranslations("solutions"),
     getTranslations("portfolios"),
     getTranslations("partners"),
     getTranslations("globalPresence"),
-    getTranslations("midCta"),
   ]);
 
   // headline에서 accent 부분 ("Safe Operations." / "안전한 운영.")을 분리
@@ -93,27 +90,27 @@ export default async function HomePage() {
           light: {
             title: tSol("items.light.title"),
             description: tSol("items.light.description"),
-            metric: tSol("items.light.metric"),
+            metrics: tSol.raw("items.light.metrics") as ReadonlyArray<SolutionMetric>,
           },
           heavy: {
             title: tSol("items.heavy.title"),
             description: tSol("items.heavy.description"),
-            metric: tSol("items.heavy.metric"),
+            metrics: tSol.raw("items.heavy.metrics") as ReadonlyArray<SolutionMetric>,
           },
           supply: {
             title: tSol("items.supply.title"),
             description: tSol("items.supply.description"),
-            metric: tSol("items.supply.metric"),
+            metrics: tSol.raw("items.supply.metrics") as ReadonlyArray<SolutionMetric>,
           },
           digital: {
             title: tSol("items.digital.title"),
             description: tSol("items.digital.description"),
-            metric: tSol("items.digital.metric"),
+            metrics: tSol.raw("items.digital.metrics") as ReadonlyArray<SolutionMetric>,
           },
           commercial: {
             title: tSol("items.commercial.title"),
             description: tSol("items.commercial.description"),
-            metric: tSol("items.commercial.metric"),
+            metrics: tSol.raw("items.commercial.metrics") as ReadonlyArray<SolutionMetric>,
           },
         }}
       />
@@ -167,13 +164,12 @@ export default async function HomePage() {
         overline={tGlobal("overline")}
         title={tGlobal("title")}
         subtitle={tGlobal("subtitle")}
-      />
-      <MidCta
-        overline={tMidCta("overline")}
-        title={tMidCta("title")}
-        subtitle={tMidCta("subtitle")}
-        ctaPrimary={tMidCta("ctaPrimary")}
-        ctaSecondary={tMidCta("ctaSecondary")}
+        stat1Value={tGlobal("stat1_value")}
+        stat1Unit={tGlobal("stat1_unit")}
+        stat2Value={tGlobal("stat2_value")}
+        stat2Unit={tGlobal("stat2_unit")}
+        stat3Value={tGlobal("stat3_value")}
+        stat3Unit={tGlobal("stat3_unit")}
       />
     </>
   );

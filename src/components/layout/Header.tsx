@@ -2,27 +2,37 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Menu, ChevronDown } from "lucide-react";
+import {
+  Menu,
+  ChevronDown,
+  UserSquare2,
+  Clock,
+  Compass,
+  Network,
+  Handshake,
+  Lightbulb,
+  Wrench,
+  Truck,
+  Database,
+  Store,
+  Train,
+  TramFront,
+  Sparkles,
+  ArrowUpRight,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import MobileMenu from "./MobileMenu";
-
-const SOLUTIONS_ITEMS = [
-  { key: "heavy_maintenance", href: "/solutions/heavy-maintenance" },
-  { key: "light_maintenance", href: "/solutions/light-maintenance" },
-  { key: "supply_chain", href: "/solutions/supply-chain" },
-  { key: "digital_asset", href: "/solutions/digital-asset-management" },
-  { key: "commercial", href: "/solutions/commercial-services" },
-] as const;
+import MegaDropdown, { type MegaDropdownItem } from "./MegaDropdown";
 
 const NAV_LINKS = [
-  { key: "about", href: "/about", hasDropdown: false },
-  { key: "solutions", href: "/solutions", hasDropdown: true },
-  { key: "portfolios", href: "/portfolios", hasDropdown: false },
-  { key: "locations", href: "/locations", hasDropdown: false },
-  { key: "contact", href: "/contact", hasDropdown: false },
+  { key: "about",      href: "/about" },
+  { key: "solutions",  href: "/solutions" },
+  { key: "portfolios", href: "/portfolios" },
+  { key: "locations",  href: "/locations" },
+  { key: "contact",    href: "/contact" },
 ] as const;
 
 export default function Header() {
@@ -34,11 +44,45 @@ export default function Header() {
 
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
-  const solutionsRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // --- i18n-aware dropdown items (built inside component for t() access) ---
+  const aboutItems: MegaDropdownItem[] = [
+    { key: "ceo",          label: t("about_ceo"),          description: t("about_ceo_desc"),          href: "/about/ceo",          icon: UserSquare2 },
+    { key: "history",      label: t("about_history"),      description: t("about_history_desc"),      href: "/about/history",      icon: Clock },
+    { key: "vision",       label: t("about_vision"),       description: t("about_vision_desc"),       href: "/about/vision",       icon: Compass },
+    { key: "organization", label: t("about_organization"), description: t("about_organization_desc"), href: "/about/organization", icon: Network },
+    { key: "clients",      label: t("about_clients"),      description: t("about_clients_desc"),      href: "/about/clients",      icon: Handshake },
+  ];
+
+  const solutionsItems: MegaDropdownItem[] = [
+    { key: "light_maintenance", label: t("solutions_light_maintenance"), description: t("solutions_light_maintenance_desc"), href: "/solutions/light-maintenance",       icon: Lightbulb },
+    { key: "heavy_maintenance", label: t("solutions_heavy_maintenance"), description: t("solutions_heavy_maintenance_desc"), href: "/solutions/heavy-maintenance",       icon: Wrench },
+    { key: "supply_chain",      label: t("solutions_supply_chain"),      description: t("solutions_supply_chain_desc"),      href: "/solutions/supply-chain",            icon: Truck },
+    { key: "digital_asset",     label: t("solutions_digital_asset"),     description: t("solutions_digital_asset_desc"),     href: "/solutions/digital-asset-management",icon: Database },
+    { key: "commercial",        label: t("solutions_commercial"),        description: t("solutions_commercial_desc"),        href: "/solutions/commercial-services",     icon: Store },
+  ];
+
+  const portfoliosItems: MegaDropdownItem[] = [
+    { key: "ukraine",    label: t("portfolios_ukraine"),    description: t("portfolios_ukraine_desc"),    href: "/portfolios/ukraine-emu",     icon: Train },
+    { key: "warsaw",     label: t("portfolios_warsaw"),     description: t("portfolios_warsaw_desc"),     href: "/portfolios/warsaw-tram",     icon: TramFront },
+    { key: "uzbekistan", label: t("portfolios_uzbekistan"), description: t("portfolios_uzbekistan_desc"), href: "/portfolios/uzbekistan-rail", icon: Sparkles },
+    { key: "all",        label: t("portfolios_all"),        description: t("portfolios_all_desc"),        href: "/portfolios",                 icon: ArrowUpRight },
+  ];
+
+  const dropdownByKey: Record<string, MegaDropdownItem[] | null> = {
+    about:      aboutItems,
+    solutions:  solutionsItems,
+    portfolios: portfoliosItems,
+    locations:  null,
+    contact:    null,
+  };
+
+  // --- Scroll listener ---
   useEffect(() => {
     function onScroll() {
       setScrolled(window.scrollY > 16);
@@ -47,19 +91,16 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close dropdown on outside click or outside focus (keyboard tab-out)
+  // --- Click outside to close ---
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
-      if (solutionsRef.current && !solutionsRef.current.contains(e.target as Node)) {
-        setSolutionsOpen(false);
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setActiveMenu(null);
       }
     }
     function onFocusOutside(e: FocusEvent) {
-      if (
-        solutionsRef.current &&
-        !solutionsRef.current.contains(e.target as Node)
-      ) {
-        setSolutionsOpen(false);
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setActiveMenu(null);
       }
     }
     document.addEventListener("mousedown", onClickOutside);
@@ -74,85 +115,53 @@ export default function Header() {
     router.replace(pathname, { locale: nextLocale });
   }
 
-  function handleSolutionsEnter() {
+  function handleEnter(menu: string) {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    setSolutionsOpen(true);
+    setActiveMenu(menu);
   }
 
-  function handleSolutionsLeave() {
-    closeTimer.current = setTimeout(() => setSolutionsOpen(false), 120);
+  function handleLeave() {
+    closeTimer.current = setTimeout(() => setActiveMenu(null), 120);
   }
 
-  // Keyboard: trigger button (Enter/Space/Arrow → open; Esc → close)
-  function handleTriggerKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
+  function closeMenu() {
+    setActiveMenu(null);
+  }
+
+  function handleTriggerKeyDown(
+    e: React.KeyboardEvent<HTMLButtonElement>,
+    menuKey: string
+  ) {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      setSolutionsOpen((prev) => {
-        if (!prev) {
-          requestAnimationFrame(() => {
-            const first = solutionsRef.current?.querySelector<HTMLElement>('[role="menuitem"]');
-            first?.focus();
-          });
-        }
-        return !prev;
-      });
+      if (activeMenu === menuKey) {
+        setActiveMenu(null);
+      } else {
+        setActiveMenu(menuKey);
+        requestAnimationFrame(() => {
+          const container = triggerRefs.current[menuKey]?.parentElement;
+          const first = container?.querySelector<HTMLElement>('[role="menuitem"]');
+          first?.focus();
+        });
+      }
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
-      setSolutionsOpen(true);
+      setActiveMenu(menuKey);
       requestAnimationFrame(() => {
-        const first = solutionsRef.current?.querySelector<HTMLElement>('[role="menuitem"]');
+        const container = triggerRefs.current[menuKey]?.parentElement;
+        const first = container?.querySelector<HTMLElement>('[role="menuitem"]');
         first?.focus();
       });
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setSolutionsOpen(true);
+      setActiveMenu(menuKey);
       requestAnimationFrame(() => {
-        const items = solutionsRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]');
+        const container = triggerRefs.current[menuKey]?.parentElement;
+        const items = container?.querySelectorAll<HTMLElement>('[role="menuitem"]');
         items?.[items.length - 1]?.focus();
       });
     } else if (e.key === "Escape") {
-      setSolutionsOpen(false);
-    }
-  }
-
-  // Keyboard: within the menu (ArrowDown/Up/Home/End/Esc/Tab)
-  function handleMenuKeyDown(e: React.KeyboardEvent<HTMLElement>) {
-    const menu = solutionsRef.current?.querySelector<HTMLElement>('[role="menu"]');
-    if (!menu) return;
-    const items = Array.from(menu.querySelectorAll<HTMLElement>('[role="menuitem"]'));
-    const idx = items.indexOf(e.currentTarget as HTMLElement);
-
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        items[(idx + 1) % items.length]?.focus();
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        if (idx === 0) {
-          setSolutionsOpen(false);
-          triggerRef.current?.focus();
-        } else {
-          items[idx - 1]?.focus();
-        }
-        break;
-      case "Home":
-        e.preventDefault();
-        items[0]?.focus();
-        break;
-      case "End":
-        e.preventDefault();
-        items[items.length - 1]?.focus();
-        break;
-      case "Escape":
-        e.preventDefault();
-        setSolutionsOpen(false);
-        triggerRef.current?.focus();
-        break;
-      case "Tab":
-        // Tab closes the menu; natural tab order continues outside
-        setSolutionsOpen(false);
-        break;
+      setActiveMenu(null);
     }
   }
 
@@ -177,128 +186,118 @@ export default function Header() {
         }}
       >
         <div
-          className="mx-auto flex h-full items-center justify-between px-6"
+          className="relative mx-auto flex h-full items-center justify-between px-6"
           style={{ maxWidth: "var(--max-width)" }}
         >
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0" aria-label="Xapika Engineering — Home">
-            <Image
-              src={scrolled ? "/logo.png" : "/logo-white.png"}
-              alt="Xapika Engineering"
-              width={120}
-              height={32}
-              className="object-contain transition-opacity duration-300"
-              style={{ height: "32px", width: "auto" }}
-            />
-          </Link>
+          {/* Left group: Mobile hamburger (desktop has no left content; nav is centered) */}
+          <div className="flex items-center">
+            {/* Desktop nav — absolutely centered */}
+            <nav
+              ref={containerRef}
+              className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              aria-label="Primary"
+            >
+              {NAV_LINKS.map(({ key, href }) => {
+                const isActive =
+                  pathname === href || pathname.startsWith(`${href}/`);
+                const dropdown = dropdownByKey[key];
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
-            {NAV_LINKS.map(({ key, href, hasDropdown }) => {
-              const isActive =
-                pathname === href || pathname.startsWith(`${href}/`);
-              if (hasDropdown && key === "solutions") {
-                return (
-                  <div
-                    key={key}
-                    ref={solutionsRef}
-                    className="relative"
-                    onMouseEnter={handleSolutionsEnter}
-                    onMouseLeave={handleSolutionsLeave}
-                  >
-                    <button
-                      ref={triggerRef}
-                      id="solutions-trigger"
-                      className={[
-                        "flex items-center gap-1 font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
-                        scrolled
-                          ? "text-ink hover:text-primary"
-                          : "text-white/90 hover:text-white",
-                      ].join(" ")}
-                      style={{ fontSize: "13px" }}
-                      aria-expanded={solutionsOpen}
-                      aria-haspopup="menu"
-                      aria-current={isActive ? "page" : undefined}
-                      onClick={() => {
-                        setSolutionsOpen((prev) => {
-                          if (!prev) {
-                            requestAnimationFrame(() => {
-                              const first = solutionsRef.current?.querySelector<HTMLElement>('[role="menuitem"]');
-                              first?.focus();
-                            });
-                          }
-                          return !prev;
-                        });
-                      }}
-                      onKeyDown={handleTriggerKeyDown}
+                if (dropdown) {
+                  return (
+                    <div
+                      key={key}
+                      className="relative"
+                      onMouseEnter={() => handleEnter(key)}
+                      onMouseLeave={handleLeave}
                     >
-                      {t(key)}
-                      <ChevronDown
-                        size={14}
-                        strokeWidth={2}
+                      <button
+                        ref={(el) => {
+                          triggerRefs.current[key] = el;
+                        }}
+                        id={`${key}-trigger`}
                         className={[
-                          "transition-transform duration-200",
-                          solutionsOpen ? "rotate-180" : "",
+                          "flex items-center gap-1 font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
+                          scrolled
+                            ? "text-ink hover:text-primary"
+                            : "text-white/90 hover:text-white",
+                          activeMenu === key
+                            ? scrolled
+                              ? "text-primary"
+                              : "text-white"
+                            : "",
                         ].join(" ")}
+                        style={{ fontSize: "13px" }}
+                        aria-expanded={activeMenu === key}
+                        aria-haspopup="menu"
+                        aria-current={isActive ? "page" : undefined}
+                        onClick={() =>
+                          setActiveMenu(activeMenu === key ? null : key)
+                        }
+                        onKeyDown={(e) => handleTriggerKeyDown(e, key)}
+                      >
+                        {t(key as Parameters<typeof t>[0])}
+                        <ChevronDown
+                          size={14}
+                          strokeWidth={2}
+                          className={[
+                            "transition-transform duration-200",
+                            activeMenu === key ? "rotate-180" : "",
+                          ].join(" ")}
+                          aria-hidden="true"
+                        />
+                      </button>
+
+                      <MegaDropdown
+                        triggerId={`${key}-trigger`}
+                        items={dropdown}
+                        isOpen={activeMenu === key}
+                        onClose={closeMenu}
+                        onEnter={() => handleEnter(key)}
+                        onLeave={handleLeave}
+                        layout="compact"
                       />
-                    </button>
+                    </div>
+                  );
+                }
 
-                    <AnimatePresence>
-                      {solutionsOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -4 }}
-                          transition={{ duration: 0.2, ease: "easeOut" }}
-                          className="absolute top-full left-0 mt-3 w-56 bg-white shadow-lg rounded-lg border overflow-hidden"
-                          style={{
-                            borderColor: "rgb(var(--color-ink) / 0.08)",
-                          }}
-                          role="menu"
-                          aria-labelledby="solutions-trigger"
-                          onMouseEnter={handleSolutionsEnter}
-                          onMouseLeave={handleSolutionsLeave}
-                        >
-                          {SOLUTIONS_ITEMS.map(({ key: itemKey, href: itemHref }) => (
-                            <Link
-                              key={itemKey}
-                              href={itemHref}
-                              role="menuitem"
-                              onClick={() => setSolutionsOpen(false)}
-                              onKeyDown={handleMenuKeyDown}
-                              className="block px-4 py-3 text-ink hover:text-primary hover:bg-primary-subtle transition-colors duration-150 font-heading font-medium"
-                              style={{ fontSize: "13px" }}
-                            >
-                              {t(`solutions_${itemKey}` as Parameters<typeof t>[0])}
-                            </Link>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                // Plain link (Contact)
+                return (
+                  <Link
+                    key={key}
+                    href={href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={[
+                      "font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
+                      scrolled
+                        ? "text-ink hover:text-primary"
+                        : "text-white/90 hover:text-white",
+                    ].join(" ")}
+                    style={{ fontSize: "13px" }}
+                  >
+                    {t(key as Parameters<typeof t>[0])}
+                  </Link>
                 );
-              }
+              })}
+            </nav>
 
-              return (
-                <Link
-                  key={key}
-                  href={href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={[
-                    "font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
-                    scrolled
-                      ? "text-ink hover:text-primary"
-                      : "text-white/90 hover:text-white",
-                  ].join(" ")}
-                  style={{ fontSize: "13px" }}
-                >
-                  {t(key)}
-                </Link>
-              );
-            })}
-          </nav>
+            {/* Hamburger (mobile) */}
+            <button
+              className={[
+                "md:hidden p-2.5 -ml-2 transition-colors duration-200",
+                scrolled
+                  ? "text-ink hover:text-primary"
+                  : "text-white hover:text-white/70",
+              ].join(" ")}
+              aria-label="Open menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu-drawer"
+              onClick={() => setMobileOpen(true)}
+            >
+              <Menu size={24} strokeWidth={1.5} />
+            </button>
+          </div>
 
-          {/* Locale switcher (desktop) + hamburger (mobile) */}
+          {/* Right group: Locale switcher (desktop) + Logo */}
           <div className="flex items-center gap-4">
             {/* Language toggle */}
             <div className="hidden md:flex items-center gap-1">
@@ -316,7 +315,9 @@ export default function Header() {
                   )}
                   <button
                     onClick={() => switchLocale(lng)}
-                    aria-label={lng === "ko" ? "한국어로 전환" : "Switch to English"}
+                    aria-label={
+                      lng === "ko" ? "한국어로 전환" : "Switch to English"
+                    }
                     className={[
                       "font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
                       "min-h-[44px] min-w-[44px] flex items-center justify-center",
@@ -336,21 +337,21 @@ export default function Header() {
               ))}
             </div>
 
-            {/* Hamburger */}
-            <button
-              className={[
-                "md:hidden p-2.5 -mr-2 transition-colors duration-200",
-                scrolled
-                  ? "text-ink hover:text-primary"
-                  : "text-white hover:text-white/70",
-              ].join(" ")}
-              aria-label="Open menu"
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-menu-drawer"
-              onClick={() => setMobileOpen(true)}
+            {/* Logo */}
+            <Link
+              href="/"
+              className="flex-shrink-0"
+              aria-label="Xapika Engineering — Home"
             >
-              <Menu size={24} strokeWidth={1.5} />
-            </button>
+              <Image
+                src={scrolled ? "/logo.png" : "/logo-white.png"}
+                alt="Xapika Engineering"
+                width={120}
+                height={32}
+                className="object-contain transition-opacity duration-300"
+                style={{ height: "32px", width: "auto" }}
+              />
+            </Link>
           </div>
         </div>
       </motion.header>

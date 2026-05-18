@@ -1,7 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 export type RelatedProjectItem = {
@@ -9,7 +11,26 @@ export type RelatedProjectItem = {
   country: string;
   project: string;
   desc: string;
+  image?: string;
+  imgAlt?: string;
+  /** Optional explicit href. Falls back to the slug derived from `key`. */
+  href?: string;
+  /** Big label shown inside the placeholder when no image is provided (e.g. "Coming 2026.05 · Tashkent"). */
+  placeholderLabel?: string;
 };
+
+// Map item.key → portfolio slug. The i18n copy uses short keys (ukraine, warsaw,
+// uzbekistan) so the page itself doesn't have to know the route shape.
+const HREF_BY_KEY: Record<string, string> = {
+  ukraine: "/portfolios/ukraine-emu",
+  warsaw: "/portfolios/warsaw-tram",
+  poland: "/portfolios/warsaw-tram",
+  uzbekistan: "/portfolios/uzbekistan-rail",
+};
+
+function hrefFor(item: RelatedProjectItem): string {
+  return item.href ?? HREF_BY_KEY[item.key] ?? "/portfolios";
+}
 
 type RelatedProjectsProps = {
   overline: string;
@@ -163,15 +184,17 @@ function RelatedCard({
   number: number;
 }) {
   return (
-    <article
+    <Link
+      href={hrefFor(item)}
+      aria-label={`${item.country} — ${item.project}`}
       data-related-card
-      className="group relative opacity-0 transition-colors duration-[320ms]"
+      className="group relative block opacity-0 transition-colors duration-[320ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-primary))] focus-visible:ring-offset-2"
       style={{
         backgroundColor: "rgb(var(--color-surface))",
         border: "1px solid rgb(var(--color-ink) / 0.10)",
       }}
     >
-      {/* Photo placeholder */}
+      {/* Photo or placeholder */}
       <div
         className="relative w-full overflow-hidden"
         style={{
@@ -179,65 +202,157 @@ function RelatedCard({
           backgroundColor: "rgb(var(--color-bg))",
         }}
         role="img"
-        aria-label={`${item.project} photograph placeholder`}
+        aria-label={
+          item.image
+            ? item.imgAlt ?? `${item.project} photograph`
+            : `${item.project} photograph placeholder`
+        }
       >
-        {/* Subtle inner gradient */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 transition-transform duration-[3200ms] ease-out group-hover:scale-[1.03]"
-          style={{
-            background:
-              "radial-gradient(ellipse at 25% 20%, rgb(var(--color-ink) / 0.05) 0%, transparent 65%), radial-gradient(ellipse at 80% 90%, rgb(var(--color-primary) / 0.06) 0%, transparent 60%)",
-          }}
-        />
+        {item.image ? (
+          <>
+            <Image
+              src={item.image}
+              alt={item.imgAlt ?? ""}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
+              className="object-cover transition-transform duration-[3200ms] ease-out group-hover:scale-[1.03]"
+            />
+            {/* Subtle warm overlay for hover tint */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 pointer-events-none transition-opacity duration-[480ms] opacity-0 group-hover:opacity-100"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(11,31,58,0) 60%, rgba(11,31,58,0.45) 100%)",
+              }}
+            />
+          </>
+        ) : (
+          <>
+            {/* Subtle inner gradient */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 transition-transform duration-[3200ms] ease-out group-hover:scale-[1.03]"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 25% 20%, rgb(var(--color-ink) / 0.05) 0%, transparent 65%), radial-gradient(ellipse at 80% 90%, rgb(var(--color-primary) / 0.06) 0%, transparent 60%)",
+              }}
+            />
 
-        {/* Dashed inner frame */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-3"
-          style={{
-            border: "1.5px dashed rgb(var(--color-ink-muted) / 0.32)",
-          }}
-        />
+            {/* Dashed inner frame */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-3"
+              style={{
+                border: "1.5px dashed rgb(var(--color-ink-muted) / 0.32)",
+              }}
+            />
 
-        {/* Centered icon */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center">
-          <svg
-            aria-hidden="true"
-            width="36"
-            height="36"
-            viewBox="0 0 36 36"
-            fill="none"
-          >
-            <rect
-              x="5"
-              y="9"
-              width="26"
-              height="18"
-              rx="1.25"
-              stroke="rgb(var(--color-ink-muted))"
-              strokeOpacity="0.5"
-              strokeWidth="1.25"
-            />
-            <line
-              x1="5"
-              y1="16"
-              x2="31"
-              y2="16"
-              stroke="rgb(var(--color-ink-muted))"
-              strokeOpacity="0.4"
-              strokeWidth="1"
-              strokeDasharray="2 3"
-            />
-            <circle
-              cx="11"
-              cy="22"
-              r="1.5"
-              fill="rgb(var(--color-primary))"
-              fillOpacity="0.7"
-            />
-          </svg>
-        </div>
+            {/* Center — corridor miniature + label or default icon */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
+              {item.placeholderLabel ? (
+                <>
+                  {/* Three-stop corridor miniature — Kraków · Tashkent · Seoul */}
+                  <svg
+                    aria-hidden="true"
+                    width="120"
+                    height="20"
+                    viewBox="0 0 120 20"
+                    fill="none"
+                  >
+                    <line
+                      x1="8"
+                      y1="10"
+                      x2="112"
+                      y2="10"
+                      stroke="rgb(var(--color-ink-muted))"
+                      strokeOpacity="0.4"
+                      strokeWidth="1"
+                      strokeDasharray="3 3"
+                    />
+                    <circle
+                      cx="10"
+                      cy="10"
+                      r="3"
+                      fill="rgb(var(--color-ink-muted))"
+                      fillOpacity="0.55"
+                    />
+                    <circle
+                      cx="60"
+                      cy="10"
+                      r="4.5"
+                      fill="rgb(var(--color-primary))"
+                    />
+                    <circle
+                      cx="60"
+                      cy="10"
+                      r="8"
+                      fill="none"
+                      stroke="rgb(var(--color-primary))"
+                      strokeOpacity="0.35"
+                      strokeWidth="1"
+                    />
+                    <circle
+                      cx="110"
+                      cy="10"
+                      r="3"
+                      fill="rgb(var(--color-ink-muted))"
+                      fillOpacity="0.55"
+                    />
+                  </svg>
+                  <span
+                    className="font-heading font-semibold text-[rgb(var(--color-ink))] tabular-nums"
+                    style={{
+                      fontSize: "clamp(1.125rem, 1.7vw, 1.375rem)",
+                      letterSpacing: "-0.01em",
+                      lineHeight: 1.15,
+                      maxWidth: "26ch",
+                      fontVariantNumeric: "tabular-nums",
+                    }}
+                  >
+                    {item.placeholderLabel}
+                  </span>
+                </>
+              ) : (
+                <svg
+                  aria-hidden="true"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                >
+                  <rect
+                    x="5"
+                    y="9"
+                    width="26"
+                    height="18"
+                    rx="1.25"
+                    stroke="rgb(var(--color-ink-muted))"
+                    strokeOpacity="0.5"
+                    strokeWidth="1.25"
+                  />
+                  <line
+                    x1="5"
+                    y1="16"
+                    x2="31"
+                    y2="16"
+                    stroke="rgb(var(--color-ink-muted))"
+                    strokeOpacity="0.4"
+                    strokeWidth="1"
+                    strokeDasharray="2 3"
+                  />
+                  <circle
+                    cx="11"
+                    cy="22"
+                    r="1.5"
+                    fill="rgb(var(--color-primary))"
+                    fillOpacity="0.7"
+                  />
+                </svg>
+              )}
+            </div>
+          </>
+        )}
 
         {/* Number — top left */}
         <span
@@ -313,6 +428,6 @@ function RelatedCard({
           backgroundColor: "rgb(var(--color-primary))",
         }}
       />
-    </article>
+    </Link>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
@@ -17,6 +18,9 @@ export type PortfolioCardItem = {
   summary: string;
   /** When set, renders a small "Coming" pill on the card. */
   comingBadge?: string;
+  /** Optional real photograph. Falls back to dashed placeholder when omitted. */
+  image?: string;
+  imgAlt?: string;
 };
 
 type PortfoliosIndexProps = {
@@ -179,7 +183,7 @@ function PortfolioLargeCard({
         emphasized ? "md:col-span-2" : ""
       }`}
     >
-      {/* Photo placeholder */}
+      {/* Photo or dashed placeholder */}
       <div
         className="relative w-full overflow-hidden"
         style={{
@@ -187,95 +191,128 @@ function PortfolioLargeCard({
           backgroundColor: "rgb(var(--color-ink))",
         }}
         role="img"
-        aria-label={`${item.project} photograph placeholder — image arriving`}
+        aria-label={
+          item.image
+            ? item.imgAlt ?? `${item.project} photograph`
+            : `${item.project} photograph placeholder — image arriving`
+        }
       >
-        {/* Background ink + subtle pattern */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 transition-transform duration-[480ms] ease-out group-hover:scale-[1.04]"
-          style={{
-            background:
-              "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.05) 0%, transparent 60%), radial-gradient(ellipse at 75% 90%, rgba(246,163,23,0.10) 0%, transparent 65%)",
-          }}
-        />
+        {item.image ? (
+          <>
+            <Image
+              src={item.image}
+              alt={item.imgAlt ?? ""}
+              fill
+              sizes={
+                emphasized
+                  ? "(max-width: 768px) 100vw, 1100px"
+                  : "(max-width: 768px) 100vw, 560px"
+              }
+              quality={85}
+              priority={emphasized}
+              className="object-cover transition-transform duration-[480ms] ease-out group-hover:scale-[1.04]"
+            />
+            {/* Dark gradient overlay so the top/bottom overlays stay legible */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(11,31,58,0.45) 0%, rgba(11,31,58,0.10) 35%, rgba(11,31,58,0.10) 65%, rgba(11,31,58,0.55) 100%)",
+              }}
+            />
+          </>
+        ) : (
+          <>
+            {/* Background ink + subtle pattern */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 transition-transform duration-[480ms] ease-out group-hover:scale-[1.04]"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.05) 0%, transparent 60%), radial-gradient(ellipse at 75% 90%, rgba(246,163,23,0.10) 0%, transparent 65%)",
+              }}
+            />
 
-        {/* Rail grid micro-pattern inside photo */}
-        <svg
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full pointer-events-none transition-transform duration-[480ms] ease-out group-hover:scale-[1.04]"
-          style={{ opacity: 0.06 }}
-        >
-          <defs>
-            <pattern
-              id={`rail-grid-card-${item.key}`}
-              width="60"
-              height="60"
-              patternUnits="userSpaceOnUse"
+            {/* Rail grid micro-pattern inside photo */}
+            <svg
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full pointer-events-none transition-transform duration-[480ms] ease-out group-hover:scale-[1.04]"
+              style={{ opacity: 0.06 }}
             >
-              <line x1="15" y1="0" x2="15" y2="60" stroke="#fff" strokeWidth="1" />
-              <line x1="45" y1="0" x2="45" y2="60" stroke="#fff" strokeWidth="1" />
-              <line x1="0" y1="20" x2="60" y2="20" stroke="#fff" strokeWidth="0.5" />
-              <line x1="0" y1="40" x2="60" y2="40" stroke="#fff" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill={`url(#rail-grid-card-${item.key})`} />
-        </svg>
+              <defs>
+                <pattern
+                  id={`rail-grid-card-${item.key}`}
+                  width="60"
+                  height="60"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <line x1="15" y1="0" x2="15" y2="60" stroke="#fff" strokeWidth="1" />
+                  <line x1="45" y1="0" x2="45" y2="60" stroke="#fff" strokeWidth="1" />
+                  <line x1="0" y1="20" x2="60" y2="20" stroke="#fff" strokeWidth="0.5" />
+                  <line x1="0" y1="40" x2="60" y2="40" stroke="#fff" strokeWidth="0.5" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill={`url(#rail-grid-card-${item.key})`} />
+            </svg>
 
-        {/* Dashed inner frame */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-3"
-          style={{
-            border: "1.5px dashed rgba(255,255,255,0.22)",
-          }}
-        />
+            {/* Dashed inner frame */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-3"
+              style={{
+                border: "1.5px dashed rgba(255,255,255,0.22)",
+              }}
+            />
 
-        {/* Centered glyph + microcopy */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5 px-6 text-center">
-          <svg
-            aria-hidden="true"
-            width="48"
-            height="48"
-            viewBox="0 0 48 48"
-            fill="none"
-          >
-            <rect
-              x="7"
-              y="14"
-              width="34"
-              height="22"
-              rx="1.5"
-              stroke="rgba(255,255,255,0.45)"
-              strokeWidth="1.25"
-            />
-            <line
-              x1="7"
-              y1="22"
-              x2="41"
-              y2="22"
-              stroke="rgba(255,255,255,0.32)"
-              strokeWidth="1"
-              strokeDasharray="2 3"
-            />
-            <circle
-              cx="16"
-              cy="29"
-              r="2.5"
-              fill="rgb(var(--color-primary))"
-              fillOpacity="0.9"
-            />
-          </svg>
-          <span
-            className="font-heading font-medium uppercase"
-            style={{
-              fontSize: "10px",
-              letterSpacing: "0.22em",
-              color: "rgba(255,255,255,0.55)",
-            }}
-          >
-            {placeholder}
-          </span>
-        </div>
+            {/* Centered glyph + microcopy */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5 px-6 text-center">
+              <svg
+                aria-hidden="true"
+                width="48"
+                height="48"
+                viewBox="0 0 48 48"
+                fill="none"
+              >
+                <rect
+                  x="7"
+                  y="14"
+                  width="34"
+                  height="22"
+                  rx="1.5"
+                  stroke="rgba(255,255,255,0.45)"
+                  strokeWidth="1.25"
+                />
+                <line
+                  x1="7"
+                  y1="22"
+                  x2="41"
+                  y2="22"
+                  stroke="rgba(255,255,255,0.32)"
+                  strokeWidth="1"
+                  strokeDasharray="2 3"
+                />
+                <circle
+                  cx="16"
+                  cy="29"
+                  r="2.5"
+                  fill="rgb(var(--color-primary))"
+                  fillOpacity="0.9"
+                />
+              </svg>
+              <span
+                className="font-heading font-medium uppercase"
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.22em",
+                  color: "rgba(255,255,255,0.55)",
+                }}
+              >
+                {placeholder}
+              </span>
+            </div>
+          </>
+        )}
 
         {/* Number + country — top overlay */}
         <div className="absolute top-4 left-4 right-4 flex items-start justify-between gap-3 z-10">

@@ -8,12 +8,14 @@ import { ArrowRight } from "lucide-react";
 
 type Size = "featured" | "secondary" | "tertiary";
 
+export type SolutionMetric = { value: string; label: string };
+
 type SolutionItem = {
   key: "light" | "heavy" | "supply" | "digital" | "commercial";
   number: string;
   title: string;
   description: string;
-  metric: string;
+  metrics: ReadonlyArray<SolutionMetric>;
   cta: string;
   href: string;
   photo: string;
@@ -22,16 +24,22 @@ type SolutionItem = {
   objectPosition: string;
 };
 
+type SolutionEntry = {
+  title: string;
+  description: string;
+  metrics: ReadonlyArray<SolutionMetric>;
+};
+
 type SolutionsGridProps = {
   overline: string;
   title: string;
   subtitle: string;
   items: {
-    light: { title: string; description: string; metric: string };
-    heavy: { title: string; description: string; metric: string };
-    supply: { title: string; description: string; metric: string };
-    digital: { title: string; description: string; metric: string };
-    commercial: { title: string; description: string; metric: string };
+    light: SolutionEntry;
+    heavy: SolutionEntry;
+    supply: SolutionEntry;
+    digital: SolutionEntry;
+    commercial: SolutionEntry;
   };
 };
 
@@ -181,7 +189,7 @@ function SolutionCard({
             {item.title}
           </h3>
 
-          {/* Featured만 설명 + 메트릭 inline 표시 */}
+          {/* Featured: 설명 풀 텍스트 */}
           {isFeatured && (
             <p
               className="font-body text-white/75 mt-4"
@@ -191,9 +199,44 @@ function SolutionCard({
                 maxWidth: "52ch",
               }}
             >
-              {item.description}{" "}
-              <span className="text-white/55">— {item.metric}.</span>
+              {item.description}
             </p>
+          )}
+
+          {/* 메트릭 — 1개 이상 노출 (Featured는 3개, 작은 카드는 1~2개) */}
+          {item.metrics.length > 0 && (
+            <div
+              className={`mt-4 md:mt-5 flex flex-wrap gap-x-5 md:gap-x-6 gap-y-2 ${
+                isFeatured ? "" : "max-w-[28ch]"
+              }`}
+            >
+              {item.metrics.map((m) => (
+                <div key={m.label} className="flex flex-col">
+                  <span
+                    className="font-heading font-semibold text-[rgb(var(--color-primary))]"
+                    style={{
+                      fontSize: isFeatured
+                        ? "clamp(1.25rem, 1.7vw, 1.5rem)"
+                        : "clamp(1rem, 1.3vw, 1.125rem)",
+                      letterSpacing: "-0.01em",
+                      fontVariantNumeric: "tabular-nums",
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    {m.value}
+                  </span>
+                  <span
+                    className="font-heading uppercase text-white/55 mt-1"
+                    style={{
+                      fontSize: isFeatured ? "10.5px" : "10px",
+                      letterSpacing: "0.15em",
+                    }}
+                  >
+                    {m.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           )}
 
           {/* CTA — 카드별 고유 카피 */}
@@ -234,7 +277,7 @@ export default function SolutionsGrid({
       number: "04 / 05",
       title: items.digital.title,
       description: items.digital.description,
-      metric: items.digital.metric,
+      metrics: items.digital.metrics,
       cta: "See MMIS platform",
       href: "/solutions/digital-asset-management",
       photo: "/hero/hero-01-wide.jpg",
@@ -247,7 +290,7 @@ export default function SolutionsGrid({
       number: "01 / 05",
       title: items.light.title,
       description: items.light.description,
-      metric: items.light.metric,
+      metrics: items.light.metrics,
       cta: "Methodology",
       href: "/solutions/light-maintenance",
       photo: "/hero/hero-02-work.jpg",
@@ -260,7 +303,7 @@ export default function SolutionsGrid({
       number: "02 / 05",
       title: items.heavy.title,
       description: items.heavy.description,
-      metric: items.heavy.metric,
+      metrics: items.heavy.metrics,
       cta: "Case studies",
       href: "/solutions/heavy-maintenance",
       photo: "/hero/hero-03-detail.jpg",
@@ -273,7 +316,7 @@ export default function SolutionsGrid({
       number: "03 / 05",
       title: items.supply.title,
       description: items.supply.description,
-      metric: items.supply.metric,
+      metrics: items.supply.metrics,
       cta: "Partner network",
       href: "/solutions/supply-chain",
       photo: "/hero/hero-05-detail.jpg",
@@ -286,7 +329,7 @@ export default function SolutionsGrid({
       number: "05 / 05",
       title: items.commercial.title,
       description: items.commercial.description,
-      metric: items.commercial.metric,
+      metrics: items.commercial.metrics,
       cta: "Revenue programs",
       href: "/solutions/commercial-services",
       photo: "/hero/hero-04-work.jpg",

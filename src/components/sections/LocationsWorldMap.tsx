@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { isOfficeComing } from "@/lib/officeStatus";
 
 const ComposableMap = dynamic(
   () => import("react-simple-maps").then((m) => m.ComposableMap),
@@ -19,6 +20,10 @@ const Geography = dynamic(
 );
 const Marker = dynamic(
   () => import("react-simple-maps").then((m) => m.Marker),
+  { ssr: false },
+);
+const Line = dynamic(
+  () => import("react-simple-maps").then((m) => m.Line),
   { ssr: false },
 );
 
@@ -44,6 +49,7 @@ export type LocationsWorldMapProps = {
   officeLabel: string;
   warehouseLabel: string;
   sinceLabel: string;
+  comingLabel: string;
   legendHq: string;
   legendOffice: string;
   liveTag: string;
@@ -58,6 +64,7 @@ export default function LocationsWorldMap({
   officeLabel,
   warehouseLabel,
   sinceLabel,
+  comingLabel,
   legendHq,
   legendOffice,
   liveTag,
@@ -67,6 +74,7 @@ export default function LocationsWorldMap({
   const inView = useInView(ref, { amount: 0.15, once: true });
   const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery("(max-width: 1023px)");
+  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -81,12 +89,15 @@ export default function LocationsWorldMap({
         : officeLabel;
 
   const active = offices.find((o) => o.id === activeId) ?? null;
+  const hq = offices.find((o) => o.role === "headquarters") ?? null;
+  const spokes = hq ? offices.filter((o) => o.id !== hq.id) : [];
 
   return (
     <section
       ref={ref}
+      id="map"
       data-bg="dark"
-      className="relative overflow-hidden"
+      className="relative overflow-hidden scroll-mt-24"
       style={{
         backgroundColor: "rgb(var(--color-ink))",
         paddingTop: "clamp(4rem, 8vh, 6rem)",
@@ -132,11 +143,6 @@ export default function LocationsWorldMap({
             "radial-gradient(ellipse at 100% 50%, rgba(246,163,23,0.08) 0%, transparent 60%)",
         }}
       />
-
-      {/* Live polite region */}
-      <p className="sr-only" aria-live="polite">
-        {active ? `Active: ${active.city}, ${active.country}` : ""}
-      </p>
 
       <div
         className="relative z-10 mx-auto px-6 md:px-10 lg:px-16 w-full"
@@ -282,6 +288,20 @@ export default function LocationsWorldMap({
                   }
                 </Geographies>
 
+                {/* Hub-spoke lines from HQ to each office */}
+                {hq &&
+                  spokes.map((spoke) => (
+                    <Line
+                      key={`line-${spoke.id}`}
+                      from={[hq.lng, hq.lat]}
+                      to={[spoke.lng, spoke.lat]}
+                      stroke="rgba(246,163,23,0.28)"
+                      strokeWidth={0.8}
+                      strokeLinecap="round"
+                      strokeDasharray="2 3"
+                    />
+                  ))}
+
                 {offices.map((o) => {
                   const isHQ = o.role === "headquarters";
                   const isActive = activeId === o.id;
@@ -298,10 +318,18 @@ export default function LocationsWorldMap({
                       <circle
                         r={r + 14}
                         fill="transparent"
+                        role="button"
+                        aria-label={`${o.city}, ${o.country} — ${roleLabel(o.role)}`}
+                        tabIndex={0}
                         onClick={() => setActiveId(isActive ? null : o.id)}
                         onFocus={() => setActiveId(o.id)}
                         onBlur={() => setActiveId(null)}
-                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            setActiveId(isActive ? null : o.id);
+                          }
+                        }}
                         style={{ cursor: "pointer" }}
                       />
 
@@ -316,7 +344,7 @@ export default function LocationsWorldMap({
                       )}
 
                       {/* Pulse on HQ */}
-                      {isHQ && (
+                      {isHQ && !reducedMotion && (
                         <circle
                           r={r + 4}
                           fill="none"
@@ -425,7 +453,9 @@ export default function LocationsWorldMap({
                         backgroundColor: "rgb(var(--color-primary))",
                       }}
                     />
-                    {roleLabel(active.role)} · {sinceLabel} {active.since}
+                    {roleLabel(active.role)} ·{" "}
+                    {isOfficeComing(active.since) ? comingLabel : sinceLabel}{" "}
+                    {active.since}
                   </div>
                   <div
                     className="font-heading font-semibold text-white"

@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, MapPin, Mail } from "lucide-react";
+import { isOfficeComing } from "@/lib/officeStatus";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -33,12 +34,6 @@ export type OfficeGridProps = {
   awaitingNote: string;
   offices: ReadonlyArray<OfficeGridItem>;
 };
-
-const TODAY = "2026-04";
-
-function isComingSoon(since: string) {
-  return since.replace(".", "-") > TODAY;
-}
 
 function googleMapsHref(city: string, country: string) {
   const q = encodeURIComponent(`${city} ${country}`);
@@ -73,8 +68,9 @@ export default function OfficeGrid({
   return (
     <section
       ref={ref}
+      id="directory"
       data-bg="light"
-      className="relative"
+      className="relative scroll-mt-24"
       style={{
         backgroundColor: "rgb(var(--color-bg))",
         paddingTop: "clamp(4rem, 8vh, 6rem)",
@@ -192,17 +188,18 @@ function OfficeCard({
 }) {
   const [hovered, setHovered] = useState(false);
   const isHQ = office.role === "headquarters";
-  const coming = isComingSoon(office.since);
+  const coming = isOfficeComing(office.since);
   const periodLabel = coming ? comingLabel : sinceLabel;
 
   return (
     <motion.li
+      id={office.id}
       initial={{ opacity: 0, y: 18 }}
       animate={inView ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: 0.55, delay: 0.04 * index, ease: EASE }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative flex flex-col"
+      className="group relative flex flex-col scroll-mt-28"
       style={{
         backgroundColor: "rgb(var(--color-surface))",
         border: `1px solid ${

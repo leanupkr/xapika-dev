@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 type PortfolioStoryProps = {
@@ -9,6 +10,9 @@ type PortfolioStoryProps = {
   paragraphs: ReadonlyArray<string>;
   photoCaption: string;
   photoKicker?: string;
+  /** When set, renders an actual photograph instead of the dashed placeholder. */
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
 export default function PortfolioStory({
@@ -17,6 +21,8 @@ export default function PortfolioStory({
   paragraphs,
   photoCaption,
   photoKicker,
+  imageSrc,
+  imageAlt,
 }: PortfolioStoryProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -139,113 +145,204 @@ export default function PortfolioStory({
 
         {/* Photo */}
         <div className="lg:col-span-6 lg:pl-8">
-          <div
-            data-fade
-            className="relative opacity-0"
-            style={{
-              aspectRatio: "16 / 9",
-              border: "1.5px dashed rgba(255,255,255,0.22)",
-              backgroundColor: "rgba(255,255,255,0.02)",
-            }}
-            role="img"
-            aria-label={`${photoCaption} — image arriving`}
-          >
+          {imageSrc ? (
             <div
-              aria-hidden="true"
-              className="absolute inset-0"
+              data-fade
+              className="relative opacity-0 overflow-hidden"
               style={{
-                background:
-                  "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.04) 0%, transparent 65%), radial-gradient(ellipse at 80% 90%, rgba(246,163,23,0.08) 0%, transparent 60%)",
+                aspectRatio: "16 / 9",
+                backgroundColor: "rgba(255,255,255,0.02)",
               }}
-            />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center px-6">
-              <svg aria-hidden="true" width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <rect
-                  x="6"
-                  y="12"
-                  width="36"
-                  height="24"
-                  rx="1.5"
-                  stroke="rgba(255,255,255,0.45)"
-                  strokeWidth="1.25"
+            >
+              <Image
+                src={imageSrc}
+                alt={imageAlt ?? photoCaption}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={85}
+                className="object-cover"
+              />
+              {/* Caption overlay */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 pointer-events-none"
+                style={{
+                  height: "40%",
+                  background:
+                    "linear-gradient(180deg, rgba(11,31,58,0) 0%, rgba(11,31,58,0.55) 100%)",
+                }}
+              />
+              <div className="absolute left-5 bottom-5 flex flex-col gap-1 pointer-events-none">
+                {photoKicker ? (
+                  <span
+                    className="font-heading font-medium uppercase"
+                    style={{
+                      fontSize: "10px",
+                      letterSpacing: "0.22em",
+                      color: "rgba(255,255,255,0.65)",
+                    }}
+                  >
+                    {photoKicker}
+                  </span>
+                ) : null}
+                <span
+                  className="font-heading font-medium uppercase"
+                  style={{
+                    fontSize: "10.5px",
+                    letterSpacing: "0.22em",
+                    color: "rgba(255,255,255,0.92)",
+                  }}
+                >
+                  {photoCaption}
+                </span>
+              </div>
+              {/* Corner ticks — preserve framing motif */}
+              {[
+                { top: 8, left: 8 },
+                { top: 8, right: 8 },
+                { bottom: 8, left: 8 },
+                { bottom: 8, right: 8 },
+              ].map((pos, i) => (
+                <span
+                  key={i}
+                  aria-hidden="true"
+                  className="absolute block pointer-events-none"
+                  style={{
+                    top: pos.top,
+                    left: pos.left,
+                    right: pos.right,
+                    bottom: pos.bottom,
+                    width: "10px",
+                    height: "10px",
+                    borderTop:
+                      pos.top !== undefined
+                        ? "1.5px solid rgb(var(--color-primary))"
+                        : undefined,
+                    borderBottom:
+                      pos.bottom !== undefined
+                        ? "1.5px solid rgb(var(--color-primary))"
+                        : undefined,
+                    borderLeft:
+                      pos.left !== undefined
+                        ? "1.5px solid rgb(var(--color-primary))"
+                        : undefined,
+                    borderRight:
+                      pos.right !== undefined
+                        ? "1.5px solid rgb(var(--color-primary))"
+                        : undefined,
+                  }}
                 />
-                <line
-                  x1="6"
-                  y1="22"
-                  x2="42"
-                  y2="22"
-                  stroke="rgba(255,255,255,0.32)"
-                  strokeWidth="1"
-                  strokeDasharray="2 3"
-                />
-                <circle
-                  cx="14"
-                  cy="29"
-                  r="2.25"
-                  fill="rgb(var(--color-primary))"
-                  fillOpacity="0.85"
-                />
-              </svg>
-              {photoKicker ? (
+              ))}
+            </div>
+          ) : (
+            <div
+              data-fade
+              className="relative opacity-0"
+              style={{
+                aspectRatio: "16 / 9",
+                border: "1.5px dashed rgba(255,255,255,0.22)",
+                backgroundColor: "rgba(255,255,255,0.02)",
+              }}
+              role="img"
+              aria-label={`${photoCaption} — image arriving`}
+            >
+              <div
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.04) 0%, transparent 65%), radial-gradient(ellipse at 80% 90%, rgba(246,163,23,0.08) 0%, transparent 60%)",
+                }}
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center px-6">
+                <svg aria-hidden="true" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <rect
+                    x="6"
+                    y="12"
+                    width="36"
+                    height="24"
+                    rx="1.5"
+                    stroke="rgba(255,255,255,0.45)"
+                    strokeWidth="1.25"
+                  />
+                  <line
+                    x1="6"
+                    y1="22"
+                    x2="42"
+                    y2="22"
+                    stroke="rgba(255,255,255,0.32)"
+                    strokeWidth="1"
+                    strokeDasharray="2 3"
+                  />
+                  <circle
+                    cx="14"
+                    cy="29"
+                    r="2.25"
+                    fill="rgb(var(--color-primary))"
+                    fillOpacity="0.85"
+                  />
+                </svg>
+                {photoKicker ? (
+                  <span
+                    className="font-heading font-medium uppercase"
+                    style={{
+                      fontSize: "10px",
+                      letterSpacing: "0.22em",
+                      color: "rgba(255,255,255,0.45)",
+                    }}
+                  >
+                    {photoKicker}
+                  </span>
+                ) : null}
                 <span
                   className="font-heading font-medium uppercase"
                   style={{
                     fontSize: "10px",
                     letterSpacing: "0.22em",
-                    color: "rgba(255,255,255,0.45)",
+                    color: "rgba(255,255,255,0.55)",
                   }}
                 >
-                  {photoKicker}
+                  {photoCaption}
                 </span>
-              ) : null}
-              <span
-                className="font-heading font-medium uppercase"
-                style={{
-                  fontSize: "10px",
-                  letterSpacing: "0.22em",
-                  color: "rgba(255,255,255,0.55)",
-                }}
-              >
-                {photoCaption}
-              </span>
+              </div>
+              {[
+                { top: 8, left: 8 },
+                { top: 8, right: 8 },
+                { bottom: 8, left: 8 },
+                { bottom: 8, right: 8 },
+              ].map((pos, i) => (
+                <span
+                  key={i}
+                  aria-hidden="true"
+                  className="absolute block"
+                  style={{
+                    top: pos.top,
+                    left: pos.left,
+                    right: pos.right,
+                    bottom: pos.bottom,
+                    width: "8px",
+                    height: "8px",
+                    borderTop:
+                      pos.top !== undefined
+                        ? "1.5px solid rgb(var(--color-primary))"
+                        : undefined,
+                    borderBottom:
+                      pos.bottom !== undefined
+                        ? "1.5px solid rgb(var(--color-primary))"
+                        : undefined,
+                    borderLeft:
+                      pos.left !== undefined
+                        ? "1.5px solid rgb(var(--color-primary))"
+                        : undefined,
+                    borderRight:
+                      pos.right !== undefined
+                        ? "1.5px solid rgb(var(--color-primary))"
+                        : undefined,
+                  }}
+                />
+              ))}
             </div>
-            {[
-              { top: 8, left: 8 },
-              { top: 8, right: 8 },
-              { bottom: 8, left: 8 },
-              { bottom: 8, right: 8 },
-            ].map((pos, i) => (
-              <span
-                key={i}
-                aria-hidden="true"
-                className="absolute block"
-                style={{
-                  top: pos.top,
-                  left: pos.left,
-                  right: pos.right,
-                  bottom: pos.bottom,
-                  width: "8px",
-                  height: "8px",
-                  borderTop:
-                    pos.top !== undefined
-                      ? "1.5px solid rgb(var(--color-primary))"
-                      : undefined,
-                  borderBottom:
-                    pos.bottom !== undefined
-                      ? "1.5px solid rgb(var(--color-primary))"
-                      : undefined,
-                  borderLeft:
-                    pos.left !== undefined
-                      ? "1.5px solid rgb(var(--color-primary))"
-                      : undefined,
-                  borderRight:
-                    pos.right !== undefined
-                      ? "1.5px solid rgb(var(--color-primary))"
-                      : undefined,
-                }}
-              />
-            ))}
-          </div>
+          )}
         </div>
       </div>
     </section>

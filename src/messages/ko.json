@@ -9,7 +9,43 @@
     "solutions_light_maintenance": "경정비",
     "solutions_supply_chain": "공급망 관리",
     "solutions_digital_asset": "디지털 자산 관리",
-    "solutions_commercial": "상업 서비스"
+    "solutions_commercial": "상업 서비스",
+
+    "about_ceo": "CEO 인사말",
+    "about_history": "회사 연혁",
+    "about_vision": "비전·핵심가치",
+    "about_organization": "조직도",
+    "about_clients": "주요 고객사",
+
+    "about_ceo_desc": "창립자의 한 마디.",
+    "about_history_desc": "5개국, 10년의 발자취.",
+    "about_vision_desc": "완벽·안전·정밀의 세 약속.",
+    "about_organization_desc": "기능별 협업 팀 구조.",
+    "about_clients_desc": "각국 국가 철도 운영사.",
+
+    "solutions_light_maintenance_desc": "일일 점검 · 기능 검사.",
+    "solutions_heavy_maintenance_desc": "보증 아래 종합 오버홀.",
+    "solutions_supply_chain_desc": "50+ 파트너 부품 조달.",
+    "solutions_digital_asset_desc": "VISION IT MMIS 플랫폼.",
+    "solutions_commercial_desc": "역사 리테일 · 컨세션.",
+
+    "portfolios_ukraine": "우크라이나 HRCS2 EMU",
+    "portfolios_warsaw": "바르샤바 트램",
+    "portfolios_uzbekistan": "우즈베키스탄 고속철",
+    "portfolios_all": "전체 포트폴리오 보기",
+
+    "portfolios_ukraine_desc": "고속 차량 100대 · 2017년부터.",
+    "portfolios_warsaw_desc": "트램 123대 · 140년 네트워크.",
+    "portfolios_uzbekistan_desc": "2026년 5월 운영 개시.",
+    "portfolios_all_desc": "전체 포트폴리오 개요.",
+
+    "locations_map": "글로벌 지도",
+    "locations_directory": "사무소 디렉토리",
+    "locations_hq": "본사 · 바르샤바",
+
+    "locations_map_desc": "9개 도시 운영 네트워크.",
+    "locations_directory_desc": "사무소별 주소·연락처.",
+    "locations_hq_desc": "2022년 이전한 그룹 본사."
   },
   "hero": {
     "headline": "완벽한 작업. 안전한 운영.",
@@ -46,28 +82,44 @@
     "items": {
       "light": {
         "title": "경정비",
-        "description": "일일 점검과 기능 검사를 통해 차량 가동률을 유지합니다.",
-        "metric": "연 18,500+ 건"
+        "description": "일일 점검, 기능 검사 및 경정비를 수행하여 차량 성능을 유지하고 운영 안전성과 신뢰성을 확보합니다.",
+        "metrics": [
+          { "value": "18,500+", "label": "연간 작업 건수" }
+        ],
+        "imgAlt": "HRCS2 디팟 일상 점검"
       },
       "heavy": {
         "title": "중정비",
-        "description": "전체 오버홀과 부품 교체를 안전 보증 아래 수행합니다.",
-        "metric": "연 3,500+ 건"
+        "description": "차량 성능을 복원하고 신뢰성을 강화하며 장기 운영 안전을 보장하는 종합 중정비를 수행합니다.",
+        "metrics": [
+          { "value": "3,500+", "label": "연간 작업 건수" }
+        ],
+        "imgAlt": "중정비 베이"
       },
       "supply": {
         "title": "차량 공급망 관리",
-        "description": "50+ 파트너 네트워크를 통한 부품 조달과 재고 오케스트레이션.",
-        "metric": "8,000+ 부품 관리"
+        "description": "최적화된 조달과 보세 창고 운영을 통해 철도 부품을 효율적이고 비용 효과적으로 공급합니다.",
+        "metrics": [
+          { "value": "50+", "label": "글로벌 파트너" },
+          { "value": "8,000+", "label": "관리 부품 수" }
+        ],
+        "imgAlt": "공급망 부품 사진"
       },
       "digital": {
-        "title": "디지털 자산 관리",
-        "description": "VISION IT의 MMIS 플랫폼 — 예측 작업 지시와 재고 관리.",
-        "metric": "25,000+ 작업 지시 추적"
+        "title": "디지털 솔루션 & 자산 관리",
+        "description": "관계사 VISION IT의 MMIS 플랫폼을 통해 데이터 기반 인사이트로 운영과 자산 관리를 최적화합니다.",
+        "metrics": [
+          { "value": "25,000+", "label": "연간 작업 지시" },
+          { "value": "30%", "label": "응답 시간 단축" },
+          { "value": "93%", "label": "재고 정확도" }
+        ],
+        "imgAlt": "VISION IT MMIS 대시보드 프리뷰"
       },
       "commercial": {
-        "title": "상업 및 부대 서비스",
-        "description": "역사 리테일, 컨세션, 운영 수익 프로그램.",
-        "metric": "수익 최적화"
+        "title": "통합 상업 및 부대 서비스",
+        "description": "자판기, 광고, 상업 시설을 포함한 부가 서비스를 개발·운영하여 승객 경험을 향상시키고 추가 수익을 창출합니다.",
+        "metrics": [],
+        "imgAlt": "바르샤바 트램 내부"
       }
     }
   },
@@ -115,12 +167,18 @@
     }
   },
   "partners": {
-    "overline": "7개국 철도 운영사가 선택한 파트너"
+    "overline": "글로벌 운영을 가능케 하는 전략 파트너"
   },
   "globalPresence": {
     "overline": "글로벌 네트워크",
     "title": "7개국. 하나의 기준.",
-    "subtitle": "유럽, 중앙아시아, 동아시아에 걸친 정비 거점과 엔지니어링 크루."
+    "subtitle": "유럽, 중앙아시아, 동아시아에 걸친 정비 거점과 엔지니어링 크루.",
+    "stat1_value": "3",
+    "stat1_unit": "물류 거점",
+    "stat2_value": "5",
+    "stat2_unit": "엔지니어링 거점",
+    "stat3_value": "8",
+    "stat3_unit": "오피스"
   },
   "midCta": {
     "overline": "함께 이야기하세요",
@@ -133,6 +191,7 @@
     "tagline": "철도의 미래를 함께 만들어가시겠습니까?",
     "cta": "문의하기",
     "copyright": "© 2026 Xapika Engineering. All rights reserved.",
+    "slogan": "완벽을 위한 엔지니어링, 안전을 향한 약속.",
     "brandTagline": "정확한 철도 정비, 타협 없는 안전.",
     "rightTagline": "철도 정비의 엔지니어링 정수.",
     "navHeading": "둘러보기",
@@ -142,7 +201,21 @@
     "seoul": "서울",
     "seoulDetail": "아시아 태평양",
     "istanbul": "이스탄불",
-    "istanbulDetail": "창립 오피스"
+    "istanbulDetail": "창립 오피스",
+    "warsawOffice": "바르샤바",
+    "warsawOfficeDetail": "트램·메트로 오피스",
+    "kyiv": "키이우",
+    "kyivDetail": "EMU 정비 크루",
+    "tashkent": "타슈켄트",
+    "tashkentDetail": "중앙아시아",
+    "cairo": "카이로",
+    "cairoDetail": "중동·북아프리카",
+    "virginia": "버지니아",
+    "virginiaDetail": "북미",
+    "saoPaulo": "상파울루",
+    "saoPauloDetail": "남미",
+    "privacyLink": "개인정보 처리방침",
+    "termsLink": "이용약관"
   },
   "about": {
     "meta": {
@@ -154,6 +227,10 @@
       "subtitle": "5개국에서 단 한 번의 계약 불이행 없이 쌓아온 10년의 철도 정비 정밀함."
     },
     "history": {
+      "meta": {
+        "title": "회사 연혁",
+        "description": "이스탄불에서 타슈켄트까지 — 10년의 철도 정비 여정을 마일스톤별로 확인하세요."
+      },
       "overline": "연혁",
       "title": "5개국에서 쌓아온 10년의 정밀함.",
       "subtitle": "모든 기록은 고객사 정비 로그와 규제 기관의 감사 결과로 검증되었습니다.",
@@ -162,20 +239,29 @@
       "events": [
         { "year": "2016", "month": "10", "country": "튀르키예", "event": "이스탄불 사무소 설립" },
         { "year": "2017", "month": "06", "country": "우크라이나", "event": "고속철 정비 운영 개시" },
-        { "year": "2018", "month": "11", "country": "우크라이나", "event": "우크라이나 본사 이전" },
+        { "year": "2018", "month": "11", "country": "우크라이나", "event": "우크라이나 본사 개설" },
         { "year": "2019", "month": "06", "country": "브라질", "event": "상파울루 사무소 설립" },
         { "year": "2021", "month": "07", "country": "폴란드", "event": "폴란드 사무소 설립" },
         { "year": "2021", "month": "10", "country": "폴란드", "event": "바르샤바 트램 정비 운영 개시" },
         { "year": "2022", "month": "03", "country": "폴란드", "event": "바르샤바 본사 신규 시설 이전" },
-        { "year": "2022", "month": "05", "country": "폴란드", "event": "폴란드 물류 창고 운영 개시" },
+        { "year": "2022", "month": "05", "country": "폴란드", "event": "폴란드 물류 창고 개설" },
         { "year": "2023", "month": "06", "country": "미국", "event": "버지니아 사무소 설립" },
         { "year": "2023", "month": "10", "country": "이집트", "event": "카이로 사무소 설립" },
         { "year": "2026", "month": "03", "country": "한국", "event": "서울 사무소 설립" },
         { "year": "2026", "month": "04", "country": "우즈베키스탄", "event": "타슈켄트 사무소 설립" },
         { "year": "2026", "month": "05", "country": "우즈베키스탄", "event": "우즈베키스탄 고속철 정비 개시" }
-      ]
+      ],
+      "cta": {
+        "title": "저희와 함께 이야기를 이어가세요.",
+        "subtitle": "신규 노선이든 오랜 차량이든, 귀사의 네트워크에 대해 기꺼이 상담해 드립니다.",
+        "button": "차량 운영 상담"
+      }
     },
     "vision": {
+      "meta": {
+        "title": "비전·핵심가치",
+        "description": "완벽한 작업, 안전한 운영, 정밀한 엔지니어링 — Xapika의 모든 계약을 뒷받침하는 세 가지 약속."
+      },
       "overline": "운영 원칙",
       "title": "세 가지 약속. 가장 가혹한 환경에서 검증되었습니다.",
       "subtitle": "이것은 슬라이드 위 슬로건이 아니라, 저희 크루가 출동하는 조건이자 규제 기관이 감사하는 지표이며, 고객사가 비용을 지불한 기준입니다.",
@@ -195,28 +281,87 @@
           "title": "정밀한 엔지니어링.",
           "body": "교체된 모든 부품은 추적되고, 모든 작업 지시는 타임스탬프가 찍힙니다. 정밀함이 230대의 차량을 하나처럼 움직이게 합니다."
         }
-      ]
+      ],
+      "cta": {
+        "title": "이 원칙들이 모든 계약을 만듭니다.",
+        "subtitle": "완벽, 안전, 정밀이 귀사의 운영 환경에서 어떻게 구현되는지 직접 확인하세요.",
+        "button": "문의하기"
+      }
     },
     "ceo": {
+      "meta": {
+        "title": "CEO 인사말",
+        "description": "5개국 철도 운영의 연속성에 대한 창립자의 메시지."
+      },
       "overline": "리더십",
       "title": "대표이사 메시지.",
       "subtitle": "CEO 메시지 도착 대기 — 하리카에서 곧 제공합니다.",
       "placeholderName": "대표이사 · 창립자",
       "awaitingNote": "CEO 메시지 도착 대기 · 하리카 제공 예정",
-      "portraitPlaceholder": "Portrait · 추후 제공"
+      "portraitPlaceholder": "Portrait · 추후 제공",
+      "cta": {
+        "title": "경영진과 직접 이야기하세요.",
+        "subtitle": "대표이사와 시니어 엔지니어들이 장기 프로그램을 검토하는 운영사와 직접 미팅합니다.",
+        "button": "미팅 요청"
+      }
     },
     "org": {
+      "meta": {
+        "title": "조직도",
+        "description": "5개국에 걸친 기능별 협업 조직 — Xapika Engineering이 하나의 팀으로 움직이는 방식."
+      },
       "overline": "조직",
       "title": "5개국에 걸친 기능별 협업 조직.",
       "subtitle": "바르샤바 본사부터 카이로 · 타슈켄트까지, 모든 팀이 하나로 움직입니다.",
       "placeholderText": "조직도 · 추후 제공",
-      "awaitingNote": "조직도 제공 대기 중"
+      "awaitingNote": "조직도 제공 대기 중",
+      "cta": {
+        "title": "작업 뒤에 있는 팀을 만나보세요.",
+        "subtitle": "저희 엔지니어와 운영자들이 바로 귀사와 함께 일할 사람들입니다. 언제든 연락주세요.",
+        "button": "문의하기"
+      }
     },
     "clients": {
+      "meta": {
+        "title": "주요 고객사",
+        "description": "서울에서 카이로까지 — Xapika를 선택한 각국의 국가 철도 운영사들."
+      },
       "overline": "주요 고객사",
       "title": "각국의 철도 운영사들이 선택했습니다.",
       "subtitle": "서울에서 카이로까지, Xapika는 매일 수백만 명을 움직이는 운영사들을 돕습니다.",
-      "logoArrivingNote": "로고 추후 제공"
+      "logoArrivingNote": "로고 추후 제공",
+      "cta": {
+        "title": "저희를 신뢰하는 운영사들과 함께하세요.",
+        "subtitle": "Hyundai Rotem부터 우크라이나 철도까지, 함께하는 운영사들이 기준을 세웁니다. 이야기해 봅시다.",
+        "button": "문의하기"
+      }
+    },
+    "index": {
+      "overline": "섹션 둘러보기",
+      "title": "하나의 운영 기준, 다섯 가지 단면.",
+      "subtitle": "창립자의 비전부터 고객사 포트폴리오까지, 각 섹션은 동일한 운영 기준을 다른 시각으로 보여줍니다.",
+      "cards": {
+        "ceo": {
+          "title": "CEO 인사말",
+          "description": "연속적인 운영이 실제로 무엇을 의미하는지, 창립자의 말로 전합니다."
+        },
+        "history": {
+          "title": "회사 연혁",
+          "description": "이스탄불에서 타슈켄트까지 10년 — 하나하나 쌓아온 마일스톤."
+        },
+        "vision": {
+          "title": "비전·핵심가치",
+          "description": "완벽한 작업, 안전한 운영, 정밀한 엔지니어링 — 모든 계약 뒤에 있는 세 가지 약속."
+        },
+        "organization": {
+          "title": "조직도",
+          "description": "5개국에 걸친 기능별 팀들이 하나의 단위로 움직입니다."
+        },
+        "clients": {
+          "title": "주요 고객사",
+          "description": "차량과 역사를 Xapika에 맡기는 각국의 국가 철도 운영사들."
+        }
+      }
     }
   },
   "solutionsPage": {
@@ -247,6 +392,32 @@
         "overline": "솔루션",
         "title": "매일의 정밀함. 끊김 없는 가동.",
         "subtitle": "차량을 하루도 빠짐없이 운영하게 하는 점검 · 기능 검사 · 소규모 정비."
+      },
+      "dailyTimeline": {
+        "overline": "일일 사이클",
+        "title": "모든 영업 운행은 04:30에 시작합니다.",
+        "steps": [
+          {
+            "time": "04:30",
+            "label": "출발 전 점검",
+            "desc": "규제 기관 정합 체크리스트 기준 육안·기능 점검 — 출고 전 서명."
+          },
+          {
+            "time": "05:00",
+            "label": "기능 검사",
+            "desc": "제동·도어·HVAC·팬터그래프 응답을 임계치 기준으로 검증합니다."
+          },
+          {
+            "time": "05:30",
+            "label": "소규모 정비 윈도우",
+            "desc": "동일 운영 윈도우 안에 마감하는 디팟 내 수리 — 필요한 경우에만 중정비로 에스컬레이션."
+          },
+          {
+            "time": "06:15",
+            "label": "운행 출고",
+            "desc": "당일 첫 운행 승인 완료."
+          }
+        ]
       },
       "whatWeDo": {
         "overline": "수행 업무",
@@ -284,9 +455,9 @@
         "title": "조용한 산출. 분명한 책임.",
         "stats": [
           { "value": "18,500+", "label": "연간 작업 건수" },
-          { "value": "99.4%", "label": "정시 출발율" },
-          { "value": "4hrs", "label": "평균 응답 시간" },
-          { "value": "0", "label": "최근 12개월 사고" }
+          { "value": "100", "label": "HRCS2 차량 운영" },
+          { "value": "2017", "label": "운영 시작" },
+          { "value": "82,000+", "label": "누적 정비 실적" }
         ]
       },
       "relatedProjects": {
@@ -297,13 +468,15 @@
             "key": "ukraine",
             "country": "우크라이나",
             "project": "HRCS2 차량 — Ukrzaliznytsia",
-            "desc": "100대 고속 차량의 일일 점검과 기능 검사를 2022년 전시 환경 속에서도 무중단으로 유지하고 있습니다."
+            "desc": "100대 고속 차량의 일일 점검과 기능 검사를 2022년 전시 환경 속에서도 무중단으로 유지하고 있습니다.",
+            "imgAlt": "Ukrzaliznytsia 디팟의 HRCS2 점검"
           },
           {
             "key": "poland",
             "country": "폴란드",
             "project": "바르샤바 트램",
-            "desc": "123대 트램을 바르샤바 디팟에서 24시간 경정비로 운영하며 시 운행 윈도우에 맞춰 스케줄링합니다."
+            "desc": "123대 트램을 바르샤바 디팟에서 24시간 경정비로 운영하며 시 운행 윈도우에 맞춰 스케줄링합니다.",
+            "imgAlt": "바르샤바 트램 디팟"
           }
         ]
       },
@@ -318,6 +491,29 @@
         "overline": "솔루션",
         "title": "종합 오버홀. 검증된 안전.",
         "subtitle": "성능을 복원하고 신뢰성을 높이며 장기 운영 안전을 보장하는 중정비 — 모든 작업이 감사됩니다."
+      },
+      "overhaulProcess": {
+        "overline": "오버홀 시퀀스",
+        "title": "네 가지 작업, 하나의 안전 보증.",
+        "subtitle": "성능을 복원하고 신뢰성을 높이며 장기 운영 안전을 보장하는 종합 중정비 — 모든 작업이 감사됩니다.",
+        "phases": [
+          {
+            "label": "오버홀",
+            "desc": "차량을 완전 분해·점검·재조립하여 OEM 사양에 맞춥니다."
+          },
+          {
+            "label": "대차 정비",
+            "desc": "프레임 검사, 서스펜션 갱신, 견인 모터 재인증을 통제된 디팟 조건에서 수행합니다."
+          },
+          {
+            "label": "제동 시스템",
+            "desc": "공압·전기 제동 오버홀과 밸브 교체, 시스템 전체 압력 검증까지 일괄 수행합니다."
+          },
+          {
+            "label": "차륜 절삭",
+            "desc": "프로파일 재가공, 차축 점검, UIC 공차에 맞춘 재조립 — 출고 전 측정으로 검증."
+          }
+        ]
       },
       "whatWeDo": {
         "overline": "수행 업무",
@@ -355,9 +551,9 @@
         "title": "약속이 아닌 결과로 측정됩니다.",
         "stats": [
           { "value": "3,500+", "label": "연간 작업 건수" },
-          { "value": "100+", "label": "연간 오버홀 건수" },
-          { "value": "24h", "label": "평균 MTBF 응답" },
-          { "value": "99.7%", "label": "정시 출고율" }
+          { "value": "100", "label": "중정비 사이클 차량" },
+          { "value": "90", "label": "일 오버홀 주기" },
+          { "value": "2017", "label": "연속 운영 시작" }
         ]
       },
       "relatedProjects": {
@@ -368,13 +564,15 @@
             "key": "ukraine",
             "country": "우크라이나",
             "project": "HRCS2 차량 — Ukrzaliznytsia",
-            "desc": "2017년부터 100대의 고속 차량을 연속 중정비 사이클로 운영 — 전쟁 중에도 무중단."
+            "desc": "2017년부터 100대의 고속 차량을 연속 중정비 사이클로 운영 — 전쟁 중에도 무중단.",
+            "imgAlt": "Ukrzaliznytsia의 HRCS2 중정비"
           },
           {
             "key": "poland",
             "country": "폴란드",
             "project": "바르샤바 트램",
-            "desc": "123대 트램 차량을 바르샤바 디팟에서 롤링 오버홀 일정으로 정비하며, 시 감사 기준을 충족합니다."
+            "desc": "123대 트램 차량을 바르샤바 디팟에서 롤링 오버홀 일정으로 정비하며, 시 감사 기준을 충족합니다.",
+            "imgAlt": "바르샤바 트램 오버홀"
           }
         ]
       },
@@ -389,6 +587,14 @@
         "overline": "솔루션",
         "title": "차량이 멈추기 전에 도착하는 부품.",
         "subtitle": "3개 대륙 50+ 파트너를 통한 조달 · 보관 · 재고 오케스트레이션."
+      },
+      "partnerLogoGrid": {
+        "overline": "글로벌 파트너",
+        "title": "글로벌 철도 부품 공급 네트워크.",
+        "subtitle": "3개 대륙 50+ 파트너를 단일 책임 계약으로 운영합니다."
+      },
+      "gearPhoto": {
+        "alt": "파트너 시설에서 출하 대기 중인 철도 구동 기어 유닛."
       },
       "whatWeDo": {
         "overline": "수행 업무",
@@ -426,9 +632,9 @@
         "title": "거리에 흔들리지 않는 공급망.",
         "stats": [
           { "value": "50+", "label": "글로벌 파트너" },
-          { "value": "8,000+", "label": "관리 부품 SKU" },
+          { "value": "8,000+", "label": "관리 부품" },
           { "value": "3", "label": "대륙별 거점 창고" },
-          { "value": "99.1%", "label": "재고 가용률" }
+          { "value": "22,000+", "label": "연간 정비 지원" }
         ]
       },
       "relatedProjects": {
@@ -439,13 +645,15 @@
             "key": "ukraine",
             "country": "우크라이나",
             "project": "HRCS2 차량 — Ukrzaliznytsia",
-            "desc": "100대 고속 차량을 위한 국경 간 부품 파이프라인을 2022년 전시 물류 제약 속에서도 지속 운영하고 있습니다."
+            "desc": "100대 고속 차량을 위한 국경 간 부품 파이프라인을 2022년 전시 물류 제약 속에서도 지속 운영하고 있습니다.",
+            "imgAlt": "우크라이나 HRCS2 부품 공급"
           },
           {
             "key": "poland",
             "country": "폴란드",
             "project": "바르샤바 트램",
-            "desc": "123대 트램 차량을 대상으로 바르샤바 디팟 재고 오케스트레이션을 운영하며, 시 운행 윈도우에 맞춘 재발주 사이클을 유지합니다."
+            "desc": "123대 트램 차량을 대상으로 바르샤바 디팟 재고 오케스트레이션을 운영하며, 시 운행 윈도우에 맞춘 재발주 사이클을 유지합니다.",
+            "imgAlt": "바르샤바 디팟 재고"
           }
         ]
       },
@@ -460,6 +668,22 @@
         "overline": "솔루션",
         "title": "정비는 데이터입니다.",
         "subtitle": "관계사 VISION IT의 MMIS 플랫폼을 통해 모든 작업 지시는 타임스탬프가 찍히고, 모든 부품은 추적되며, 모든 차량은 관측됩니다."
+      },
+      "mmisShowcase": {
+        "overline": "현장에서 작동 중인 MMIS",
+        "title": "플랫폼은 현장에서 일합니다.",
+        "screens": [
+          { "caption": "원격 모니터링", "alt": "MMIS 멀티 스크린 운영 월 — 실시간 열차 추적과 상태 모니터링." },
+          { "caption": "온보드 텔레메트리", "alt": "기차 옆 서버 랙 앞에서 MMIS 태블릿으로 점검하는 기술자." },
+          { "caption": "인력·작업 흐름", "alt": "디팟 기술자가 태블릿으로 MMIS에 정비 기록을 입력하는 모습." },
+          { "caption": "부품 추적성", "alt": "기어박스 부품 추적 레이블 — 시리얼 번호, 시험 기록, 서명." }
+        ]
+      },
+      "visionItCallout": {
+        "overline": "플랫폼 파트너",
+        "title": "VISION IT가 함께합니다.",
+        "body": "관계사 VISION IT의 MMIS 플랫폼을 통해 운영과 자산을 데이터 기반으로 최적화합니다 — 원격 상태 모니터링, 고장·결함 분석, 상태 기반 정비, 디지털 창고와 예비 부품, 디지털 직원.",
+        "visitLabel": "VISION IT로 이동"
       },
       "whatWeDo": {
         "overline": "수행 업무",
@@ -496,10 +720,10 @@
         "overline": "주요 지표",
         "title": "관측되는 차량이 더 잘 작동합니다.",
         "stats": [
-          { "value": "25,000+", "label": "추적 작업 지시" },
-          { "value": "30%", "label": "MTBF 응답 단축" },
+          { "value": "25,000+", "label": "연간 관리 작업 지시" },
+          { "value": "30%", "label": "응답 시간 단축" },
           { "value": "93%", "label": "재고 정확도" },
-          { "value": "5", "label": "플랫폼 운영 국가" }
+          { "value": "Affiliate", "label": "VISION IT MMIS 플랫폼" }
         ]
       },
       "relatedProjects": {
@@ -510,13 +734,15 @@
             "key": "ukraine",
             "country": "우크라이나",
             "project": "HRCS2 차량 — Ukrzaliznytsia",
-            "desc": "100대 고속 차량의 작업 지시 · 부품 · 부품 상태를 MMIS에서 국경 너머까지 통합 추적합니다."
+            "desc": "100대 고속 차량의 작업 지시 · 부품 · 부품 상태를 MMIS에서 국경 너머까지 통합 추적합니다.",
+            "imgAlt": "MMIS로 운영되는 HRCS2 차량"
           },
           {
             "key": "poland",
             "country": "폴란드",
             "project": "바르샤바 트램",
-            "desc": "바르샤바 123대 트램 차량을 MMIS에서 운영합니다 — 디팟 크루 · 재고 · 시 감사 보고가 단일 시스템으로 흐릅니다."
+            "desc": "바르샤바 123대 트램 차량을 MMIS에서 운영합니다 — 디팟 크루 · 재고 · 시 감사 보고가 단일 시스템으로 흐릅니다.",
+            "imgAlt": "MMIS로 운영되는 바르샤바 트램"
           }
         ]
       },
@@ -533,6 +759,14 @@
         "overline": "솔루션",
         "title": "운영 안에 설계된 수익 모델.",
         "subtitle": "역사 리테일 · 컨세션 · 운영 수익 프로그램 — 정비 비용을 관리되는 마진으로 전환합니다."
+      },
+      "editorialStatement": {
+        "overline": "커머셜 설계",
+        "kicker": "운영 안에 설계된 수익.",
+        "paragraphs": [
+          "자판기, 광고, 상업 시설 — 첫 적자 연도 이후에 덧붙이지 않고, 처음부터 운영 계약 안에 설계합니다.",
+          "역사 리테일과 부가 접점 전반에서 승객 경험을 강화하고 추가 수익을 창출하도록 구성됩니다."
+        ]
       },
       "whatWeDo": {
         "overline": "수행 업무",
@@ -572,8 +806,18 @@
           { "value": "Custom", "label": "운영사별 맞춤 프로그램" },
           { "value": "장기", "label": "계약 기간" },
           { "value": "운영사 정합", "label": "리스크 모델" },
-          { "value": "마진 흑자", "label": "첫 사이클 내" }
+          { "value": "프로그램 운영", "label": "첫 사이클 내" }
         ]
+      },
+      "bentoQualitative": {
+        "overline": "프로그램 특성",
+        "title": "템플릿이 아닌, 운영사별 설계."
+      },
+      "tramPanel": {
+        "overline": "현장 증거",
+        "note": "바르샤바 트램 네트워크에서 운영 중인 커머셜 통합 — 일상 운영 안에 설계된 승객 접점.",
+        "img1Alt": "바르샤바 트램 내부 — 승객 좌석과 상업 공간.",
+        "img2Alt": "바르샤바 트램 정거장 플랫폼 — 커머셜 접점 컨텍스트."
       },
       "relatedProjects": {
         "overline": "관련 프로젝트",
@@ -583,13 +827,15 @@
             "key": "poland",
             "country": "폴란드",
             "project": "바르샤바 트램",
-            "desc": "123대 트램 정비 계약 위에 커머셜 구조를 적층 — 컨세션 프레임워크를 시 정책에 맞춰 정렬했습니다."
+            "desc": "123대 트램 정비 계약 위에 커머셜 구조를 적층 — 컨세션 프레임워크를 시 정책에 맞춰 정렬했습니다.",
+            "imgAlt": "바르샤바 트램 커머셜 프로그램"
           },
           {
             "key": "ukraine",
             "country": "우크라이나",
             "project": "HRCS2 차량 — Ukrzaliznytsia",
-            "desc": "100대 고속 차량 프로그램에 장기 커머셜 계약을 구조화하여, 전시 운영 기간에도 유지되도록 설계했습니다."
+            "desc": "100대 고속 차량 프로그램에 장기 커머셜 계약을 구조화하여, 전시 운영 기간에도 유지되도록 설계했습니다.",
+            "imgAlt": "HRCS2 장기 커머셜 계약"
           }
         ]
       },
@@ -639,7 +885,11 @@
     "common": {
       "placeholder": "상세 콘텐츠 곧 추가",
       "photoPlaceholder": "현장 사진 곧 추가",
-      "ctaLabel": "프로그램 상담하기"
+      "ctaLabel": "프로그램 상담하기",
+      "related": {
+        "overline": "다른 프로그램",
+        "title": "포트폴리오에서 두 가지 더."
+      }
     },
     "ukraine": {
       "hero": {
@@ -669,38 +919,64 @@
       },
       "gallery": {
         "sectionLabel": "현장 일지",
-        "sectionTitle": "철로 위의 여섯 장면.",
+        "sectionTitle": "철로 위의 여덟 장면.",
         "photoCaption": "사진 · HRCS2 정비창, 우크라이나",
         "slides": [
           {
             "overline": "2017",
             "caption": "첫 HRCS2 차량이 운영을 시작합니다.",
-            "metric": "100대"
+            "metric": "100대",
+            "src": "/portfolios/ukraine-emu/gallery-01.jpg",
+            "alt": "정비창의 HRCS2 차량 — 2017년 첫 도입"
           },
           {
             "overline": "일일 운영",
             "caption": "새벽 4시 30분, 운행 전 점검.",
-            "metric": "365일 / 년"
+            "metric": "365일 / 년",
+            "src": "/portfolios/ukraine-emu/gallery-02.jpg",
+            "alt": "HRCS2 차량 운행 전 점검 일과"
           },
           {
             "overline": "2022.02",
             "caption": "전쟁이 시작됩니다. 운영은 멈추지 않습니다.",
-            "metric": "1일차"
+            "metric": "1일차",
+            "src": "/portfolios/ukraine-emu/gallery-03.jpg",
+            "alt": "전쟁 중에도 이어진 HRCS2 본선 운영"
           },
           {
             "overline": "운영 실적",
             "caption": "침공 이후 100만 명 이상의 승객이 이동했습니다.",
-            "metric": "100만+ 승객"
+            "metric": "100만+ 승객",
+            "src": "/portfolios/ukraine-emu/gallery-04.jpg",
+            "alt": "등화관제 조건 아래 정비창 야간 작업"
           },
           {
             "overline": "정비창",
             "caption": "감사 하의 중정비 운영.",
-            "metric": "82,000+ 건"
+            "metric": "82,000+ 건",
+            "src": "/portfolios/ukraine-emu/gallery-05.jpg",
+            "alt": "중정비 베이 — HRCS2 프로그램"
+          },
+          {
+            "overline": "디테일",
+            "caption": "90일 주기로 부품을 재인증합니다.",
+            "metric": "90일 주기",
+            "src": "/portfolios/ukraine-emu/gallery-06.jpg",
+            "alt": "부품 단위 점검 — HRCS2 차량"
+          },
+          {
+            "overline": "크루",
+            "caption": "현장 인력이 일정을 지켜왔습니다.",
+            "metric": "계약 불이행 0건",
+            "src": "/portfolios/ukraine-emu/gallery-07.jpg",
+            "alt": "근무 중인 정비창 크루 — HRCS2 프로그램"
           },
           {
             "overline": "오늘",
-            "caption": "9년. 단 한 번의 계약 불이행 없이.",
-            "metric": "9년 · 무단절"
+            "caption": "9년. 분기마다 감사.",
+            "metric": "9년 · 무단절",
+            "src": "/portfolios/ukraine-emu/gallery-08.jpg",
+            "alt": "현재 운영 중인 HRCS2 차량"
           }
         ]
       },
@@ -719,6 +995,26 @@
         "title": "회복력은 말이 아니라 숫자입니다.",
         "subtitle": "9년에 걸친 감사 기록 — 장기 운영 프로그램을 검토 중인 사업자에게 공유 가능합니다.",
         "button": "귀사의 차량 상담"
+      },
+      "related": {
+        "items": [
+          {
+            "key": "warsaw",
+            "country": "폴란드",
+            "project": "Tramwaje Warszawskie — 트램 123대",
+            "desc": "유럽에서 가장 오래된 연속 운영 트램 네트워크의 일일 점검. 하루 1,500+회 운행, 정시율 99.2%.",
+            "image": "/portfolios/warsaw-tram/hero-main.jpg",
+            "imgAlt": "본선 운행 중인 바르샤바 트램 — Tramwaje Warszawskie 프로그램"
+          },
+          {
+            "key": "uzbekistan",
+            "country": "우즈베키스탄",
+            "project": "타슈켄트 고속철 코리도",
+            "desc": "2026년 5월 개시를 위해 동원 중 — 인력, 부품 파이프라인, MMIS 플랫폼이 첫날 이전에 준비됩니다.",
+            "imgAlt": "우즈베키스탄 고속철 프로그램 — 개시 프레임",
+            "placeholderLabel": "운영 개시 2026.05.31 · 타슈켄트"
+          }
+        ]
       }
     },
     "warsaw": {
@@ -746,6 +1042,106 @@
         "photoCaption": "사진 · 바르샤바 트램, 본선",
         "photoKicker": "폴란드 · 1882–"
       },
+      "gallery": {
+        "overline": "현장 일지",
+        "title": "3년, 네 계절.",
+        "yearLabels": {
+          "2022": "2022 · 프로그램 시작",
+          "2023": "2023 · 네트워크 안정화",
+          "2024": "2024 · 차량 확대",
+          "2025": "2025 · 현재 운영"
+        },
+        "entries": [
+          {
+            "year": "2022",
+            "month": "09",
+            "season": "가을",
+            "caption": "바르샤바 노선의 첫 정비 일과.",
+            "src": "/portfolios/warsaw-tram/season-2022-01.jpg",
+            "alt": "본선 운행 중인 바르샤바 트램, 2022년 9월"
+          },
+          {
+            "year": "2022",
+            "month": "10",
+            "season": "가을",
+            "caption": "구시가지 정류장을 지나는 트램.",
+            "src": "/portfolios/warsaw-tram/season-2022-02.jpg",
+            "alt": "구시가지 정류장 진입 중인 바르샤바 트램, 2022년 10월"
+          },
+          {
+            "year": "2023",
+            "month": "02",
+            "season": "겨울",
+            "caption": "오전 운행 후 한파 속 차고 복귀.",
+            "src": "/portfolios/warsaw-tram/season-2023-01.jpg",
+            "alt": "겨울 차고 운영 — 바르샤바 트램, 2023년 2월"
+          },
+          {
+            "year": "2023",
+            "month": "06",
+            "season": "여름",
+            "caption": "여름 본선 점검 — 차륜과 제동 검사.",
+            "src": "/portfolios/warsaw-tram/season-2023-02.jpg",
+            "alt": "여름 본선 점검 — 바르샤바 트램, 2023년 6월"
+          },
+          {
+            "year": "2023",
+            "month": "10",
+            "season": "가을",
+            "caption": "중앙 순환 노선의 가을 저녁 운영.",
+            "src": "/portfolios/warsaw-tram/season-2023-03.jpg",
+            "alt": "중앙 순환 노선 운영 — 바르샤바, 2023년 10월"
+          },
+          {
+            "year": "2024",
+            "month": "01",
+            "season": "겨울",
+            "caption": "한겨울 차고 교대 시간.",
+            "src": "/portfolios/warsaw-tram/season-2024-01.jpg",
+            "alt": "한겨울 차고 교대 — 2024년 1월"
+          },
+          {
+            "year": "2024",
+            "month": "04",
+            "season": "봄",
+            "caption": "봄철 정비 사이클 — 대차 유지보수.",
+            "src": "/portfolios/warsaw-tram/season-2024-02.jpg",
+            "alt": "봄철 대차 정비 — 바르샤바 트램, 2024년 4월"
+          },
+          {
+            "year": "2024",
+            "month": "07",
+            "season": "여름",
+            "caption": "한여름 본선 운영, 피크 시간대.",
+            "src": "/portfolios/warsaw-tram/season-2024-03.jpg",
+            "alt": "한여름 본선 운영 — 바르샤바, 2024년 7월"
+          },
+          {
+            "year": "2025",
+            "month": "01",
+            "season": "겨울",
+            "caption": "새해 첫 한파 점검.",
+            "src": "/portfolios/warsaw-tram/season-2025-01.jpg",
+            "alt": "2025년 첫 점검 — 바르샤바 트램"
+          },
+          {
+            "year": "2025",
+            "month": "02",
+            "season": "겨울",
+            "caption": "2월 부품 점검, 교대 중.",
+            "src": "/portfolios/warsaw-tram/season-2025-02.jpg",
+            "alt": "부품 점검 — 바르샤바 차고, 2025년 2월"
+          },
+          {
+            "year": "2025",
+            "month": "02",
+            "season": "겨울",
+            "caption": "최신 현장 기록 — 운영 중인 차량.",
+            "src": "/portfolios/warsaw-tram/season-2025-03.jpg",
+            "alt": "운영 중인 바르샤바 트램 — 최신 현장 기록, 2025년"
+          }
+        ]
+      },
       "stats": {
         "overline": "운영 기록",
         "title": "일일 지표. 공개 시각표 기준.",
@@ -761,6 +1157,26 @@
         "title": "유럽 최고(古) 네트워크를 운영합니다. 귀사 사례도 함께 논의하시죠.",
         "subtitle": "오래된 시스템부터 신규 노선까지 — 실제 운영 중인 네트워크에 맞춰 정비 규율을 다듬어드립니다.",
         "button": "귀사 네트워크 상담"
+      },
+      "related": {
+        "items": [
+          {
+            "key": "ukraine",
+            "country": "우크라이나",
+            "project": "HRCS2 EMU — 고속차량 100대",
+            "desc": "9년 연속 무단절. 전쟁 상황을 포함해 감사 통과 정비 82,000+건.",
+            "image": "/portfolios/ukraine-emu/hero-main.jpg",
+            "imgAlt": "키이우 정비창의 HRCS2 차량 — Xapika 정비 프로그램"
+          },
+          {
+            "key": "uzbekistan",
+            "country": "우즈베키스탄",
+            "project": "타슈켄트 고속철 코리도",
+            "desc": "2026년 5월 개시를 위해 동원 중 — 인력, 부품 파이프라인, MMIS 플랫폼이 첫날 이전에 준비됩니다.",
+            "imgAlt": "우즈베키스탄 고속철 프로그램 — 개시 프레임",
+            "placeholderLabel": "운영 개시 2026.05.31 · 타슈켄트"
+          }
+        ]
       }
     },
     "uzbekistan": {
@@ -771,13 +1187,60 @@
         "comingBadge": "2026.05 개시",
         "placeholderKicker": "우즈베키스탄 · 2026 개시"
       },
-      "notice": {
-        "overline": "프로그램 프리뷰",
-        "kicker": "2026.05 · 타슈켄트 · O&M 개시",
-        "title": "타슈켄트 고속철 프로그램, 운영 동원 중.",
-        "paragraphs": [
-          "우즈베키스탄의 신규 고속철 노선은 자국 최초의 본격적인 고속철 프로그램입니다. Xapika는 타슈켄트 허브에서 개시 첫날부터 일일 운영과 정비를 책임지기 위해 일찍부터 진입했습니다 — 인력 채용, 부품 공급망 설계, 플랫폼 연동을 우즈베키스탄 철도청과 함께 사전 준비 중입니다.",
-          "정식 운영 기록, 차량기지 현장 사진, 검증된 운영 지표는 프로그램이 개시되는 시점부터 이 페이지에 채워집니다. 운영 개시 소식을 가장 먼저 받으려면 아래 폼으로 알림을 신청해 주세요."
+      "map": {
+        "overline": "네트워크",
+        "title": "세 나라, 하나의 회랑.",
+        "subtitle": "타슈켄트 고속철 프로그램은 동서축 코리도를 따라 움직입니다. 운영은 우즈베키스탄에서, 디지털 플랫폼은 한국 파트너와 함께, 프로그램 거버넌스는 크라쿠프 본부에서 — 세 거점이 하나의 일정으로 묶입니다.",
+        "pins": {
+          "tashkent": "타슈켄트 · 운영 거점",
+          "seoul": "서울 · 기술 파트너",
+          "krakow": "크라쿠프 · 엔지니어링 본부"
+        }
+      },
+      "countdown": {
+        "overline": "런칭",
+        "title": "타슈켄트 운영 개시까지.",
+        "subtitle": "2026년 5월 31일 영업 운영 개시. 2024년 계약 체결부터 모든 마일스톤이 일정에 따라 — 즉흥적인 단계는 없습니다.",
+        "launchDate": "2026-05-31T00:00:00+05:00",
+        "labels": {
+          "days": "일",
+          "hours": "시간",
+          "minutes": "분",
+          "seconds": "초"
+        },
+        "partnerNote": "VISION IT와 함께 — MMIS 플랫폼이 첫날 이전에 구성됩니다."
+      },
+      "timeline": {
+        "overline": "동원 일정",
+        "title": "계약에서 첫날까지.",
+        "comingBadge": "예정",
+        "events": [
+          {
+            "year": "2024",
+            "month": "Q4",
+            "label": "우즈베키스탄 철도청과 장기 O&M 계약 체결."
+          },
+          {
+            "year": "2025",
+            "month": "Q1",
+            "label": "타슈켄트 현지 인력 채용 및 부품 파이프라인 설계 착수."
+          },
+          {
+            "year": "2025",
+            "month": "Q3",
+            "label": "VISION IT와 함께 MMIS 플랫폼 구성 — 작업 지시·자재·감사 트레일."
+          },
+          {
+            "year": "2026",
+            "month": "04",
+            "label": "타슈켄트 사무소 개소. 현지 크루 훈련 마지막 단계 진입."
+          },
+          {
+            "year": "2026",
+            "month": "05",
+            "label": "영업 운영 개시 — 타슈켄트.",
+            "isComing": true
+          }
         ]
       },
       "planned": {
@@ -816,6 +1279,26 @@
         "title": "운영 개시 소식, 가장 먼저 받아보세요.",
         "subtitle": "타슈켄트 운영이 시작되는 순간 알림을 받으시려면 문의 폼으로 신청해 주세요.",
         "button": "문의 폼으로 알림 신청"
+      },
+      "related": {
+        "items": [
+          {
+            "key": "ukraine",
+            "country": "우크라이나",
+            "project": "HRCS2 EMU — 고속차량 100대",
+            "desc": "9년 연속 무단절. 전쟁 상황을 포함해 감사 통과 정비 82,000+건.",
+            "image": "/portfolios/ukraine-emu/hero-main.jpg",
+            "imgAlt": "키이우 정비창의 HRCS2 차량 — Xapika 정비 프로그램"
+          },
+          {
+            "key": "warsaw",
+            "country": "폴란드",
+            "project": "Tramwaje Warszawskie — 트램 123대",
+            "desc": "유럽에서 가장 오래된 연속 운영 트램 네트워크의 일일 점검. 하루 1,500+회 운행, 정시율 99.2%.",
+            "image": "/portfolios/warsaw-tram/hero-main.jpg",
+            "imgAlt": "본선 운행 중인 바르샤바 트램 — Tramwaje Warszawskie 프로그램"
+          }
+        ]
       }
     }
   },
@@ -861,6 +1344,76 @@
       { "id": "tashkent",      "city": "타슈켄트",   "country": "우즈베키스탄", "flag": "\ud83c\uddfa\ud83c\uddff", "role": "office",       "since": "2026.04", "lat": 41.2995,  "lng": 69.2401,   "showOnMap": true,  "blurb": "중앙아시아 허브 · 고속철 회랑 O&M과 크루 양성." },
       { "id": "cairo",         "city": "카이로",     "country": "이집트",       "flag": "\ud83c\uddea\ud83c\uddec", "role": "office",       "since": "2023.10", "lat": 30.0444,  "lng": 31.2357,   "showOnMap": true,  "blurb": "MENA 딜리버리 노드 · 부품 파이프라인과 현장 엔지니어링." }
     ],
+    "hero": {
+      "overline": "글로벌 네트워크",
+      "title": "9개 사무소. 하나의 운영 시간.",
+      "subtitle": "바르샤바에서 타슈켄트까지 — 현지 크루, 지역 창고, 규제 기관에 정합된 운영.",
+      "statCitiesValue": "9",
+      "statCitiesLabel": "도시",
+      "statCountriesValue": "8",
+      "statCountriesLabel": "국가",
+      "statContinentsValue": "4",
+      "statContinentsLabel": "대륙"
+    },
+    "scale": {
+      "overline": "글로벌 거점",
+      "title": "10년에 걸쳐 구축한 네트워크.",
+      "subtitle": "8개국 9개 운영 거점 — 모두 실제 디팟 또는 엔지니어링 팀. 영업 사무소 없음.",
+      "citiesValue": "9",
+      "citiesLabel": "도시",
+      "citiesNote": "바르샤바에서 타슈켄트까지",
+      "countriesValue": "8",
+      "countriesLabel": "국가",
+      "countriesNote": "유럽 · 아시아 · 아메리카 · 아프리카",
+      "continentsValue": "4",
+      "continentsLabel": "대륙",
+      "continentsNote": "단일 시간대 의존 없음",
+      "yearsValue": "10",
+      "yearsLabel": "년",
+      "yearsNote": "이스탄불 2016 — 서울 2026"
+    },
+    "openings": {
+      "overline": "회사 연혁",
+      "title": "10년간의 확장.",
+      "subtitle": "사무소 개설, 본사 이전, 디팟 가동 — 프로그램이 요구한 순간마다 기록된 모든 마일스톤.",
+      "sinceLabel": "2016년 이래",
+      "comingBadge": "예정"
+    },
+    "opsContext": {
+      "overline": "운영 컨텍스트",
+      "title": "사무소가 프로그램을 만나는 곳.",
+      "subtitle": "각 거점은 특정 프로그램이 필요로 해서 존재합니다. 실제 사례 세 가지.",
+      "cards": {
+        "ukraine": {
+          "office": "키이우",
+          "flag": "🇺🇦",
+          "project": "우크라이나 HRCS2 — EMU 중정비",
+          "blurb": "우크라이나 고속철 EMU — 2017년부터 정비 운영, 전시 환경에서도 지속.",
+          "metric": "100대 · 82,000+ 정비 수행",
+          "cta": "프로그램 기록 보기",
+          "href": "/portfolios/ukraine-emu"
+        },
+        "poland": {
+          "office": "바르샤바",
+          "flag": "🇵🇱",
+          "project": "바르샤바 트램 — Tramwaje Warszawskie",
+          "blurb": "Tramwaje Warszawskie 협력 — 바르샤바 트램 정비 운영, 2022년부터.",
+          "metric": "123대 · 2022년부터",
+          "cta": "프로그램 기록 보기",
+          "href": "/portfolios/warsaw-tram"
+        },
+        "uzbekistan": {
+          "office": "타슈켄트",
+          "flag": "🇺🇿",
+          "project": "우즈베키스탄 HSR — O&M 동원",
+          "blurb": "우즈베키스탄 고속철 O&M, 2026년 5월 개시.",
+          "metric": "개시 · 2026.05",
+          "cta": "프로그램 프리뷰",
+          "href": "/portfolios/uzbekistan-rail",
+          "comingBadge": "2026.05 예정"
+        }
+      }
+    },
     "cta": {
       "overline": "방문",
       "title": "귀국에서 운영 중이신가요?",
@@ -957,6 +1510,34 @@
     "badges": "뱃지",
     "spacing": "섹션 스페이싱",
     "motion": "모션 프리미티브"
+  },
+  "privacyPage": {
+    "meta": {
+      "title": "개인정보 처리방침",
+      "description": "Xapika Engineering 개인정보 처리방침 — 개인정보 수집·이용·관리 방식."
+    },
+    "breadcrumb": "개인정보 처리방침",
+    "overline": "Privacy",
+    "title": "개인정보 처리방침",
+    "subtitle": "본 사이트를 통해 제공된 개인정보와 운영사 문의를 Xapika Engineering이 어떻게 처리하는지 안내합니다.",
+    "placeholderOverline": "문서 준비 중",
+    "placeholderTitle": "정식 개인정보 처리방침을 준비 중입니다.",
+    "placeholderBody": "EU GDPR과 폴란드 개인정보보호법에 부합하도록 처리방침을 정비하고 있습니다. 수집·보관·처리 방식 및 정보주체의 권리를 포함한 전체 문서는 검토 완료 후 이곳에 게시될 예정입니다.",
+    "contactPrefix": "그동안 데이터 처리에 관한 문의는 다음 이메일로 연락 주세요:"
+  },
+  "termsPage": {
+    "meta": {
+      "title": "이용약관",
+      "description": "Xapika Engineering 웹사이트와 문의 채널 이용약관."
+    },
+    "breadcrumb": "이용약관",
+    "overline": "Terms",
+    "title": "이용약관",
+    "subtitle": "Xapika Engineering 웹사이트와 문의 채널 이용에 관한 조건을 안내합니다.",
+    "placeholderOverline": "문서 준비 중",
+    "placeholderTitle": "정식 이용약관을 준비 중입니다.",
+    "placeholderBody": "지적재산권, 허용 가능한 이용, 본 사이트 게시 정보에 대한 제한 보증 등을 포함한 이용약관을 정비하고 있습니다. 전체 문서는 검토 완료 후 이곳에 게시될 예정입니다.",
+    "contactPrefix": "그동안 사이트 또는 콘텐츠 이용에 관한 문의는 다음 이메일로 연락 주세요:"
   },
   "notFound": {
     "code": "404",

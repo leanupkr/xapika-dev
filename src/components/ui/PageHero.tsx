@@ -16,6 +16,15 @@ export interface PageHeroProps {
   rightSlot?: ReactNode;
   /** Height variant. "compact" ≈ 440–600 px, "tall" ≈ 460–640 px. Defaults to "compact". */
   variant?: "compact" | "tall";
+  /**
+   * Optional inner contents for the SVG `<pattern>` element — replaces the
+   * default rail-grid lines so each page can have a distinctive background pattern.
+   * When provided, you supply only the pattern's child elements (e.g. <line>, <circle>);
+   * the wrapping <svg><defs><pattern> and the <rect fill> are managed by PageHero.
+   */
+  patternDef?: ReactNode;
+  /** SVG pattern tile size in user-space units. Defaults to 80. */
+  patternSize?: number;
 }
 
 /**
@@ -33,6 +42,8 @@ export default function PageHero({
   subtitle,
   rightSlot,
   variant = "compact",
+  patternDef,
+  patternSize = 80,
 }: PageHeroProps) {
   const heroRef = useRef<HTMLElement>(null);
   const overlineRef = useRef<HTMLSpanElement>(null);
@@ -109,7 +120,7 @@ export default function PageHero({
         style={{ height: "1px", backgroundColor: "rgba(255,255,255,0.08)" }}
       />
 
-      {/* Rail-grid SVG background pattern */}
+      {/* SVG background pattern — caller can swap `patternDef` for solution-specific motifs */}
       <svg
         aria-hidden="true"
         className="absolute inset-0 w-full h-full pointer-events-none"
@@ -118,14 +129,18 @@ export default function PageHero({
         <defs>
           <pattern
             id={patternId}
-            width="80"
-            height="80"
+            width={patternSize}
+            height={patternSize}
             patternUnits="userSpaceOnUse"
           >
-            <line x1="20" y1="0" x2="20" y2="80" stroke="#fff" strokeWidth="1" />
-            <line x1="60" y1="0" x2="60" y2="80" stroke="#fff" strokeWidth="1" />
-            <line x1="10" y1="20" x2="70" y2="20" stroke="#fff" strokeWidth="1" />
-            <line x1="10" y1="50" x2="70" y2="50" stroke="#fff" strokeWidth="1" />
+            {patternDef ?? (
+              <>
+                <line x1="20" y1="0" x2="20" y2="80" stroke="#fff" strokeWidth="1" />
+                <line x1="60" y1="0" x2="60" y2="80" stroke="#fff" strokeWidth="1" />
+                <line x1="10" y1="20" x2="70" y2="20" stroke="#fff" strokeWidth="1" />
+                <line x1="10" y1="50" x2="70" y2="50" stroke="#fff" strokeWidth="1" />
+              </>
+            )}
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill={`url(#${patternId})`} />
