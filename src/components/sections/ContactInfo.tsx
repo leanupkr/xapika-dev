@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight, Mail, MapPin, Clock } from "lucide-react";
+import LiveBusinessHours from "@/components/contact/LiveBusinessHours";
 
 export type ContactInfoProps = {
   overline: string;
@@ -8,8 +9,8 @@ export type ContactInfoProps = {
   hqLabel: string;
   hqValue: string;
   hoursLabel: string;
-  hoursValue: string;
   officeLink: string;
+  openInMaps: string;
 };
 
 export default function ContactInfo({
@@ -19,8 +20,8 @@ export default function ContactInfo({
   hqLabel,
   hqValue,
   hoursLabel,
-  hoursValue,
   officeLink,
+  openInMaps,
 }: ContactInfoProps) {
   return (
     <aside className="flex flex-col">
@@ -62,32 +63,49 @@ export default function ContactInfo({
           icon={<MapPin size={16} strokeWidth={1.75} />}
           label={hqLabel}
           value={
-            <span
-              className="font-body"
-              style={{
-                fontSize: "15px",
-                color: "rgba(11,31,58,0.78)",
-                lineHeight: 1.55,
-              }}
-            >
-              {hqValue}
-            </span>
+            <div className="flex flex-col gap-1">
+              <span
+                className="font-body"
+                style={{
+                  fontSize: "15px",
+                  color: "rgba(11,31,58,0.78)",
+                  lineHeight: 1.55,
+                }}
+              >
+                {hqValue}
+              </span>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Xapika+Engineering+Warsaw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body transition-colors duration-200"
+                style={{
+                  fontSize: "12px",
+                  color: "rgba(11,31,58,0.48)",
+                  letterSpacing: "0.02em",
+                  textDecoration: "underline",
+                  textDecorationColor: "rgba(11,31,58,0.20)",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.color = "rgb(var(--color-primary))";
+                  el.style.textDecorationColor = "rgb(var(--color-primary))";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.color = "rgba(11,31,58,0.48)";
+                  el.style.textDecorationColor = "rgba(11,31,58,0.20)";
+                }}
+              >
+                {openInMaps}
+              </a>
+            </div>
           }
         />
         <InfoRow
           icon={<Clock size={16} strokeWidth={1.75} />}
           label={hoursLabel}
-          value={
-            <span
-              className="font-body"
-              style={{
-                fontSize: "15px",
-                color: "rgba(11,31,58,0.78)",
-              }}
-            >
-              {hoursValue}
-            </span>
-          }
+          value={<LiveBusinessHours />}
         />
       </div>
 
@@ -97,11 +115,19 @@ export default function ContactInfo({
       >
         <Link
           href="/locations"
-          className="group inline-flex items-center gap-1.5 font-heading font-semibold"
+          className="group inline-flex items-center gap-1.5 font-heading font-semibold transition-colors duration-200"
           style={{
             fontSize: "14px",
             color: "rgb(var(--color-ink))",
             letterSpacing: "0.02em",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.color =
+              "rgb(var(--color-primary))";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.color =
+              "rgb(var(--color-ink))";
           }}
         >
           {officeLink}

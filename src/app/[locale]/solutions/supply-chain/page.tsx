@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo";
 import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
-import PartnerLogoGrid from "@/components/sections/PartnerLogoGrid";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 import GearPhotoBreak from "@/components/sections/GearPhotoBreak";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
@@ -41,10 +40,9 @@ export default async function SupplyChainPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [tHero, tPartners, tGear, tWwd, tStats, tRelated, tCta, tSol, tNav] =
+  const [tHero, tGear, tWwd, tStats, tRelated, tCta, tSol, tNav] =
     await Promise.all([
       getTranslations("solutionsDetail.supplyChain.hero"),
-      getTranslations("solutionsDetail.supplyChain.partnerLogoGrid"),
       getTranslations("solutionsDetail.supplyChain.gearPhoto"),
       getTranslations("solutionsDetail.supplyChain.whatWeDo"),
       getTranslations("solutionsDetail.supplyChain.keyStats"),
@@ -63,45 +61,6 @@ export default async function SupplyChainPage({
     image: RELATED_IMAGES[item.key],
   }));
   const metricSummary = metrics.map((m) => `${m.value} ${m.label}`).join(" · ");
-
-  const partners = [
-    {
-      src: "/solutions/supply-chain/partner-huawei.png",
-      alt: "Huawei — supply chain partner.",
-      name: "Huawei",
-      mode: "logo" as const,
-    },
-    {
-      src: "/solutions/supply-chain/partner-huber.png",
-      alt: "Huber+Suhner — supply chain partner.",
-      name: "Huber+Suhner",
-      mode: "logo" as const,
-    },
-    {
-      src: "/solutions/supply-chain/partner-hyundai.png",
-      alt: "Hyundai Corporation — supply chain partner.",
-      name: "Hyundai Corp.",
-      mode: "logo" as const,
-    },
-    {
-      src: "/solutions/supply-chain/partner-knorr.jpg",
-      alt: "Knorr-Bremse — rail components partner.",
-      name: "Knorr-Bremse",
-      mode: "photo" as const,
-    },
-    {
-      src: "/solutions/supply-chain/partner-mrail.jpg",
-      alt: "mRail — supply chain partner.",
-      name: "mRail",
-      mode: "logo" as const,
-    },
-    {
-      src: "/solutions/supply-chain/partner-entecerma.png",
-      alt: "Entecerma — supply chain partner.",
-      name: "Entecerma",
-      mode: "logo" as const,
-    },
-  ];
 
   return (
     <>
@@ -131,12 +90,6 @@ export default async function SupplyChainPage({
         subtitle={tHero("subtitle")}
         metric={metricSummary}
       >
-        <PartnerLogoGrid
-          overline={tPartners("overline")}
-          title={tPartners("title")}
-          subtitle={tPartners("subtitle")}
-          partners={partners}
-        />
         <WhatWeDo
           overline={tWwd("overline")}
           title={tWwd("title")}

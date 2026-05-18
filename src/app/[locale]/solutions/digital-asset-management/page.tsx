@@ -3,9 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo";
 import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
-import MMISShowcase, {
-  type MMISScreen,
-} from "@/components/sections/MMISShowcase";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
 import VisionItCallout from "@/components/sections/VisionItCallout";
@@ -43,27 +40,17 @@ export default async function DigitalAssetManagementPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [
-    tHero,
-    tMmis,
-    tVision,
-    tWwd,
-    tStats,
-    tRelated,
-    tCta,
-    tSol,
-    tNav,
-  ] = await Promise.all([
-    getTranslations("solutionsDetail.digitalAssetManagement.hero"),
-    getTranslations("solutionsDetail.digitalAssetManagement.mmisShowcase"),
-    getTranslations("solutionsDetail.digitalAssetManagement.visionItCallout"),
-    getTranslations("solutionsDetail.digitalAssetManagement.whatWeDo"),
-    getTranslations("solutionsDetail.digitalAssetManagement.keyStats"),
-    getTranslations("solutionsDetail.digitalAssetManagement.relatedProjects"),
-    getTranslations("solutionsDetail.digitalAssetManagement.cta"),
-    getTranslations("solutions.items.digital"),
-    getTranslations("nav"),
-  ]);
+  const [tHero, tVision, tWwd, tStats, tRelated, tCta, tSol, tNav] =
+    await Promise.all([
+      getTranslations("solutionsDetail.digitalAssetManagement.hero"),
+      getTranslations("solutionsDetail.digitalAssetManagement.visionItCallout"),
+      getTranslations("solutionsDetail.digitalAssetManagement.whatWeDo"),
+      getTranslations("solutionsDetail.digitalAssetManagement.keyStats"),
+      getTranslations("solutionsDetail.digitalAssetManagement.relatedProjects"),
+      getTranslations("solutionsDetail.digitalAssetManagement.cta"),
+      getTranslations("solutions.items.digital"),
+      getTranslations("nav"),
+    ]);
 
   const wwdItems = tWwd.raw("items") as ReadonlyArray<WhatWeDoItem>;
   const stats = tStats.raw("stats") as ReadonlyArray<KeyStatItem>;
@@ -74,16 +61,6 @@ export default async function DigitalAssetManagementPage({
     image: RELATED_IMAGES[item.key],
   }));
   const metricSummary = metrics.map((m) => `${m.value} ${m.label}`).join(" · ");
-
-  const i18nScreens = tMmis.raw("screens") as ReadonlyArray<{
-    caption: string;
-    alt: string;
-  }>;
-  const mmisScreens: ReadonlyArray<MMISScreen> = i18nScreens.map((s, i) => ({
-    src: `/solutions/digital-asset-management/mmis-0${i + 1}.jpg`,
-    alt: s.alt,
-    caption: s.caption,
-  }));
 
   return (
     <>
@@ -113,21 +90,6 @@ export default async function DigitalAssetManagementPage({
         subtitle={tHero("subtitle")}
         metric={metricSummary}
       >
-        <MMISShowcase
-          overline={tMmis("overline")}
-          title={tMmis("title")}
-          screens={mmisScreens}
-        />
-        <WhatWeDo
-          overline={tWwd("overline")}
-          title={tWwd("title")}
-          items={wwdItems}
-        />
-        <KeyStats
-          overline={tStats("overline")}
-          title={tStats("title")}
-          stats={stats}
-        />
         <VisionItCallout
           overline={tVision("overline")}
           title={tVision("title")}
@@ -138,6 +100,16 @@ export default async function DigitalAssetManagementPage({
           logoAlt="VISION IT logo"
           gifSrc="/solutions/digital-asset-management/visionit-metro.gif"
           gifAlt="VISION IT TTS metro train animation."
+        />
+        <WhatWeDo
+          overline={tWwd("overline")}
+          title={tWwd("title")}
+          items={wwdItems}
+        />
+        <KeyStats
+          overline={tStats("overline")}
+          title={tStats("title")}
+          stats={stats}
         />
         <RelatedProjects
           overline={tRelated("overline")}

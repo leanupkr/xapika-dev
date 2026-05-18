@@ -146,7 +146,7 @@
       "number": "CASE 02",
       "country": "Poland",
       "project": "Tramwaje Warszawskie",
-      "since": "Since 2022",
+      "since": "Since 2021",
       "m1_value": "123",
       "m1_label": "Tram units",
       "m2_value": "Warsaw",
@@ -393,32 +393,6 @@
         "title": "Daily precision. Continuous uptime.",
         "subtitle": "Inspections, functional checks, and minor repairs that keep fleets running every single day."
       },
-      "dailyTimeline": {
-        "overline": "The Daily Cycle",
-        "title": "Every revenue service begins at 04:30.",
-        "steps": [
-          {
-            "time": "04:30",
-            "label": "Pre-departure inspection",
-            "desc": "Visual and functional walk-around against a regulator-aligned checklist — signed before release."
-          },
-          {
-            "time": "05:00",
-            "label": "Functional checks",
-            "desc": "Brake, door, HVAC, and pantograph response tests verified against threshold values."
-          },
-          {
-            "time": "05:30",
-            "label": "Minor repair window",
-            "desc": "In-depot fixes closed within the same operating window — escalated to heavy maintenance only when warranted."
-          },
-          {
-            "time": "06:15",
-            "label": "Release for revenue service",
-            "desc": "Unit signed off and cleared for the day's first journey."
-          }
-        ]
-      },
       "whatWeDo": {
         "overline": "What We Do",
         "title": "Five routines that protect daily uptime.",
@@ -588,11 +562,6 @@
         "title": "Parts that arrive before the train stops.",
         "subtitle": "Sourcing, warehousing, and inventory orchestration across 50+ partners on three continents."
       },
-      "partnerLogoGrid": {
-        "overline": "Global Partners",
-        "title": "A network of global railway suppliers.",
-        "subtitle": "50+ partners across three continents, under a single accountable contract."
-      },
       "gearPhoto": {
         "alt": "Rail drive gear units ready for dispatch from a partner facility."
       },
@@ -668,16 +637,6 @@
         "overline": "Solutions",
         "title": "Maintenance is data.",
         "subtitle": "Through our affiliate VISION IT's MMIS platform, every work order is timestamped, every part is traced, every fleet is observable."
-      },
-      "mmisShowcase": {
-        "overline": "MMIS in operation",
-        "title": "The platform, at work in the field.",
-        "screens": [
-          { "caption": "Remote Monitoring", "alt": "MMIS multi-screen operations wall — live train tracking and condition monitoring." },
-          { "caption": "Onboard Telemetry", "alt": "Technician inspecting onboard server rack with MMIS tablet at trainside." },
-          { "caption": "Workforce & Workflows", "alt": "Depot technician logging maintenance actions into MMIS on a tablet." },
-          { "caption": "Component Traceability", "alt": "Gearbox component traceability label — serial number, test record, and sign-off." }
-        ]
       },
       "visionItCallout": {
         "overline": "Platform Partner",
@@ -770,32 +729,22 @@
       },
       "whatWeDo": {
         "overline": "What We Do",
-        "title": "Five disciplines that move cost into revenue.",
+        "title": "Value-added services across three revenue surfaces.",
         "items": [
           {
             "index": "01",
-            "title": "Station retail concessions",
-            "desc": "Operator-side leasing of platform retail with tenant mix designed for commuter dwell time, not airport spend."
+            "title": "Vending",
+            "desc": "Platform-side vending programs that turn dwell time into managed revenue, designed into the operating contract."
           },
           {
             "index": "02",
-            "title": "Ancillary revenue",
-            "desc": "Advertising, kiosks, and premium amenities structured into the operating contract — not bolted on after."
+            "title": "Advertising",
+            "desc": "Station and on-vehicle advertising integrated with the maintenance schedule — not bolted on after."
           },
           {
             "index": "03",
-            "title": "Service-level agreements",
-            "desc": "Custom commercial frameworks tying maintenance availability to revenue share, with measurable triggers."
-          },
-          {
-            "index": "04",
-            "title": "Operational consulting",
-            "desc": "Revenue-stream design for new lines — modeled before track is laid, not after the first deficit year."
-          },
-          {
-            "index": "05",
-            "title": "Stakeholder coordination",
-            "desc": "Operator, regulator, and vendor alignment held together through written governance — not goodwill."
+            "title": "Commercial facilities",
+            "desc": "Retail and concession spaces engineered into the line from day one to enhance passenger experience and add revenue."
           }
         ]
       },
@@ -808,16 +757,6 @@
           { "value": "Operator-aligned", "label": "Risk model" },
           { "value": "Programme-managed", "label": "Within first cycle" }
         ]
-      },
-      "bentoQualitative": {
-        "overline": "Programme Profile",
-        "title": "Built per operator. Not per template."
-      },
-      "tramPanel": {
-        "overline": "Field Evidence",
-        "note": "Live commercial integrations on the Warsaw tram network — passenger touchpoints designed into routine operations.",
-        "img1Alt": "Warsaw tram interior — passenger seating and commercial space.",
-        "img2Alt": "Warsaw tram station platform — context for commercial touchpoints."
       },
       "relatedProjects": {
         "overline": "Related Projects",
@@ -869,7 +808,7 @@
       "warsaw": {
         "country": "Poland",
         "project": "Tramwaje Warszawskie",
-        "metric": "123 units · since 2022",
+        "metric": "123 units · since 2021",
         "summary": "150-year-old transit lifeline, modern maintenance discipline."
       },
       "uzbekistan": {
@@ -1002,7 +941,7 @@
             "key": "warsaw",
             "country": "Poland",
             "project": "Tramwaje Warszawskie — 123 trams",
-            "desc": "Daily inspection on Europe's oldest continuously running tram network. 1,500+ trips, 99.2% on-time.",
+            "desc": "Daily inspection on a tram network in continuous service since 1882. 123 units, audited against the city's published timetable.",
             "image": "/portfolios/warsaw-tram/hero-main.jpg",
             "imgAlt": "Warsaw tram on the mainline — Tramwaje Warszawskie program"
           },
@@ -1034,8 +973,8 @@
         "overline": "Program story",
         "title": "A network older than the country it now serves.",
         "paragraphs": [
-          "Warsaw's tram network began carrying passengers in 1882 — first horse-drawn, electrified within a generation, and continuously operating across two world wars. By the time Xapika joined the maintenance partnership in 2022, the system had logged more than 140 unbroken years of public service.",
-          "We service 123 units across the active fleet, working alongside Tramwaje Warszawskie's own depot teams. Every car is inspected before its first run of the day. The network moves more than 1,500 trips per day, and on-time performance is measured against the city's published timetable, not internal targets.",
+          "Warsaw's tram network began carrying passengers in 1882 — first horse-drawn, electrified within a generation, and continuously operating across two world wars. By the time Xapika joined the maintenance partnership in October 2021, the system had logged nearly 140 unbroken years of public service.",
+          "We service 123 units across the active fleet, working alongside Tramwaje Warszawskie's own depot teams. Every car is inspected before its first run of the day. Service intervals follow the city's published timetable, audited against it rather than internal targets.",
           "In the months following the 2022 invasion, the network adapted to a sharp rise in cross-border ridership. Refugee passengers travelled free, and operating frequency held to schedule under heavier loads. The work was kept routine — that was the point.",
           "Maintenance here is not a young system imported into an old one. It is a discipline matched to a network that has already proved itself for a century and a half. Our role is to keep that record intact."
         ],
@@ -1147,9 +1086,9 @@
         "title": "Daily metrics. Public timetable.",
         "stats": [
           { "value": "123", "label": "Tram units" },
-          { "value": "2022", "label": "Operating since" },
-          { "value": "1,500+", "label": "Trips per day" },
-          { "value": "99.2%", "label": "On-time performance" }
+          { "value": "2021.10", "label": "Maintenance since" },
+          { "value": "1882", "label": "Network founded" },
+          { "value": "140+ yrs", "label": "Heritage of service" }
         ]
       },
       "cta": {
@@ -1190,17 +1129,17 @@
       "map": {
         "overline": "Network",
         "title": "Three countries. One corridor.",
-        "subtitle": "The Tashkent high-speed program runs across an east–west corridor: O&M is anchored in Uzbekistan, the digital platform is engineered with our Korean partner, and program governance sits with the Kraków HQ.",
+        "subtitle": "Three Xapika offices are aligned for the Tashkent high-speed program: O&M anchored in Uzbekistan (2026.04), MMIS platform engineered with our Korean partner (2026.03), and program governance from the Polish HQ in Warsaw (2022.03).",
         "pins": {
           "tashkent": "Tashkent · O&M Hub",
           "seoul": "Seoul · Tech Partner",
-          "krakow": "Kraków · Engineering HQ"
+          "warsaw": "Warsaw · Engineering HQ"
         }
       },
       "countdown": {
         "overline": "Launch",
         "title": "Days to Tashkent operations.",
-        "subtitle": "Revenue service begins 31 May 2026. Counting forward from the contract signed in 2024 — every milestone scheduled, none improvised.",
+        "subtitle": "Revenue service begins in May 2026 — Xapika's Tashkent office opened in April 2026, the program is mobilised, and the team is in final preparation.",
         "launchDate": "2026-05-31T00:00:00+05:00",
         "labels": {
           "days": "Days",
@@ -1216,29 +1155,19 @@
         "comingBadge": "Coming",
         "events": [
           {
-            "year": "2024",
-            "month": "Q4",
-            "label": "Contract signed with Uzbekistan Railways — long-horizon O&M scope."
-          },
-          {
-            "year": "2025",
-            "month": "Q1",
-            "label": "Crew recruitment and parts pipeline design begin in Tashkent."
-          },
-          {
-            "year": "2025",
-            "month": "Q3",
-            "label": "MMIS platform configured with VISION IT — work orders, parts, audit trail."
+            "year": "2026",
+            "month": "03",
+            "label": "Korea office opens — MMIS platform engineering with our technology partner."
           },
           {
             "year": "2026",
             "month": "04",
-            "label": "Tashkent office opens. Crew training enters final phase."
+            "label": "Tashkent office opens. Crew on-site, parts pipeline operational."
           },
           {
             "year": "2026",
             "month": "05",
-            "label": "Revenue operations begin — Tashkent.",
+            "label": "High-speed rail O&M commences — Tashkent.",
             "isComing": true
           }
         ]
@@ -1294,7 +1223,7 @@
             "key": "warsaw",
             "country": "Poland",
             "project": "Tramwaje Warszawskie — 123 trams",
-            "desc": "Daily inspection on Europe's oldest continuously running tram network. 1,500+ trips, 99.2% on-time.",
+            "desc": "Daily inspection on a tram network in continuous service since 1882. 123 units, audited against the city's published timetable.",
             "image": "/portfolios/warsaw-tram/hero-main.jpg",
             "imgAlt": "Warsaw tram on the mainline — Tramwaje Warszawskie program"
           }
@@ -1428,7 +1357,27 @@
     "header": {
       "overline": "Contact",
       "title": "Let's talk operations.",
-      "subtitle": "Tell us about your fleet and we'll respond within two business days."
+      "subtitle": "We're a 2-business-day response company. Faster lines below."
+    },
+    "intentChips": {
+      "groupLabel": "What's this about?",
+      "businessInquiry": "Business Inquiry",
+      "maintenanceRequest": "Maintenance Request",
+      "pressMedia": "Press & Media",
+      "careers": "Careers",
+      "subjectPresets": {
+        "businessInquiry": "Business inquiry — ",
+        "maintenanceRequest": "Maintenance request — ",
+        "pressMedia": "Press inquiry — ",
+        "careers": "Career inquiry — "
+      }
+    },
+    "liveHours": {
+      "openNow": "Open now",
+      "closedNow": "Closed",
+      "warsawLabel": "Warsaw (CET)",
+      "seoulLabel": "Seoul (KST)",
+      "weeklyNote": "Mon–Fri 09:00–18:00 CET"
     },
     "info": {
       "overline": "Direct lines",
@@ -1438,7 +1387,8 @@
       "hqValue": "Warsaw, Poland · Address arriving",
       "hours": "Business hours",
       "hoursValue": "Mon–Fri · 09:00–18:00 CET / KST",
-      "officeLink": "View 9 offices"
+      "officeLink": "View 9 offices",
+      "openInMaps": "Open in Google Maps"
     },
     "form": {
       "firstName": { "label": "First name", "placeholder": "Anna" },

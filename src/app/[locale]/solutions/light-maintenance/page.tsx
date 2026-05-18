@@ -3,9 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo";
 import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
-import DailyTimeline, {
-  type DailyTimelineStep,
-} from "@/components/sections/DailyTimeline";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
 import RelatedProjects, {
@@ -42,21 +39,18 @@ export default async function LightMaintenancePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [tHero, tTimeline, tWwd, tStats, tRelated, tCta, tSol, tNav] =
-    await Promise.all([
-      getTranslations("solutionsDetail.lightMaintenance.hero"),
-      getTranslations("solutionsDetail.lightMaintenance.dailyTimeline"),
-      getTranslations("solutionsDetail.lightMaintenance.whatWeDo"),
-      getTranslations("solutionsDetail.lightMaintenance.keyStats"),
-      getTranslations("solutionsDetail.lightMaintenance.relatedProjects"),
-      getTranslations("solutionsDetail.lightMaintenance.cta"),
-      getTranslations("solutions.items.light"),
-      getTranslations("nav"),
-    ]);
+  const [tHero, tWwd, tStats, tRelated, tCta, tSol, tNav] = await Promise.all([
+    getTranslations("solutionsDetail.lightMaintenance.hero"),
+    getTranslations("solutionsDetail.lightMaintenance.whatWeDo"),
+    getTranslations("solutionsDetail.lightMaintenance.keyStats"),
+    getTranslations("solutionsDetail.lightMaintenance.relatedProjects"),
+    getTranslations("solutionsDetail.lightMaintenance.cta"),
+    getTranslations("solutions.items.light"),
+    getTranslations("nav"),
+  ]);
 
   const wwdItems = tWwd.raw("items") as ReadonlyArray<WhatWeDoItem>;
   const stats = tStats.raw("stats") as ReadonlyArray<KeyStatItem>;
-  const timelineSteps = tTimeline.raw("steps") as ReadonlyArray<DailyTimelineStep>;
   const metrics = tSol.raw("metrics") as ReadonlyArray<{ value: string; label: string }>;
   const rawRelated = tRelated.raw("items") as ReadonlyArray<RelatedProjectItem>;
   const relatedItems = rawRelated.map((item) => ({
@@ -93,11 +87,6 @@ export default async function LightMaintenancePage({
         subtitle={tHero("subtitle")}
         metric={metricSummary}
       >
-        <DailyTimeline
-          overline={tTimeline("overline")}
-          title={tTimeline("title")}
-          steps={timelineSteps}
-        />
         <WhatWeDo
           overline={tWwd("overline")}
           title={tWwd("title")}

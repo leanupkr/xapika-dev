@@ -5,9 +5,7 @@ import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
 import EditorialStatement from "@/components/sections/EditorialStatement";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
-import BentoQualitative from "@/components/sections/BentoQualitative";
-import TramPhotoPanel from "@/components/sections/TramPhotoPanel";
-import type { KeyStatItem } from "@/components/sections/KeyStats";
+import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
 import RelatedProjects, {
   type RelatedProjectItem,
 } from "@/components/sections/RelatedProjects";
@@ -42,29 +40,17 @@ export default async function CommercialServicesPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [
-    tHero,
-    tEditorial,
-    tWwd,
-    tStats,
-    tBento,
-    tTram,
-    tRelated,
-    tCta,
-    tSol,
-    tNav,
-  ] = await Promise.all([
-    getTranslations("solutionsDetail.commercialServices.hero"),
-    getTranslations("solutionsDetail.commercialServices.editorialStatement"),
-    getTranslations("solutionsDetail.commercialServices.whatWeDo"),
-    getTranslations("solutionsDetail.commercialServices.keyStats"),
-    getTranslations("solutionsDetail.commercialServices.bentoQualitative"),
-    getTranslations("solutionsDetail.commercialServices.tramPanel"),
-    getTranslations("solutionsDetail.commercialServices.relatedProjects"),
-    getTranslations("solutionsDetail.commercialServices.cta"),
-    getTranslations("solutions.items.commercial"),
-    getTranslations("nav"),
-  ]);
+  const [tHero, tEditorial, tWwd, tStats, tRelated, tCta, tSol, tNav] =
+    await Promise.all([
+      getTranslations("solutionsDetail.commercialServices.hero"),
+      getTranslations("solutionsDetail.commercialServices.editorialStatement"),
+      getTranslations("solutionsDetail.commercialServices.whatWeDo"),
+      getTranslations("solutionsDetail.commercialServices.keyStats"),
+      getTranslations("solutionsDetail.commercialServices.relatedProjects"),
+      getTranslations("solutionsDetail.commercialServices.cta"),
+      getTranslations("solutions.items.commercial"),
+      getTranslations("nav"),
+    ]);
 
   const wwdItems = tWwd.raw("items") as ReadonlyArray<WhatWeDoItem>;
   const stats = tStats.raw("stats") as ReadonlyArray<KeyStatItem>;
@@ -79,17 +65,6 @@ export default async function CommercialServicesPage({
     metrics.length === 0
       ? "Per-operator program"
       : metrics.map((m) => `${m.value} ${m.label}`).join(" · ");
-
-  const tramImages = [
-    {
-      src: "/solutions/commercial-services/tram-interior-01.jpg",
-      alt: tTram("img1Alt"),
-    },
-    {
-      src: "/solutions/commercial-services/tram-interior-02.jpg",
-      alt: tTram("img2Alt"),
-    },
-  ];
 
   return (
     <>
@@ -129,15 +104,10 @@ export default async function CommercialServicesPage({
           title={tWwd("title")}
           items={wwdItems}
         />
-        <BentoQualitative
-          overline={tBento("overline")}
-          title={tBento("title")}
-          items={stats}
-        />
-        <TramPhotoPanel
-          overline={tTram("overline")}
-          note={tTram("note")}
-          images={tramImages}
+        <KeyStats
+          overline={tStats("overline")}
+          title={tStats("title")}
+          stats={stats}
         />
         <RelatedProjects
           overline={tRelated("overline")}

@@ -38,7 +38,7 @@ const HIGHLIGHT_COUNTRIES: Record<string, string> = {
   "616": "poland",     // POL
 };
 
-type PinId = "tashkent" | "seoul" | "krakow";
+type PinId = "tashkent" | "seoul" | "warsaw";
 
 type PinConfig = {
   id: PinId;
@@ -65,8 +65,8 @@ const PIN_CONFIGS: PinConfig[] = [
     labelY: -14,
   },
   {
-    id: "krakow",
-    coords: [19.94, 50.06],
+    id: "warsaw",
+    coords: [21.0118, 52.2297],
     countryId: "616",
     labelAnchor: "middle",
     labelY: -14,
@@ -75,11 +75,11 @@ const PIN_CONFIGS: PinConfig[] = [
 
 /**
  * The two corridor segments:
- *  Kraków ─── Tashkent ─── Seoul
+ *  Warsaw ─── Tashkent ─── Seoul
  * Rendered as two separate Lines so each can stagger their draw animation.
  */
 const CORRIDOR_SEGMENTS: [PinId, PinId][] = [
-  ["krakow", "tashkent"],
+  ["warsaw", "tashkent"],
   ["tashkent", "seoul"],
 ];
 
@@ -94,7 +94,7 @@ export type UzbekRouteMapProps = {
   pins: {
     tashkent: string;
     seoul: string;
-    krakow: string;
+    warsaw: string;
   };
 };
 
@@ -283,7 +283,7 @@ export default function UzbekRouteMap({
 
             {mounted && (
               <div
-                aria-label="Three-country corridor map: Tashkent, Seoul, Kraków"
+                aria-label="Three-country corridor map: Tashkent, Seoul, Warsaw"
                 role="img"
               >
                 {/*

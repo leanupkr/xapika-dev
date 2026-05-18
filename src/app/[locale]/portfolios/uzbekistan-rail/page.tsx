@@ -62,7 +62,7 @@ export default async function UzbekistanRailPage({
   const mapPins = tMap.raw("pins") as {
     tashkent: string;
     seoul: string;
-    krakow: string;
+    warsaw: string;
   };
   const countdownLabels = tCountdown.raw("labels") as {
     days: string;

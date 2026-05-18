@@ -1,6 +1,12 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -20,6 +26,7 @@ import {
 } from "@/app/[locale]/contact/actions";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const DRAFT_KEY = "xapika-contact-draft";
 
 function safeT(
   t: (key: string) => string,
@@ -50,10 +57,18 @@ const FIELD_INPUT_BASE: React.CSSProperties = {
   fontSize: "15px",
   color: "rgb(var(--color-ink))",
   outline: "none",
-  transition: "border-color 0.25s var(--ease-out)",
+  transition: "border-color 0.2s",
 };
 
-export default function ContactForm() {
+type ContactFormProps = {
+  externalSubject?: string;
+  autoFocusKey?: string | null;
+};
+
+export default function ContactForm({
+  externalSubject,
+  autoFocusKey,
+}: ContactFormProps) {
   const t = useTranslations("contactPage.form");
   const tErr = useTranslations("contactPage.errors");
   const router = useRouter();
@@ -64,15 +79,21 @@ export default function ContactForm() {
   );
   const [formError, setFormError] = useState<string | null>(null);
 
+  const formRef = useRef<HTMLFormElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, dirtyFields },
     setError,
     reset,
+    setValue,
+    watch,
   } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
     mode: "onBlur",
+    shouldFocusError: true,
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -89,27 +110,69 @@ export default function ContactForm() {
     },
   });
 
-  const onSubmit = handleSubmit((data) => {
-    setFormError(null);
-    const fd = new FormData();
-    fd.set("firstName", data.firstName);
-    fd.set("lastName", data.lastName);
-    fd.set("company", data.company);
-    fd.set("email", data.email);
-    fd.set("phone", data.phone ?? "");
-    fd.set("location", data.location);
-    fd.set("subject", data.subject);
-    fd.set("message", data.message);
-    fd.set("consent", data.consent ? "on" : "");
-    fd.set("honeypot", data.honeypot ?? "");
-    formAction(fd);
-  });
+  // Restore from sessionStorage on mount
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(DRAFT_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as Record<string, unknown>;
+        // consent is always false on restore; honeypot excluded
+        delete parsed.honeypot;
+        reset({
+          ...(parsed as Partial<ContactInput>),
+          // @ts-expect-error — false is intentional reset for required-true literal
+          consent: false,
+        } as ContactInput);
+      }
+    } catch {
+      /* ignore parse errors */
+    }
+  }, [reset]);
 
-  // React to server-action state changes.
+  // sessionStorage auto-save with debounce
+  useEffect(() => {
+    const subscription = watch((values) => {
+      const handle = setTimeout(() => {
+        try {
+          const toSave: Record<string, unknown> = { ...values };
+          delete toSave.honeypot;
+          delete toSave.consent;
+          sessionStorage.setItem(DRAFT_KEY, JSON.stringify(toSave));
+        } catch {
+          /* ignore storage errors */
+        }
+      }, 500);
+      return () => clearTimeout(handle);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  // Sync external subject when not dirty
+  useEffect(() => {
+    if (!externalSubject) return;
+    if (dirtyFields.subject) return;
+    setValue("subject", externalSubject);
+  }, [externalSubject, dirtyFields.subject, setValue]);
+
+  // Auto-focus firstName when intent changes
+  useEffect(() => {
+    if (autoFocusKey == null) return;
+    const raf = requestAnimationFrame(() => {
+      firstNameRef.current?.focus();
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [autoFocusKey]);
+
+  // React to server-action state changes
   useEffect(() => {
     if (!state?.ts) return;
     if (state.ok) {
       reset();
+      try {
+        sessionStorage.removeItem(DRAFT_KEY);
+      } catch {
+        /* ignore */
+      }
       router.replace("/contact/thank-you");
       return;
     }
@@ -139,15 +202,80 @@ export default function ContactForm() {
 
   const busy = pending || isSubmitting;
 
+  // Enter key progression handler
+  const handleFormKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLFormElement>) => {
+      if (e.key !== "Enter") return;
+      const target = e.target as HTMLElement;
+      const tag = target.tagName.toLowerCase();
+      // Allow default Enter in textarea
+      if (tag === "textarea") return;
+      // Only intercept input and select
+      if (tag !== "input" && tag !== "select") return;
+      // Allow checkbox default
+      if ((target as HTMLInputElement).type === "checkbox") return;
+
+      const form = formRef.current;
+      if (!form) return;
+
+      const focusable = Array.from(
+        form.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
+          "input:not([type=hidden]):not([type=checkbox]), select"
+        )
+      );
+      const idx = focusable.indexOf(target as HTMLInputElement);
+      if (idx !== -1 && idx < focusable.length - 1) {
+        e.preventDefault();
+        focusable[idx + 1].focus();
+      }
+    },
+    []
+  );
+
+  const onSubmit = handleSubmit(
+    (data) => {
+      setFormError(null);
+      const fd = new FormData();
+      fd.set("firstName", data.firstName);
+      fd.set("lastName", data.lastName);
+      fd.set("company", data.company);
+      fd.set("email", data.email);
+      fd.set("phone", data.phone ?? "");
+      fd.set("location", data.location);
+      fd.set("subject", data.subject);
+      fd.set("message", data.message);
+      fd.set("consent", data.consent ? "on" : "");
+      fd.set("honeypot", data.honeypot ?? "");
+      formAction(fd);
+    },
+    (invalidFields) => {
+      // Scroll first error field into view
+      const firstKey = Object.keys(invalidFields)[0] as keyof ContactInput;
+      if (!firstKey) return;
+      const el = formRef.current?.querySelector<HTMLElement>(
+        `[id="${firstKey}"]`
+      );
+      if (el) {
+        el.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+    }
+  );
+
+  const subjectLen = watch("subject")?.length ?? 0;
+  const messageLen = watch("message")?.length ?? 0;
+
   return (
     <motion.form
+      ref={formRef}
       noValidate
       onSubmit={onSubmit}
+      onKeyDown={handleFormKeyDown}
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: EASE }}
       className="relative"
       aria-busy={busy}
+      aria-label="Contact form"
     >
       {/* Inline form-level error banner */}
       {formError && (
@@ -179,7 +307,11 @@ export default function ContactForm() {
       )}
 
       {/* honeypot — visually hidden, off-screen */}
-      <div aria-hidden="true" className="absolute pointer-events-none" style={{ left: "-9999px", top: 0, opacity: 0 }}>
+      <div
+        aria-hidden="true"
+        className="absolute pointer-events-none"
+        style={{ left: "-9999px", top: 0, opacity: 0 }}
+      >
         <label>
           Leave this field empty
           <input
@@ -200,6 +332,7 @@ export default function ContactForm() {
           register={register("firstName")}
           error={errMsg("firstName")}
           disabled={busy}
+          inputRef={firstNameRef}
         />
         <Field
           id="lastName"
@@ -248,7 +381,9 @@ export default function ContactForm() {
             placeholder={t("location.placeholder")}
             options={CONTACT_LOCATION_IDS.map((id) => ({
               value: id,
-              label: t(`location.options.${id}` as `location.options.${ContactLocationId}`),
+              label: t(
+                `location.options.${id}` as `location.options.${ContactLocationId}`
+              ),
             }))}
             register={register("location")}
             error={errMsg("location")}
@@ -256,25 +391,40 @@ export default function ContactForm() {
           />
         </div>
         <div className="sm:col-span-2">
-          <Field
+          <FieldShell
             id="subject"
             label={t("subject.label")}
-            placeholder={t("subject.placeholder")}
-            register={register("subject")}
             error={errMsg("subject")}
-            disabled={busy}
-          />
+            counter={
+              <CharCounter current={subjectLen} max={160} />
+            }
+          >
+            <SubjectInput
+              id="subject"
+              placeholder={t("subject.placeholder")}
+              register={register("subject")}
+              error={errMsg("subject")}
+              disabled={busy}
+            />
+          </FieldShell>
         </div>
         <div className="sm:col-span-2">
-          <TextareaField
+          <FieldShell
             id="message"
             label={t("message.label")}
-            placeholder={t("message.placeholder")}
-            register={register("message")}
             error={errMsg("message")}
-            disabled={busy}
-            maxLength={2000}
-          />
+            counter={
+              <CharCounter current={messageLen} max={2000} />
+            }
+          >
+            <TextareaInput
+              id="message"
+              placeholder={t("message.placeholder")}
+              register={register("message")}
+              error={errMsg("message")}
+              disabled={busy}
+            />
+          </FieldShell>
         </div>
         <div className="sm:col-span-2">
           <CheckboxField
@@ -299,42 +449,17 @@ export default function ContactForm() {
         >
           {t("responseNote")}
         </p>
-        <button
-          type="submit"
-          disabled={busy}
-          className="inline-flex items-center justify-center gap-2 font-heading font-semibold rounded-lg transition-all duration-200"
-          style={{
-            fontSize: "15px",
-            padding: "14px 30px",
-            backgroundColor: busy
-              ? "rgba(11,31,58,0.45)"
-              : "rgb(var(--color-ink))",
-            color: "#ffffff",
-            opacity: busy ? 0.6 : 1,
-            cursor: busy ? "not-allowed" : "pointer",
-            boxShadow: busy
-              ? "none"
-              : "inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 14px rgba(11,31,58,0.18)",
-          }}
-        >
-          {busy ? (
-            <>
-              <Loader2 size={16} strokeWidth={2} className="animate-spin" />
-              {t("submitting")}
-            </>
-          ) : (
-            <>
-              {t("submit")}
-              <ArrowRight size={16} strokeWidth={2} />
-            </>
-          )}
-        </button>
+        <SubmitButton busy={busy} label={t("submit")} submittingLabel={t("submitting")} />
       </div>
     </motion.form>
   );
 }
 
-type RegisterReturn = ReturnType<ReturnType<typeof useForm<ContactInput>>["register"]>;
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+type RegisterReturn = ReturnType<
+  ReturnType<typeof useForm<ContactInput>>["register"]
+>;
 
 type FieldBaseProps = {
   id: string;
@@ -349,46 +474,78 @@ function FieldShell({
   id,
   label,
   error,
+  counter,
   children,
 }: {
   id: string;
   label: string;
   error: string | null;
+  counter?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="block font-heading font-medium uppercase mb-2"
-        style={{
-          fontSize: "11px",
-          letterSpacing: "0.18em",
-          color: error
-            ? "rgb(var(--color-primary))"
-            : "rgba(11,31,58,0.62)",
-          transition: "color 0.2s",
-        }}
-      >
-        {label}
-      </label>
-      {children}
-      {error && (
-        <p
-          id={`${id}-error`}
-          role="alert"
-          aria-live="assertive"
-          className="mt-1.5 font-body"
+      <div className="flex items-center justify-between mb-2">
+        <label
+          htmlFor={id}
+          className="block font-heading font-medium uppercase"
           style={{
-            fontSize: "12px",
-            color: "rgb(var(--color-primary))",
-            letterSpacing: "0.02em",
+            fontSize: "11px",
+            letterSpacing: "0.18em",
+            color: error
+              ? "rgb(var(--color-primary))"
+              : "rgba(11,31,58,0.62)",
+            transition: "color 0.2s",
           }}
         >
-          {error}
-        </p>
-      )}
+          {label}
+        </label>
+      </div>
+      {children}
+      <div className="flex items-start justify-between mt-1.5">
+        <div>
+          {error && (
+            <p
+              id={`${id}-error`}
+              role="alert"
+              aria-live="assertive"
+              className="font-body"
+              style={{
+                fontSize: "12px",
+                color: "rgb(var(--color-primary))",
+                letterSpacing: "0.02em",
+              }}
+            >
+              {error}
+            </p>
+          )}
+        </div>
+        {counter && <div>{counter}</div>}
+      </div>
     </div>
+  );
+}
+
+function CharCounter({ current, max }: { current: number; max: number }) {
+  const ratio = current / max;
+  let color = "rgba(11,31,58,0.60)";
+  if (ratio > 1) color = "#DC2626";
+  else if (ratio >= 0.8) color = "rgb(var(--color-primary))";
+
+  return (
+    <span
+      className="font-body"
+      style={{
+        fontSize: "11px",
+        color,
+        letterSpacing: "0.02em",
+        whiteSpace: "nowrap",
+      }}
+      aria-live="polite"
+      aria-label={`${current} of ${max} characters`}
+    >
+      {current} / {max}
+    </span>
   );
 }
 
@@ -401,11 +558,17 @@ function Field({
   register,
   error,
   disabled,
-}: FieldBaseProps & { type?: string; autoComplete?: string }) {
+  inputRef,
+}: FieldBaseProps & {
+  type?: string;
+  autoComplete?: string;
+  inputRef?: React.RefObject<HTMLInputElement | null>;
+}) {
   const [focused, setFocused] = useState(false);
   return (
     <FieldShell id={id} label={label} error={error}>
       <input
+        ref={inputRef}
         id={id}
         type={type}
         placeholder={placeholder}
@@ -427,7 +590,7 @@ function Field({
           borderBottomColor: error
             ? "rgb(var(--color-primary))"
             : focused
-              ? "rgb(var(--color-ink))"
+              ? "rgb(var(--color-primary))"
               : "rgba(11,31,58,0.18)",
           opacity: disabled ? 0.5 : 1,
           cursor: disabled ? "not-allowed" : "text",
@@ -437,51 +600,85 @@ function Field({
   );
 }
 
-function TextareaField({
+function SubjectInput({
   id,
-  label,
   placeholder,
   register,
   error,
   disabled,
-  maxLength,
-}: FieldBaseProps & { maxLength?: number }) {
+}: Omit<FieldBaseProps, "label">) {
   const [focused, setFocused] = useState(false);
   return (
-    <FieldShell id={id} label={label} error={error}>
-      <textarea
-        id={id}
-        placeholder={placeholder}
-        disabled={disabled}
-        maxLength={maxLength}
-        rows={5}
-        aria-invalid={!!error}
-        aria-describedby={error ? `${id}-error` : undefined}
-        {...register}
-        onFocus={(e) => {
-          setFocused(true);
-          register.onBlur({ ...e, type: "focus" } as never);
-        }}
-        onBlur={(e) => {
-          setFocused(false);
-          register.onBlur(e);
-        }}
-        style={{
-          ...FIELD_INPUT_BASE,
-          minHeight: "120px",
-          padding: "12px 0",
-          resize: "vertical",
-          borderBottomColor: error
+    <input
+      id={id}
+      type="text"
+      placeholder={placeholder}
+      disabled={disabled}
+      aria-invalid={!!error}
+      aria-describedby={error ? `${id}-error` : undefined}
+      {...register}
+      onFocus={(e) => {
+        register.onBlur({ ...e, type: "focus" } as never);
+        setFocused(true);
+      }}
+      onBlur={(e) => {
+        register.onBlur(e);
+        setFocused(false);
+      }}
+      style={{
+        ...FIELD_INPUT_BASE,
+        borderBottomColor: error
+          ? "rgb(var(--color-primary))"
+          : focused
             ? "rgb(var(--color-primary))"
-            : focused
-              ? "rgb(var(--color-ink))"
-              : "rgba(11,31,58,0.18)",
-          lineHeight: 1.55,
-          opacity: disabled ? 0.5 : 1,
-          cursor: disabled ? "not-allowed" : "text",
-        }}
-      />
-    </FieldShell>
+            : "rgba(11,31,58,0.18)",
+        opacity: disabled ? 0.5 : 1,
+        cursor: disabled ? "not-allowed" : "text",
+      }}
+    />
+  );
+}
+
+function TextareaInput({
+  id,
+  placeholder,
+  register,
+  error,
+  disabled,
+}: Omit<FieldBaseProps, "label">) {
+  const [focused, setFocused] = useState(false);
+  return (
+    <textarea
+      id={id}
+      placeholder={placeholder}
+      disabled={disabled}
+      rows={5}
+      aria-invalid={!!error}
+      aria-describedby={error ? `${id}-error` : undefined}
+      {...register}
+      onFocus={(e) => {
+        setFocused(true);
+        register.onBlur({ ...e, type: "focus" } as never);
+      }}
+      onBlur={(e) => {
+        setFocused(false);
+        register.onBlur(e);
+      }}
+      style={{
+        ...FIELD_INPUT_BASE,
+        minHeight: "120px",
+        padding: "12px 0",
+        resize: "vertical",
+        borderBottomColor: error
+          ? "rgb(var(--color-primary))"
+          : focused
+            ? "rgb(var(--color-primary))"
+            : "rgba(11,31,58,0.18)",
+        lineHeight: 1.55,
+        opacity: disabled ? 0.5 : 1,
+        cursor: disabled ? "not-allowed" : "text",
+      }}
+    />
   );
 }
 
@@ -520,7 +717,7 @@ function SelectField({
             borderBottomColor: error
               ? "rgb(var(--color-primary))"
               : focused
-                ? "rgb(var(--color-ink))"
+                ? "rgb(var(--color-primary))"
                 : "rgba(11,31,58,0.18)",
             opacity: disabled ? 0.5 : 1,
             cursor: disabled ? "not-allowed" : "pointer",
@@ -609,5 +806,54 @@ function CheckboxField({
         </p>
       )}
     </div>
+  );
+}
+
+function SubmitButton({
+  busy,
+  label,
+  submittingLabel,
+}: {
+  busy: boolean;
+  label: string;
+  submittingLabel: string;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <button
+      type="submit"
+      disabled={busy}
+      className="inline-flex items-center justify-center gap-2 font-heading font-semibold rounded-lg transition-all duration-200"
+      style={{
+        fontSize: "15px",
+        padding: "14px 30px",
+        backgroundColor: busy
+          ? "rgba(11,31,58,0.45)"
+          : hovered
+            ? "rgb(var(--color-primary))"
+            : "rgb(var(--color-ink))",
+        color: hovered && !busy ? "rgb(var(--color-ink))" : "#ffffff",
+        opacity: busy ? 0.6 : 1,
+        cursor: busy ? "not-allowed" : "pointer",
+        boxShadow: busy
+          ? "none"
+          : "inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 14px rgba(11,31,58,0.18)",
+      }}
+      onMouseEnter={() => !busy && setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {busy ? (
+        <>
+          <Loader2 size={16} strokeWidth={2} className="animate-spin" />
+          {submittingLabel}
+        </>
+      ) : (
+        <>
+          {label}
+          <ArrowRight size={16} strokeWidth={2} />
+        </>
+      )}
+    </button>
   );
 }
