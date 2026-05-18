@@ -225,7 +225,7 @@ export default function WarsawSeasonTimeline({
         style={{ maxWidth: "var(--max-width-content)" }}
       >
         {/* Section header */}
-        <header className="mb-16 md:mb-24">
+        <header className="mb-8 md:mb-24">
           <span
             className="flex items-center gap-3 font-heading font-medium uppercase mb-5 text-[rgb(var(--color-primary))]"
             style={{ fontSize: "12px", letterSpacing: "var(--tracking-overline)" }}
@@ -266,7 +266,7 @@ export default function WarsawSeasonTimeline({
           );
 
           return (
-            <div key={year} className="relative mb-20 md:mb-28 last:mb-0">
+            <div key={year} className="relative mb-10 md:mb-28 last:mb-0">
               {/* Sticky year label — desktop ghost number */}
               <div
                 aria-hidden="true"

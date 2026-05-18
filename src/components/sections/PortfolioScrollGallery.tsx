@@ -37,6 +37,16 @@ export default function PortfolioScrollGallery({
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mql = window.matchMedia("(max-width: 767px)");
+    const apply = () => setIsMobile(mql.matches);
+    apply();
+    mql.addEventListener("change", apply);
+    return () => mql.removeEventListener("change", apply);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -82,7 +92,7 @@ export default function PortfolioScrollGallery({
       className="relative"
       style={{
         backgroundColor: "rgb(var(--color-ink))",
-        height: `${slides.length * 100}vh`,
+        height: `${slides.length * (isMobile ? 60 : 100)}vh`,
       }}
       aria-label={sectionTitle}
     >

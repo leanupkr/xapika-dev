@@ -283,7 +283,7 @@ export default function HistoryTimeline({
         style={{ maxWidth: "1100px" }}
       >
         {/* Header */}
-        <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">
+        <div ref={headerRef} className="max-w-[580px] mb-8 md:mb-20">
           <span
             data-header-item
             className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))] opacity-0"
@@ -344,7 +344,7 @@ export default function HistoryTimeline({
               <li
                 key={`${event.year}-${event.month}-${i}`}
                 data-node
-                className="relative pb-12 md:pb-20 last:pb-0 opacity-0"
+                className="relative pb-6 md:pb-20 last:pb-0 opacity-0"
               >
                 {/* Dot on axis */}
                 <span
