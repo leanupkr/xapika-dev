@@ -140,7 +140,7 @@ export default function OfficeGrid({
         {/* Card grid */}
         <ul
           role="list"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
+          className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5"
         >
           {offices.map((o, i) => (
             <OfficeCard

@@ -252,7 +252,7 @@ export default function KeyStats({
         </div>
 
         {/* Stat grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-8 md:gap-x-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8 sm:gap-y-10 gap-x-6 sm:gap-x-8 md:gap-x-10">
           {stats.map((stat, i) => (
             <StatBlock
               key={i}

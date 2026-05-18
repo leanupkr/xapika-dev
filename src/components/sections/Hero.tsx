@@ -115,7 +115,7 @@ export default function Hero({
     <section
       data-hero-section
       className="hero-slideshow"
-      style={{ height: "100vh", minHeight: "600px" }}
+      style={{ height: "min(100vh, 880px)", minHeight: "560px" }}
       aria-label="Hero section"
     >
       {/* 배경 슬라이드쇼 */}

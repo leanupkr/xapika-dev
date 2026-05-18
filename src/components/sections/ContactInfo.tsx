@@ -78,23 +78,14 @@ export default function ContactInfo({
                 href="https://www.google.com/maps/search/?api=1&query=Xapika+Engineering+Warsaw"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-body transition-colors duration-200"
+                className="font-body contact-maps-link"
                 style={{
                   fontSize: "12px",
                   color: "rgba(11,31,58,0.48)",
                   letterSpacing: "0.02em",
                   textDecoration: "underline",
                   textDecorationColor: "rgba(11,31,58,0.20)",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget;
-                  el.style.color = "rgb(var(--color-primary))";
-                  el.style.textDecorationColor = "rgb(var(--color-primary))";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget;
-                  el.style.color = "rgba(11,31,58,0.48)";
-                  el.style.textDecorationColor = "rgba(11,31,58,0.20)";
+                  transition: "color 0.2s, text-decoration-color 0.2s",
                 }}
               >
                 {openInMaps}
@@ -115,19 +106,12 @@ export default function ContactInfo({
       >
         <Link
           href="/locations"
-          className="group inline-flex items-center gap-1.5 font-heading font-semibold transition-colors duration-200"
+          className="group inline-flex items-center gap-1.5 font-heading font-semibold contact-offices-link"
           style={{
             fontSize: "14px",
             color: "rgb(var(--color-ink))",
             letterSpacing: "0.02em",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.color =
-              "rgb(var(--color-primary))";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.color =
-              "rgb(var(--color-ink))";
+            transition: "color 0.2s",
           }}
         >
           {officeLink}

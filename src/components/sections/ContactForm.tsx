@@ -118,11 +118,8 @@ export default function ContactForm({
         const parsed = JSON.parse(raw) as Record<string, unknown>;
         // consent is always false on restore; honeypot excluded
         delete parsed.honeypot;
-        reset({
-          ...(parsed as Partial<ContactInput>),
-          // @ts-expect-error — false is intentional reset for required-true literal
-          consent: false,
-        } as ContactInput);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        reset({ ...(parsed as any), consent: false } as unknown as ContactInput);
       }
     } catch {
       /* ignore parse errors */
@@ -565,10 +562,23 @@ function Field({
   inputRef?: React.RefObject<HTMLInputElement | null>;
 }) {
   const [focused, setFocused] = useState(false);
+
+  // Merge register's ref with optional inputRef via callback
+  const { ref: registerRef, ...registerRest } = register;
+  const callbackRef = useCallback(
+    (el: HTMLInputElement | null) => {
+      registerRef(el);
+      if (inputRef) {
+        (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = el;
+      }
+    },
+    [registerRef, inputRef]
+  );
+
   return (
     <FieldShell id={id} label={label} error={error}>
       <input
-        ref={inputRef}
+        ref={callbackRef}
         id={id}
         type={type}
         placeholder={placeholder}
@@ -576,13 +586,13 @@ function Field({
         disabled={disabled}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
-        {...register}
+        {...registerRest}
         onFocus={(e) => {
-          register.onBlur({ ...e, type: "focus" } as never);
+          registerRest.onBlur({ ...e, type: "focus" } as never);
           setFocused(true);
         }}
         onBlur={(e) => {
-          register.onBlur(e);
+          registerRest.onBlur(e);
           setFocused(false);
         }}
         style={{

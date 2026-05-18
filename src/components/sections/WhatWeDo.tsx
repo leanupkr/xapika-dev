@@ -97,7 +97,7 @@ export default function WhatWeDo({ overline, title, items }: WhatWeDoProps) {
         className="mx-auto px-6 md:px-10 lg:px-16"
         style={{ maxWidth: "var(--max-width-content)" }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-y-0 lg:gap-x-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-6 md:gap-y-10 lg:gap-y-0 lg:gap-x-12">
           {/* Left — sticky header */}
           <div ref={headerRef} className="lg:col-span-5">
             <div className="lg:sticky lg:top-28">
@@ -150,7 +150,7 @@ export default function WhatWeDo({ overline, title, items }: WhatWeDoProps) {
                 }}
               >
                 <div
-                  className="grid grid-cols-12 gap-4 md:gap-6 items-start py-7 md:py-8 transition-colors duration-300"
+                  className="grid grid-cols-12 gap-3 md:gap-6 items-start py-4 md:py-8 transition-colors duration-300"
                 >
                   {/* Index */}
                   <div className="col-span-2 md:col-span-1">
