@@ -91,7 +91,7 @@ export default function PortfolioScrollGallery({
       <section
         data-bg="dark"
         className="relative"
-        style={{ backgroundColor: "rgb(var(--color-ink))", paddingTop: "3rem", paddingBottom: "3rem" }}
+        style={{ backgroundColor: "rgb(var(--color-ink))", paddingTop: "2.25rem", paddingBottom: "2.25rem" }}
       >
         <div className="px-6 mb-6">
           <span
@@ -112,10 +112,10 @@ export default function PortfolioScrollGallery({
             {sectionTitle}
           </h2>
         </div>
-        <ol className="px-6 space-y-6">
+        <ol className="px-6 space-y-4">
           {slides.map((slide, i) => (
             <li key={i} className="relative">
-              <div className="w-full aspect-[4/3] bg-white/[0.04] border border-white/10 rounded-lg overflow-hidden relative">
+              <div className="w-full aspect-[16/10] bg-white/[0.04] border border-white/10 rounded-lg overflow-hidden relative">
                 {slide.src ? (
                   <Image
                     src={slide.src}

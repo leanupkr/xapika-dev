@@ -67,8 +67,8 @@ export default function PortfolioStory({
       className="relative overflow-hidden"
       style={{
         backgroundColor: "rgb(var(--color-ink))",
-        paddingTop: "clamp(5rem, 12vh, 8rem)",
-        paddingBottom: "clamp(5rem, 12vh, 8rem)",
+        paddingTop: "clamp(3.5rem, 10vh, 8rem)",
+        paddingBottom: "clamp(3.5rem, 10vh, 8rem)",
       }}
       aria-labelledby="portfolio-story-title"
     >

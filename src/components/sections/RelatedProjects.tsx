@@ -115,8 +115,8 @@ export default function RelatedProjects({
       ref={sectionRef}
       className="relative bg-[rgb(var(--color-bg))]"
       style={{
-        paddingTop: "clamp(5rem, 12vh, 8rem)",
-        paddingBottom: "clamp(5rem, 12vh, 8rem)",
+        paddingTop: "clamp(3.5rem, 10vh, 8rem)",
+        paddingBottom: "clamp(3.5rem, 10vh, 8rem)",
       }}
       aria-labelledby="related-title"
     >

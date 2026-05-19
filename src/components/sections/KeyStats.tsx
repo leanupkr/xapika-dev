@@ -204,8 +204,8 @@ export default function KeyStats({
       ref={ref}
       className="relative bg-[rgb(var(--color-surface))]"
       style={{
-        paddingTop: "clamp(5rem, 12vh, 8rem)",
-        paddingBottom: "clamp(5rem, 12vh, 8rem)",
+        paddingTop: "clamp(3.5rem, 10vh, 8rem)",
+        paddingBottom: "clamp(3.5rem, 10vh, 8rem)",
         borderTop: "1px solid rgb(var(--color-ink) / 0.06)",
       }}
       aria-labelledby="keystats-title"

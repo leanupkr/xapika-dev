@@ -136,8 +136,8 @@ export default function TrackRecordCards({
       data-bg="light"
       className="relative bg-[rgb(var(--color-surface))]"
       style={{
-        paddingTop: "clamp(5rem, 12vh, 8rem)",
-        paddingBottom: "clamp(5rem, 12vh, 8rem)",
+        paddingTop: "clamp(3rem, 10vh, 8rem)",
+        paddingBottom: "clamp(3rem, 10vh, 8rem)",
       }}
       aria-labelledby="track-record-title"
     >
@@ -148,7 +148,7 @@ export default function TrackRecordCards({
         {/* Header */}
         <div
           ref={headerRef}
-          className="max-w-[640px] mb-12 md:mb-16 lg:mb-20"
+          className="max-w-[640px] mb-8 md:mb-14 lg:mb-20"
         >
           {/* C7: overline color fixed to #A86700 (~4.65:1 on white, WCAG AA) */}
           <span
@@ -256,9 +256,8 @@ export default function TrackRecordCards({
 
                 {/* Body — M6: soft accent background at 0.04 opacity */}
                 <div
-                  className="relative flex flex-1 flex-col"
+                  className="relative flex flex-1 flex-col p-[22px_22px_24px_20px] sm:p-[28px_32px_30px_28px]"
                   style={{
-                    padding: "28px 32px 30px 28px",
                     backgroundColor: palette.soft,
                   }}
                 >
