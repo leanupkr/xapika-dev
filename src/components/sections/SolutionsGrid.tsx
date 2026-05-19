@@ -87,7 +87,7 @@ function SolutionCard({
       <Link
         href={item.href}
         aria-label={`${item.title} — ${item.description}`}
-        className="group relative block h-full w-full overflow-hidden"
+        className="group relative flex flex-col h-full w-full overflow-hidden"
       >
         {/* 사진 */}
         <div className="absolute inset-0">
@@ -119,9 +119,9 @@ function SolutionCard({
           }}
         />
 
-        {/* 번호 (좌상단) */}
+        {/* 번호 (상단) — normal flow so content below pushes naturally */}
         <span
-          className="absolute top-6 left-6 md:top-7 md:left-7 font-heading font-medium text-[rgb(var(--color-primary))] whitespace-nowrap"
+          className="relative z-10 self-start px-6 pt-6 md:px-7 md:pt-7 lg:px-10 lg:pt-10 font-heading font-medium text-[rgb(var(--color-primary))] whitespace-nowrap"
           style={{
             fontSize: isFeatured ? "14px" : "12px",
             letterSpacing: "0.22em",
@@ -132,10 +132,9 @@ function SolutionCard({
           {item.number}
         </span>
 
-        {/* 콘텐츠 — 하단 정렬 */}
+        {/* 콘텐츠 — flex mt-auto로 하단 정렬, 콘텐츠가 커지면 카드 자체가 늘어남 */}
         <div
-          className="absolute inset-x-0 bottom-0 p-6 md:p-8 lg:p-10"
-          style={{ paddingRight: isFeatured ? undefined : undefined }}
+          className="relative z-10 mt-auto p-6 md:p-8 lg:p-10 pt-4 md:pt-6"
         >
           <h3
             className="font-heading font-semibold text-white"
