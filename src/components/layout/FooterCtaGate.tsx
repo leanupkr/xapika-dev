@@ -15,6 +15,7 @@ const HIDDEN_PATTERNS: ReadonlyArray<RegExp> = [
   /^\/solutions\/[^/]+$/,
   /^\/portfolios\/[^/]+$/,
   /^\/about\/[^/]+$/,
+  /^\/contact(\/.*)?$/,
 ];
 
 function isHidden(pathname: string): boolean {

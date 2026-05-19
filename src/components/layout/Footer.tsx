@@ -9,7 +9,6 @@ const FOOTER_LINKS = [
   { key: "solutions", href: "/solutions" },
   { key: "portfolios", href: "/portfolios" },
   { key: "locations", href: "/locations" },
-  { key: "contact", href: "/contact" },
 ] as const;
 
 const OFFICES = [
