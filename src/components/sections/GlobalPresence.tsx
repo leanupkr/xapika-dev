@@ -35,15 +35,19 @@ type Pin = {
   coords: [number, number]; // [longitude, latitude]
   countryId: string;
   isHQ?: boolean;
+  /** Where to place the country name relative to the dot. "top" (default)
+      sits above; "bottom" sits below — used when two pins are close enough
+      that top-anchored labels would collide (Poland/Ukraine on mobile). */
+  labelAnchor?: "top" | "bottom";
 };
 
 const PINS: Pin[] = [
   { id: "poland",     name: "Poland",      label: "HQ · Warsaw", coords: [21.0118, 52.2297], countryId: "616", isHQ: true },
-  { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45],     countryId: "804" },
+  { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45],     countryId: "804", labelAnchor: "bottom" },
   { id: "turkey",     name: "Türkiye",     label: "Istanbul",    coords: [28.98, 41.01],     countryId: "792" },
   { id: "uzbekistan", name: "Uzbekistan",  label: "Tashkent",    coords: [69.28, 41.30],     countryId: "860" },
   { id: "korea",      name: "South Korea", label: "Seoul",       coords: [126.98, 37.57],    countryId: "410" },
-  { id: "egypt",      name: "Egypt",       label: "Cairo",       coords: [31.24, 30.04],     countryId: "818" },
+  { id: "egypt",      name: "Egypt",       label: "Cairo",       coords: [31.24, 30.04],     countryId: "818", labelAnchor: "bottom" },
   { id: "usa",        name: "USA",         label: "Virginia",    coords: [-77.43, 37.54],    countryId: "840" },
   { id: "brazil",     name: "Brazil",      label: "São Paulo",   coords: [-46.63, -23.55],   countryId: "076" },
 ];
@@ -561,7 +565,7 @@ export default function GlobalPresence({
                     >
                       <text
                         textAnchor="middle"
-                        y={-dotSize - 10}
+                        y={pin.labelAnchor === "bottom" ? dotSize + 14 : -dotSize - 10}
                         style={{
                           fontFamily: "'Space Grotesk', sans-serif",
                           fontSize: pin.isHQ
