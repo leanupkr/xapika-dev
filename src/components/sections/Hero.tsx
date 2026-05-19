@@ -6,11 +6,11 @@ import "@/styles/hero.css";
 
 const SLIDES = [
   {
-    src: "/hero/hero-01-wide.jpg",
+    src: "/hero/hero-02-work.jpg",
     alt: "Xapika Engineering maintenance depot",
   },
   {
-    src: "/hero/hero-02-work.jpg",
+    src: "/hero/hero-01-wide.jpg",
     alt: "Xapika Engineering maintenance depot",
   },
   {
