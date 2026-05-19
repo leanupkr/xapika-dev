@@ -45,18 +45,21 @@ type SolutionsGridProps = {
 
 const SIZE_TO_CLASSES: Record<Size, { grid: string; minH: string; titleSize: string }> = {
   featured: {
-    grid: "col-span-2 lg:col-span-8",
-    minH: "min-h-[280px] md:min-h-[420px] lg:min-h-[480px]",
+    // col-span-2 only applies once the grid actually has 2+ columns (sm+);
+    // omitting it on mobile prevents an implicit 2nd column from being added
+    // to the grid-cols-1 layout, which was breaking the other cards' widths.
+    grid: "sm:col-span-2 lg:col-span-8",
+    minH: "min-h-[420px] md:min-h-[420px] lg:min-h-[480px]",
     titleSize: "clamp(1.75rem, 2.8vw, 2.25rem)",
   },
   secondary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[220px] sm:min-h-[260px] md:min-h-[340px] lg:min-h-[480px]",
+    minH: "min-h-[280px] sm:min-h-[260px] md:min-h-[340px] lg:min-h-[480px]",
     titleSize: "clamp(1.25rem, 1.7vw, 1.5rem)",
   },
   tertiary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[180px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[320px]",
+    minH: "min-h-[260px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[320px]",
     titleSize: "clamp(1.25rem, 1.7vw, 1.5rem)",
   },
 };
