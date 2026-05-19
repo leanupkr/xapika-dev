@@ -8,6 +8,9 @@ import PortfolioScrollGallery, {
   type GallerySlide,
 } from "@/components/sections/PortfolioScrollGallery";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
+import TrackRecordCards, {
+  type TrackRecordClient,
+} from "@/components/sections/TrackRecordCards";
 import RelatedProjects, {
   type RelatedProjectItem,
 } from "@/components/sections/RelatedProjects";
@@ -41,6 +44,7 @@ export default async function UkraineEmuPage({
     tStory,
     tGallery,
     tStats,
+    tTrack,
     tRelated,
     tCommonRelated,
     tCommon,
@@ -50,6 +54,7 @@ export default async function UkraineEmuPage({
     getTranslations("portfoliosDetail.ukraine.story"),
     getTranslations("portfoliosDetail.ukraine.gallery"),
     getTranslations("portfoliosDetail.ukraine.stats"),
+    getTranslations("portfoliosDetail.ukraine.trackRecord"),
     getTranslations("portfoliosDetail.ukraine.related"),
     getTranslations("portfoliosDetail.common.related"),
     getTranslations("portfoliosDetail.common"),
@@ -59,6 +64,7 @@ export default async function UkraineEmuPage({
   const storyParagraphs = tStory.raw("paragraphs") as ReadonlyArray<string>;
   const gallerySlides = tGallery.raw("slides") as ReadonlyArray<GallerySlide>;
   const stats = tStats.raw("stats") as ReadonlyArray<KeyStatItem>;
+  const trackClients = tTrack.raw("clients") as ReadonlyArray<TrackRecordClient>;
   const relatedItems = tRelated.raw("items") as ReadonlyArray<RelatedProjectItem>;
 
   return (
@@ -103,6 +109,15 @@ export default async function UkraineEmuPage({
         photoKicker={tStory("photoKicker")}
         imageSrc="/portfolios/ukraine-emu/story-01.jpg"
         imageAlt="Depot crew on shift — HRCS2 maintenance program"
+      />
+      <TrackRecordCards
+        overline={tTrack("overline")}
+        title={tTrack("title")}
+        subtitle={tTrack("subtitle")}
+        statusLabel={tTrack("statusLabel")}
+        statusActive={tTrack("statusActive")}
+        cta={tTrack("cta")}
+        clients={trackClients}
       />
       <PortfolioScrollGallery
         sectionLabel={tGallery("sectionLabel")}

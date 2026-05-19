@@ -37,10 +37,20 @@ const CLIENTS: ReadonlyArray<Client> = [
     logo: { src: "/partners/nat-egypt.png", aspect: "square" },
   },
   {
-    name: "Ukrainian Railways",
-    fullName: "Ukrainian Railways (Ukrzaliznytsia)",
+    name: "UZ Railways",
+    fullName: "UZ Railways (Ukrzaliznytsia)",
     country: "Ukraine",
     logo: { src: "/partners/ukrzaliznytsia.svg", aspect: "wide" },
+  },
+  {
+    name: "Kiev Metro",
+    fullName: "Kyiv Metro (Toshiba / Tokyo Car Corp.)",
+    country: "Ukraine",
+  },
+  {
+    name: "KRCBW",
+    fullName: "Kryukovsky Railway Car Building Works",
+    country: "Ukraine",
   },
   {
     name: "TCDD Taşımacılık A.Ş.",
@@ -70,6 +80,8 @@ export default function OurClients({
   useGSAP(
     () => {
       const prefersReduced = prefersReducedMotion();
+      // M5: capture ref before cleanup so it's stable in closure
+      const section = sectionRef.current;
 
       if (headerRef.current) {
         const headerTargets = headerRef.current.querySelectorAll(
@@ -123,7 +135,7 @@ export default function OurClients({
 
       return () => {
         ScrollTrigger.getAll()
-          .filter((st) => sectionRef.current?.contains(st.trigger as Node))
+          .filter((st) => section?.contains(st.trigger as Node))
           .forEach((st) => st.kill());
       };
     },

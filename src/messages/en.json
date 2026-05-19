@@ -834,7 +834,7 @@
       "hero": {
         "overline": "Portfolios",
         "title": "Ukraine HRCS2 EMU.",
-        "subtitle": "Daily inspection, functional checks, and heavy overhauls across 100 high-speed units — sustained through wartime conditions since 2022.",
+        "subtitle": "Daily inspection, functional checks, and heavy overhauls across 90 high-speed units — sustained through wartime conditions since 2022. Four operators, four programs — 136 engineers in Kyiv.",
         "warBadge": "Uninterrupted Since War",
         "placeholderKicker": "Ukraine · 2017"
       },
@@ -848,7 +848,7 @@
         "overline": "Program story",
         "title": "Trains that don't stop, even when everything else does.",
         "paragraphs": [
-          "In 2017, Ukrainian Railways awarded the long-horizon contract for 100 high-speed HRCS2 units. The depot teams have run the same operating routine every day since: pre-departure inspection at 04:30, functional checks before each journey, scheduled overhauls on a 90-day cadence.",
+          "In 2017, Ukrainian Railways awarded the long-horizon contract for 90 high-speed HRCS2 units. The depot teams have run the same operating routine every day since: pre-departure inspection at 04:30, functional checks before each journey, scheduled overhauls on a 90-day cadence.",
           "On the morning of February 24, 2022, the schedule did not change. Trains kept moving — for civilians evacuating, for press crews, for cargo headed to where the rail still ran. Ground staff worked under blackout conditions. Inventory adapted to disrupted supply lines. The maintenance log kept its same columns.",
           "Nine years on, the program has logged over 82,000 maintenance actions, and not a single contractual default has been recorded in the regulator's audit. We do not describe this as resilience. We describe it as the work.",
           "Continuity here is not a posture. It is the sum of an accountable team, an audited maintenance regime, and a partner who structured the contract to outlast the conditions around it."
@@ -919,11 +919,76 @@
           }
         ]
       },
+      "trackRecord": {
+        "overline": "Track Record",
+        "title": "Ukraine — 136 engineers across four operators",
+        "subtitle": "Brake systems to high-speed overhauls — four programs, one operating standard",
+        "statusLabel": "STATUS",
+        "statusActive": "ACTIVE",
+        "cta": "Contact our team",
+        "clients": [
+          {
+            "name": "UZ Railway",
+            "fullName": "Ukrzaliznytsia",
+            "accent": "blue",
+            "since": "2017",
+            "models": "PESA 610M · Škoda EJ675 · Tarpan",
+            "icon": "train",
+            "items": [
+              "Brake caliper system overhaul",
+              "PESA 610M full refurbishment & overhaul",
+              "Škoda EJ675 CityElefant (160 km/h) — overhaul",
+              "Škoda EJ675 bolster crack restoration",
+              "Kryukov Tarpan (160 km/h) — supply chain"
+            ]
+          },
+          {
+            "name": "Kyiv Metro",
+            "fullName": "Kyiv Metro — Toshiba / Tokyo Car Corp.",
+            "accent": "teal",
+            "since": "2017",
+            "models": "Toshiba / Tokyo Car Corp.",
+            "icon": "trainFront",
+            "items": [
+              "Brake caliper system overhaul",
+              "Traction motor overhaul",
+              "Axle driving gear — whole fleet"
+            ]
+          },
+          {
+            "name": "Hyundai Rotem HRCS2",
+            "fullName": "Hyundai Rotem HRCS2 — Intercity+",
+            "accent": "orange",
+            "since": "2017",
+            "models": "Intercity+ 90 cars",
+            "icon": "train",
+            "items": [
+              "HRCS2 Intercity+ 160 km/h — 90 cars",
+              "Full maintenance: PM, CM & overhaul",
+              "Overhaul at 3M km & 4M km milestones",
+              "Operations maintained during wartime"
+            ]
+          },
+          {
+            "name": "KRCBW",
+            "fullName": "Kryukovsky Railway Car Building Works",
+            "accent": "yellow",
+            "since": "2022",
+            "models": "Journal box · Supply chain",
+            "icon": "factory",
+            "statusOverride": "SUPPLY PARTNER · SINCE 2022",
+            "items": [
+              "Journal box services — special tools, boring & refurbishment",
+              "Supply chain for parts replacing Russian components"
+            ]
+          }
+        ]
+      },
       "stats": {
         "overline": "Operating record",
         "title": "Nine years. Audited every quarter.",
         "stats": [
-          { "value": "100", "label": "HRCS2 fleet" },
+          { "value": "136", "label": "Engineers & Technicians, Kyiv" },
           { "value": "9 yrs", "label": "Continuous service" },
           { "value": "82,000+", "label": "Maintenance actions" },
           { "value": "1M+", "label": "Passengers since invasion" }
@@ -976,7 +1041,8 @@
           "Warsaw's tram network began carrying passengers in 1882 — first horse-drawn, electrified within a generation, and continuously operating across two world wars. By the time Xapika joined the maintenance partnership in October 2021, the system had logged nearly 140 unbroken years of public service.",
           "We service 123 units across the active fleet, working alongside Tramwaje Warszawskie's own depot teams. Every car is inspected before its first run of the day. Service intervals follow the city's published timetable, audited against it rather than internal targets.",
           "In the months following the 2022 invasion, the network adapted to a sharp rise in cross-border ridership. Refugee passengers travelled free, and operating frequency held to schedule under heavier loads. The work was kept routine — that was the point.",
-          "Maintenance here is not a young system imported into an old one. It is a discipline matched to a network that has already proved itself for a century and a half. Our role is to keep that record intact."
+          "Maintenance here is not a young system imported into an old one. It is a discipline matched to a network that has already proved itself for a century and a half. Our role is to keep that record intact.",
+          "XAPIKA also serves clients in Turkey, Brazil, and Egypt from its Warsaw headquarters — the same operational discipline now extended across three continents."
         ],
         "photoCaption": "Photo · Warsaw tram, mainline",
         "photoKicker": "Poland · 1882–"
@@ -1086,7 +1152,7 @@
         "title": "Daily metrics. Public timetable.",
         "stats": [
           { "value": "123", "label": "Tram units" },
-          { "value": "2021.10", "label": "Maintenance since" },
+          { "value": "25", "label": "Engineers, Warsaw" },
           { "value": "1882", "label": "Network founded" },
           { "value": "140+ yrs", "label": "Heritage of service" }
         ]
