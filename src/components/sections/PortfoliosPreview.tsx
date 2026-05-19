@@ -95,7 +95,7 @@ function PortfolioCard({
         delay: 0.12 * index,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className={`relative ${isFeatured ? "col-span-2 min-h-[280px] md:min-h-[460px] lg:min-h-[520px]" : "min-h-[200px] md:min-h-[360px] lg:min-h-[400px]"}`}
+      className={`relative ${isFeatured ? "sm:col-span-2 min-h-[280px] md:min-h-[460px] lg:min-h-[520px]" : "min-h-[200px] md:min-h-[360px] lg:min-h-[400px]"}`}
     >
       <Link
         href={item.href}
