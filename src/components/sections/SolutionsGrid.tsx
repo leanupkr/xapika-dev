@@ -276,7 +276,7 @@ export default function SolutionsGrid({
   const solutions: SolutionItem[] = [
     {
       key: "digital",
-      number: "04 / 05",
+      number: "01 / 05",
       title: items.digital.title,
       description: items.digital.description,
       metrics: items.digital.metrics,
@@ -289,7 +289,7 @@ export default function SolutionsGrid({
     },
     {
       key: "light",
-      number: "01 / 05",
+      number: "02 / 05",
       title: items.light.title,
       description: items.light.description,
       metrics: items.light.metrics,
@@ -302,7 +302,7 @@ export default function SolutionsGrid({
     },
     {
       key: "heavy",
-      number: "02 / 05",
+      number: "03 / 05",
       title: items.heavy.title,
       description: items.heavy.description,
       metrics: items.heavy.metrics,
@@ -315,7 +315,7 @@ export default function SolutionsGrid({
     },
     {
       key: "supply",
-      number: "03 / 05",
+      number: "04 / 05",
       title: items.supply.title,
       description: items.supply.description,
       metrics: items.supply.metrics,

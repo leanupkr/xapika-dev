@@ -20,7 +20,9 @@ type PortfolioItem = {
   metrics: Metric[];
   cta: string;
   href: string;
-  photo: string;
+  /** Hero photo URL. Omit (or pass empty string) to render a placeholder
+      background instead — used for projects without a usable photo yet. */
+  photo?: string;
   alt: string;
   objectPosition: string;
   size: Size;
@@ -100,22 +102,47 @@ function PortfolioCard({
         aria-label={`${item.country} — ${item.project}`}
         className="group relative block h-full w-full overflow-hidden"
       >
-        {/* 사진 */}
-        <Image
-          src={item.photo}
-          alt={item.alt}
-          fill
-          sizes={
-            isFeatured
-              ? "(min-width: 768px) 100vw, 100vw"
-              : "(min-width: 768px) 50vw, 100vw"
-          }
-          className="object-cover transition-transform duration-[6000ms] ease-out group-hover:scale-[1.04]"
-          style={{
-            filter: "brightness(0.62) contrast(1.10) saturate(0.82)",
-            objectPosition: item.objectPosition,
-          }}
-        />
+        {/* 사진 — photo가 비어있으면 placeholder 배경만 렌더 */}
+        {item.photo ? (
+          <Image
+            src={item.photo}
+            alt={item.alt}
+            fill
+            sizes={
+              isFeatured
+                ? "(min-width: 768px) 100vw, 100vw"
+                : "(min-width: 768px) 50vw, 100vw"
+            }
+            className="object-cover transition-transform duration-[6000ms] ease-out group-hover:scale-[1.04]"
+            style={{
+              filter: "brightness(0.62) contrast(1.10) saturate(0.82)",
+              objectPosition: item.objectPosition,
+            }}
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at 30% 20%, rgba(246,163,23,0.10) 0%, transparent 55%), linear-gradient(160deg, #0e2547 0%, #0b1f3a 60%, #081729 100%)",
+            }}
+          >
+            {/* subtle grid pattern */}
+            <svg
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full opacity-[0.08]"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <pattern id="port-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                  <path d="M32 0 L0 0 0 32" fill="none" stroke="white" strokeWidth="0.6" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#port-grid)" />
+            </svg>
+          </div>
+        )}
 
         {/* 좌→우 어둠 그라디언트 (Featured는 좌측 콘텐츠 보호 위해 더 진함) */}
         <div
@@ -124,7 +151,9 @@ function PortfolioCard({
           style={{
             background: isFeatured
               ? "linear-gradient(100deg, rgba(11,31,58,0.85) 0%, rgba(11,31,58,0.50) 45%, rgba(11,31,58,0.25) 75%, rgba(11,31,58,0.55) 100%)"
-              : "linear-gradient(180deg, rgba(11,31,58,0.35) 0%, rgba(11,31,58,0.70) 55%, rgba(11,31,58,0.95) 100%)",
+              : item.photo
+                ? "linear-gradient(180deg, rgba(11,31,58,0.35) 0%, rgba(11,31,58,0.70) 55%, rgba(11,31,58,0.95) 100%)"
+                : "linear-gradient(180deg, rgba(11,31,58,0.10) 0%, rgba(11,31,58,0.55) 60%, rgba(11,31,58,0.92) 100%)",
           }}
         />
 
@@ -329,7 +358,7 @@ export default function PortfoliosPreview({
       ],
       cta: items.uzbekistan.cta,
       href: "/portfolios/uzbekistan-rail",
-      photo: "/hero/hero-05-detail.jpg",
+      photo: "",
       alt: "High-speed rail maintenance hub preparation — Tashkent",
       objectPosition: "70% 50%",
       size: "standard",
