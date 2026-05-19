@@ -12,8 +12,7 @@ type FooterCtaProps = {
 export default function FooterCta({ tagline, cta }: FooterCtaProps) {
   return (
     <div
-      className="relative mb-16 overflow-hidden rounded-2xl border border-white/[0.06]"
-      style={{ minHeight: "320px" }}
+      className="relative mb-16 overflow-hidden rounded-2xl border border-white/[0.06] min-h-[200px] md:min-h-[320px]"
     >
       {/* 미묘한 레일 패턴 배경 */}
       <svg
@@ -39,8 +38,7 @@ export default function FooterCta({ tagline, cta }: FooterCtaProps) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8 px-6 md:px-10 py-16 md:py-0 h-full"
-        style={{ minHeight: "320px" }}
+        className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8 px-6 md:px-10 py-10 md:py-0 h-full min-h-[200px] md:min-h-[320px]"
       >
         <div className="max-w-lg">
           <span

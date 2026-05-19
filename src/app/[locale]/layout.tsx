@@ -34,7 +34,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       className={`${inter.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      <body className="overflow-x-hidden">
         {/* Skip-to-content link — first focusable element, visually hidden until focused */}
         <a
           href="#main-content"

@@ -46,7 +46,7 @@ type SolutionsGridProps = {
 const SIZE_TO_CLASSES: Record<Size, { grid: string; minH: string; titleSize: string }> = {
   featured: {
     grid: "col-span-2 lg:col-span-8",
-    minH: "min-h-[240px] md:min-h-[420px] lg:min-h-[480px]",
+    minH: "min-h-[280px] md:min-h-[420px] lg:min-h-[480px]",
     titleSize: "clamp(1.75rem, 2.8vw, 2.25rem)",
   },
   secondary: {
@@ -184,6 +184,8 @@ function SolutionCard({
               letterSpacing: "-0.018em",
               lineHeight: 1.15,
               maxWidth: isFeatured ? "22ch" : "18ch",
+              overflowWrap: "break-word",
+              wordBreak: "keep-all",
             }}
           >
             {item.title}

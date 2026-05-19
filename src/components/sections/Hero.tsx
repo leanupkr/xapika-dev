@@ -163,7 +163,7 @@ export default function Hero({
             data-hero-headline
             className="font-heading font-bold text-white mb-8 max-w-[90vw] md:max-w-none"
             style={{
-              fontSize: "clamp(3rem, 7.5vw, 7.5rem)",
+              fontSize: "clamp(2.5rem, 9vw, 7.5rem)",
               letterSpacing: "-0.025em",
               lineHeight: 0.97,
             }}
@@ -177,7 +177,7 @@ export default function Hero({
             style={{
               fontSize: "clamp(1.0625rem, 1.5vw, 1.25rem)",
               color: "rgba(255,255,255,0.85)",
-              maxWidth: "520px",
+              maxWidth: "min(520px, 90vw)",
               lineHeight: 1.65,
             }}
           >

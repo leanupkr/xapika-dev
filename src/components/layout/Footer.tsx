@@ -99,12 +99,12 @@ export default async function Footer() {
             >
               {tFooter("officesHeading")}
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
               {OFFICES.map(({ nameKey, country, detailKey }) => (
-                <div key={nameKey} className="flex gap-3">
+                <div key={nameKey} className="flex gap-2">
                   <MapPin
                     size={14}
-                    className="text-primary mt-0.5 flex-shrink-0"
+                    className="text-primary mt-0.5 flex-shrink-0 hidden sm:inline-block"
                     strokeWidth={2}
                   />
                   <div>
@@ -121,7 +121,7 @@ export default async function Footer() {
                       {country}
                     </p>
                     <p
-                      className="text-white/30"
+                      className="text-white/30 hidden sm:block"
                       style={{ fontSize: "0.75rem" }}
                     >
                       {tFooter(detailKey)}
@@ -144,7 +144,7 @@ export default async function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-10 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/30" style={{ fontSize: "0.8125rem" }}>
             {tFooter("copyright")}
           </p>
@@ -168,7 +168,7 @@ export default async function Footer() {
               {tFooter("termsLink")}
             </Link>
           </div>
-          <p className="text-white/20" style={{ fontSize: "0.75rem" }}>
+          <p className="hidden sm:block text-white/20" style={{ fontSize: "0.75rem" }}>
             {tFooter("rightTagline")}
           </p>
         </div>

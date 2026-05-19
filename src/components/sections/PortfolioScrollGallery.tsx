@@ -85,6 +85,83 @@ export default function PortfolioScrollGallery({
     slides.length,
   ).padStart(2, "0")}`;
 
+  // Mobile branch: simple vertical card list (avoids sticky-scroll layered absolute issues)
+  if (isMobile) {
+    return (
+      <section
+        data-bg="dark"
+        className="relative"
+        style={{ backgroundColor: "rgb(var(--color-ink))", paddingTop: "3rem", paddingBottom: "3rem" }}
+      >
+        <div className="px-6 mb-6">
+          <span
+            className="flex items-center gap-3 font-heading font-medium uppercase text-white/80"
+            style={{ fontSize: "11px", letterSpacing: "0.22em" }}
+          >
+            <span
+              aria-hidden="true"
+              className="inline-block flex-shrink-0"
+              style={{ width: "24px", height: "2px", backgroundColor: "rgb(var(--color-primary))" }}
+            />
+            {sectionLabel}
+          </span>
+          <h2
+            className="font-heading font-semibold text-white mt-4"
+            style={{ fontSize: "clamp(1.75rem, 5vw, 2rem)", letterSpacing: "-0.02em", lineHeight: 1.15 }}
+          >
+            {sectionTitle}
+          </h2>
+        </div>
+        <ol className="px-6 space-y-6">
+          {slides.map((slide, i) => (
+            <li key={i} className="relative">
+              <div className="w-full aspect-[4/3] bg-white/[0.04] border border-white/10 rounded-lg overflow-hidden relative">
+                {slide.src ? (
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt ?? slide.caption}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-white/30 text-sm">
+                    {photoCaption}
+                  </div>
+                )}
+                {markerSlideIndex === i && (
+                  <div className="absolute top-3 left-3 px-2 py-1 bg-[rgb(var(--color-primary))] text-[rgb(var(--color-ink))] text-[10px] font-heading font-semibold uppercase tracking-wider rounded">
+                    Since War
+                  </div>
+                )}
+              </div>
+              <div className="mt-3">
+                <p
+                  className="font-heading font-medium uppercase text-[rgb(var(--color-primary))]"
+                  style={{ fontSize: "10px", letterSpacing: "0.22em" }}
+                >
+                  {slide.overline}
+                </p>
+                <p
+                  className="font-body text-white/85 mt-2"
+                  style={{ fontSize: "0.9375rem", lineHeight: 1.5 }}
+                >
+                  {slide.caption}
+                </p>
+                <p
+                  className="font-heading text-white/55 mt-1"
+                  style={{ fontSize: "0.8125rem", letterSpacing: "0.05em" }}
+                >
+                  {slide.metric}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    );
+  }
+
   return (
     <section
       ref={sectionRef}
