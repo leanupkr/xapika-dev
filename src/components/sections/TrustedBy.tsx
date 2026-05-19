@@ -119,7 +119,7 @@ export default function TrustedBy({ overline }: { overline: string }) {
 
       {/* 마퀴 — 좌우 fade edge */}
       <div
-        className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_60px,#000_calc(100%_-_60px),transparent)] sm:[mask-image:linear-gradient(to_right,transparent,#000_120px,#000_calc(100%_-_120px),transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_60px,#000_calc(100%_-_60px),transparent)] sm:[-webkit-mask-image:linear-gradient(to_right,transparent,#000_120px,#000_calc(100%_-_120px),transparent)]"
+        className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_40px,#000_calc(100%_-_40px),transparent)] sm:[mask-image:linear-gradient(to_right,transparent,#000_120px,#000_calc(100%_-_120px),transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_40px,#000_calc(100%_-_40px),transparent)] sm:[-webkit-mask-image:linear-gradient(to_right,transparent,#000_120px,#000_calc(100%_-_120px),transparent)]"
         aria-hidden="true"
       >
         <div

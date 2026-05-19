@@ -98,7 +98,9 @@ export default async function Footer() {
             >
               {tFooter("officesHeading")}
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
+            {/* grid-cols-1 on mobile (<640px) prevents city names from
+                wrapping in narrow 2-col layout; sm: restores 2 cols */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
               {OFFICES.map(({ nameKey, country, detailKey }) => (
                 <div key={nameKey} className="flex gap-2">
                   <MapPin

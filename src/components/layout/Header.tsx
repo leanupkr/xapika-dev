@@ -272,10 +272,11 @@ export default function Header() {
               })}
             </nav>
 
-            {/* Hamburger (mobile) */}
+            {/* Hamburger (mobile) — p-3 ensures ≥48×48px hit target; -ml-1 keeps
+                slight visual alignment without pushing icon to the unsafe edge */}
             <button
               className={[
-                "md:hidden p-2.5 -ml-2 transition-colors duration-200",
+                "md:hidden p-3 -ml-1 transition-colors duration-200",
                 scrolled
                   ? "text-ink hover:text-primary"
                   : "text-white hover:text-white/70",

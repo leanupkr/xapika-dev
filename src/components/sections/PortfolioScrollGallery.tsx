@@ -125,7 +125,7 @@ export default function PortfolioScrollGallery({
                     sizes="(max-width: 767px) 100vw, 50vw"
                   />
                 ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-white/30 text-sm">
+                  <div className="absolute inset-0 flex items-center justify-center text-white/30 text-sm text-center overflow-hidden px-4">
                     {photoCaption}
                   </div>
                 )}

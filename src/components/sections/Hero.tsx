@@ -112,10 +112,20 @@ export default function Hero({
   playAriaLabel,
 }: HeroProps) {
   return (
+    <>
+    {/* dvh fallback: hero.css sets 100vh/100svh; this block overrides with
+        100vh (fallback) then 100dvh (modern — iOS 15.4+, excludes browser UI bars).
+        Specificity [0,2,0] beats .hero-slideshow [0,1,0] regardless of source order. */}
+    <style>{`
+      .hero-slideshow[data-hero-section] {
+        height: min(100vh, 880px);
+        height: min(100dvh, 880px);
+        min-height: 560px;
+      }
+    `}</style>
     <section
       data-hero-section
       className="hero-slideshow"
-      style={{ height: "min(100vh, 880px)", minHeight: "560px" }}
       aria-label="Hero section"
     >
       {/* 배경 슬라이드쇼 */}
@@ -266,5 +276,6 @@ export default function Hero({
         </span>
       </div>
     </section>
+    </>
   );
 }

@@ -87,7 +87,7 @@ function ScaleCell({
       className="relative flex flex-col"
     >
       <span
-        className="font-heading uppercase mb-4 text-[rgb(var(--color-ink-muted))]"
+        className="font-heading uppercase mb-4 text-[rgb(var(--color-ink-muted))] whitespace-nowrap overflow-hidden text-ellipsis"
         style={{
           fontSize: "11px",
           letterSpacing: "0.22em",
@@ -202,7 +202,7 @@ export default function NetworkAtScale(props: NetworkAtScaleProps) {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-8">
           {cells.map((c, i) => (
             <ScaleCell key={c.label} cell={c} index={i} inView={inView} />
           ))}

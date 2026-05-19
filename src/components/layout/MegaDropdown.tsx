@@ -88,8 +88,12 @@ export default function MegaDropdown({
             transition={{ duration: 0.18, ease: "easeOut" }}
             className={[
               "absolute top-full left-0 mt-3 bg-white rounded-lg shadow-lg",
-              "border overflow-hidden",
-              layout === "wide" ? "min-w-[640px]" : "min-w-[420px]",
+              // max-w prevents viewport overflow on 768–1023px tablets;
+              // min-w scales up at lg: to avoid premature wrapping on desktop
+              "border overflow-hidden max-w-[calc(100vw-2rem)]",
+              layout === "wide"
+                ? "min-w-[320px] lg:min-w-[640px]"
+                : "min-w-[280px] md:min-w-[360px] lg:min-w-[420px]",
             ].join(" ")}
             style={{
               borderColor: "rgb(var(--color-ink) / 0.08)",

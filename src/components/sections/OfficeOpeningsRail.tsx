@@ -139,7 +139,9 @@ function Node({
         <div
           className="font-heading font-medium text-white tabular-nums leading-none mb-2"
           style={{
-            fontSize: "clamp(1.5rem, 2.4vw, 2rem)",
+            fontSize: orientation === "vertical"
+              ? "clamp(1.125rem, 5.5vw, 1.75rem)"
+              : "clamp(1.5rem, 2.4vw, 2rem)",
             letterSpacing: "-0.02em",
             fontVariantNumeric: "tabular-nums",
           }}
@@ -174,7 +176,7 @@ function Node({
           style={{
             fontSize: "clamp(0.875rem, 1vw, 0.9375rem)",
             lineHeight: 1.4,
-            maxWidth: "210px",
+            maxWidth: orientation === "vertical" ? "100%" : "210px",
           }}
         >
           {event.event}

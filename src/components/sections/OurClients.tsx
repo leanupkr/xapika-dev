@@ -204,7 +204,7 @@ export default function OurClients({
         {/* Grid — 1 col mobile / 2 col tablet / 3 col desktop */}
         <ul
           ref={gridRef}
-          className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6"
         >
           {CLIENTS.map((c) => (
             <li
