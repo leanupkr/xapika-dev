@@ -70,7 +70,7 @@ export default function NotFound() {
                   backgroundColor: "rgb(var(--color-primary))",
                 }}
               />
-              Off track / 경로 이탈
+              Off track
             </span>
 
             <h1
@@ -96,18 +96,6 @@ export default function NotFound() {
               The page you requested doesn&apos;t exist — or has been moved to another route.
             </p>
 
-            <p
-              className="font-body mb-10"
-              style={{
-                fontSize: "clamp(0.9375rem, 1.2vw, 1.0625rem)",
-                color: "rgba(255,255,255,0.55)",
-                maxWidth: "560px",
-                lineHeight: 1.65,
-              }}
-            >
-              요청하신 페이지를 찾을 수 없습니다. 다른 경로로 이동했거나 더 이상 제공되지 않는 페이지일 수 있습니다.
-            </p>
-
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 href="/"
@@ -117,7 +105,7 @@ export default function NotFound() {
                 Back to home
               </Link>
               <Link
-                href="/ko"
+                href="/contact"
                 className="inline-flex items-center gap-2 px-7 py-4 font-heading font-medium transition-colors duration-200"
                 style={{
                   fontSize: "14px",
@@ -127,7 +115,7 @@ export default function NotFound() {
                   backgroundColor: "rgba(255,255,255,0.04)",
                 }}
               >
-                홈으로 돌아가기
+                Contact us
               </Link>
             </div>
           </div>

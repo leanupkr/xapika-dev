@@ -42,7 +42,7 @@ export function websiteLd(locale: string) {
     "@id": `${BASE_URL}/#website`,
     url: localeUrl(locale),
     name: SITE_NAME,
-    inLanguage: locale === "ko" ? "ko-KR" : "en-US",
+    inLanguage: "en-US",
     publisher: { "@id": `${BASE_URL}/#organization` },
   };
 }
@@ -54,7 +54,7 @@ export function aboutPageLd(locale: string, description: string) {
     url: localeUrl(locale, "about"),
     name: `About — ${SITE_NAME}`,
     description,
-    inLanguage: locale === "ko" ? "ko-KR" : "en-US",
+    inLanguage: "en-US",
     mainEntity: { "@id": `${BASE_URL}/#organization` },
   };
 }
@@ -96,7 +96,7 @@ export function caseStudyLd(input: {
     url,
     creator: { "@id": `${BASE_URL}/#organization` },
     contentLocation: { "@type": "Place", name: country },
-    inLanguage: locale === "ko" ? "ko-KR" : "en-US",
+    inLanguage: "en-US",
   };
 }
 
@@ -138,7 +138,7 @@ export function breadcrumbLd(input: {
 }) {
   const { locale, trail } = input;
   const home: BreadcrumbItem = {
-    name: locale === "ko" ? "홈" : "Home",
+    name: "Home",
     path: "",
   };
   const items = [home, ...trail].map((crumb, i) => ({

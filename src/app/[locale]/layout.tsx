@@ -40,7 +40,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:z-[9999] focus:left-4 focus:top-4 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:font-medium focus:rounded focus:shadow-lg"
         >
-          {locale === "ko" ? "본문으로 건너뛰기" : "Skip to content"}
+          Skip to content
         </a>
 
         <NextIntlClientProvider locale={locale} messages={messages}>

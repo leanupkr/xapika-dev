@@ -4,9 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
-import { Link } from "@/i18n/navigation";
-import { useParams } from "next/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 
 // Sub-items share the same href/key shape — reuse a minimal type
 type SubItem = {
@@ -53,9 +51,6 @@ type Props = {
 export default function MobileMenu({ isOpen, onClose }: Props) {
   const t = useTranslations("nav");
   const pathname = usePathname();
-  const router = useRouter();
-  const params = useParams();
-  const locale = params.locale as string;
 
   const labelId = useId();
   const closeBtnRef = useRef<HTMLButtonElement>(null);
@@ -111,11 +106,6 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
       previouslyFocusedRef.current?.focus();
     };
   }, [isOpen, onClose]);
-
-  function switchLocale(nextLocale: string) {
-    router.replace(pathname, { locale: nextLocale });
-    onClose();
-  }
 
   return (
     <AnimatePresence>
@@ -279,35 +269,6 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
               </ul>
             </nav>
 
-            {/* Language toggle */}
-            <div className="px-6 pb-10 pt-6 border-t border-white/10 flex-shrink-0">
-              <div className="flex items-center gap-3">
-                <span
-                  className="text-white/40 font-heading uppercase tracking-wider"
-                  style={{ fontSize: "0.75rem" }}
-                >
-                  Language
-                </span>
-                <div className="flex items-center gap-2">
-                  {(["en", "ko"] as const).map((lng) => (
-                    <button
-                      key={lng}
-                      onClick={() => switchLocale(lng)}
-                      aria-pressed={locale === lng}
-                      className={[
-                        "font-heading font-medium tracking-widest uppercase transition-colors duration-200",
-                        locale === lng
-                          ? "text-primary"
-                          : "text-white/50 hover:text-white",
-                      ].join(" ")}
-                      style={{ fontSize: "0.8125rem" }}
-                    >
-                      {lng.toUpperCase()}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
           </motion.div>
         </>
       )}

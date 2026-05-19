@@ -21,8 +21,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { useParams } from "next/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import MobileMenu from "./MobileMenu";
 import MegaDropdown, { type MegaDropdownItem } from "./MegaDropdown";
@@ -38,9 +37,6 @@ const NAV_LINKS = [
 export default function Header() {
   const t = useTranslations("nav");
   const pathname = usePathname();
-  const router = useRouter();
-  const params = useParams();
-  const locale = params.locale as string;
 
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -110,10 +106,6 @@ export default function Header() {
       document.removeEventListener("focusin", onFocusOutside);
     };
   }, []);
-
-  function switchLocale(nextLocale: string) {
-    router.replace(pathname, { locale: nextLocale });
-  }
 
   function handleEnter(menu: string) {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -297,46 +289,8 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Right group: Locale switcher (desktop) + Logo */}
+          {/* Right group: Logo */}
           <div className="flex items-center gap-4">
-            {/* Language toggle */}
-            <div className="hidden md:flex items-center gap-1">
-              {(["en", "ko"] as const).map((lng, idx) => (
-                <span key={lng} className="flex items-center">
-                  {idx > 0 && (
-                    <span
-                      className={[
-                        "mx-1",
-                        scrolled ? "text-ink-muted" : "text-white/40",
-                      ].join(" ")}
-                    >
-                      |
-                    </span>
-                  )}
-                  <button
-                    onClick={() => switchLocale(lng)}
-                    aria-label={
-                      lng === "ko" ? "한국어로 전환" : "Switch to English"
-                    }
-                    className={[
-                      "font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
-                      "min-h-[44px] min-w-[44px] flex items-center justify-center",
-                      locale === lng
-                        ? scrolled
-                          ? "text-primary"
-                          : "text-white font-semibold"
-                        : scrolled
-                        ? "text-ink-muted hover:text-ink"
-                        : "text-white/50 hover:text-white/80",
-                    ].join(" ")}
-                    style={{ fontSize: "13px" }}
-                  >
-                    {lng.toUpperCase()}
-                  </button>
-                </span>
-              ))}
-            </div>
-
             {/* Logo */}
             <Link
               href="/"

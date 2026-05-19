@@ -5,7 +5,7 @@ export const BASE_URL =
 
 export const SITE_NAME = "Xapika Engineering";
 
-export const LOCALES = ["en", "ko"] as const;
+export const LOCALES = ["en"] as const;
 export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";
@@ -27,7 +27,6 @@ export function buildAlternates(_locale: string, path: string) {
     canonical: url,
     languages: {
       en: url,
-      ko: url,
       "x-default": url,
     },
   };
@@ -57,8 +56,7 @@ export function buildOpenGraph({
     title,
     description,
     url,
-    locale: locale === "ko" ? "ko_KR" : "en_US",
-    alternateLocale: locale === "ko" ? ["en_US"] : ["ko_KR"],
+    locale: "en_US",
     images: [
       {
         url: ogImageUrl,
