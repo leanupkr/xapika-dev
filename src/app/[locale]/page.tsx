@@ -32,12 +32,10 @@ export default async function HomePage() {
     getTranslations("globalPresence"),
   ]);
 
-  // headline에서 accent 부분 ("Safe Operations." / "안전한 운영.")을 분리
+  // Separate the accent portion ("Safe Operations.") from the headline
   const headline = tHero("headline");
   const headlineAccent = headline.includes("Safe Operations.")
     ? "Safe Operations."
-    : headline.includes("안전한 운영.")
-    ? "안전한 운영."
     : "";
 
   return (

@@ -133,7 +133,7 @@ function StatBlock({
             <span
               className="font-heading font-medium text-[rgb(var(--color-ink))] leading-none tabular-nums whitespace-nowrap"
               style={{
-                fontSize: "clamp(2.25rem, 4vw, 3rem)",
+                fontSize: "clamp(1.75rem, 4vw, 3rem)",
                 letterSpacing: "-0.03em",
                 filter: blurring ? "blur(2px)" : "blur(0)",
                 transition: "filter 240ms cubic-bezier(0.16, 1, 0.3, 1)",

@@ -242,10 +242,10 @@ export default function PortfolioHero({
       {/* Accent badge — top-right overlay (per-program: war record, coming-soon, etc.) */}
       {accentBadge ? (
         <div
-          className="absolute hidden md:flex items-center gap-3"
+          className="absolute flex items-center gap-3"
           style={{
-            top: "clamp(5.5rem, 11vh, 7.5rem)",
-            right: "clamp(1.5rem, 4vw, 4rem)",
+            top: "clamp(5rem, 11vh, 7.5rem)",
+            right: "clamp(1rem, 4vw, 4rem)",
             zIndex: 20,
           }}
         >

@@ -219,7 +219,7 @@ export default function TrackRecordCards({
         {/* Cards grid — 1 col mobile / sm:2 col / md:2x2 */}
         <ul
           ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 md:gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 md:gap-6 items-stretch"
         >
           {clients.map((client, idx) => {
             // C6: runtime-safe palette lookup
@@ -298,6 +298,8 @@ export default function TrackRecordCards({
                       letterSpacing: "-0.018em",
                       lineHeight: 1.2,
                       maxWidth: "calc(100% - 64px)",
+                      overflowWrap: "break-word",
+                      wordBreak: "break-word",
                     }}
                   >
                     {client.name}
@@ -317,9 +319,10 @@ export default function TrackRecordCards({
                     <p
                       className="font-body text-[rgb(var(--color-ink-muted))] mt-1 uppercase"
                       style={{
-                        fontSize: "11.5px",
+                        fontSize: "12px",
                         letterSpacing: "0.06em",
                         lineHeight: 1.4,
+                        overflowWrap: "break-word",
                       }}
                     >
                       {client.models}
@@ -415,18 +418,19 @@ export default function TrackRecordCards({
           })}
         </ul>
 
-        {/* C5: Section CTA */}
+        {/* C5: Section CTA — touch target ≥ 44px */}
         {cta && (
           <div className="mt-12 flex justify-center">
             <Link
               href="/contact"
-              className="font-heading font-semibold uppercase"
+              className="inline-flex items-center font-heading font-semibold uppercase"
               style={{
                 fontSize: "13px",
                 letterSpacing: "0.12em",
                 color: "#1E4D7B",
+                padding: "12px 8px",
                 borderBottom: "1px solid #1E4D7B",
-                paddingBottom: "2px",
+                minHeight: "44px",
               }}
             >
               {cta} →

@@ -83,7 +83,7 @@ body {
   overflow-x: clip;
 }
 
-/* 한국어 제목 어절 단위 줄바꿈 — 모바일에서 음절 쪼개짐 방지 */
+/* Headings: keep words intact, wrap on overflow */
 .font-heading,
 h1, h2, h3, h4 {
   word-break: keep-all;

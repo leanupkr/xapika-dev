@@ -151,7 +151,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
                 ref={closeBtnRef}
                 onClick={onClose}
                 aria-label="Close menu"
-                className="text-white/70 hover:text-white transition-colors duration-200 p-2 -mr-2"
+                className="text-white/70 hover:text-white transition-colors duration-200 p-2.5 -mr-2"
               >
                 <X size={24} strokeWidth={1.5} aria-hidden="true" />
               </button>
@@ -224,7 +224,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
                                       onClick={onClose}
                                       aria-current={subActive ? "page" : undefined}
                                       className={[
-                                        "block py-2 px-3 rounded text-sm font-heading transition-colors duration-200",
+                                        "block py-3 px-3 rounded text-sm font-heading transition-colors duration-200 min-h-[44px] flex items-center",
                                         subActive
                                           ? "text-primary"
                                           : "text-white/55 hover:text-white",
