@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
 export const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://xapika.pl";
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  "https://xapika-dev.vercel.app";
 
 export const SITE_NAME = "Xapika Engineering";
 
