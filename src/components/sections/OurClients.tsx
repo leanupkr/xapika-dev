@@ -210,12 +210,11 @@ export default function OurClients({
             <li
               key={c.name}
               data-client-card
-              className="group relative flex flex-col justify-between bg-white opacity-0 transition-colors duration-[320ms] ease-out hover:border-[rgb(var(--color-primary)/0.5)]"
+              className="group relative flex flex-col justify-between bg-white opacity-0 transition-colors duration-[320ms] ease-out hover:border-[rgb(var(--color-primary)/0.5)] min-w-0 aspect-[5/4] sm:aspect-[16/9]"
               style={{
-                aspectRatio: "16 / 9",
-                minHeight: "200px",
+                minHeight: "160px",
                 border: "1px solid rgb(var(--color-ink) / 0.10)",
-                padding: "20px 24px",
+                padding: "16px 18px",
               }}
               aria-label={c.fullName}
             >
