@@ -1,347 +1,190 @@
-# 하리카 측 제공 필요 항목 (Client Deliverables Checklist)
+# 하리카 측 제공 요청 항목
 
-이 문서는 **하리카엔지니어링(발주사)**이 LEANUP(수주사)에 전달해야 하는 미수급 콘텐츠·자산·결정사항을 한 곳에 정리한 체크리스트입니다.
+안녕하세요. Xapika Engineering 홈페이지 리뉴얼이 마무리 단계에 들어서며, **하리카에서 전달해 주셔야 할 콘텐츠와 자료**를 한 장에 정리했습니다.
 
-각 항목은 (1) 어디에 노출되는지, (2) 현재 사이트에 어떤 임시값이 들어 있는지, (3) 어떤 형식으로 주시면 되는지, (4) 받은 후 어디서 교체되는지를 함께 적었습니다. **운영팀(하리카)이 i18n 메시지 파일을 직접 수정할 수도 있고, LEANUP에 자료만 전달해 주셔도 됩니다.**
+홈페이지 본문에 임시로 노출되어 있는 부분(예: "Awaiting copy", "Address arriving" 등)이 모두 여기 정리되어 있고, 받는 순서대로 LEANUP이 사이트에 반영합니다. 부담 없이 가능한 것부터 차례대로 주시면 됩니다.
 
-> 우선순위: **P0** = 사이트 정식 런칭 전 반드시 필요 / **P1** = 런칭 직후 1~2주 안에 채워 넣을 수 있음 / **P2** = 있으면 좋음, 없으면 현재 임시값 유지
-
-> **언어 정책 (2026-05-19 확정)**: 사이트는 **영어 단일 언어**로 운영됩니다. 모든 카피·문구는 **영문으로만** 주시면 됩니다. (한국어 페이지는 더 이상 운영하지 않습니다.)
-
-> 출처 우선순위: 본 문서가 인용하는 일자·수치는 모두 **`260403 Harika Engineering 홈페이지 구성안.pdf`** (하리카 직접 제공, 2026-04-03) 기준입니다.
+> 사이트는 **영어 단일 언어**로 운영됩니다 (2026-05-19 확정). 모든 본문·카피는 **영문**으로만 주시면 됩니다.
 
 ---
 
-## 한눈에 보기
+## 우선순위 한눈에 보기
 
-| 우선순위 | 항목 | 상태 |
+| 우선순위 | 항목 | 비고 |
 |---|---|---|
-| **P0** | CEO 인사말 본문 + 서명 + 초상 사진 | ❌ 미수급 |
-| **P0** | 9개 오피스 주소·전화·이메일 (서울 제외) | ❌ 미수급 (서울만 계약서에서 확인) |
-| **P0** | VISION IT 공식 웹사이트 URL 확정 (visionit.ai vs visionit.kr) | ⚠️ 불일치 — 현재 `visionit.kr` 사용 중 |
-| **P0** | 우즈베키스탄 고속철 운영 개시 실제 일자 (2026.05 예정) | ⚠️ 계획값 노출 중 |
-| **P1** | 조직도 (Organization Chart) 이미지 또는 데이터 | ❌ 미수급 |
-| **P1** | 솔루션 5개 상세 페이지 카피 (구성안 §1.4 "내용 추후 협의 후 구성 예정") | ⚠️ 임시 카피 |
-| **P1** | Partners 로고 — MSB Housing, Member of Cambridge University | ❌ 미수급 |
-| **P1** | 우즈베키스탄 포트폴리오 사진·영상 (운영 개시 후) | ❌ 미수급 |
-| **P1** | Privacy Policy / Terms of Use 정식 문구 | ⚠️ 임시 문구 |
-| **P2** | 본사·기타 오피스 건물 사진 (또는 구글 지도 위치로 대체) | ⚠️ 현재 비전 — 구글 지도 위치 사용 중 |
-| **P2** | 추가 Hero/포트폴리오 고해상도 사진·영상 | ✅ 기존 HRCS2 38장 + Warsaw Tram 21장 적용 중 |
+| **런칭 전 필수** | 1. CEO 인사말 본문 + 서명 + 초상 사진 | About > CEO 페이지 전체 임시 |
+| **런칭 전 필수** | 2. 9개 오피스 주소·전화·이메일 | 서울만 계약서로 확인됨 |
+| **런칭 전 필수** | 3. VISION IT 공식 웹사이트 주소 확정 | `visionit.ai` ↔ `visionit.kr` 중 어느 것인지 |
+| **런칭 전 필수** | 4. 우즈베키스탄 고속철 실제 운영 개시 일자 | 현재 "2026년 5월" 임시 |
+| 런칭 후 1~2주 | 5. 조직도 이미지 또는 부서·팀 구조 | About > Organization 페이지 |
+| 런칭 후 1~2주 | 6. 솔루션 5개 상세 페이지 본문 카피 | 구성안에 "추후 협의 후 구성 예정"으로 적힌 영역 |
+| 런칭 후 1~2주 | 7. 파트너 로고 — MSB Housing, Cambridge University | VISION IT·Intel은 이미 적용 완료 |
+| 런칭 후 1~2주 | 8. 우즈베키스탄 포트폴리오 사진·영상 | 운영 개시 후 |
+| 런칭 후 1~2주 | 9. 개인정보처리방침 / 이용약관 정식 문구 | 법무 검토본 |
+| 있으면 좋음 | 10. 본사·오피스 건물 사진 | 구성안에 따라 구글 지도로 대체 가능 |
+| 있으면 좋음 | 11. 추가 Hero·포트폴리오 고해상도 사진·영상 | 보유 자료로도 충분히 운영 가능 |
 
 ---
 
-## P0 — 사이트 정식 런칭 전 필수
+## 1. CEO 인사말 + 서명 + 초상 사진 — **런칭 전 필수**
 
-### 1. CEO 인사말 + 서명 + 초상
-
-**노출 위치**
-- `/about/ceo` — 회사 소개 > CEO Message 페이지
-
-**현재 임시값** (`en.json` 약 line 299~)
-- 카피: `Awaiting CEO message — content arriving from Harika`
-- 이름: `CEO Name · Founder & CEO` (임시 라벨)
-- 초상: 텍스트 placeholder
-
-**필요 형식**
-- 본문: 영문 200~600 단어 (장문 단락 2~4개 권장)
-- 서명: 영문 알파벳 표기 + 직책 (예: `John Doe / Founder & CEO`)
-- 초상 사진: JPEG 또는 PNG, 정방형(1:1) 또는 인물 비율(4:5), 최소 800 × 800 px
-- 비고: 신안산선 홈페이지의 '운영사업' / '철도부품 사업' 같은 표현은 피해 주세요 (구성안 §1.3 명시).
-
-**받은 후 교체 위치**
-- `src/messages/en.json` 의 `about.ceo.*` 키 (`placeholderName`, `awaitingNote` 두 키를 정식 본문으로 교체)
-- `public/about/ceo-portrait.{jpg|png}` (신규 추가 — `public/about/` 폴더 신규 생성)
+- **어디에 나오나요**: About Us > CEO Message 페이지 (`/about/ceo`)
+- **지금 화면 상태**: "Awaiting CEO message — content arriving from Harika"라는 임시 안내문만 표시되고, 이름·초상은 모두 자리만 잡혀 있는 상태입니다.
+- **주시면 좋은 형식**
+  - **본문**: 영문 200~600 단어 (단락 2~4개 권장)
+  - **서명**: 영문 이름 + 직책 (예: `John Doe / Founder & CEO`)
+  - **초상 사진**: JPEG 또는 PNG, 정방형(1:1) 또는 인물 비율(4:5), 최소 800 × 800 픽셀
+- **참고**: 구성안에 명시된 대로, 신안산선 홈페이지 같은 '운영사업' / '철도부품 사업' 표현은 피하면 좋겠다고 하셨습니다.
 
 ---
 
-### 2. 9개 오피스 주소·전화·이메일
+## 2. 9개 오피스 주소·전화·이메일 — **런칭 전 필수**
 
-**노출 위치**
-- `/locations` — Locations 페이지의 9개 오피스 카드 (지도 + 디렉토리)
-- 푸터 — 모든 페이지 하단 (도시·국가만 노출, 주소는 미노출)
+- **어디에 나오나요**: Locations 페이지 9개 오피스 카드, 푸터 글로벌 오피스 목록
+- **지금 화면 상태**: 도시·국가·운영 시작 연월·지도 핀은 모두 정상 노출. **주소와 연락처는 모든 오피스에서 "Address arriving / Email arriving"으로 표시 중**입니다.
+- **이미 확인된 곳**
+  - **서울 오피스**: 서울특별시 강남구 압구정로 166, 리저스 압구정센터 601-23호 (2026.04.13 계약서에서 확인)
+- **주시면 좋은 형식 — 9개 오피스 전체**
 
-**현재 상태**
-- 도시·국가·운영 시작 연월·좌표(지도 핀)는 모두 확정 (구성안 §1.3 연혁표 기준)
-- 주소·전화·이메일은 모든 카드에서 `Address arriving` / `Email arriving` placeholder 노출 중
-
-**서울만 확인됨 (출처: 2026.04.13 계약서 §갑 주소)**
-> 서울특별시 강남구 압구정로 166, 리저스 압구정센터 601-23호
-
-**필요 형식 — 9개 오피스 전체 (운영 시작 시기 순)**
-
-| ID | 오피스 | 운영 시작 | 주소 | 전화 | 이메일 |
-|---|---|---|---|---|---|
-| `istanbul` | Istanbul (튀르키예) | 2016.10 | 필요 | 필요 | 필요 |
-| `kyiv` | Kyiv (우크라이나) | 2018.11 | 필요 | 필요 | 필요 |
-| `sao-paulo` | São Paulo (브라질) | 2019.06 | 필요 | 필요 | 필요 |
-| `warsaw-office` | Warsaw Office (폴란드) | 2021.07 | 필요 | 필요 | 필요 |
-| `warsaw-hq` | Warsaw HQ (폴란드 본사) | 2022.03 | 필요 | 필요 | `info@xapika.pl` 외 추가 있을 경우 |
-| `virginia` | Virginia (미국) | 2023.06 | 필요 | 필요 | 필요 |
-| `cairo` | Cairo (이집트) | 2023.10 | 필요 | 필요 | 필요 |
-| `seoul` | Seoul (한국) | 2026.03 | **확인됨** ⬆ | 필요 | 필요 |
-| `tashkent` | Tashkent (우즈베키스탄) | 2026.04 | 필요 | 필요 | 필요 |
-
-- 구성안 §1.6 명시: "**주소, 건물 사진은 구글 지도 위치로 대체, 연락처 전달 예정**" → 주소만 받으면 구글 지도 핀 자동 연결됩니다.
-
-**받은 후 교체 위치**
-- `src/messages/en.json` 의 `locationsPage.offices[]` 배열 안 각 객체에 `address`, `phone`, `email` 필드 추가
-- `contactPage.info.hqValue` 본사 주소 (현재 `"Warsaw, Poland · Address arriving"`)
-
----
-
-### 3. VISION IT 공식 웹사이트 URL 확정
-
-**노출 위치**
-- `/solutions/digital-asset-management` — `Go to VISION IT` 외부 링크 버튼 (VisionItCallout + CTA 보조 버튼)
-
-**불일치 내용**
-- VISION IT 우크라이나어판 브로셔 표지: **`www.visionit.ai`**
-- 현재 사이트 i18n 값: **`https://visionit.kr`** (line 713)
-
-**필요 결정**
-- 위 두 URL 중 어떤 것이 **현재 활성 도메인**인지 알려 주세요.
-- 또는 둘 다 활성이면 어떤 URL을 사이트 외부 링크로 사용할지 결정 부탁드립니다.
-
-**받은 후 교체 위치**
-- `src/messages/en.json` 의 `solutionsDetail.digitalAssetManagement.cta.visitVisionIt`
-
----
-
-### 4. 우즈베키스탄 고속철 운영 개시 실제 일자
-
-**노출 위치**
-- `/portfolios/uzbekistan-rail` — Uzbekistan HSR 포트폴리오 페이지
-- 홈 Portfolios 미리보기 카드
-- 회사 연혁 (Locations / Openings 섹션)
-
-**현재 상태**
-- 구성안 §1.3에 "**2026.05 Uzbekistan – High-speed Rail O&M Commenced**" 빨간색 강조로 명시되어 있어 이 일자로 노출 중
-- 사이트 카피: `Coming May 2026` (홈 카드), `O&M operations launching May 2026` (포트폴리오 페이지)
-- 일부 카피에 임시로 `2026.05.31` 일자가 들어가 있음 (LEANUP 일정표 마지막 납품일과 동일하게 잡아 둔 임시값)
-
-**필요 정보**
-- 실제 운영 개시 정확한 일자 (예: 2026.05.15 등)
-- 또는 "2026년 5월 중" 같이 월 단위 표기로 변경 희망 여부
-
-**받은 후 교체 위치**
-- `src/messages/en.json` 의 `portfoliosDetail.uzbekistan.*` 및 `portfolios.uzbekistan.*`, `portfoliosPage.cases.uzbekistan.*`
-- `locationsPage.offices` 배열 중 `tashkent`의 `since` 필드 / 연혁 타임라인의 2026.05 이벤트
-
----
-
-## P1 — 런칭 후 1~2주 안에 채워 넣을 수 있음
-
-### 5. 조직도 (Organization Chart)
-
-**노출 위치**
-- `/about/organization` — 회사 소개 > Organization 페이지
-
-**현재 임시값** (`en.json` line 316~)
-- `placeholderText`: `Organization Chart · diagram arriving from Harika`
-- `awaitingNote`: `Awaiting org chart`
-
-**필요 형식 (택1)**
-- **이미지**: PNG 또는 SVG, 가로 1280 px 이상, 다크 배경(`#0B1F3A`) 위에서도 가독성 있도록 화이트/투명 처리
-- **또는 구조 데이터**: 부서·팀명·인원수만 텍스트로 주시면 LEANUP이 SVG로 렌더링 가능
-
-**받은 후 교체 위치**
-- 이미지: `public/about/org-chart.{png|svg}` (신규 추가) + 컴포넌트 코드 갱신
-- 데이터: `src/messages/en.json` 의 `about.organization.*`
-
----
-
-### 6. 솔루션 5개 상세 페이지 카피
-
-**근거**
-- 구성안 §1.4 (Solutions 페이지 영역) — "**내용 추후 협의 후 구성 예정**" (빨간색 강조)
-- 즉 현재 솔루션 5개 상세 페이지의 모든 내용 카피는 LEANUP이 작성한 임시값이고, **확정 카피를 하리카에서 주시면 교체**됩니다.
-
-**노출 위치 (5개)**
-1. `/solutions/light-maintenance` — 경정비
-2. `/solutions/heavy-maintenance` — 중정비
-3. `/solutions/supply-chain` — Rolling Stock SCM
-4. `/solutions/digital-asset-management` — Digital Solutions & Asset Management
-5. `/solutions/commercial-services` — Integrated Commercial & Ancillary Services
-
-**솔루션별로 받아야 하는 카피 단위 (각 페이지 공통)**
-
-각 솔루션 페이지마다:
-- **Hero 헤드라인 / 서브헤드라인** (구성안 §1.2의 한 줄 정의는 이미 반영됨 — 더 길게 풀어 쓸지 결정)
-- **WhatWeDo — 수행 업무 목록** (현재 임시 항목 노출 중 — 정식 분류·desc 필요)
-- **KeyStats — 4개 수치 또는 정성 메트릭** (현재 구성안에서 검증된 수치만 노출)
-- **CTA 카피** — `Contact our maintenance team` 등 (현재 임시)
-
-**솔루션 4 — Digital Asset Management 별도 항목**
-- 구성안 §1.2 H4: `Through our affiliate VISION IT's MMIS platform, we optimize operations and asset management with data-driven insights.` — 이 한 문장만 정식. MMIS의 5대 LIVE 기능(원격 모니터링 / 고장 분석 / CBM / 디지털 창고 / 디지털 직원)은 VISION IT 브로셔에서 확인했으나, 사이트에서는 본문에 포괄적으로만 인용 중. **별도 섹션으로 풀어 노출하려면 카피 보강 필요.**
-
-**솔루션 3 — Supply Chain (Rolling Stock SCM) — 파트너 정보**
-- 구성안 §1.2 H3 명시 수치: `50+ Global Partners`, `8,000+ Parts Managed` — 노출 완료
-- **개별 파트너 6사** (Huawei / Huber+Suhner / Hyundai Corp / Knorr-Bremse / mRail / Entecerma) 로고는 자료 폴더에 있으나, **이 6개사가 실제 supply chain 파트너로 노출되어도 되는지** 확인 필요. 확정 후 노출/숨김 결정.
-
-**받은 후 교체 위치**
-- `src/messages/en.json` 의 `solutionsDetail.{lightMaintenance|heavyMaintenance|supplyChain|digitalAssetManagement|commercialServices}.*`
-
----
-
-### 7. Partners 로고 (홈 페이지 Trusted-by 마퀴)
-
-**노출 위치**
-- 홈페이지 — Trusted By 무한 마퀴 섹션
-
-**구성안 §1.2 명시 파트너 4종**
-| 파트너 | 현재 상태 | 필요 |
+| 오피스 | 운영 시작 | 필요 정보 |
 |---|---|---|
-| **VISION IT** | ✅ `public/partners/vision-it.png` 적용됨 | — |
-| **Intel** | ✅ `public/partners/intel.png` 적용됨 (Intel Gold Alliance) | — |
-| **MSB Housing** | ❌ 로고 없음 | PNG/SVG, 가로 480 px 이상, 배경 투명 |
-| **Member of Cambridge University** | ❌ 로고 없음 | 동일 |
+| Istanbul (튀르키예) | 2016.10 | 주소 · 전화 · 이메일 |
+| Kyiv (우크라이나) | 2018.11 | 주소 · 전화 · 이메일 |
+| São Paulo (브라질) | 2019.06 | 주소 · 전화 · 이메일 |
+| Warsaw Office (폴란드) | 2021.07 | 주소 · 전화 · 이메일 |
+| Warsaw HQ (폴란드 본사) | 2022.03 | 주소 · 전화 · 이메일 (현재 대표 메일은 `info@xapika.pl`로 운영 중) |
+| Virginia (미국) | 2023.06 | 주소 · 전화 · 이메일 |
+| Cairo (이집트) | 2023.10 | 주소 · 전화 · 이메일 |
+| **Seoul (한국)** | 2026.03 | 위 주소 확인 완료 — **전화·이메일만 추가** |
+| Tashkent (우즈베키스탄) | 2026.04 | 주소 · 전화 · 이메일 |
 
-**받은 후 교체 위치**
-- `public/partners/msb-housing.png` + `cambridge.png` (신규 추가)
-- `src/components/sections/TrustedBy.tsx` 의 로고 manifest 배열 갱신 (LEANUP 작업)
-
----
-
-### 8. 우즈베키스탄 포트폴리오 사진·영상
-
-**노출 위치**
-- `/portfolios/uzbekistan-rail` — Uzbekistan HSR 케이스 스터디
-
-**현재 상태**
-- 우즈베키스탄 운영은 **2026.05 개시 예정**이라 현재 사진·영상 없음 (`public/portfolios/uzbekistan-rail/` 폴더 자체 없음)
-- 페이지 자체는 `Coming May 2026` placeholder + 카운트다운 UI로 운영 중
-
-**필요 (운영 개시 후)**
-- 디팟·차량·작업자 사진 5~10장 (JPG/WebP, 가로 1920 px 이상)
-- 가능하면 짧은 영상 (mp4, 10~30초, 1920×1080)
-
-**받은 후 교체 위치**
-- `public/portfolios/uzbekistan-rail/` 폴더 신규 생성 + 파일 업로드
-- `src/messages/en.json` 의 `portfoliosDetail.uzbekistan.gallery.*`
+- **참고**: 구성안에 "주소·건물 사진은 구글 지도 위치로 대체, 연락처 전달 예정"으로 적혀 있어, **주소만 주시면 지도 핀은 자동 연결**됩니다.
 
 ---
 
-### 9. Privacy Policy / Terms of Use 정식 문구
+## 3. VISION IT 공식 웹사이트 주소 확정 — **런칭 전 필수**
 
-**노출 위치**
-- `/privacy` — 개인정보처리방침
-- `/terms` — 이용약관
-
-**현재 임시값**
-- 두 페이지 모두 `Full privacy policy / terms of use is being prepared.` 임시 안내문구 노출
-- 법무 검토 진행 중임을 사용자에게 알리고 있음
-
-**필요 형식**
-- 정식 본문 (영문), Markdown 또는 워드 파일
-- EU GDPR + 폴란드 개인정보보호법 부합 권장 (한국 개인정보보호법은 영문 사이트 운영 범위에서 결정)
-- 본문 구조 권장: 수집 항목 / 보관 기간 / 처리 목적 / 정보주체의 권리 / 문의처
-
-**받은 후 교체 위치**
-- `src/messages/en.json` 의 `privacyPage.*`, `termsPage.*`
-- 본문이 길면 `src/content/privacy.en.mdx` 같은 MDX 파일로 분리 가능 (LEANUP 작업)
+- **어디에 나오나요**: Solutions > Digital Solutions & Asset Management 페이지의 "Go to VISION IT" 버튼 (두 군데)
+- **지금 화면 상태**: 사이트는 현재 `https://visionit.kr`로 외부 링크가 걸려 있습니다.
+- **결정 필요**: VISION IT 우크라이나어판 브로셔 표지에는 `www.visionit.ai`로 적혀 있어서, **`.kr`과 `.ai` 중 어느 쪽이 현재 활성 도메인인지** 알려 주세요. 둘 다 활성이면 사이트에서 외부 링크로 쓸 도메인을 선택해 주시면 됩니다.
 
 ---
 
-## P2 — 권장 (있으면 좋음, 없으면 현재 임시값 유지)
+## 4. 우즈베키스탄 고속철 실제 운영 개시 일자 — **런칭 전 필수**
 
-### 10. 본사·오피스 건물 사진
-
-**노출 위치**
-- `/locations` — 각 오피스 카드 (현재 텍스트 + 구글 지도 핀만 노출)
-
-**현재 정책**
-- 구성안 §1.6 명시: "**주소, 건물 사진은 구글 지도 위치로 대체, 연락처 전달 예정**" → 건물 사진은 필수가 아닙니다.
-
-**필요 (선택)**
-- 9개 오피스 외관 사진 (JPG, 가로 1280 px 이상)
-- 있으면 카드에 노출, 없으면 현재처럼 구글 지도 핀만 노출
+- **어디에 나오나요**: Portfolios > Uzbekistan HSR 페이지, 홈 페이지 포트폴리오 카드, 회사 연혁
+- **지금 화면 상태**: 구성안에 "2026.05 Uzbekistan – High-speed Rail O&M Commenced"로 표기되어 있어 "Coming May 2026" / "Launching May 2026"로 노출 중입니다. 일부 카피에는 `2026.05.31`이 임시로 들어가 있는데, 이는 LEANUP 납품 마감일과 겹쳐 자리만 잡아 둔 값입니다.
+- **주시면 좋은 정보**
+  - 실제 운영 개시 정확한 일자 (예: `2026.05.15`)
+  - 또는 "2026년 5월 중" 같이 월 단위 표기로 유지할지 결정
 
 ---
 
-### 11. 추가 Hero·포트폴리오 고해상도 사진·영상
+## 5. 조직도 이미지 또는 부서·팀 구조 — 런칭 후 1~2주
 
-**현재 보유 자산** (Harika 측 제공 자료 활용 중)
-- HRCS2 Depot Photos: 38장 → `public/hero/` 5장 + `public/portfolios/ukraine-emu/` 다수 적용
-- Warsaw Tram Photos: 21장 → `public/portfolios/warsaw-tram/` season별 시리즈 적용
-- DropMeFiles_K7A0i: 281개 raw 자산 (저작권 확인 후 사용)
-
-**필요 (선택)**
-- Hero용 와이드 사진 (2560 × 1440, WebP 우선) — 분기별 1~2회 갱신 권장
-- 포트폴리오용 다양한 각도의 작업 현장 사진
-- 가능하면 60초 이내 짧은 영상 (1080p, mp4)
-
-**받은 후 교체 위치**
-- `public/hero/` — Hero 슬라이드쇼
-- `public/portfolios/{ukraine-emu|warsaw-tram|uzbekistan-rail}/` — 각 포트폴리오
+- **어디에 나오나요**: About Us > Organization 페이지 (`/about/organization`)
+- **지금 화면 상태**: "Organization Chart · diagram arriving from Harika" 임시 안내만 표시되고 있습니다.
+- **주시면 좋은 형식 (둘 중 택1)**
+  - **이미지**: PNG 또는 SVG, 가로 1280 픽셀 이상, 어두운 네이비 배경에서도 잘 보이도록 화이트 또는 투명 처리
+  - **또는 구조만 텍스트로**: 부서명·팀명·인원수만 알려 주시면 LEANUP이 사이트 톤에 맞춰 도식화해 드립니다.
 
 ---
 
-## 부록 A — 자료 전달 방식
+## 6. 솔루션 5개 상세 페이지 본문 카피 — 런칭 후 1~2주
 
-세 가지 중 편한 방법을 택해 주세요.
-
-1. **이메일 첨부**: LEANUP 담당자(`contact@leanup.kr`)에게 ZIP / 폴더 압축 후 전달
-2. **Google Drive 공유 폴더**: 폴더 URL을 받으면 LEANUP이 다운로드 후 정리
-3. **DropMeFiles 등 임시 링크**: 7~14일 유효한 링크로도 무방
-
-**파일명 권장**
-- 카피 (텍스트): `[페이지명].docx` 또는 Markdown — 영문 본문만
-- 사진: 원본 파일명 유지 (LEANUP이 web 최적화)
-- 로고: 가능하면 SVG / 안 되면 투명 PNG (가로 480 px 이상)
-
----
-
-## 부록 B — 운영팀이 직접 수정하는 가이드 (선택)
-
-i18n 파일 한 개만 수정하시면 됩니다. 자세한 절차는 `OPERATIONS.md` 참고.
-
-```
-src/messages/en.json    # 영문 본문 (사이트의 유일한 언어 소스)
-```
-
-**원칙**
-- JSON 따옴표 / 콤마 위치 주의 — 깨지면 빌드가 실패합니다
-- 줄바꿈은 `\n`으로 입력
-- 한국어 본문은 더 이상 운영하지 않으므로 추가하지 마세요 (사이트가 영문 단일 언어로 전환되었습니다 — 2026-05-19 결정)
-
-**키 위치 빠른 찾기**
-
-| 페이지 | i18n 키 prefix |
-|---|---|
-| 홈 / Hero | `hero.*` |
-| Key Numbers | `keyNumbers.*` |
-| 홈 — Solutions 카드 5개 | `solutions.items.*` |
-| About > CEO | `about.ceo.*` |
-| About > Organization | `about.organization.*` |
-| About > Clients | `about.clients.*` |
-| Solutions 상세 (5개) | `solutionsDetail.{slug}.*` |
-| Portfolios 상세 (3개) | `portfoliosDetail.{slug}.*` |
-| Locations 오피스 9개 | `locationsPage.offices[]` |
-| Contact 정보 | `contactPage.info.*` |
-| 푸터 | `footer.*` |
-| Privacy / Terms | `privacyPage.*`, `termsPage.*` |
+- **어디에 나오나요**: Solutions 메뉴 5개 상세 페이지
+  1. Light Maintenance (경정비)
+  2. Heavy Maintenance (중정비)
+  3. Rolling Stock SCM (차량 공급망)
+  4. Digital Solutions & Asset Management (디지털 자산 관리)
+  5. Integrated Commercial & Ancillary Services (커머셜·부대 서비스)
+- **지금 화면 상태**: 구성안 §1.4에 "**내용 추후 협의 후 구성 예정**"이라고 빨간색으로 표시된 영역입니다. 현재는 LEANUP이 자료를 토대로 작성한 **임시 본문**이 노출되어 있습니다.
+- **주시면 좋은 형식 (페이지마다)**
+  - 페이지 상단 헤드라인·서브헤드라인 (구성안에 있는 한 줄 정의는 이미 반영됨 — 더 길게 풀어 쓸지 결정)
+  - 수행 업무 항목별 제목 + 한두 줄 설명
+  - 강조하고 싶은 수치 (현재 구성안 기준 수치만 노출)
+  - 페이지 하단 CTA 문구 (예: "Contact our maintenance team")
+- **별도 확인 부탁**
+  - **솔루션 4 (Digital)**: 구성안 §1.2 H4의 "Through our affiliate VISION IT's MMIS platform..." 한 문장만 정식 카피로 반영되어 있습니다. MMIS의 세부 기능(원격 모니터링·고장 분석·CBM·디지털 창고·디지털 직원)을 별도 섹션으로 풀어 노출할지 결정 부탁드립니다.
+  - **솔루션 3 (Supply Chain)**: 구성안 수치 `50+ 글로벌 파트너 / 8,000+ 부품` 노출 완료. 개별 공급망 파트너 6사(Huawei / Huber+Suhner / Hyundai Corp / Knorr-Bremse / mRail / Entecerma) 로고가 자료 폴더에 있지만, **이 6개사를 실제 supply chain 파트너로 사이트에 노출해도 되는지** 확인 부탁드립니다.
 
 ---
 
-## 부록 C — 출처 신뢰도 우선순위 (현재 사이트 카피의 근거)
+## 7. 파트너 로고 — MSB Housing, Cambridge University — 런칭 후 1~2주
 
-본 사이트의 모든 카피·일자·수치는 아래 순서로 결정되어 있습니다.
-
-| 순위 | 자료 | 비고 |
-|---|---|---|
-| 1순위 | `xapika/260403 Harika Engineering 홈페이지 구성안.pdf` | **하리카 직접 제공 — 회사 연혁·통계·솔루션 카피 원천** |
-| 2순위 | `xapika/01_사이트맵_IA문서_v1.0.docx` | LEANUP 작성 IA |
-| 2순위 | `xapika/02_프로젝트수행일정표_v1.0.xlsx` | LEANUP 작성 일정표 |
-| 2순위 | `xapika/260413 Xapika Homepage Renewal Contract.pdf` | 계약서 (서울 사무소 주소 출처) |
-| 3순위 | `xapika/Harika Engineering/` 폴더 (하리카 직접 제공) | 로고·현장 사진 |
-| 3순위 | `xapika/Vision IT/` 폴더 (VISION IT 제공) | MMIS 브로셔·로고 |
-
-**1순위 자료와 충돌이 있을 경우 항상 1순위(구성안 PDF)를 따릅니다.**
-자세한 내용은 `xapika/SOURCE_INDEX.md` 참조.
+- **어디에 나오나요**: 홈페이지 "Trusted By" 무한 마퀴 섹션
+- **지금 화면 상태**: 구성안 §1.2 명시 파트너 4종 중 **VISION IT, Intel은 이미 적용 완료**. **MSB Housing, Member of Cambridge University는 로고 미수급**으로 현재 마퀴에 빠져 있습니다.
+- **주시면 좋은 형식**
+  - SVG 또는 투명 배경 PNG, 가로 480 픽셀 이상
 
 ---
 
-## 변경 이력
+## 8. 우즈베키스탄 포트폴리오 사진·영상 — 운영 개시 후
 
-- 2026-05-19 (rev 2): 한국어 단일언어 정책 전환 반영 — KO 본문 요청 항목 제거, i18n 가이드를 `en.json` 단일 파일로 단순화. Footer 9개 오피스 풀 노출 반영. 솔루션 페이지 폴리시(speculative 섹션 제거) 후속 상태 동기화.
-- 2026-05-19: 최초 작성 (P0~P2 11개 항목, 솔루션 5개 페이지 폴리시 작업 완료 시점 기준)
+- **어디에 나오나요**: Portfolios > Uzbekistan HSR 케이스 스터디 페이지
+- **지금 화면 상태**: 운영 개시 전이라 사진·영상 없음. "Coming May 2026" 안내 + 카운트다운으로 운영 중.
+- **주시면 좋은 형식 (운영 개시 후)**
+  - 디팟·차량·작업자 사진 5~10장 (JPG 또는 WebP, 가로 1920 픽셀 이상)
+  - 가능하면 짧은 영상 (mp4, 10~30초, 풀HD 1920×1080)
+
+---
+
+## 9. 개인정보처리방침 / 이용약관 정식 문구 — 런칭 후 1~2주
+
+- **어디에 나오나요**: `/privacy` 페이지, `/terms` 페이지 (푸터 링크)
+- **지금 화면 상태**: 두 페이지 모두 "Full privacy policy / terms of use is being prepared." 임시 안내만 표시. 법무 검토 진행 중임을 사용자에게 알리고 있습니다.
+- **주시면 좋은 형식**
+  - 영문 본문 (워드 파일이나 Markdown, 어느 쪽이든 무방)
+  - EU GDPR + 폴란드 개인정보보호법 기준 권장
+  - 권장 구조: 수집 항목 / 보관 기간 / 처리 목적 / 정보주체의 권리 / 문의처
+
+---
+
+## 10. 본사·오피스 건물 사진 — 있으면 좋음
+
+- **어디에 나오나요**: Locations 페이지 각 오피스 카드
+- **지금 정책**: 구성안 §1.6에 "**주소·건물 사진은 구글 지도 위치로 대체**"라고 명시되어 있어, **건물 사진은 필수가 아닙니다.**
+- **주시면 좋은 형식 (선택 사항)**
+  - 9개 오피스 외관 사진 (JPG, 가로 1280 픽셀 이상)
+  - 있으면 각 카드에 노출, 없으면 현재처럼 구글 지도 핀만 노출
+
+---
+
+## 11. 추가 Hero·포트폴리오 고해상도 사진·영상 — 있으면 좋음
+
+- **지금 보유 자산** (하리카에서 이미 제공해 주신 자료를 활용 중입니다)
+  - HRCS2 차량 디팟 사진 38장 — 홈 Hero 슬라이드쇼 + 우크라이나 포트폴리오에 적용
+  - Warsaw Tram 사진 21장 — 바르샤바 포트폴리오에 적용
+  - 그 외 DropMeFiles 281개 raw 자산
+- **추가로 주시면 좋은 자료 (선택)**
+  - Hero용 와이드 사진 (2560 × 1440, 가능하면 WebP)
+  - 포트폴리오용 다양한 각도의 작업 현장 사진
+  - 60초 이내 짧은 영상 (풀HD, mp4)
+
+---
+
+## 자료 전달 방법
+
+편하신 방법 중 하나로 보내 주시면 됩니다.
+
+1. **이메일**: LEANUP 담당자(`contact@leanup.kr`)에게 ZIP 압축 첨부
+2. **Google Drive**: 공유 폴더 URL을 보내 주시면 LEANUP이 다운로드 후 정리
+3. **DropMeFiles / WeTransfer 등 임시 링크**: 7~14일 유효한 링크로도 무방
+
+**파일명 권장 사항**
+- 본문 텍스트: `[페이지명].docx` 또는 `.md`
+- 사진: 원본 파일명 그대로 (LEANUP이 웹 최적화 처리)
+- 로고: 가능하면 SVG, 안 되면 투명 배경 PNG (가로 480 픽셀 이상)
+
+---
+
+## 문의
+
+본 문서나 사이트 운영 관련 문의는 LEANUP 담당자에게 부탁드립니다 — `contact@leanup.kr`
+
+---
+
+**변경 이력**
+- 2026-05-19 (rev 3): 클라이언트 친화 톤으로 전면 재작성 — 기술 용어·내부 운영 가이드 제거, "어디 나오는지 / 지금 어떻게 보이는지 / 무엇을 주시면 되는지" 형식으로 단순화.
+- 2026-05-19 (rev 2): 한국어 단일언어 정책 전환 반영, Footer 9개 오피스 풀 노출 반영.
+- 2026-05-19: 최초 작성.
