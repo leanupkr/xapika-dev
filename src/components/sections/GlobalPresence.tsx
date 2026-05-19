@@ -44,7 +44,7 @@ type Pin = {
 
 const PINS: Pin[] = [
   { id: "poland",     name: "Poland",      label: "HQ · Warsaw", coords: [21.0118, 52.2297], countryId: "616", isHQ: true },
-  { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45],     countryId: "804", labelAnchor: "right" },
+  { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45],     countryId: "804", labelAnchor: "left" },
   { id: "turkey",     name: "Türkiye",     label: "Istanbul",    coords: [28.98, 41.01],     countryId: "792" },
   { id: "uzbekistan", name: "Uzbekistan",  label: "Tashkent",    coords: [69.28, 41.30],     countryId: "860" },
   { id: "korea",      name: "South Korea", label: "Seoul",       coords: [126.98, 37.57],    countryId: "410" },
