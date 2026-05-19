@@ -119,46 +119,6 @@ function SolutionCard({
           }}
         />
 
-        {/* Featured 전용 — MMIS 대시보드 느낌 추상 SVG */}
-        {isFeatured && (
-          <svg
-            aria-hidden="true"
-            className="hidden sm:block absolute top-6 right-6 md:top-8 md:right-8 w-[200px] md:w-[280px] h-[90px] md:h-[112px] opacity-70"
-            viewBox="0 0 280 112"
-            fill="none"
-          >
-            {/* 그리드 라인 */}
-            <line x1="0" y1="28" x2="280" y2="28" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="2 4" />
-            <line x1="0" y1="56" x2="280" y2="56" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="2 4" />
-            <line x1="0" y1="84" x2="280" y2="84" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="2 4" />
-            {/* 백그라운드 라인 (낮은 주황) */}
-            <path
-              d="M0 90 L40 82 L80 85 L120 74 L160 78 L200 66 L240 70 L280 58"
-              stroke="rgba(246,163,23,0.25)"
-              strokeWidth="1.25"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            {/* 메인 라인 (Work orders trend) */}
-            <path
-              d="M0 76 L40 60 L80 66 L120 44 L160 52 L200 30 L240 36 L280 18"
-              stroke="rgb(246,163,23)"
-              strokeWidth="1.75"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            {/* 데이터 포인트 */}
-            <circle cx="80" cy="66" r="2.5" fill="rgb(246,163,23)" />
-            <circle cx="160" cy="52" r="2.5" fill="rgb(246,163,23)" />
-            <circle cx="240" cy="36" r="2.5" fill="rgb(246,163,23)" />
-            <circle cx="280" cy="18" r="3" fill="#fff" stroke="rgb(246,163,23)" strokeWidth="1.5" />
-            {/* 라벨 */}
-            <text x="0" y="108" fill="rgba(255,255,255,0.45)" fontSize="8" fontFamily="monospace" letterSpacing="0.15em">
-              WORK ORDERS · 30D
-            </text>
-          </svg>
-        )}
-
         {/* 번호 (좌상단) */}
         <span
           className="absolute top-6 left-6 md:top-7 md:left-7 font-heading font-medium text-[rgb(var(--color-primary))] whitespace-nowrap"
@@ -275,21 +235,8 @@ export default function SolutionsGrid({
   // 번호는 자연스러운 목록 순서(01~05)로 유지
   const solutions: SolutionItem[] = [
     {
-      key: "digital",
-      number: "01 / 05",
-      title: items.digital.title,
-      description: items.digital.description,
-      metrics: items.digital.metrics,
-      cta: "See MMIS platform",
-      href: "/solutions/digital-asset-management",
-      photo: "/solutions/index-digital.jpg",
-      alt: "MMIS digital asset management platform — work orders and inventory",
-      size: "featured",
-      objectPosition: "center 60%",
-    },
-    {
       key: "light",
-      number: "02 / 05",
+      number: "01 / 05",
       title: items.light.title,
       description: items.light.description,
       metrics: items.light.metrics,
@@ -297,12 +244,12 @@ export default function SolutionsGrid({
       href: "/solutions/light-maintenance",
       photo: "/solutions/index-light.jpg",
       alt: "Light maintenance inspection at depot",
-      size: "secondary",
-      objectPosition: "30% 50%",
+      size: "featured",
+      objectPosition: "center 50%",
     },
     {
       key: "heavy",
-      number: "03 / 05",
+      number: "02 / 05",
       title: items.heavy.title,
       description: items.heavy.description,
       metrics: items.heavy.metrics,
@@ -310,12 +257,12 @@ export default function SolutionsGrid({
       href: "/solutions/heavy-maintenance",
       photo: "/solutions/index-heavy.jpg",
       alt: "Heavy maintenance overhaul — component detail",
-      size: "tertiary",
+      size: "secondary",
       objectPosition: "center 35%",
     },
     {
       key: "supply",
-      number: "04 / 05",
+      number: "03 / 05",
       title: items.supply.title,
       description: items.supply.description,
       metrics: items.supply.metrics,
@@ -325,6 +272,19 @@ export default function SolutionsGrid({
       alt: "Rolling stock supply chain — parts and inventory",
       size: "tertiary",
       objectPosition: "20% 60%",
+    },
+    {
+      key: "digital",
+      number: "04 / 05",
+      title: items.digital.title,
+      description: items.digital.description,
+      metrics: items.digital.metrics,
+      cta: "See MMIS platform",
+      href: "/solutions/digital-asset-management",
+      photo: "/solutions/index-digital.jpg",
+      alt: "MMIS digital asset management platform — work orders and inventory",
+      size: "tertiary",
+      objectPosition: "center 60%",
     },
     {
       key: "commercial",
