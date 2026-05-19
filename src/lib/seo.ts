@@ -49,24 +49,32 @@ export function buildOpenGraph({
   ogPath,
 }: OgInput): NonNullable<Metadata["openGraph"]> {
   const url = localeUrl(locale, path);
-  const ogImageUrl = ogPath ? `${BASE_URL}${ogPath}` : `${BASE_URL}/opengraph-image`;
 
-  return {
+  const og: NonNullable<Metadata["openGraph"]> = {
     type: "website",
     siteName: SITE_NAME,
     title,
     description,
     url,
     locale: "en_US",
-    images: [
+  };
+
+  // When ogPath is given, point at a static asset. Otherwise let Next.js
+  // auto-merge the segment's `opengraph-image.tsx` route into the metadata —
+  // that guarantees the URL matches what is actually served (important under
+  // the `[locale]` dynamic segment that catches `/opengraph-image`).
+  if (ogPath) {
+    og.images = [
       {
-        url: ogImageUrl,
+        url: `${BASE_URL}${ogPath}`,
         width: 1200,
         height: 630,
         alt: title,
       },
-    ],
-  };
+    ];
+  }
+
+  return og;
 }
 
 export function buildTwitter({
@@ -74,13 +82,19 @@ export function buildTwitter({
   description,
   ogPath,
 }: Pick<OgInput, "title" | "description" | "ogPath">): NonNullable<Metadata["twitter"]> {
-  const ogImageUrl = ogPath ? `${BASE_URL}${ogPath}` : `${BASE_URL}/opengraph-image`;
-  return {
+  const twitter: NonNullable<Metadata["twitter"]> = {
     card: "summary_large_image",
     title,
     description,
-    images: [ogImageUrl],
   };
+
+  if (ogPath) {
+    twitter.images = [`${BASE_URL}${ogPath}`];
+  }
+  // No explicit image → consumers fall back to the og:image tag, which is
+  // populated automatically from the segment's `opengraph-image.tsx`.
+
+  return twitter;
 }
 
 export function buildPageMetadata(input: {
