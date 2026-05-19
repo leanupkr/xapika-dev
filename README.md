@@ -262,4 +262,4 @@ pnpm licenses list
 
 ---
 
-For day-to-day operational tasks (changing copy, swapping a photo, troubleshooting email delivery), see **[OPERATIONS.md](./OPERATIONS.md)**. For the chronological build history, see **[CHANGELOG.md](./CHANGELOG.md)**.
+For day-to-day operational tasks (changing copy, swapping a photo, troubleshooting email delivery), see **[OPERATIONS.md](./OPERATIONS.md)**. For the chronological build history, see **[CHANGELOG.md](./CHANGELOG.md)**. For the list of content/assets still owed by Harika (CEO message, office addresses, partner logos, etc.), see **[HARIKA_DELIVERABLES.md](./HARIKA_DELIVERABLES.md)**.
