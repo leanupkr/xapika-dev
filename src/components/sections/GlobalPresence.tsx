@@ -36,14 +36,15 @@ type Pin = {
   countryId: string;
   isHQ?: boolean;
   /** Where to place the country name relative to the dot. "top" (default)
-      sits above; "bottom" sits below — used when two pins are close enough
-      that top-anchored labels would collide (Poland/Ukraine on mobile). */
-  labelAnchor?: "top" | "bottom";
+      sits above; "bottom"/"left"/"right" peel the label off in that
+      direction when two pins are close enough that top-anchored labels
+      would collide (Poland↔Ukraine, Türkiye↔Egypt on mobile). */
+  labelAnchor?: "top" | "bottom" | "left" | "right";
 };
 
 const PINS: Pin[] = [
   { id: "poland",     name: "Poland",      label: "HQ · Warsaw", coords: [21.0118, 52.2297], countryId: "616", isHQ: true },
-  { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45],     countryId: "804", labelAnchor: "bottom" },
+  { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45],     countryId: "804", labelAnchor: "right" },
   { id: "turkey",     name: "Türkiye",     label: "Istanbul",    coords: [28.98, 41.01],     countryId: "792" },
   { id: "uzbekistan", name: "Uzbekistan",  label: "Tashkent",    coords: [69.28, 41.30],     countryId: "860" },
   { id: "korea",      name: "South Korea", label: "Seoul",       coords: [126.98, 37.57],    countryId: "410" },
@@ -564,8 +565,32 @@ export default function GlobalPresence({
                       style={{ pointerEvents: "none" }}
                     >
                       <text
-                        textAnchor="middle"
-                        y={pin.labelAnchor === "bottom" ? dotSize + 14 : -dotSize - 10}
+                        textAnchor={
+                          pin.labelAnchor === "right"
+                            ? "start"
+                            : pin.labelAnchor === "left"
+                              ? "end"
+                              : "middle"
+                        }
+                        x={
+                          pin.labelAnchor === "right"
+                            ? dotSize + 5
+                            : pin.labelAnchor === "left"
+                              ? -dotSize - 5
+                              : 0
+                        }
+                        y={
+                          pin.labelAnchor === "bottom"
+                            ? dotSize + 14
+                            : pin.labelAnchor === "right" || pin.labelAnchor === "left"
+                              ? 0
+                              : -dotSize - 10
+                        }
+                        dy={
+                          pin.labelAnchor === "right" || pin.labelAnchor === "left"
+                            ? "0.35em"
+                            : undefined
+                        }
                         style={{
                           fontFamily: "'Space Grotesk', sans-serif",
                           fontSize: pin.isHQ
