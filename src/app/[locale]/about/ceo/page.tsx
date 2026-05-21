@@ -58,7 +58,6 @@ export default async function CeoPage({
         position={tCeo("position")}
         signatureAlt={tCeo("signatureAlt")}
         closingLine={tCeo("closingLine")}
-        portraitPlaceholder={tCeo("portraitPlaceholder")}
       />
     </>
   );
