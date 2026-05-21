@@ -53,8 +53,11 @@ export default async function CeoPage({
         overline={tCeo("overline")}
         title={tCeo("title")}
         subtitle={tCeo("subtitle")}
-        placeholderName={tCeo("placeholderName")}
-        awaitingNote={tCeo("awaitingNote")}
+        bodyParagraphs={tCeo.raw("bodyParagraphs") as ReadonlyArray<string>}
+        name={tCeo("name")}
+        position={tCeo("position")}
+        signatureAlt={tCeo("signatureAlt")}
+        closingLine={tCeo("closingLine")}
         portraitPlaceholder={tCeo("portraitPlaceholder")}
       />
     </>

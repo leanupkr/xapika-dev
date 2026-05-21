@@ -370,10 +370,19 @@
       },
       "overline": "Leadership",
       "title": "A message from our CEO.",
-      "subtitle": "Awaiting CEO content — Harika provides next.",
-      "placeholderName": "CEO Name · Founder & CEO",
-      "awaitingNote": "Awaiting CEO message — content arriving from Harika",
+      "subtitle": "A note from the founder on what reliable railway maintenance means in practice.",
+      "name": "Zekeriya Polat",
+      "position": "CEO, Xapika Engineering",
+      "signatureAlt": "Zekeriya Polat signature",
+      "closingLine": "Sincerely,",
       "portraitPlaceholder": "Portrait · coming soon",
+      "bodyParagraphs": [
+        "At Xapika Engineering, we believe that reliable railway maintenance is the foundation of safe, efficient, and sustainable transportation. Since our establishment, we have focused on delivering professional maintenance, technical support, and engineering solutions for railway rolling stock systems.",
+        "With our operational base in Poland and cooperation across international railway markets, we continuously strive to provide practical and high-quality services tailored to the needs of operators and manufacturers.",
+        "Our team combines field experience, technical expertise, and a strong commitment to safety and quality. We understand that railway systems require not only technical precision, but also responsiveness, accountability, and long-term partnership.",
+        "As the railway industry continues to evolve through digitalization, sustainability, and advanced maintenance technologies, Xapika Engineering remains committed to supporting our partners with innovative and dependable solutions.",
+        "We sincerely appreciate the trust and support of our clients and partners, and we look forward to building a safer and more efficient railway future together."
+      ],
       "cta": {
         "title": "Talk to our leadership team.",
         "subtitle": "Our CEO and senior engineers meet directly with operators evaluating long-horizon programs.",

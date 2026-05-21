@@ -1,7 +1,6 @@
 "use client";
 
-// TODO(content): CEO Message — 하리카 측 W2 까지 제공 예정 (본문 + 사진 + 서명)
-
+import Image from "next/image";
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
@@ -9,24 +8,23 @@ type CeoMessageProps = {
   overline: string;
   title: string;
   subtitle: string;
-  placeholderName: string;
-  awaitingNote: string;
+  bodyParagraphs: ReadonlyArray<string>;
+  name: string;
+  position: string;
+  signatureAlt: string;
+  closingLine: string;
   portraitPlaceholder?: string;
 };
-
-const PARAGRAPH_BARS: ReadonlyArray<ReadonlyArray<number>> = [
-  [92, 88, 64],
-  [85, 94, 78],
-  [90, 72, 86, 48],
-  [88, 80, 56],
-];
 
 export default function CeoMessage({
   overline,
   title,
   subtitle,
-  placeholderName,
-  awaitingNote,
+  bodyParagraphs,
+  name,
+  position,
+  signatureAlt,
+  closingLine,
   portraitPlaceholder = "Portrait · coming soon",
 }: CeoMessageProps) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -65,20 +63,19 @@ export default function CeoMessage({
       }
 
       if (bodyRef.current) {
-        const bars = bodyRef.current.querySelectorAll("[data-text-bar]");
+        const paragraphs = bodyRef.current.querySelectorAll("[data-paragraph]");
         if (prefersReduced) {
-          gsap.set(bars, { opacity: 1, scaleX: 1 });
+          gsap.set(paragraphs, { opacity: 1, y: 0 });
         } else {
           gsap.fromTo(
-            bars,
-            { opacity: 0, scaleX: 0.6 },
+            paragraphs,
+            { opacity: 0, y: 14 },
             {
               opacity: 1,
-              scaleX: 1,
-              duration: 0.6,
-              stagger: 0.04,
+              y: 0,
+              duration: 0.65,
+              stagger: 0.1,
               ease: "power3.out",
-              transformOrigin: "left center",
               scrollTrigger: {
                 trigger: bodyRef.current,
                 start: "top 82%",
@@ -131,7 +128,7 @@ export default function CeoMessage({
       }}
       aria-labelledby="ceo-title"
     >
-      {/* Top hairline — soft section transition from white history to gray ceo */}
+      {/* Top hairline */}
       <div
         aria-hidden="true"
         className="absolute top-0 left-0 right-0"
@@ -189,39 +186,14 @@ export default function CeoMessage({
 
         {/* Body — 12-col grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-14 lg:gap-y-0 lg:gap-x-12">
-          {/* Left: quote + placeholder paragraphs */}
+          {/* Left: quote mark + body paragraphs */}
           <div ref={bodyRef} className="lg:col-span-7 relative">
-            {/* Awaiting microcopy */}
-            <div
-              className="flex items-center gap-2.5 mb-8"
-              style={{
-                fontSize: "11px",
-                letterSpacing: "0.18em",
-                color: "rgb(var(--color-ink-muted))",
-                fontFamily: "var(--font-heading)",
-                fontWeight: 500,
-                textTransform: "uppercase",
-              }}
-            >
-              <span
-                aria-hidden="true"
-                className="inline-block rounded-full"
-                style={{
-                  width: "6px",
-                  height: "6px",
-                  backgroundColor: "rgb(var(--color-primary))",
-                  boxShadow: "0 0 0 3px rgb(var(--color-primary) / 0.15)",
-                }}
-              />
-              {awaitingNote}
-            </div>
-
-            {/* Big quote mark — decorative */}
+            {/* Big decorative quote mark */}
             <span
               aria-hidden="true"
               className="absolute font-heading select-none pointer-events-none"
               style={{
-                top: "1.5rem",
+                top: "-0.5rem",
                 left: "-0.25rem",
                 fontSize: "clamp(8rem, 14vw, 12rem)",
                 lineHeight: 0.85,
@@ -233,37 +205,89 @@ export default function CeoMessage({
               &ldquo;
             </span>
 
-            {/* Placeholder paragraphs — designed bars */}
+            {/* CEO body paragraphs */}
             <div
               className="relative pt-16 pl-1"
-              style={{ maxWidth: "540px" }}
-              role="img"
-              aria-label="CEO message placeholder — content arriving from Harika"
+              style={{ maxWidth: "560px" }}
             >
-              {PARAGRAPH_BARS.map((bars, pi) => (
-                <div
-                  key={pi}
-                  className="space-y-3"
-                  style={{ marginBottom: pi < PARAGRAPH_BARS.length - 1 ? "1.75rem" : 0 }}
+              {bodyParagraphs.map((paragraph, i) => (
+                <p
+                  key={i}
+                  data-paragraph
+                  className="font-body opacity-0"
+                  style={{
+                    fontSize: i === 0
+                      ? "clamp(1.0625rem, 1.25vw, 1.125rem)"
+                      : "clamp(0.9375rem, 1.1vw, 1rem)",
+                    lineHeight: 1.75,
+                    color: i === 0
+                      ? "rgb(var(--color-ink))"
+                      : "rgba(11,31,58,0.78)",
+                    fontWeight: i === 0 ? 450 : 400,
+                    marginBottom:
+                      i < bodyParagraphs.length - 1
+                        ? "clamp(1rem, 2vh, 1.5rem)"
+                        : 0,
+                  }}
                 >
-                  {bars.map((width, bi) => (
-                    <div
-                      key={bi}
-                      data-text-bar
-                      className="rounded-full opacity-0"
-                      style={{
-                        width: `${width}%`,
-                        height: bi === 0 && pi === 0 ? "12px" : "10px",
-                        backgroundColor: "rgb(var(--color-ink) / 0.10)",
-                      }}
-                    />
-                  ))}
-                </div>
+                  {paragraph}
+                </p>
               ))}
+
+              {/* Closing + signature block (below paragraphs, left column) */}
+              <div className="mt-10 pt-8" style={{ borderTop: "1px solid rgba(11,31,58,0.08)" }}>
+                <p
+                  data-paragraph
+                  className="font-heading font-medium opacity-0"
+                  style={{
+                    fontSize: "13px",
+                    letterSpacing: "0.12em",
+                    color: "rgba(11,31,58,0.55)",
+                    marginBottom: "0.5rem",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {closingLine}
+                </p>
+
+                {/* signature.png */}
+                <div className="mb-3">
+                  <Image
+                    src="/about/ceo-signature.png"
+                    alt={signatureAlt}
+                    width={160}
+                    height={56}
+                    style={{ height: "auto", maxHeight: "56px", width: "auto", objectFit: "contain" }}
+                    priority={false}
+                  />
+                </div>
+
+                <div
+                  className="font-heading font-semibold text-[rgb(var(--color-ink))]"
+                  style={{
+                    fontSize: "clamp(1rem, 1.2vw, 1.0625rem)",
+                    letterSpacing: "-0.005em",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {name}
+                </div>
+                <div
+                  className="font-heading mt-1"
+                  style={{
+                    fontSize: "12px",
+                    letterSpacing: "0.06em",
+                    color: "rgba(11,31,58,0.55)",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {position}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right: portrait placeholder + signature */}
+          {/* Right: portrait placeholder */}
           <div ref={portraitRef} className="lg:col-span-5 opacity-0">
             <div className="lg:sticky lg:top-24">
               {/* Portrait placeholder — 4:5 aspect */}
@@ -276,9 +300,9 @@ export default function CeoMessage({
                   backgroundColor: "rgb(var(--color-surface))",
                 }}
                 role="img"
-                aria-label="CEO portrait placeholder — image awaiting from Harika"
+                aria-label="CEO portrait placeholder — image awaiting"
               >
-                {/* Subtle inner gradient for depth */}
+                {/* Subtle inner gradient */}
                 <div
                   aria-hidden="true"
                   className="absolute inset-0"
@@ -326,7 +350,7 @@ export default function CeoMessage({
                   </span>
                 </div>
 
-                {/* Corner ticks — micro detail */}
+                {/* Corner ticks */}
                 {[
                   { top: 10, left: 10, side: "tl" },
                   { top: 10, right: 10, side: "tr" },
@@ -359,40 +383,6 @@ export default function CeoMessage({
                     }}
                   />
                 ))}
-              </div>
-
-              {/* Signature block */}
-              <div className="mt-8" style={{ maxWidth: "420px" }}>
-                <div
-                  className="font-heading font-semibold text-[rgb(var(--color-ink))]"
-                  style={{
-                    fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
-                    letterSpacing: "-0.005em",
-                    lineHeight: 1.35,
-                  }}
-                >
-                  {placeholderName}
-                </div>
-
-                {/* Decorative signature stroke */}
-                <svg
-                  aria-hidden="true"
-                  width="120"
-                  height="28"
-                  viewBox="0 0 120 28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mt-3"
-                >
-                  <path
-                    d="M2 18 C 12 4, 20 22, 32 12 C 42 4, 50 22, 62 14 C 76 6, 88 22, 102 12 C 110 6, 116 14, 118 10"
-                    stroke="rgb(var(--color-primary))"
-                    strokeOpacity="0.55"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                </svg>
               </div>
             </div>
           </div>
