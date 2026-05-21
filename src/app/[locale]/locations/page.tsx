@@ -34,6 +34,8 @@ type OfficeRow = {
   lng: number;
   showOnMap: boolean;
   blurb: string;
+  address?: string;
+  mapsUrl?: string;
 };
 
 // Internal portfolio links — kept in code (not i18n) so translations can't redirect users.
@@ -96,7 +98,7 @@ export default async function LocationsPage({
     }));
 
   const gridOffices: ReadonlyArray<OfficeGridItem> = offices.map(
-    ({ id, city, country, flag, role, since, lat, lng, blurb }) => ({
+    ({ id, city, country, flag, role, since, lat, lng, blurb, address, mapsUrl }) => ({
       id,
       city,
       country,
@@ -106,6 +108,8 @@ export default async function LocationsPage({
       lat,
       lng,
       blurb,
+      ...(address ? { address } : {}),
+      ...(mapsUrl ? { mapsUrl } : {}),
     })
   );
 
@@ -204,10 +208,7 @@ export default async function LocationsPage({
         warehouseLabel={tMap("warehouseLabel")}
         sinceLabel={tMap("sinceLabel")}
         comingLabel={tMap("comingLabel")}
-        addressPlaceholder={tGrid("addressPlaceholder")}
-        emailPlaceholder={tGrid("emailPlaceholder")}
         googleMapsLink={tGrid("googleMapsLink")}
-        awaitingNote={tGrid("awaitingNote")}
         offices={gridOffices}
       />
 

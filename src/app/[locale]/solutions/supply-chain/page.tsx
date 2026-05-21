@@ -4,7 +4,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
-import GearPhotoBreak from "@/components/sections/GearPhotoBreak";
+import SupplyChainGallery, {
+  type GallerySlide,
+} from "@/components/sections/SupplyChainGallery";
 import KeyStats, { type KeyStatItem } from "@/components/sections/KeyStats";
 import RelatedProjects, {
   type RelatedProjectItem,
@@ -40,10 +42,10 @@ export default async function SupplyChainPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [tHero, tGear, tWwd, tStats, tRelated, tCta, tSol, tNav] =
+  const [tHero, tGallery, tWwd, tStats, tRelated, tCta, tSol, tNav] =
     await Promise.all([
       getTranslations("solutionsDetail.supplyChain.hero"),
-      getTranslations("solutionsDetail.supplyChain.gearPhoto"),
+      getTranslations("solutionsDetail.supplyChain.gallery"),
       getTranslations("solutionsDetail.supplyChain.whatWeDo"),
       getTranslations("solutionsDetail.supplyChain.keyStats"),
       getTranslations("solutionsDetail.supplyChain.relatedProjects"),
@@ -55,6 +57,17 @@ export default async function SupplyChainPage({
   const wwdItems = tWwd.raw("items") as ReadonlyArray<WhatWeDoItem>;
   const stats = tStats.raw("stats") as ReadonlyArray<KeyStatItem>;
   const metrics = tSol.raw("metrics") as ReadonlyArray<{ value: string; label: string }>;
+  const rawGallerySlides = tGallery.raw("slides") as ReadonlyArray<{
+    src: string;
+    alt: string;
+    caption: string;
+  }>;
+  const gallerySlides: ReadonlyArray<GallerySlide> = rawGallerySlides.map(
+    (s) => ({
+      ...s,
+      src: `/solutions/supply-chain/${s.src}`,
+    })
+  );
   const rawRelated = tRelated.raw("items") as ReadonlyArray<RelatedProjectItem>;
   const relatedItems = rawRelated.map((item) => ({
     ...item,
@@ -95,9 +108,10 @@ export default async function SupplyChainPage({
           title={tWwd("title")}
           items={wwdItems}
         />
-        <GearPhotoBreak
-          src="/solutions/supply-chain/gear-photo.webp"
-          alt={tGear("alt")}
+        <SupplyChainGallery
+          overline={tGallery("overline")}
+          title={tGallery("title")}
+          slides={gallerySlides}
         />
         <KeyStats
           overline={tStats("overline")}

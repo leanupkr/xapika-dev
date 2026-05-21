@@ -45,22 +45,20 @@ type SolutionsGridProps = {
 
 const SIZE_TO_CLASSES: Record<Size, { grid: string; minH: string; titleSize: string }> = {
   featured: {
-    // col-span-2 only applies once the grid actually has 2+ columns (sm+);
-    // omitting it on mobile prevents an implicit 2nd column from being added
-    // to the grid-cols-1 layout, which was breaking the other cards' widths.
-    grid: "sm:col-span-2 lg:col-span-8",
-    minH: "min-h-[420px] md:min-h-[420px] lg:min-h-[480px]",
-    titleSize: "clamp(1.75rem, 2.8vw, 2.25rem)",
+    // mobile: full-width (col-span-2 of 2-col grid); lg: 8/12 of 12-col grid
+    grid: "col-span-2 sm:col-span-2 lg:col-span-8",
+    minH: "min-h-[360px] md:min-h-[420px] lg:min-h-[480px]",
+    titleSize: "clamp(1.5rem, 2.8vw, 2.25rem)",
   },
   secondary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[280px] sm:min-h-[260px] md:min-h-[340px] lg:min-h-[480px]",
-    titleSize: "clamp(1.25rem, 1.7vw, 1.5rem)",
+    minH: "min-h-[200px] sm:min-h-[240px] md:min-h-[340px] lg:min-h-[480px]",
+    titleSize: "clamp(1.0625rem, 1.7vw, 1.5rem)",
   },
   tertiary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[260px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[320px]",
-    titleSize: "clamp(1.25rem, 1.7vw, 1.5rem)",
+    minH: "min-h-[200px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[320px]",
+    titleSize: "clamp(1.0625rem, 1.7vw, 1.5rem)",
   },
 };
 
@@ -124,9 +122,13 @@ function SolutionCard({
 
         {/* 번호 (상단) — normal flow so content below pushes naturally */}
         <span
-          className="relative z-10 self-start px-6 pt-6 md:px-7 md:pt-7 lg:px-10 lg:pt-10 font-heading font-medium text-[rgb(var(--color-primary))] whitespace-nowrap"
+          className={`relative z-10 self-start font-heading font-medium text-[rgb(var(--color-primary))] whitespace-nowrap ${
+            isFeatured
+              ? "px-6 pt-6 md:px-7 md:pt-7 lg:px-10 lg:pt-10"
+              : "px-3.5 pt-3.5 md:px-7 md:pt-7 lg:px-10 lg:pt-10"
+          }`}
           style={{
-            fontSize: isFeatured ? "14px" : "12px",
+            fontSize: isFeatured ? "14px" : "11px",
             letterSpacing: "0.22em",
             fontVariantNumeric: "tabular-nums",
             textShadow: "0 1px 2px rgba(0,0,0,0.35)",
@@ -137,7 +139,11 @@ function SolutionCard({
 
         {/* 콘텐츠 — flex mt-auto로 하단 정렬, 콘텐츠가 커지면 카드 자체가 늘어남 */}
         <div
-          className="relative z-10 mt-auto p-6 md:p-8 lg:p-10 pt-4 md:pt-6"
+          className={`relative z-10 mt-auto ${
+            isFeatured
+              ? "p-6 md:p-8 lg:p-10 pt-4 md:pt-6"
+              : "p-3.5 md:p-8 lg:p-10 pt-3 md:pt-6"
+          }`}
         >
           <h3
             className="font-heading font-semibold text-white"
@@ -374,7 +380,7 @@ export default function SolutionsGrid({
         {/* 카드 편집 레이아웃: 12-col grid
             Row 1: Featured (8) + Secondary (4)
             Row 2: Tertiary (4) × 3 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-3 md:gap-5">
           {solutions.map((item, i) => (
             <SolutionCard key={item.key} item={item} index={i} inView={inView} />
           ))}

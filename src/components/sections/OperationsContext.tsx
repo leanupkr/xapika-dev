@@ -33,10 +33,12 @@ function OpsCardItem({
   card,
   index,
   inView,
+  isLastOdd,
 }: {
   card: OpsCard;
   index: number;
   inView: boolean;
+  isLastOdd: boolean;
 }) {
   return (
     <motion.li
@@ -47,16 +49,14 @@ function OpsCardItem({
         delay: 0.1 + 0.08 * index,
         ease: EASE,
       }}
-      className="group"
+      className={`group ${isLastOdd ? "col-span-2 md:col-span-1" : ""}`}
     >
       <Link
         href={card.href}
         aria-label={`${card.project} — ${card.office}`}
-        className="relative flex flex-col h-full bg-white transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(11,31,58,0.10)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--color-primary))]"
+        className="relative flex flex-col h-full bg-white transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(11,31,58,0.10)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--color-primary))] p-4 sm:p-7 sm:pb-6 min-h-[200px] sm:min-h-[280px]"
         style={{
           border: "1px solid rgb(var(--color-ink) / 0.10)",
-          padding: "28px 28px 24px",
-          minHeight: "280px",
         }}
       >
         <span
@@ -64,16 +64,15 @@ function OpsCardItem({
           className="absolute left-0 top-0 bottom-0 w-[3px] bg-[rgb(var(--color-primary))] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         />
 
-        <div className="flex items-start justify-between mb-6 gap-2">
+        <div className="flex items-start justify-between mb-3 sm:mb-6 gap-2">
           <span
-            className="font-heading font-semibold text-[rgb(var(--color-ink-muted))] inline-flex items-center gap-2"
+            className="font-heading font-semibold text-[rgb(var(--color-ink-muted))] inline-flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px]"
             style={{
-              fontSize: "11px",
-              letterSpacing: "0.22em",
+              letterSpacing: "0.18em",
               textTransform: "uppercase",
             }}
           >
-            <span aria-hidden="true" style={{ fontSize: "16px", lineHeight: 1 }}>
+            <span aria-hidden="true" className="text-[14px] sm:text-[16px]" style={{ lineHeight: 1 }}>
               {card.flag}
             </span>
             {card.office}
@@ -97,9 +96,9 @@ function OpsCardItem({
         </div>
 
         <h3
-          className="font-heading font-semibold text-[rgb(var(--color-ink))] mb-3 text-balance group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300"
+          className="font-heading font-semibold text-[rgb(var(--color-ink))] mb-2 sm:mb-3 text-balance group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300"
           style={{
-            fontSize: "clamp(1.0625rem, 1.4vw, 1.25rem)",
+            fontSize: "clamp(0.9375rem, 1.4vw, 1.25rem)",
             letterSpacing: "-0.01em",
             lineHeight: 1.25,
           }}
@@ -108,23 +107,22 @@ function OpsCardItem({
         </h3>
 
         <p
-          className="font-body text-[rgb(var(--color-ink-muted))] flex-1"
+          className="font-body text-[rgb(var(--color-ink-muted))] flex-1 line-clamp-3 sm:line-clamp-none"
           style={{
-            fontSize: "clamp(0.875rem, 1.05vw, 0.9375rem)",
-            lineHeight: 1.65,
+            fontSize: "clamp(0.75rem, 1.05vw, 0.9375rem)",
+            lineHeight: 1.55,
           }}
         >
           {card.blurb}
         </p>
 
         <div
-          className="flex items-center justify-between mt-6 pt-5 gap-3"
+          className="flex items-center justify-between mt-3 sm:mt-6 pt-3 sm:pt-5 gap-2 sm:gap-3"
           style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.07)" }}
         >
           <span
-            className="font-heading font-semibold text-[rgb(var(--color-ink))] tabular-nums"
+            className="font-heading font-semibold text-[rgb(var(--color-ink))] tabular-nums text-[10px] sm:text-[12px]"
             style={{
-              fontSize: "12px",
               letterSpacing: "0.04em",
               fontVariantNumeric: "tabular-nums",
             }}
@@ -132,12 +130,12 @@ function OpsCardItem({
             {card.metric}
           </span>
           <span
-            className="inline-flex items-center gap-1.5 font-heading font-medium text-[rgb(var(--color-ink-muted))] group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300 whitespace-nowrap"
-            style={{ fontSize: "12px", letterSpacing: "0.04em" }}
+            className="inline-flex items-center gap-1 sm:gap-1.5 font-heading font-medium text-[rgb(var(--color-ink-muted))] group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300 whitespace-nowrap text-[10px] sm:text-[12px]"
+            style={{ letterSpacing: "0.04em" }}
           >
             {card.cta}
             <ArrowUpRight
-              size={15}
+              size={13}
               strokeWidth={2}
               className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
             />
@@ -225,7 +223,7 @@ export default function OperationsContext({
         </div>
 
         <ul
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6"
           role="list"
         >
           {items.map((card, i) => (
@@ -234,6 +232,7 @@ export default function OperationsContext({
               card={card}
               index={i}
               inView={inView}
+              isLastOdd={i === items.length - 1 && items.length % 2 === 1}
             />
           ))}
         </ul>

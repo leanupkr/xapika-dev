@@ -196,14 +196,15 @@ export default function SolutionsIndex({
           className="mx-auto px-6 md:px-10 lg:px-16"
           style={{ maxWidth: "var(--max-width-content)" }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {items.map((item) => (
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4 md:gap-8">
+            {items.map((item, idx) => (
               <SolutionLargeCard
                 key={item.key}
                 item={item}
                 number={NUMBER_BY_KEY[item.key]}
                 learnMore={learnMore}
                 placeholder={placeholder}
+                isFeatured={idx === 0}
               />
             ))}
           </div>
@@ -218,18 +219,22 @@ function SolutionLargeCard({
   number,
   learnMore,
   placeholder,
+  isFeatured = false,
 }: {
   item: SolutionItem;
   number: string;
   learnMore: string;
   placeholder: string;
+  isFeatured?: boolean;
 }) {
   return (
     <Link
       data-solution-card
       href={item.href}
       aria-label={`${item.title} — ${item.description}`}
-      className="group relative block opacity-0 transition-colors duration-[320ms]"
+      className={`group relative block opacity-0 transition-colors duration-[320ms] ${
+        isFeatured ? "col-span-2 md:col-span-2" : ""
+      }`}
       style={{
         backgroundColor: "rgb(var(--color-surface))",
         border: "1px solid rgb(var(--color-ink) / 0.10)",
@@ -366,13 +371,15 @@ function SolutionLargeCard({
 
       {/* Content */}
       <div
-        className="px-6 md:px-8 py-7 md:py-9"
+        className="px-3.5 sm:px-6 md:px-8 py-4 sm:py-7 md:py-9"
         style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.08)" }}
       >
         <h2
           className="font-heading font-semibold text-[rgb(var(--color-ink))] transition-colors duration-300 group-hover:text-[rgb(var(--color-primary))]"
           style={{
-            fontSize: "clamp(1.375rem, 2.4vw, 1.75rem)",
+            fontSize: isFeatured
+              ? "clamp(1.375rem, 2.4vw, 1.75rem)"
+              : "clamp(1rem, 2.4vw, 1.75rem)",
             letterSpacing: "-0.018em",
             lineHeight: 1.18,
           }}
@@ -380,10 +387,10 @@ function SolutionLargeCard({
           {item.title}
         </h2>
         <p
-          className="font-body text-[rgb(var(--color-ink-muted))] mt-3"
+          className="font-body text-[rgb(var(--color-ink-muted))] mt-2 sm:mt-3 line-clamp-3 sm:line-clamp-none"
           style={{
-            fontSize: "clamp(0.9375rem, 1vw, 1rem)",
-            lineHeight: 1.6,
+            fontSize: "clamp(0.8125rem, 1vw, 1rem)",
+            lineHeight: 1.55,
             maxWidth: "44ch",
           }}
         >
@@ -392,14 +399,13 @@ function SolutionLargeCard({
 
         {/* Footer row */}
         <div
-          className="flex items-end justify-between gap-4 mt-7 pt-5"
+          className="flex items-end justify-between gap-2 sm:gap-4 mt-4 sm:mt-7 pt-3 sm:pt-5"
           style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.06)" }}
         >
           <div
-            className="font-heading font-medium tabular-nums"
+            className="font-heading font-medium tabular-nums text-[10px] sm:text-[12px]"
             style={{
-              fontSize: "12px",
-              letterSpacing: "0.18em",
+              letterSpacing: "0.16em",
               color: "rgb(var(--color-ink-muted))",
               textTransform: "uppercase",
               fontVariantNumeric: "tabular-nums",
@@ -408,12 +414,12 @@ function SolutionLargeCard({
             {item.metric}
           </div>
           <span
-            className="inline-flex items-center gap-2 font-heading font-medium text-[rgb(var(--color-ink))] group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300"
-            style={{ fontSize: "13px", letterSpacing: "0.02em" }}
+            className="inline-flex items-center gap-1.5 sm:gap-2 font-heading font-medium text-[rgb(var(--color-ink))] group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300 text-[11px] sm:text-[13px] whitespace-nowrap"
+            style={{ letterSpacing: "0.02em" }}
           >
             {learnMore}
             <ArrowRight
-              size={14}
+              size={12}
               strokeWidth={2}
               className="transition-transform duration-300 group-hover:translate-x-1"
             />

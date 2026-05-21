@@ -30,11 +30,12 @@ export default async function PortfoliosIndexPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [tHeader, tCard, tCases, tNav] = await Promise.all([
+  const [tHeader, tCard, tCases, tNav, tDownload] = await Promise.all([
     getTranslations("portfoliosPage.header"),
     getTranslations("portfoliosPage.card"),
     getTranslations("portfoliosPage.cases"),
     getTranslations("nav"),
+    getTranslations("portfoliosPage.downloadPdf"),
   ]);
 
   const items: ReadonlyArray<PortfolioCardItem> = [
@@ -82,11 +83,16 @@ export default async function PortfoliosIndexPage({
       />
       <PortfoliosIndex
         overline={tHeader("overline")}
-      title={tHeader("title")}
-      subtitle={tHeader("subtitle")}
+        title={tHeader("title")}
+        subtitle={tHeader("subtitle")}
         readMore={tCard("readMore")}
         placeholder={tCard("placeholder")}
         items={items}
+        downloadPdf={{
+          label: tDownload("label"),
+          meta: tDownload("meta"),
+          ariaLabel: tDownload("ariaLabel"),
+        }}
       />
     </>
   );

@@ -118,13 +118,14 @@ export default function AboutCardGrid({ overline, title, cards }: AboutCardGridP
           </motion.h2>
         </div>
 
-        {/* Card grid: 3-col desktop / 2-col tablet / 1-col mobile */}
+        {/* Card grid: 3-col desktop / 2-col tablet / 2-col mobile (last card spans 2) */}
         <ul
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6"
           role="list"
         >
           {CARD_DEFS.map((def, i) => {
             const card = cards[def.key];
+            const isLastOdd = i === CARD_DEFS.length - 1 && CARD_DEFS.length % 2 === 1;
             return (
               <motion.li
                 key={def.key}
@@ -135,15 +136,13 @@ export default function AboutCardGrid({ overline, title, cards }: AboutCardGridP
                   delay: 0.1 + 0.08 * i,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="group"
+                className={`group ${isLastOdd ? "col-span-2 sm:col-span-2 lg:col-span-1" : ""}`}
               >
                 <Link
                   href={def.href}
-                  className="relative flex flex-col h-full bg-white transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(11,31,58,0.10)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--color-primary))]"
+                  className="relative flex flex-col h-full bg-white transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(11,31,58,0.10)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--color-primary))] p-4 sm:p-7 sm:pb-6 min-h-[180px] sm:min-h-[200px]"
                   style={{
                     border: "1px solid rgb(var(--color-ink) / 0.10)",
-                    padding: "28px 28px 24px",
-                    minHeight: "200px",
                   }}
                   aria-label={card.title}
                 >
@@ -154,15 +153,15 @@ export default function AboutCardGrid({ overline, title, cards }: AboutCardGridP
                   />
 
                   {/* Top row: icon + index */}
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center justify-between mb-3 sm:mb-6">
                     <span
                       className="text-[rgb(var(--color-primary))]"
                     >
                       {def.icon}
                     </span>
                     <span
-                      className="font-heading font-semibold text-[rgb(var(--color-ink-muted))]"
-                      style={{ fontSize: "11px", letterSpacing: "0.22em" }}
+                      className="font-heading font-semibold text-[rgb(var(--color-ink-muted))] text-[10px] sm:text-[11px]"
+                      style={{ letterSpacing: "0.22em" }}
                     >
                       {def.index}
                     </span>
@@ -170,9 +169,9 @@ export default function AboutCardGrid({ overline, title, cards }: AboutCardGridP
 
                   {/* Title */}
                   <h3
-                    className="font-heading font-semibold text-[rgb(var(--color-ink))] mb-3 group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300"
+                    className="font-heading font-semibold text-[rgb(var(--color-ink))] mb-2 sm:mb-3 group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300"
                     style={{
-                      fontSize: "clamp(1.0625rem, 1.4vw, 1.25rem)",
+                      fontSize: "clamp(0.9375rem, 1.4vw, 1.25rem)",
                       letterSpacing: "-0.01em",
                       lineHeight: 1.25,
                     }}
@@ -182,23 +181,23 @@ export default function AboutCardGrid({ overline, title, cards }: AboutCardGridP
 
                   {/* Description */}
                   <p
-                    className="font-body text-[rgb(var(--color-ink-muted))] flex-1"
+                    className="font-body text-[rgb(var(--color-ink-muted))] flex-1 line-clamp-3 sm:line-clamp-none"
                     style={{
-                      fontSize: "clamp(0.875rem, 1.05vw, 0.9375rem)",
-                      lineHeight: 1.65,
+                      fontSize: "clamp(0.75rem, 1.05vw, 0.9375rem)",
+                      lineHeight: 1.55,
                     }}
                   >
                     {card.description}
                   </p>
 
                   {/* Bottom row: arrow */}
-                  <div className="flex justify-end mt-6 pt-5" style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.07)" }}>
+                  <div className="flex justify-end mt-3 sm:mt-6 pt-3 sm:pt-5" style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.07)" }}>
                     <span
                       className="inline-flex items-center gap-1.5 font-heading font-medium text-[rgb(var(--color-ink-muted))] group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300"
                       style={{ fontSize: "12px", letterSpacing: "0.04em" }}
                     >
                       <ArrowUpRight
-                        size={15}
+                        size={14}
                         strokeWidth={2}
                         className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                       />

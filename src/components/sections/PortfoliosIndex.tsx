@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import PageHero from "@/components/ui/PageHero";
 
@@ -23,6 +23,12 @@ export type PortfolioCardItem = {
   imgAlt?: string;
 };
 
+type DownloadPdfProps = {
+  label: string;
+  meta: string;
+  ariaLabel: string;
+};
+
 type PortfoliosIndexProps = {
   overline: string;
   title: string;
@@ -30,6 +36,7 @@ type PortfoliosIndexProps = {
   readMore: string;
   placeholder: string;
   items: ReadonlyArray<PortfolioCardItem>;
+  downloadPdf?: DownloadPdfProps;
 };
 
 const NUMBER_BY_KEY: Record<PortfolioKey, string> = {
@@ -45,6 +52,7 @@ export default function PortfoliosIndex({
   readMore,
   placeholder,
   items,
+  downloadPdf,
 }: PortfoliosIndexProps) {
   const cardsRef = useRef<HTMLDivElement>(null);
 
@@ -134,7 +142,7 @@ export default function PortfoliosIndex({
         className="relative bg-[rgb(var(--color-bg))]"
         style={{
           paddingTop: "clamp(4rem, 10vh, 7rem)",
-          paddingBottom: "clamp(5rem, 12vh, 8rem)",
+          paddingBottom: downloadPdf ? "clamp(2rem, 5vh, 3rem)" : "clamp(5rem, 12vh, 8rem)",
         }}
       >
         <div
@@ -142,7 +150,7 @@ export default function PortfoliosIndex({
           className="mx-auto px-6 md:px-10 lg:px-16"
           style={{ maxWidth: "var(--max-width-content)" }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-6 md:gap-8 lg:gap-10">
             {items.map((item, i) => (
               <PortfolioLargeCard
                 key={item.key}
@@ -157,6 +165,69 @@ export default function PortfoliosIndex({
           </div>
         </div>
       </section>
+
+      {/* PDF DOWNLOAD */}
+      {downloadPdf && (
+        <section
+          className="relative bg-[rgb(var(--color-bg))]"
+          style={{
+            paddingTop: "clamp(2rem, 5vh, 3rem)",
+            paddingBottom: "clamp(5rem, 12vh, 8rem)",
+          }}
+        >
+          <div
+            className="mx-auto px-6 md:px-10 lg:px-16"
+            style={{ maxWidth: "var(--max-width-content)" }}
+          >
+            <div
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-6 md:px-8 py-5 md:py-6"
+              style={{
+                border: "1px solid rgb(var(--color-ink) / 0.10)",
+                backgroundColor: "rgb(var(--color-surface))",
+              }}
+            >
+              <div>
+                <p
+                  className="font-heading font-semibold text-[rgb(var(--color-ink))]"
+                  style={{ fontSize: "clamp(0.9375rem, 1.5vw, 1.125rem)", letterSpacing: "-0.01em" }}
+                >
+                  {downloadPdf.label}
+                </p>
+                <p
+                  className="font-body mt-1"
+                  style={{ fontSize: "0.8125rem", color: "rgb(var(--color-ink-muted))", letterSpacing: "0.02em" }}
+                >
+                  {downloadPdf.meta}
+                </p>
+              </div>
+              <a
+                href="/xapika-engineering-introduction.pdf"
+                download
+                aria-label={downloadPdf.ariaLabel}
+                className="inline-flex items-center gap-2.5 px-5 py-3 font-heading font-medium transition-colors duration-200 whitespace-nowrap flex-shrink-0"
+                style={{
+                  fontSize: "0.8125rem",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  backgroundColor: "rgb(var(--color-primary))",
+                  color: "rgb(var(--color-ink))",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "rgb(var(--color-primary-hover, var(--color-primary)))";
+                  (e.currentTarget as HTMLAnchorElement).style.opacity = "0.9";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "rgb(var(--color-primary))";
+                  (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
+                }}
+              >
+                <Download size={14} strokeWidth={2} aria-hidden="true" />
+                Download
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
@@ -180,7 +251,7 @@ function PortfolioLargeCard({
       href={item.href}
       aria-label={`${item.project} — ${item.summary}`}
       className={`group relative block opacity-0 transition-colors duration-[480ms] bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-ink)/0.10)] hover:border-[rgb(var(--color-primary)/0.5)] ${
-        emphasized ? "md:col-span-2" : ""
+        emphasized ? "col-span-2 md:col-span-2" : ""
       }`}
     >
       {/* Photo or dashed placeholder */}
@@ -373,13 +444,19 @@ function PortfolioLargeCard({
 
       {/* Content */}
       <div
-        className="px-6 md:px-8 py-7 md:py-9"
+        className={`${
+          emphasized
+            ? "px-4 md:px-8 py-4 md:py-9"
+            : "px-3.5 md:px-8 py-4 md:py-9"
+        }`}
         style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.08)" }}
       >
         <h2
           className="font-heading font-semibold text-[rgb(var(--color-ink))] transition-colors duration-300 group-hover:text-[rgb(var(--color-primary))]"
           style={{
-            fontSize: "clamp(1.375rem, 2.4vw, 1.75rem)",
+            fontSize: emphasized
+              ? "clamp(1.25rem, 2.4vw, 1.75rem)"
+              : "clamp(1rem, 2.4vw, 1.75rem)",
             letterSpacing: "-0.018em",
             lineHeight: 1.18,
           }}
@@ -387,10 +464,10 @@ function PortfolioLargeCard({
           {item.project}
         </h2>
         <p
-          className="font-body text-[rgb(var(--color-ink-muted))] mt-3"
+          className="font-body text-[rgb(var(--color-ink-muted))] mt-2 md:mt-3 line-clamp-3 md:line-clamp-none"
           style={{
-            fontSize: "clamp(0.9375rem, 1vw, 1rem)",
-            lineHeight: 1.6,
+            fontSize: "clamp(0.8125rem, 1vw, 1rem)",
+            lineHeight: 1.55,
             maxWidth: "52ch",
           }}
         >
@@ -399,14 +476,13 @@ function PortfolioLargeCard({
 
         {/* Footer row */}
         <div
-          className="flex items-end justify-between gap-4 mt-7 pt-5"
+          className="flex items-end justify-between gap-2 md:gap-4 mt-3 md:mt-7 pt-3 md:pt-5"
           style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.06)" }}
         >
           <div
-            className="font-heading font-medium tabular-nums"
+            className="font-heading font-medium tabular-nums text-[10px] md:text-[12px]"
             style={{
-              fontSize: "12px",
-              letterSpacing: "0.18em",
+              letterSpacing: "0.16em",
               color: "rgb(var(--color-ink-muted))",
               textTransform: "uppercase",
               fontVariantNumeric: "tabular-nums",
@@ -415,12 +491,12 @@ function PortfolioLargeCard({
             {item.metric}
           </div>
           <span
-            className="inline-flex items-center gap-2 font-heading font-medium text-[rgb(var(--color-ink))] group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300"
-            style={{ fontSize: "13px", letterSpacing: "0.02em" }}
+            className="inline-flex items-center gap-1.5 md:gap-2 font-heading font-medium text-[rgb(var(--color-ink))] group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300 text-[11px] md:text-[13px] whitespace-nowrap"
+            style={{ letterSpacing: "0.02em" }}
           >
             {readMore}
             <ArrowRight
-              size={14}
+              size={12}
               strokeWidth={2}
               className="transition-transform duration-300 group-hover:translate-x-1"
             />

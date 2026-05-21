@@ -202,7 +202,7 @@ export default function NetworkAtScale(props: NetworkAtScaleProps) {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 md:gap-10 lg:gap-8">
           {cells.map((c, i) => (
             <ScaleCell key={c.label} cell={c} index={i} inView={inView} />
           ))}

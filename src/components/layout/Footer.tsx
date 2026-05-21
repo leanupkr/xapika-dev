@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Mail, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import FooterCtaGate from "./FooterCtaGate";
 
 const FOOTER_LINKS = [
@@ -132,15 +132,6 @@ export default async function Footer() {
               ))}
             </div>
 
-            {/* Email */}
-            <a
-              href="mailto:info@xapika.pl"
-              className="inline-flex items-center gap-2 mt-8 text-white/60 hover:text-white transition-colors duration-200"
-              style={{ fontSize: "0.875rem" }}
-            >
-              <Mail size={14} strokeWidth={2} className="text-primary" />
-              info@xapika.pl
-            </a>
           </div>
         </div>
 

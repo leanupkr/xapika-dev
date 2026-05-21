@@ -1,11 +1,9 @@
 import { Link } from "@/i18n/navigation";
-import { ArrowUpRight, Mail, MapPin, Clock } from "lucide-react";
+import { ArrowUpRight, MapPin, Clock } from "lucide-react";
 import LiveBusinessHours from "@/components/contact/LiveBusinessHours";
 
 export type ContactInfoProps = {
   overline: string;
-  emailLabel: string;
-  emailValue: string;
   hqLabel: string;
   hqValue: string;
   hoursLabel: string;
@@ -15,8 +13,6 @@ export type ContactInfoProps = {
 
 export default function ContactInfo({
   overline,
-  emailLabel,
-  emailValue,
   hqLabel,
   hqValue,
   hoursLabel,
@@ -42,23 +38,6 @@ export default function ContactInfo({
       </span>
 
       <div className="flex flex-col gap-6">
-        <InfoRow
-          icon={<Mail size={16} strokeWidth={1.75} />}
-          label={emailLabel}
-          value={
-            <a
-              href={`mailto:${emailValue}`}
-              className="font-heading font-medium hover:text-[rgb(var(--color-primary))] transition-colors"
-              style={{
-                fontSize: "16px",
-                color: "rgb(var(--color-ink))",
-                letterSpacing: "-0.005em",
-              }}
-            >
-              {emailValue}
-            </a>
-          }
-        />
         <InfoRow
           icon={<MapPin size={16} strokeWidth={1.75} />}
           label={hqLabel}

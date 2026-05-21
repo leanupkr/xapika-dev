@@ -54,8 +54,6 @@ export default async function ContactPage({
         contactInfoSlot={
           <ContactInfo
             overline={tInfo("overline")}
-            emailLabel={tInfo("email")}
-            emailValue={tInfo("emailValue")}
             hqLabel={tInfo("hq")}
             hqValue={tInfo("hqValue")}
             hoursLabel={tInfo("hours")}

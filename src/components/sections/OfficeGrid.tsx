@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowUpRight, MapPin, Mail } from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { isOfficeComing } from "@/lib/officeStatus";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -17,6 +17,8 @@ export type OfficeGridItem = {
   lat: number;
   lng: number;
   blurb: string;
+  address?: string;
+  mapsUrl?: string;
 };
 
 export type OfficeGridProps = {
@@ -28,10 +30,7 @@ export type OfficeGridProps = {
   warehouseLabel: string;
   sinceLabel: string;
   comingLabel: string;
-  addressPlaceholder: string;
-  emailPlaceholder: string;
   googleMapsLink: string;
-  awaitingNote: string;
   offices: ReadonlyArray<OfficeGridItem>;
 };
 
@@ -49,10 +48,7 @@ export default function OfficeGrid({
   warehouseLabel,
   sinceLabel,
   comingLabel,
-  addressPlaceholder,
-  emailPlaceholder,
   googleMapsLink,
-  awaitingNote,
   offices,
 }: OfficeGridProps) {
   const ref = useRef<HTMLElement>(null);
@@ -137,10 +133,10 @@ export default function OfficeGrid({
           </motion.p>
         </div>
 
-        {/* Card grid */}
+        {/* Card grid — mobile bento: HQ full-width, remaining 2-col compact */}
         <ul
           role="list"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5"
         >
           {offices.map((o, i) => (
             <OfficeCard
@@ -151,10 +147,7 @@ export default function OfficeGrid({
               roleLabel={roleLabel(o.role)}
               sinceLabel={sinceLabel}
               comingLabel={comingLabel}
-              addressPlaceholder={addressPlaceholder}
-              emailPlaceholder={emailPlaceholder}
               googleMapsLink={googleMapsLink}
-              awaitingNote={awaitingNote}
             />
           ))}
         </ul>
@@ -170,10 +163,7 @@ function OfficeCard({
   roleLabel,
   sinceLabel,
   comingLabel,
-  addressPlaceholder,
-  emailPlaceholder,
   googleMapsLink,
-  awaitingNote,
 }: {
   office: OfficeGridItem;
   index: number;
@@ -181,14 +171,12 @@ function OfficeCard({
   roleLabel: string;
   sinceLabel: string;
   comingLabel: string;
-  addressPlaceholder: string;
-  emailPlaceholder: string;
   googleMapsLink: string;
-  awaitingNote: string;
 }) {
   const [hovered, setHovered] = useState(false);
   const isHQ = office.role === "headquarters";
   const coming = isOfficeComing(office.since);
+  const mapsHref = office.mapsUrl ?? googleMapsHref(office.city, office.country);
   const periodLabel = coming ? comingLabel : sinceLabel;
 
   return (
@@ -199,7 +187,9 @@ function OfficeCard({
       transition={{ duration: 0.55, delay: 0.04 * index, ease: EASE }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative flex flex-col scroll-mt-28"
+      className={`group relative flex flex-col scroll-mt-28 p-4 sm:p-[22px] sm:pb-5 ${
+        isHQ ? "col-span-2 sm:col-span-2 lg:col-span-1" : ""
+      }`}
       style={{
         backgroundColor: "rgb(var(--color-surface))",
         border: `1px solid ${
@@ -210,7 +200,6 @@ function OfficeCard({
               : "rgba(11,31,58,0.10)"
         }`,
         borderRadius: "10px",
-        padding: "22px 22px 20px",
         transition:
           "border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out)",
         transform: hovered ? "translateY(-3px)" : "translateY(0)",
@@ -232,12 +221,11 @@ function OfficeCard({
       )}
 
       {/* Top: flag + role chip */}
-      <div className="flex items-start justify-between gap-3 mb-4">
+      <div className="flex items-start justify-between gap-2 sm:gap-3 mb-3 sm:mb-4">
         <span
           aria-hidden
-          className="inline-flex items-center justify-center"
+          className="inline-flex items-center justify-center text-[22px] sm:text-[30px]"
           style={{
-            fontSize: "30px",
             lineHeight: 1,
             transform: hovered ? "scale(1.08) rotate(-3deg)" : "none",
             transformOrigin: "center",
@@ -248,11 +236,10 @@ function OfficeCard({
           {office.flag}
         </span>
         <span
-          className="font-heading uppercase whitespace-nowrap"
+          className="font-heading uppercase whitespace-nowrap text-[9px] sm:text-[10px]"
           style={{
-            fontSize: "10px",
-            letterSpacing: "0.2em",
-            padding: "4px 10px",
+            letterSpacing: "0.18em",
+            padding: "3px 8px",
             border: `1px solid ${
               isHQ ? "rgba(246,163,23,0.45)" : "rgba(11,31,58,0.18)"
             }`,
@@ -267,9 +254,8 @@ function OfficeCard({
 
       {/* City + country */}
       <h3
-        className="font-heading font-semibold"
+        className="font-heading font-semibold text-[18px] sm:text-[22px]"
         style={{
-          fontSize: "22px",
           color: "rgb(var(--color-ink))",
           letterSpacing: "-0.01em",
           lineHeight: 1.15,
@@ -279,10 +265,9 @@ function OfficeCard({
         {office.city}
       </h3>
       <div
-        className="font-heading uppercase mb-3"
+        className="font-heading uppercase mb-2.5 sm:mb-3 text-[10px] sm:text-[11px]"
         style={{
-          fontSize: "11px",
-          letterSpacing: "0.18em",
+          letterSpacing: "0.16em",
           color: "rgba(11,31,58,0.55)",
         }}
       >
@@ -291,9 +276,8 @@ function OfficeCard({
 
       {/* Period */}
       <div
-        className="font-heading mb-4"
+        className="font-heading mb-3 sm:mb-4 text-[11px] sm:text-[12px]"
         style={{
-          fontSize: "12px",
           color: coming ? "rgb(var(--color-primary))" : "rgba(11,31,58,0.62)",
           letterSpacing: "0.04em",
         }}
@@ -301,76 +285,67 @@ function OfficeCard({
         <span style={{ fontWeight: 600 }}>{periodLabel}</span> {office.since}
       </div>
 
-      {/* Blurb */}
+      {/* Blurb — 2-line clamp on mobile to keep cards compact */}
       <p
-        className="font-body mb-5"
+        className="font-body mb-4 sm:mb-5 text-[12px] sm:text-[13.5px] line-clamp-3 sm:line-clamp-none"
         style={{
-          fontSize: "13.5px",
-          lineHeight: 1.6,
+          lineHeight: 1.55,
           color: "rgba(11,31,58,0.72)",
         }}
       >
         {office.blurb}
       </p>
 
-      {/* Placeholder block */}
-      <div
-        className="mt-auto"
-        aria-label={awaitingNote}
-        style={{
-          border: "1px dashed rgba(11,31,58,0.18)",
-          borderRadius: "6px",
-          padding: "10px 12px",
-          backgroundColor: "rgba(11,31,58,0.02)",
-        }}
-      >
-        <div
-          className="flex items-center gap-2 mb-1.5 font-body"
-          style={{
-            fontSize: "12px",
-            color: "rgba(11,31,58,0.55)",
-          }}
-        >
-          <MapPin size={12} strokeWidth={1.75} />
-          <span>{addressPlaceholder}</span>
-        </div>
-        <div
-          className="flex items-center gap-2 font-body"
-          style={{
-            fontSize: "12px",
-            color: "rgba(11,31,58,0.55)",
-          }}
-        >
-          <Mail size={12} strokeWidth={1.75} />
-          <span>{emailPlaceholder}</span>
-        </div>
-      </div>
+      {/* HQ only: address + Maps link */}
+      {isHQ && (
+        <>
+          <div
+            className="mt-auto hidden sm:block"
+            aria-label={office.address}
+            style={{
+              border: "1px solid rgba(11,31,58,0.12)",
+              borderRadius: "6px",
+              padding: "10px 12px",
+              backgroundColor: "rgba(11,31,58,0.02)",
+            }}
+          >
+            <div
+              className="flex items-center gap-2 font-body"
+              style={{
+                fontSize: "12px",
+                color: "rgba(11,31,58,0.55)",
+              }}
+            >
+              <MapPin size={12} strokeWidth={1.75} />
+              <span>{office.address}</span>
+            </div>
+          </div>
 
-      {/* Google Maps link */}
-      <a
-        href={googleMapsHref(office.city, office.country)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-4 inline-flex items-center gap-1.5 font-heading font-medium self-start"
-        style={{
-          fontSize: "12px",
-          color: hovered
-            ? "rgb(var(--color-primary))"
-            : "rgba(11,31,58,0.78)",
-          letterSpacing: "0.02em",
-          transition: "color 0.25s var(--ease-out)",
-        }}
-      >
-        {googleMapsLink}
-        <ArrowUpRight
-          size={13}
-          strokeWidth={1.75}
-          style={{
-            transform: hovered ? "translate(2px, -2px)" : "none",
-            transition: "transform 0.3s var(--ease-out)",
-          }}
-        />
-      </a>
+          <a
+            href={mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-auto sm:mt-4 inline-flex items-center gap-1.5 font-heading font-medium self-start text-[11px] sm:text-[12px]"
+            style={{
+              color: hovered
+                ? "rgb(var(--color-primary))"
+                : "rgba(11,31,58,0.78)",
+              letterSpacing: "0.02em",
+              transition: "color 0.25s var(--ease-out)",
+            }}
+          >
+            {googleMapsLink}
+            <ArrowUpRight
+              size={12}
+              strokeWidth={1.75}
+              style={{
+                transform: hovered ? "translate(2px, -2px)" : "none",
+                transition: "transform 0.3s var(--ease-out)",
+              }}
+            />
+          </a>
+        </>
+      )}
     </motion.li>
   );
 }
