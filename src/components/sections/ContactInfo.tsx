@@ -54,7 +54,7 @@ export default function ContactInfo({
                 {hqValue}
               </span>
               <a
-                href="https://www.google.com/maps/search/?api=1&query=Xapika+Engineering+Warsaw"
+                href="https://maps.app.goo.gl/rLqMLkcSUbWgM13y5"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-body contact-maps-link"

@@ -40,7 +40,7 @@ export default async function UzbekistanRailPage() {
       year: "2026",
       month: "03",
       label:
-        "Korea office opens — MMIS platform engineering with our technology partner.",
+        "Republic of Korea office opens — MMIS platform engineering with our technology partner.",
     },
     {
       year: "2026",

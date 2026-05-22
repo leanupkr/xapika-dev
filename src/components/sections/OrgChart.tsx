@@ -21,22 +21,19 @@ type StaffDepartment = {
   children: ReadonlyArray<string>;
 };
 
-type CrossFunctional = {
+/** A leaf shared between multiple departments — drawn once, all parents
+ *  connected with solid lines. */
+type SharedLeaf = {
   key: string;
-  /** The leaf label inside the primary parent's children that is cross-functional. */
-  leafLabel: string;
-  /** Department key where this leaf lives in the tree. */
-  primaryParent: string;
-  /** Additional department keys that share this team (rendered as dashed link). */
-  alsoParents: ReadonlyArray<string>;
-  caption?: string;
+  label: string;
+  parents: ReadonlyArray<string>;
 };
 
 type OrgChartProps = {
   ceoLabel: string;
   ceoName: string;
   departments: ReadonlyArray<Department>;
-  crossFunctional?: ReadonlyArray<CrossFunctional>;
+  sharedLeaves?: ReadonlyArray<SharedLeaf>;
   staff?: StaffDepartment;
 };
 
@@ -45,15 +42,15 @@ type RefCB = (el: HTMLDivElement | null) => void;
 
 /* ──────────────────────────── Tokens ──────────────────────────── */
 
-const LINE = "rgb(var(--color-ink) / 0.18)";
+const LINE = "rgb(var(--color-ink) / 0.20)";
 const LINE_SOFT = "rgb(var(--color-ink) / 0.10)";
 const ACCENT = "rgb(var(--color-primary))";
-const ACCENT_HAIR = "rgb(var(--color-primary) / 0.55)";
 const INK = "rgb(var(--color-ink))";
 const INK_MUTED = "rgb(var(--color-ink) / 0.62)";
 const SURFACE = "rgb(var(--color-surface))";
 
 const CARD_GAP = 6;
+const BAR_OFFSET = 18; // px above topmost child top — where the horizontal bar sits
 const CORNER_R = 10;
 
 /* ───────────────────────── Main component ───────────────────────── */
@@ -62,16 +59,15 @@ export default function OrgChart({
   ceoLabel,
   ceoName,
   departments,
-  crossFunctional,
+  sharedLeaves,
   staff,
 }: OrgChartProps) {
-  /* ───── Refs + measurement ───── */
+  /* Refs + measurement */
   const containerRef = useRef<HTMLDivElement | null>(null);
   const refsMap = useRef<Map<string, HTMLDivElement>>(new Map());
   const [rects, setRects] = useState<Record<string, Rect>>({});
   const [size, setSize] = useState({ w: 0, h: 0 });
 
-  /* Stable ref callbacks keyed by id (cached so React doesn't re-attach on every render) */
   const registerRef = useMemo(() => {
     const cache: Record<string, RefCB> = {};
     return (id: string): RefCB => {
@@ -117,11 +113,88 @@ export default function OrgChart({
       ro.disconnect();
       window.removeEventListener("resize", compute);
     };
-  }, [departments, crossFunctional, staff]);
+  }, [departments, sharedLeaves, staff]);
 
-  /* ───── SVG path generation ───── */
+  /* ───── Layout: split into first-dept (vertical) + rest-depts (horizontal row) ───── */
+  const firstDept = departments[0];
+  const restDepts = departments.slice(1);
+
+  /* Build horizontal leaf slots in display order.
+     A shared leaf is appended right after the dept that is its second-to-last
+     parent (so the leaf sits between that dept's children and the next dept's). */
+  type Slot = {
+    col: number;
+    type: "child" | "shared";
+    label: string;
+    refId: string;
+    deptKey?: string; // for child slots
+  };
+  const { slots, deptColRange, totalLeafCols } = useMemo(() => {
+    const slots: Slot[] = [];
+    const deptColRange: Record<string, { start: number; end: number }> = {};
+    let cursor = 2; // col 1 reserved for first dept's subtree
+
+    restDepts.forEach((dept) => {
+      let start = cursor;
+      dept.children.forEach((label) => {
+        slots.push({
+          col: cursor,
+          type: "child",
+          label,
+          refId: `leaf-${dept.key}-${label}`,
+          deptKey: dept.key,
+        });
+        cursor++;
+      });
+      // Insert any shared leaf whose second-to-last parent is THIS dept,
+      // so the shared leaf bridges this dept and the next.
+      sharedLeaves?.forEach((sl) => {
+        const idx = sl.parents.indexOf(dept.key);
+        if (idx >= 0 && idx === sl.parents.length - 2) {
+          slots.push({
+            col: cursor,
+            type: "shared",
+            label: sl.label,
+            refId: `shared-${sl.key}`,
+          });
+          cursor++;
+        }
+      });
+      let end = cursor - 1;
+      // Extend dept range to include shared leaves where this dept is the LAST parent
+      sharedLeaves?.forEach((sl) => {
+        if (
+          sl.parents.length > 1 &&
+          sl.parents[sl.parents.length - 1] === dept.key
+        ) {
+          const slot = slots.find((s) => s.refId === `shared-${sl.key}`);
+          if (slot) start = Math.min(start, slot.col);
+        }
+      });
+      deptColRange[dept.key] = { start, end };
+    });
+
+    return { slots, deptColRange, totalLeafCols: cursor - 2 };
+  }, [restDepts, sharedLeaves]);
+
+  const totalGridCols = 1 + totalLeafCols;
+
+  /* For mobile, mark which shared leaves should render inline within each dept.
+     Show shared leaf only under its FIRST parent's subtree (avoid DOM duplication). */
+  const mobileSharedByDept = useMemo(() => {
+    const m: Record<string, ReadonlyArray<SharedLeaf>> = {};
+    sharedLeaves?.forEach((sl) => {
+      if (sl.parents.length > 0) {
+        const first = sl.parents[0];
+        m[first] = [...(m[first] ?? []), sl];
+      }
+    });
+    return m;
+  }, [sharedLeaves]);
+
+  /* ───── SVG paths ───── */
   const paths = useMemo(() => {
-    type PathItem = { key: string; d: string; dashed?: boolean };
+    type PathItem = { key: string; d: string };
     const out: PathItem[] = [];
 
     const elbow = (sx: number, sy: number, tx: number, ty: number) => {
@@ -148,7 +221,7 @@ export default function OrgChart({
     const ceoBx = ceo.x + ceo.w / 2;
     const ceoBy = ceo.y + ceo.h + CARD_GAP;
 
-    /* CEO → Departments */
+    /* CEO → 3 depts (solid elbow) */
     departments.forEach((d) => {
       const dr = rects[`dept-${d.key}`];
       if (!dr) return;
@@ -157,90 +230,86 @@ export default function OrgChart({
       out.push({ key: `ceo-${d.key}`, d: elbow(ceoBx, ceoBy, tx, ty) });
     });
 
-    /* Dept → Children */
-    departments.forEach((d) => {
-      const dr = rects[`dept-${d.key}`];
-      if (!dr) return;
-      const dCx = dr.x + dr.w / 2;
-      const dBy = dr.y + dr.h + CARD_GAP;
-
-      if (d.key === "international") {
-        // Vertical office tree to the left of leaf cards
-        const ofs = d.children
-          .map((c) => rects[`leaf-${d.key}-${c}`])
+    /* First dept (Int'l Ops) → vertical office tree on the left */
+    if (firstDept) {
+      const dr = rects[`dept-${firstDept.key}`];
+      if (dr) {
+        const dCx = dr.x + dr.w / 2;
+        const dBy = dr.y + dr.h + CARD_GAP;
+        const ofs = firstDept.children
+          .map((c) => rects[`leaf-${firstDept.key}-${c}`])
           .filter(Boolean) as Rect[];
-        if (ofs.length === 0) return;
-        const anchorX = Math.min(...ofs.map((r) => r.x)) - 20;
-        const elbowY = ofs[0].y - 16;
-        const lastY = ofs[ofs.length - 1].y + ofs[ofs.length - 1].h / 2;
-        const dx = anchorX > dCx ? 1 : -1;
-        const r = 8;
-        const parts: string[] = [];
-        parts.push(`M${dCx},${dBy}`);
-        parts.push(`L${dCx},${elbowY - r}`);
-        parts.push(`Q${dCx},${elbowY} ${dCx + dx * r},${elbowY}`);
-        parts.push(`L${anchorX - dx * r},${elbowY}`);
-        parts.push(`Q${anchorX},${elbowY} ${anchorX},${elbowY + r}`);
-        parts.push(`L${anchorX},${lastY}`);
-        ofs.forEach((or) => {
-          const my = or.y + or.h / 2;
-          parts.push(`M${anchorX},${my}`);
-          parts.push(`L${or.x - CARD_GAP},${my}`);
-        });
-        out.push({ key: `tree-${d.key}`, d: parts.join(" ") });
-      } else {
-        // Generic dept → each child with rounded elbow
-        d.children.forEach((c) => {
-          const cr = rects[`leaf-${d.key}-${c}`];
-          if (!cr) return;
-          const ct = cr.x + cr.w / 2;
-          const cty = cr.y - CARD_GAP;
-          out.push({ key: `${d.key}-${c}`, d: elbow(dCx, dBy, ct, cty) });
-        });
+        if (ofs.length > 0) {
+          const anchorX = Math.min(...ofs.map((r) => r.x)) - 20;
+          const elbowY = ofs[0].y - 16;
+          const lastY = ofs[ofs.length - 1].y + ofs[ofs.length - 1].h / 2;
+          const dx = anchorX > dCx ? 1 : -1;
+          const r = 8;
+          const parts: string[] = [];
+          parts.push(`M${dCx},${dBy}`);
+          parts.push(`L${dCx},${elbowY - r}`);
+          parts.push(`Q${dCx},${elbowY} ${dCx + dx * r},${elbowY}`);
+          parts.push(`L${anchorX - dx * r},${elbowY}`);
+          parts.push(`Q${anchorX},${elbowY} ${anchorX},${elbowY + r}`);
+          parts.push(`L${anchorX},${lastY}`);
+          ofs.forEach((or) => {
+            const my = or.y + or.h / 2;
+            parts.push(`M${anchorX},${my}`);
+            parts.push(`L${or.x - CARD_GAP},${my}`);
+          });
+          out.push({ key: `tree-${firstDept.key}`, d: parts.join(" ") });
+        }
       }
-    });
+    }
 
-    /* Cross-functional dashed bezier — from each additional parent dept
-       directly to the leaf card (which lives inside the primary parent's subtree). */
-    crossFunctional?.forEach((cf) => {
-      const lr = rects[`leaf-${cf.primaryParent}-${cf.leafLabel}`];
-      if (!lr) return;
-      const lCx = lr.x + lr.w / 2;
-      const lTopY = lr.y - CARD_GAP;
-      cf.alsoParents.forEach((pk, i) => {
-        const pr = rects[`dept-${pk}`];
-        if (!pr) return;
-        const pCx = pr.x + pr.w / 2;
-        const fromLeft = pCx < lCx;
-        const sx = fromLeft ? pr.x + pr.w - 16 : pr.x + 16;
-        const sy = pr.y + pr.h + CARD_GAP;
-        const tx = fromLeft ? lr.x + lr.w * 0.65 : lr.x + lr.w * 0.35;
-        const ty = lTopY;
-        const dx = tx - sx;
-        const dy = ty - sy;
-        const c1x = sx + dx * 0.10;
-        const c1y = sy + dy * 0.55;
-        const c2x = tx - dx * 0.10;
-        const c2y = ty - dy * 0.55;
-        out.push({
-          key: `cf-${cf.key}-${pk}-${i}`,
-          d: `M${sx},${sy} C${c1x},${c1y} ${c2x},${c2y} ${tx},${ty}`,
-          dashed: true,
-        });
+    /* Rest depts → horizontal bar + child stems + dept stem.
+       Effective children include own children + shared leaves where this dept
+       is in the parents list. Two depts can share the same leaf — both bars
+       end at that leaf's top.cx, and the bars share the same y-level so they
+       appear as one continuous line broken visually only by the two dept
+       stems descending from above. */
+    const allBarY: number[] = [];
+    const effRectsByDept: Record<string, Rect[]> = {};
+    restDepts.forEach((dept) => {
+      const ids = [
+        ...dept.children.map((c) => `leaf-${dept.key}-${c}`),
+        ...(sharedLeaves
+          ?.filter((sl) => sl.parents.includes(dept.key))
+          .map((sl) => `shared-${sl.key}`) ?? []),
+      ];
+      const eff = ids.map((id) => rects[id]).filter(Boolean) as Rect[];
+      effRectsByDept[dept.key] = eff;
+      if (eff.length) allBarY.push(Math.min(...eff.map((r) => r.y)));
+    });
+    // Shared y-level across all rest depts so bars meet cleanly at shared leaves
+    const sharedBarY =
+      allBarY.length > 0 ? Math.min(...allBarY) - CARD_GAP - BAR_OFFSET : 0;
+
+    restDepts.forEach((dept) => {
+      const dr = rects[`dept-${dept.key}`];
+      if (!dr) return;
+      const eff = effRectsByDept[dept.key];
+      if (!eff || eff.length === 0) return;
+      const deptCx = dr.x + dr.w / 2;
+      const deptBy = dr.y + dr.h + CARD_GAP;
+      const centers = eff.map((r) => r.x + r.w / 2);
+      const leftMost = Math.min(...centers);
+      const rightMost = Math.max(...centers);
+      const parts: string[] = [];
+      // Dept vertical stem
+      parts.push(`M${deptCx},${deptBy} L${deptCx},${sharedBarY}`);
+      // Horizontal bar
+      parts.push(`M${leftMost},${sharedBarY} L${rightMost},${sharedBarY}`);
+      // Per-child vertical stub
+      eff.forEach((r) => {
+        const cx = r.x + r.w / 2;
+        parts.push(`M${cx},${sharedBarY} L${cx},${r.y - CARD_GAP}`);
       });
+      out.push({ key: `bar-${dept.key}`, d: parts.join(" ") });
     });
 
     return out;
-  }, [rects, departments, crossFunctional]);
-
-  /* Map: "dept-key|leaf-label" → CrossFunctional metadata */
-  const cfLeafMap = useMemo(() => {
-    const m = new Map<string, CrossFunctional>();
-    crossFunctional?.forEach((cf) =>
-      m.set(`${cf.primaryParent}|${cf.leafLabel}`, cf)
-    );
-    return m;
-  }, [crossFunctional]);
+  }, [rects, departments, sharedLeaves, firstDept, restDepts]);
 
   /* ──────────────── Render ──────────────── */
   return (
@@ -253,7 +322,6 @@ export default function OrgChart({
       }}
       aria-label="Organization chart"
     >
-      {/* Top hairline */}
       <div
         aria-hidden
         className="absolute top-0 left-0 right-0"
@@ -262,7 +330,6 @@ export default function OrgChart({
           backgroundColor: "rgb(var(--color-ink) / 0.06)",
         }}
       />
-      {/* Blueprint dot field — radial mask keeps it subtle */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
@@ -297,56 +364,105 @@ export default function OrgChart({
                 key={p.key}
                 d={p.d}
                 fill="none"
-                stroke={p.dashed ? ACCENT_HAIR : LINE}
+                stroke={LINE}
                 strokeWidth={1}
                 strokeLinecap="round"
-                strokeDasharray={p.dashed ? "4 5" : undefined}
               />
             ))}
           </svg>
 
-          {/* CEO */}
-          <div className="flex justify-center">
-            <CeoCard
-              label={ceoLabel}
-              name={ceoName}
-              refSetter={registerRef("ceo")}
-            />
-          </div>
-
-          {/* Dept row + sub-trees — Maintenance gets extra width to fit 3 children on one row */}
+          {/* Explicit grid: col 1 = first dept + subtree; cols 2~ = horizontal leaves */}
           <div
-            className="grid mt-20"
             style={{
-              gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.55fr) minmax(0, 1fr)",
+              display: "grid",
+              gridTemplateColumns: `1.5fr repeat(${totalLeafCols}, 1fr)`,
               columnGap: "24px",
+              rowGap: "5rem",
               alignItems: "start",
             }}
           >
-            {departments.map((d) => (
-              <div key={d.key} className="flex flex-col items-center">
+            {/* Row 1: CEO (full-width centered) */}
+            <div
+              style={{
+                gridRow: 1,
+                gridColumn: `1 / ${totalGridCols + 1}`,
+                justifySelf: "center",
+              }}
+            >
+              <CeoCard
+                label={ceoLabel}
+                name={ceoName}
+                refSetter={registerRef("ceo")}
+              />
+            </div>
+
+            {/* Row 2: Dept cards */}
+            {firstDept && (
+              <div
+                style={{
+                  gridRow: 2,
+                  gridColumn: 1,
+                  justifySelf: "center",
+                }}
+              >
                 <DeptCard
-                  label={d.label}
-                  leadLabel={d.leadLabel}
-                  refSetter={registerRef(`dept-${d.key}`)}
+                  label={firstDept.label}
+                  leadLabel={firstDept.leadLabel}
+                  refSetter={registerRef(`dept-${firstDept.key}`)}
                 />
-                <div className="w-full" style={{ marginTop: "5.5rem" }}>
-                  {d.key === "international" ? (
-                    <OfficeColumn
-                      depKey={d.key}
-                      offices={d.children}
-                      registerRef={registerRef}
-                      cfMap={cfLeafMap}
-                    />
-                  ) : (
-                    <ChildRow
-                      depKey={d.key}
-                      items={d.children}
-                      registerRef={registerRef}
-                      cfMap={cfLeafMap}
-                    />
-                  )}
+              </div>
+            )}
+            {restDepts.map((dept) => {
+              const range = deptColRange[dept.key];
+              if (!range) return null;
+              return (
+                <div
+                  key={dept.key}
+                  style={{
+                    gridRow: 2,
+                    gridColumn: `${range.start} / ${range.end + 1}`,
+                    justifySelf: "center",
+                  }}
+                >
+                  <DeptCard
+                    label={dept.label}
+                    leadLabel={dept.leadLabel}
+                    refSetter={registerRef(`dept-${dept.key}`)}
+                  />
                 </div>
+              );
+            })}
+
+            {/* Row 3: leaves */}
+            {firstDept && (
+              <div
+                style={{
+                  gridRow: 3,
+                  gridColumn: 1,
+                  justifySelf: "stretch",
+                }}
+              >
+                <OfficeColumn
+                  depKey={firstDept.key}
+                  offices={firstDept.children}
+                  registerRef={registerRef}
+                />
+              </div>
+            )}
+            {slots.map((slot) => (
+              <div
+                key={slot.refId}
+                style={{
+                  gridRow: 3,
+                  gridColumn: slot.col,
+                  justifySelf: "center",
+                }}
+              >
+                <LeafCard
+                  label={slot.label}
+                  refSetter={registerRef(slot.refId)}
+                  shared={slot.type === "shared"}
+                />
               </div>
             ))}
           </div>
@@ -357,19 +473,14 @@ export default function OrgChart({
           ceoLabel={ceoLabel}
           ceoName={ceoName}
           departments={departments}
-          cfMap={cfLeafMap}
+          mobileSharedByDept={mobileSharedByDept}
         />
 
-        {/* Staff (Finance & HR) — shared, separated from tree */}
+        {/* Staff (Finance & HR) */}
         {staff && (
           <div style={{ marginTop: "clamp(4rem, 8vh, 6rem)" }}>
             <StaffCard staff={staff} />
           </div>
-        )}
-
-        {/* Cross-functional legend — footnote under the chart */}
-        {crossFunctional && crossFunctional.length > 0 && (
-          <CrossFunctionalLegend items={crossFunctional} />
         )}
       </div>
     </section>
@@ -514,18 +625,14 @@ function DeptCard({
   );
 }
 
-type CFMap = Map<string, CrossFunctional>;
-
 function OfficeColumn({
   depKey,
   offices,
   registerRef,
-  cfMap,
 }: {
   depKey: string;
   offices: ReadonlyArray<string>;
   registerRef: (id: string) => RefCB;
-  cfMap: CFMap;
 }) {
   return (
     <ul
@@ -538,81 +645,40 @@ function OfficeColumn({
         paddingLeft: "44px",
       }}
     >
-      {offices.map((o) => {
-        const cf = cfMap.get(`${depKey}|${o}`);
-        return (
-          <li key={o}>
-            <LeafCard
-              label={o}
-              refSetter={registerRef(`leaf-${depKey}-${o}`)}
-              crossFunctional={!!cf}
-              caption={cf?.caption}
-            />
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
-
-function ChildRow({
-  depKey,
-  items,
-  registerRef,
-  cfMap,
-}: {
-  depKey: string;
-  items: ReadonlyArray<string>;
-  registerRef: (id: string) => RefCB;
-  cfMap: CFMap;
-}) {
-  return (
-    <div
-      className="flex justify-center"
-      style={{
-        gap: items.length > 1 ? "12px" : 0,
-        flexWrap: "wrap",
-      }}
-    >
-      {items.map((c) => {
-        const cf = cfMap.get(`${depKey}|${c}`);
-        return (
+      {offices.map((o) => (
+        <li key={o}>
           <LeafCard
-            key={c}
-            label={c}
-            refSetter={registerRef(`leaf-${depKey}-${c}`)}
-            crossFunctional={!!cf}
-            caption={cf?.caption}
+            label={o}
+            refSetter={registerRef(`leaf-${depKey}-${o}`)}
           />
-        );
-      })}
-    </div>
+        </li>
+      ))}
+    </ul>
   );
 }
 
 function LeafCard({
   label,
   refSetter,
-  crossFunctional,
-  caption,
+  shared,
 }: {
   label: string;
   refSetter: RefCB;
-  crossFunctional?: boolean;
-  caption?: string;
+  shared?: boolean;
 }) {
   return (
     <div
       ref={refSetter}
-      title={caption}
       aria-label={
-        crossFunctional && caption ? `${label} — ${caption}` : undefined
+        shared
+          ? `${label} — shared between Maintenance and Supply Chain`
+          : undefined
       }
       style={{
-        backgroundColor: crossFunctional
+        backgroundColor: shared
           ? "rgb(var(--color-primary) / 0.04)"
           : SURFACE,
-        border: crossFunctional
+        border: shared
           ? `1.25px dashed rgb(var(--color-primary) / 0.55)`
           : `1px solid ${LINE_SOFT}`,
         borderRadius: "10px",
@@ -637,50 +703,6 @@ function LeafCard({
         }}
       />
       {label}
-    </div>
-  );
-}
-
-function CrossFunctionalLegend({
-  items,
-}: {
-  items: ReadonlyArray<CrossFunctional>;
-}) {
-  return (
-    <div
-      className="flex flex-col items-center"
-      style={{ marginTop: "3rem", gap: "6px" }}
-    >
-      {items.map((cf) => (
-        <div
-          key={cf.key}
-          className="flex items-center"
-          style={{ gap: "10px" }}
-        >
-          <span
-            aria-hidden
-            style={{
-              display: "inline-block",
-              width: "26px",
-              height: "0",
-              borderTop: `1.25px dashed ${ACCENT_HAIR}`,
-            }}
-          />
-          <span
-            className="font-body"
-            style={{
-              fontSize: "11.5px",
-              color: INK_MUTED,
-              letterSpacing: "0.01em",
-            }}
-          >
-            <strong style={{ color: INK, fontWeight: 600 }}>
-              {cf.leafLabel}
-            </strong>
-            {cf.caption ? ` — ${cf.caption}` : null}
-          </span>
-        </div>
-      ))}
     </div>
   );
 }
@@ -754,44 +776,52 @@ function MobileTree({
   ceoLabel,
   ceoName,
   departments,
-  cfMap,
+  mobileSharedByDept,
 }: {
   ceoLabel: string;
   ceoName: string;
   departments: ReadonlyArray<Department>;
-  cfMap: CFMap;
+  mobileSharedByDept: Record<string, ReadonlyArray<SharedLeaf>>;
 }) {
   const noopRef: RefCB = () => {};
   return (
     <div className="md:hidden flex flex-col items-center">
       <CeoCard label={ceoLabel} name={ceoName} refSetter={noopRef} />
 
-      {departments.map((d) => (
-        <div key={d.key} className="w-full flex flex-col items-center">
-          <MStem />
-          <DeptCard
-            label={d.label}
-            leadLabel={d.leadLabel}
-            refSetter={noopRef}
-          />
-          {d.children.length > 0 && (
-            <>
-              <MStem height={14} />
-              <MTree depKey={d.key} items={d.children} cfMap={cfMap} />
-            </>
-          )}
-        </div>
-      ))}
+      {departments.map((d) => {
+        // Effective children for this dept on mobile: own children + shared
+        // leaves where this dept is the FIRST parent (so each shared leaf
+        // appears once, under the first parent's subtree).
+        const sharedHere = mobileSharedByDept[d.key] ?? [];
+        const effItems: { label: string; shared: boolean }[] = [
+          ...d.children.map((c) => ({ label: c, shared: false })),
+          ...sharedHere.map((sl) => ({ label: sl.label, shared: true })),
+        ];
+        return (
+          <div key={d.key} className="w-full flex flex-col items-center">
+            <MStem />
+            <DeptCard
+              label={d.label}
+              leadLabel={d.leadLabel}
+              refSetter={noopRef}
+            />
+            {effItems.length > 0 && (
+              <>
+                <MStem height={14} />
+                <MTree items={effItems} />
+              </>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
 
 function MStem({
   height = 28,
-  dashed = false,
 }: {
   height?: number;
-  dashed?: boolean;
 }) {
   return (
     <div
@@ -799,22 +829,16 @@ function MStem({
       style={{
         width: "1px",
         height: `${height}px`,
-        borderLeft: `1px ${dashed ? "dashed" : "solid"} ${
-          dashed ? ACCENT_HAIR : LINE
-        }`,
+        borderLeft: `1px solid ${LINE}`,
       }}
     />
   );
 }
 
 function MTree({
-  depKey,
   items,
-  cfMap,
 }: {
-  depKey: string;
-  items: ReadonlyArray<string>;
-  cfMap: CFMap;
+  items: ReadonlyArray<{ label: string; shared: boolean }>;
 }) {
   return (
     <ul
@@ -824,10 +848,9 @@ function MTree({
     >
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
-        const cf = cfMap.get(`${depKey}|${item}`);
         return (
           <li
-            key={item}
+            key={item.label}
             className="relative"
             style={{
               paddingLeft: "28px",
@@ -858,16 +881,17 @@ function MTree({
               }}
             />
             <div
-              title={cf?.caption}
               aria-label={
-                cf && cf.caption ? `${item} — ${cf.caption}` : undefined
+                item.shared
+                  ? `${item.label} — shared between Maintenance and Supply Chain`
+                  : undefined
               }
               style={{
-                backgroundColor: cf
+                backgroundColor: item.shared
                   ? "rgb(var(--color-primary) / 0.04)"
                   : SURFACE,
-                border: cf
-                  ? `1.25px dashed rgb(var(--color-primary) / 0.55)`
+                border: item.shared
+                  ? "1.25px dashed rgb(var(--color-primary) / 0.55)"
                   : `1px solid ${LINE_SOFT}`,
                 borderRadius: "10px",
                 padding: "9px 14px",
@@ -888,7 +912,7 @@ function MTree({
                   flexShrink: 0,
                 }}
               />
-              {item}
+              {item.label}
             </div>
           </li>
         );

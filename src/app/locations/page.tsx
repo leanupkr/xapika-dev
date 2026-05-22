@@ -86,7 +86,7 @@ const OFFICES: ReadonlyArray<OfficeRow> = [
   {
     id: "seoul",
     city: "Seoul",
-    country: "Korea",
+    country: "Republic of Korea",
     flag: "🇰🇷",
     role: "office",
     since: "2026.03",
@@ -168,7 +168,7 @@ const HISTORY_EVENTS: ReadonlyArray<HistoryEventRaw> = [
   { year: "2022", month: "05", country: "Poland", event: "Poland Warehouse Opened" },
   { year: "2023", month: "06", country: "USA", event: "Virginia Office Established" },
   { year: "2023", month: "10", country: "Egypt", event: "Cairo Office Established" },
-  { year: "2026", month: "03", country: "Korea", event: "Seoul Office Established" },
+  { year: "2026", month: "03", country: "Republic of Korea", event: "Seoul Office Established" },
   { year: "2026", month: "04", country: "Uzbekistan", event: "Tashkent Office Established" },
   { year: "2026", month: "05", country: "Uzbekistan", event: "Uzbekistan HSR O&M Begin" },
 ];

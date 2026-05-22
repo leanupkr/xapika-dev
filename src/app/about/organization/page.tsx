@@ -38,19 +38,19 @@ export default async function OrganizationPage() {
             key: "international",
             label: "International Operations Team",
             children: [
-              "Korea Office",
+              "Republic of Korea Office",
               "Uzbekistan Office",
               "Morocco Office",
               "Egypt Office",
               "São Paulo Office",
-              "Turkey Office",
+              "Türkiye Office",
             ],
           },
           {
             key: "maintenance",
             label: "Maintenance Department",
             leadLabel: "CTO",
-            children: ["Light Maintenance", "Heavy Maintenance", "Overhaul Team"],
+            children: ["Light Maintenance", "Heavy Maintenance"],
           },
           {
             key: "supply",
@@ -58,13 +58,11 @@ export default async function OrganizationPage() {
             children: ["Procurement Department"],
           },
         ]}
-        crossFunctional={[
+        sharedLeaves={[
           {
             key: "overhaul",
-            leafLabel: "Overhaul Team",
-            primaryParent: "maintenance",
-            alsoParents: ["supply"],
-            caption: "Cross-functional · Maintenance + Supply Chain",
+            label: "Overhaul Team",
+            parents: ["maintenance", "supply"],
           },
         ]}
         staff={{

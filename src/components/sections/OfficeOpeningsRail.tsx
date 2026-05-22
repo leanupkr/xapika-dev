@@ -39,6 +39,7 @@ const FLAG_BY_COUNTRY: Record<string, string> = {
   미국: "🇺🇸",
   Egypt: "🇪🇬",
   이집트: "🇪🇬",
+  "Republic of Korea": "🇰🇷",
   Korea: "🇰🇷",
   한국: "🇰🇷",
   Uzbekistan: "🇺🇿",

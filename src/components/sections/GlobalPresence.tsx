@@ -47,7 +47,7 @@ const PINS: Pin[] = [
   { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45],     countryId: "804", labelAnchor: "left" },
   { id: "turkey",     name: "Türkiye",     label: "Istanbul",    coords: [28.98, 41.01],     countryId: "792", labelAnchor: "right" },
   { id: "uzbekistan", name: "Uzbekistan",  label: "Tashkent",    coords: [69.28, 41.30],     countryId: "860" },
-  { id: "korea",      name: "South Korea", label: "Seoul",       coords: [126.98, 37.57],    countryId: "410" },
+  { id: "korea",      name: "Republic of Korea", label: "Seoul", coords: [126.98, 37.57],    countryId: "410" },
   { id: "egypt",      name: "Egypt",       label: "Cairo",       coords: [31.24, 30.04],     countryId: "818", labelAnchor: "bottom" },
   { id: "usa",        name: "USA",         label: "Virginia",    coords: [-77.43, 37.54],    countryId: "840" },
   { id: "brazil",     name: "Brazil",      label: "São Paulo",   coords: [-46.63, -23.55],   countryId: "076" },
