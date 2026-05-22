@@ -249,7 +249,11 @@ export default function OurClients({
                       src={c.logo.src}
                       alt={c.fullName}
                       fill
-                      sizes={c.logo.aspect === "square" ? "110px" : "180px"}
+                      sizes={
+                        c.logo.aspect === "square"
+                          ? "(max-width: 640px) 90px, 110px"
+                          : "(max-width: 640px) 150px, 180px"
+                      }
                       style={{ objectFit: "contain" }}
                     />
                   </div>
@@ -280,10 +284,12 @@ export default function OurClients({
                   }}
                 />
                 <span
-                  className="font-heading font-medium uppercase text-[rgb(var(--color-ink-muted))] whitespace-nowrap"
+                  className="font-heading font-medium uppercase text-[rgb(var(--color-ink-muted))] text-right"
                   style={{
                     fontSize: "10px",
                     letterSpacing: "0.18em",
+                    lineHeight: 1.3,
+                    maxWidth: "60%",
                   }}
                 >
                   {c.logo ? c.name : logoArrivingNote}

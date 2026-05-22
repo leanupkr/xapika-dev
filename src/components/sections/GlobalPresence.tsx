@@ -460,7 +460,9 @@ export default function GlobalPresence({
                       strokeLinecap="round"
                       style={{
                         opacity: lineOpacity,
-                        animation: `dashflow ${isActive ? 0.8 : 1.6}s linear infinite`,
+                        animation: prefersReducedMotion
+                          ? "none"
+                          : `dashflow ${isActive ? 0.8 : 1.6}s linear infinite`,
                         transition:
                           "opacity 0.35s cubic-bezier(0.4,0,0.2,1), stroke-width 0.35s cubic-bezier(0.4,0,0.2,1)",
                       }}

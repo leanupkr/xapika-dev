@@ -545,7 +545,7 @@ function CeoCard({
         borderRadius: "14px",
         padding: "22px 44px",
         textAlign: "center",
-        minWidth: "260px",
+        minWidth: "min(260px, 100%)",
       }}
     >
       <div
@@ -592,7 +592,7 @@ function DeptCard({
         borderRadius: "12px",
         padding: "16px 22px",
         textAlign: "center",
-        minWidth: "200px",
+        minWidth: "min(200px, 100%)",
         maxWidth: "240px",
       }}
     >
@@ -688,7 +688,7 @@ function LeafCard({
         fontSize: "12.5px",
         color: INK,
         letterSpacing: "-0.005em",
-        whiteSpace: "nowrap",
+        lineHeight: 1.35,
       }}
     >
       <span

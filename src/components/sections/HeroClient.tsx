@@ -64,8 +64,13 @@ export default function HeroClient({ pauseAriaLabel, playAriaLabel }: Props) {
         );
       }
 
-      // 스크롤 인디케이터 fade-out
-      if (scrollIndicator) {
+      // 스크롤 인디케이터 fade-out — scrub은 스크롤마다 JS를 깨우므로 모바일에서는 비활성화.
+      // 저사양 기기 jank 감소 목적.
+      const isMobile =
+        typeof window !== "undefined" &&
+        window.matchMedia("(max-width: 767.98px)").matches;
+
+      if (scrollIndicator && !isMobile) {
         ScrollTrigger.create({
           trigger: section,
           start: "top top",
@@ -75,20 +80,20 @@ export default function HeroClient({ pauseAriaLabel, playAriaLabel }: Props) {
             gsap.set(scrollIndicator, { opacity: 1 - self.progress * 3 });
           },
         });
+      }
 
-        if (rail) {
-          const length = rail.getTotalLength?.() ?? 40;
-          gsap.set(rail, {
-            strokeDasharray: length,
-            strokeDashoffset: length,
-          });
-          tl.fromTo(
-            rail,
-            { strokeDashoffset: length },
-            { strokeDashoffset: 0, duration: 1.2, ease: "power2.out" },
-            1.5
-          );
-        }
+      if (rail) {
+        const length = rail.getTotalLength?.() ?? 40;
+        gsap.set(rail, {
+          strokeDasharray: length,
+          strokeDashoffset: length,
+        });
+        tl.fromTo(
+          rail,
+          { strokeDashoffset: length },
+          { strokeDashoffset: 0, duration: 1.2, ease: "power2.out" },
+          1.5
+        );
       }
     },
     { scope: scopeRef }

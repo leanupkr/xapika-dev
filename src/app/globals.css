@@ -81,12 +81,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
+  /* 모바일에서 긴 단어(예: "uncompromising")가 viewport 폭을 초과해도 강제로
+     break되도록 전역 적용. body로 잡으면 h1~h4, p, span 등에 자연 상속된다. */
+  overflow-wrap: break-word;
 }
 
-/* Headings: keep words intact, wrap on overflow */
+/* Headings: allow words to wrap when they would overflow narrow containers
+   (mobile viewports). 영어 only 사이트이므로 keep-all(CJK용)은 제거.
+   overflow-wrap: break-word 만 적용해 일반 단어 경계는 우선하고, 너무 긴
+   단어만 break. */
 .font-heading,
 h1, h2, h3, h4 {
-  word-break: keep-all;
   overflow-wrap: break-word;
 }
 

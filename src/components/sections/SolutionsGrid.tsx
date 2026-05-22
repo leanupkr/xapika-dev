@@ -45,8 +45,8 @@ type SolutionsGridProps = {
 
 const SIZE_TO_CLASSES: Record<Size, { grid: string; minH: string; titleSize: string }> = {
   featured: {
-    // mobile: full-width (col-span-2 of 2-col grid); lg: 8/12 of 12-col grid
-    grid: "col-span-2 sm:col-span-2 lg:col-span-8",
+    // mobile (<640px): 1열 풀너비; sm: 2열 풀너비; lg: 8/12 of 12-col grid
+    grid: "col-span-1 sm:col-span-2 lg:col-span-8",
     minH: "min-h-[360px] md:min-h-[420px] lg:min-h-[480px]",
     titleSize: "clamp(1.5rem, 2.8vw, 2.25rem)",
   },
@@ -153,7 +153,6 @@ function SolutionCard({
               lineHeight: 1.15,
               maxWidth: isFeatured ? "22ch" : "18ch",
               overflowWrap: "break-word",
-              wordBreak: "keep-all",
             }}
           >
             {item.title}
@@ -378,9 +377,10 @@ export default function SolutionsGrid({
         </div>
 
         {/* 카드 편집 레이아웃: 12-col grid
-            Row 1: Featured (8) + Secondary (4)
-            Row 2: Tertiary (4) × 3 */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-3 md:gap-5">
+            Mobile (<640px): 1열 풀너비
+            SM (640+): 2열
+            LG (1024+): 12-col — Featured (8) + Secondary (4) / Tertiary (4) × 3 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 md:gap-5">
           {solutions.map((item, i) => (
             <SolutionCard key={item.key} item={item} index={i} inView={inView} />
           ))}

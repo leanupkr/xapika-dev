@@ -203,9 +203,9 @@ export default function PageHero({
               ref={titleRef}
               className="font-heading font-semibold text-white mb-6"
               style={{
-                fontSize: "clamp(2rem, 4.5vw, 3.75rem)",
+                fontSize: "clamp(1.625rem, 6.5vw, 3.75rem)",
                 letterSpacing: "var(--tracking-tight, -0.02em)",
-                lineHeight: 1.05,
+                lineHeight: 1.08,
               }}
             >
               {words.map((word, i) => (

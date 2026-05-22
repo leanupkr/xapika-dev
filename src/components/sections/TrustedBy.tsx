@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
@@ -79,8 +80,8 @@ export default function TrustedBy({ overline }: { overline: string }) {
             onClick={() => setPaused((p) => !p)}
             className="inline-flex items-center justify-center rounded-full transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
             style={{
-              width: "28px",
-              height: "28px",
+              width: "44px",
+              height: "44px",
               backgroundColor: paused
                 ? "rgba(246,163,23,0.18)"
                 : "rgba(255,255,255,0.08)",
@@ -143,11 +144,13 @@ export default function TrustedBy({ overline }: { overline: string }) {
                 }}
                 title={p.name}
               >
-                <img
+                <Image
                   src={p.src}
                   alt={p.name}
+                  width={160}
+                  height={44}
                   loading="lazy"
-                  decoding="async"
+                  sizes="(max-width: 640px) 50vw, 160px"
                   className="partner-logo"
                   style={{
                     maxHeight: "44px",

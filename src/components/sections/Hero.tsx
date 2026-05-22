@@ -146,7 +146,7 @@ export default function Hero({
       {/* 콘텐츠 — SSR로 즉시 visible (opacity-0 없음 → LCP element 즉시 paint) */}
       <div className="hero-content">
         <div
-          className="w-full pb-[180px] md:pb-[clamp(3rem,6vw,5rem)]"
+          className="w-full pb-[clamp(5rem,16vh,11rem)] md:pb-[clamp(3rem,6vw,5rem)]"
           style={{ maxWidth: "56rem" }}
         >
           <span
@@ -173,7 +173,7 @@ export default function Hero({
             data-hero-headline
             className="font-heading font-bold text-white mb-8 max-w-[90vw] md:max-w-none"
             style={{
-              fontSize: "clamp(2.5rem, 9vw, 7.5rem)",
+              fontSize: "clamp(1.75rem, 9vw, 7.5rem)",
               letterSpacing: "-0.025em",
               lineHeight: 0.97,
             }}
@@ -185,10 +185,10 @@ export default function Hero({
             data-hero-sub
             className="font-body mb-10"
             style={{
-              fontSize: "clamp(1.0625rem, 1.5vw, 1.25rem)",
+              fontSize: "clamp(1rem, 1.4vw, 1.25rem)",
               color: "rgba(255,255,255,0.85)",
-              maxWidth: "min(520px, 90vw)",
-              lineHeight: 1.65,
+              maxWidth: "min(520px, calc(100vw - 3rem))",
+              lineHeight: 1.6,
             }}
           >
             {subheadline}

@@ -153,9 +153,9 @@ export default function AboutHeader({
             ref={titleRef}
             className="font-heading font-semibold text-white mb-6"
             style={{
-              fontSize: "clamp(2.25rem, 5vw, 4.25rem)",
+              fontSize: "clamp(1.75rem, 7vw, 4.25rem)",
               letterSpacing: "-0.02em",
-              lineHeight: 1.05,
+              lineHeight: 1.08,
             }}
           >
             {words.map((word, i) => (

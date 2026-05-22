@@ -245,6 +245,7 @@ export default function CeoMessage({
                 alt={signatureAlt}
                 width={142}
                 height={50}
+                sizes="(max-width: 640px) 100px, 142px"
                 draggable={false}
                 onContextMenu={(e) => e.preventDefault()}
                 className="select-none"

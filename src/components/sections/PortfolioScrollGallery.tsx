@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 export type GallerySlide = {
   overline: string;
@@ -36,26 +37,10 @@ export default function PortfolioScrollGallery({
 }: PortfolioScrollGalleryProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mql = window.matchMedia("(max-width: 767px)");
-    const apply = () => setIsMobile(mql.matches);
-    apply();
-    mql.addEventListener("change", apply);
-    return () => mql.removeEventListener("change", apply);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => setReducedMotion(mql.matches);
-    apply();
-    mql.addEventListener("change", apply);
-    return () => mql.removeEventListener("change", apply);
-  }, []);
+  // Tailwind md: breakpoint is 768px. Use (max-width: 767.98px) to align without
+  // the 1px overlap that "(max-width: 767px)" produces at exactly 768px.
+  const isMobile = useMediaQuery("(max-width: 767.98px)");
+  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   useEffect(() => {
     function onScroll() {

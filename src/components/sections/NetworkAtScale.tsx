@@ -87,11 +87,12 @@ function ScaleCell({
       className="relative flex flex-col"
     >
       <span
-        className="font-heading uppercase mb-4 text-[rgb(var(--color-ink-muted))] whitespace-nowrap overflow-hidden text-ellipsis"
+        className="font-heading uppercase mb-4 text-[rgb(var(--color-ink-muted))] whitespace-normal sm:whitespace-nowrap sm:overflow-hidden sm:text-ellipsis"
         style={{
           fontSize: "11px",
           letterSpacing: "0.22em",
           fontWeight: 600,
+          lineHeight: 1.35,
         }}
       >
         {`0${index + 1}`.slice(-2)} — {cell.label}

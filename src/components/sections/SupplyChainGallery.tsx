@@ -131,14 +131,35 @@ export default function SupplyChainGallery({
         style={{ maxWidth: "var(--max-width-content)" }}
       >
         <div className="flex flex-col gap-3">
-          {/* Row 1: Hero — full width */}
+          {/* Row 1: Hero — full width
+              모바일에서 21/8(≈2.6:1)는 너무 얕아 사진 디테일이 묻힘. 모바일은 16/9, sm부터 21/8. */}
           {hero && (
-            <GalleryCell
-              slide={hero}
-              aspectRatio="21 / 8"
-              sizes="(max-width: 1280px) 100vw, var(--max-width-content)"
-              preload
-            />
+            <figure
+              className="relative overflow-hidden m-0 group aspect-[16/9] sm:aspect-[21/8]"
+              style={{ backgroundColor: "rgb(var(--color-bg))" }}
+            >
+              <Image
+                src={hero.src}
+                alt={hero.alt}
+                fill
+                sizes="(max-width: 1280px) 100vw, var(--max-width-content)"
+                preload
+                className="object-cover transition-transform duration-[2400ms] ease-out group-hover:scale-[1.03]"
+              />
+              {hero.caption && (
+                <figcaption
+                  className="absolute bottom-0 left-0 right-0 px-4 py-3 font-heading font-medium uppercase text-white select-none"
+                  style={{
+                    fontSize: "10.5px",
+                    letterSpacing: "0.18em",
+                    background:
+                      "linear-gradient(0deg, rgba(11,31,58,0.72) 0%, rgba(11,31,58,0) 100%)",
+                  }}
+                >
+                  {hero.caption}
+                </figcaption>
+              )}
+            </figure>
           )}
 
           {/* Row 2: Facility — 2 col */}
