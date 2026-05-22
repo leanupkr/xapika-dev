@@ -38,7 +38,7 @@ export default async function OrganizationPage() {
             key: "international",
             label: "International Operations Team",
             children: [
-              "Republic of Korea Office",
+              "South Korea Office",
               "Uzbekistan Office",
               "Morocco Office",
               "Egypt Office",

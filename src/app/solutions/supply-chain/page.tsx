@@ -36,7 +36,7 @@ export default async function SupplyChainPage() {
     {
       index: "02",
       title: "Warehousing",
-      desc: "Climate-controlled facilities in Poland and the Republic of Korea hold critical inventory close to the depots that consume it.",
+      desc: "Climate-controlled facilities in Poland and South Korea hold critical inventory close to the depots that consume it.",
     },
     {
       index: "03",

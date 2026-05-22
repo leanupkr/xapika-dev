@@ -26,7 +26,7 @@ const HISTORY_EVENTS: ReadonlyArray<HistoryEvent> = [
   { year: "2022", month: "05", country: "Poland", event: "Poland Warehouse Opened" },
   { year: "2023", month: "06", country: "USA", event: "Virginia Office Established" },
   { year: "2023", month: "10", country: "Egypt", event: "Cairo Office Established" },
-  { year: "2026", month: "03", country: "Republic of Korea", event: "Seoul Office Established" },
+  { year: "2026", month: "03", country: "South Korea", event: "Seoul Office Established" },
   { year: "2026", month: "04", country: "Uzbekistan", event: "Tashkent Office Established" },
   { year: "2026", month: "05", country: "Uzbekistan", event: "Uzbekistan HSR O&M Begin" },
 ];

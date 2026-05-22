@@ -14,7 +14,7 @@ const OFFICES = [
   { nameKey: "warsawHq",     name: "Warsaw HQ",  country: "Poland",     detail: "Headquarters" },
   { nameKey: "warsawOffice", name: "Warsaw",      country: "Poland",     detail: "Tram & Metro Office" },
   { nameKey: "kyiv",         name: "Kyiv",        country: "Ukraine",    detail: "EMU Crew" },
-  { nameKey: "seoul",        name: "Seoul",       country: "Republic of Korea", detail: "Asia Pacific" },
+  { nameKey: "seoul",        name: "Seoul",       country: "South Korea", detail: "Asia Pacific" },
   { nameKey: "tashkent",     name: "Tashkent",    country: "Uzbekistan", detail: "Central Asia" },
   { nameKey: "cairo",        name: "Cairo",       country: "Egypt",      detail: "MENA" },
   { nameKey: "virginia",     name: "Virginia",    country: "USA",        detail: "North America" },

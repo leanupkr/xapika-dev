@@ -15,13 +15,13 @@ const CLIENTS: ReadonlyArray<Client> = [
   {
     name: "Hyundai Rotem",
     fullName: "Hyundai Rotem Company",
-    country: "Republic of Korea",
+    country: "South Korea",
     logo: { src: "/partners/hyundai-rotem.svg", aspect: "wide" },
   },
   {
     name: "Rotem SRS",
     fullName: "Rotem SRS",
-    country: "Republic of Korea",
+    country: "South Korea",
     logo: { src: "/partners/rotem-srs.png", aspect: "wide" },
   },
   {

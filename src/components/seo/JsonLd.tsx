@@ -25,7 +25,7 @@ export function organizationLd() {
     url: siteUrl(),
     logo: `${BASE_URL}/logo.png`,
     description:
-      "Precision rail maintenance with uncompromised safety — operations across Poland, Ukraine, Türkiye, Brazil, USA, Egypt, Republic of Korea, and Uzbekistan.",
+      "Precision rail maintenance with uncompromised safety — operations across Poland, Ukraine, Türkiye, Brazil, USA, Egypt, South Korea, and Uzbekistan.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Warsaw",
@@ -73,7 +73,7 @@ export function serviceLd(input: {
     url: siteUrl(`solutions/${slug}`),
     provider: { "@id": `${BASE_URL}/#organization` },
     serviceType: "Rail maintenance",
-    areaServed: ["Poland", "Ukraine", "Türkiye", "Brazil", "USA", "Egypt", "Republic of Korea", "Uzbekistan"],
+    areaServed: ["Poland", "Ukraine", "Türkiye", "Brazil", "USA", "Egypt", "South Korea", "Uzbekistan"],
   };
 }
 
