@@ -73,7 +73,7 @@ export function serviceLd(input: {
     url: siteUrl(`solutions/${slug}`),
     provider: { "@id": `${BASE_URL}/#organization` },
     serviceType: "Rail maintenance",
-    areaServed: ["Poland", "Ukraine", "Turkey", "Brazil", "USA", "Egypt", "Korea", "Uzbekistan"],
+    areaServed: ["Poland", "Ukraine", "Türkiye", "Brazil", "USA", "Egypt", "Korea", "Uzbekistan"],
   };
 }
 
