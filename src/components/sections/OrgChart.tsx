@@ -51,7 +51,6 @@ const SURFACE = "rgb(var(--color-surface))";
 
 const CARD_GAP = 6;
 const BAR_OFFSET = 18; // px above topmost child top — where the horizontal bar sits
-const CORNER_R = 10;
 
 /* ───────────────────────── Main component ───────────────────────── */
 
@@ -177,8 +176,6 @@ export default function OrgChart({
     return { slots, deptColRange, totalLeafCols: cursor - 2 };
   }, [restDepts, sharedLeaves]);
 
-  const totalGridCols = 1 + totalLeafCols;
-
   /* For mobile, mark which shared leaves should render inline within each dept.
      Show shared leaf only under its FIRST parent's subtree (avoid DOM duplication). */
   const mobileSharedByDept = useMemo(() => {
@@ -197,38 +194,35 @@ export default function OrgChart({
     type PathItem = { key: string; d: string };
     const out: PathItem[] = [];
 
-    const elbow = (sx: number, sy: number, tx: number, ty: number) => {
-      if (Math.abs(sx - tx) < 0.5) return `M${sx},${sy} L${tx},${ty}`;
-      const midY = sy + (ty - sy) / 2;
-      const dx = tx > sx ? 1 : -1;
-      const r = Math.max(
-        0,
-        Math.min(CORNER_R, Math.abs(ty - sy) / 2 - 1, Math.abs(tx - sx) / 2 - 1)
-      );
-      return [
-        `M${sx},${sy}`,
-        `L${sx},${midY - r}`,
-        `Q${sx},${midY} ${sx + dx * r},${midY}`,
-        `L${tx - dx * r},${midY}`,
-        `Q${tx},${midY} ${tx},${midY + r}`,
-        `L${tx},${ty}`,
-      ].join(" ");
-    };
-
     const ceo = rects["ceo"];
     if (!ceo) return out;
 
     const ceoBx = ceo.x + ceo.w / 2;
     const ceoBy = ceo.y + ceo.h + CARD_GAP;
 
-    /* CEO → 3 depts (solid elbow) */
-    departments.forEach((d) => {
-      const dr = rects[`dept-${d.key}`];
-      if (!dr) return;
-      const tx = dr.x + dr.w / 2;
-      const ty = dr.y - CARD_GAP;
-      out.push({ key: `ceo-${d.key}`, d: elbow(ceoBx, ceoBy, tx, ty) });
-    });
+    /* ───── Upper tree: CEO → all 3 depts (unified single path) ───── */
+    const deptRects = departments
+      .map((d) => ({ d, r: rects[`dept-${d.key}`] }))
+      .filter((x): x is { d: Department; r: Rect } => !!x.r);
+
+    if (deptRects.length > 0) {
+      const upperBarY =
+        Math.min(...deptRects.map(({ r }) => r.y)) - CARD_GAP - BAR_OFFSET;
+      const deptCenters = deptRects.map(({ r }) => r.x + r.w / 2);
+      const leftMostDept = Math.min(...deptCenters, ceoBx);
+      const rightMostDept = Math.max(...deptCenters, ceoBx);
+      const parts: string[] = [];
+      // CEO vertical stem down to the bar
+      parts.push(`M${ceoBx},${ceoBy} L${ceoBx},${upperBarY}`);
+      // Single continuous horizontal bar across all depts (incl. CEO column)
+      parts.push(`M${leftMostDept},${upperBarY} L${rightMostDept},${upperBarY}`);
+      // Per-dept vertical stub down to dept top
+      deptRects.forEach(({ r }) => {
+        const cx = r.x + r.w / 2;
+        parts.push(`M${cx},${upperBarY} L${cx},${r.y - CARD_GAP}`);
+      });
+      out.push({ key: "upper-tree", d: parts.join(" ") });
+    }
 
     /* First dept (Int'l Ops) → vertical office tree on the left */
     if (firstDept) {
@@ -262,15 +256,15 @@ export default function OrgChart({
       }
     }
 
-    /* Rest depts → horizontal bar + child stems + dept stem.
-       Effective children include own children + shared leaves where this dept
-       is in the parents list. Two depts can share the same leaf — both bars
-       end at that leaf's top.cx, and the bars share the same y-level so they
-       appear as one continuous line broken visually only by the two dept
-       stems descending from above. */
-    const allBarY: number[] = [];
-    const effRectsByDept: Record<string, Rect[]> = {};
+    /* ───── Lower tree: rest depts → leaves (unified single path) ─────
+       Single horizontal bar spans every leaf under every rest dept.
+       Each rest dept has a vertical stem down to the bar; each leaf has
+       a vertical stub down from the bar. Shared leaves are deduped. */
+    type RestInfo = { dept: Department; dr: Rect; eff: Rect[] };
+    const restInfo: RestInfo[] = [];
     restDepts.forEach((dept) => {
+      const dr = rects[`dept-${dept.key}`];
+      if (!dr) return;
       const ids = [
         ...dept.children.map((c) => `leaf-${dept.key}-${c}`),
         ...(sharedLeaves
@@ -278,35 +272,38 @@ export default function OrgChart({
           .map((sl) => `shared-${sl.key}`) ?? []),
       ];
       const eff = ids.map((id) => rects[id]).filter(Boolean) as Rect[];
-      effRectsByDept[dept.key] = eff;
-      if (eff.length) allBarY.push(Math.min(...eff.map((r) => r.y)));
+      if (eff.length > 0) restInfo.push({ dept, dr, eff });
     });
-    // Shared y-level across all rest depts so bars meet cleanly at shared leaves
-    const sharedBarY =
-      allBarY.length > 0 ? Math.min(...allBarY) - CARD_GAP - BAR_OFFSET : 0;
 
-    restDepts.forEach((dept) => {
-      const dr = rects[`dept-${dept.key}`];
-      if (!dr) return;
-      const eff = effRectsByDept[dept.key];
-      if (!eff || eff.length === 0) return;
-      const deptCx = dr.x + dr.w / 2;
-      const deptBy = dr.y + dr.h + CARD_GAP;
-      const centers = eff.map((r) => r.x + r.w / 2);
-      const leftMost = Math.min(...centers);
-      const rightMost = Math.max(...centers);
+    if (restInfo.length > 0) {
+      // Dedupe leaf rects (shared leaves appear in multiple depts)
+      const leafMap = new Map<string, Rect>();
+      restInfo.forEach(({ eff }) =>
+        eff.forEach((r) => leafMap.set(`${r.x.toFixed(2)},${r.y.toFixed(2)}`, r))
+      );
+      const allLeaves = Array.from(leafMap.values());
+      const lowerBarY =
+        Math.min(...allLeaves.map((r) => r.y)) - CARD_GAP - BAR_OFFSET;
+      const leafCenters = allLeaves.map((r) => r.x + r.w / 2);
+      const leftMost = Math.min(...leafCenters);
+      const rightMost = Math.max(...leafCenters);
+
       const parts: string[] = [];
-      // Dept vertical stem
-      parts.push(`M${deptCx},${deptBy} L${deptCx},${sharedBarY}`);
-      // Horizontal bar
-      parts.push(`M${leftMost},${sharedBarY} L${rightMost},${sharedBarY}`);
-      // Per-child vertical stub
-      eff.forEach((r) => {
-        const cx = r.x + r.w / 2;
-        parts.push(`M${cx},${sharedBarY} L${cx},${r.y - CARD_GAP}`);
+      // Single continuous horizontal bar
+      parts.push(`M${leftMost},${lowerBarY} L${rightMost},${lowerBarY}`);
+      // Each rest dept's vertical stem down to the bar
+      restInfo.forEach(({ dr }) => {
+        const cx = dr.x + dr.w / 2;
+        const by = dr.y + dr.h + CARD_GAP;
+        parts.push(`M${cx},${by} L${cx},${lowerBarY}`);
       });
-      out.push({ key: `bar-${dept.key}`, d: parts.join(" ") });
-    });
+      // Per-leaf vertical stub down from bar
+      allLeaves.forEach((r) => {
+        const cx = r.x + r.w / 2;
+        parts.push(`M${cx},${lowerBarY} L${cx},${r.y - CARD_GAP}`);
+      });
+      out.push({ key: "lower-tree", d: parts.join(" ") });
+    }
 
     return out;
   }, [rects, departments, sharedLeaves, firstDept, restDepts]);
@@ -371,21 +368,27 @@ export default function OrgChart({
             ))}
           </svg>
 
-          {/* Explicit grid: col 1 = first dept + subtree; cols 2~ = horizontal leaves */}
+          {/* Explicit grid: col 1 = first dept + subtree; middle cols = 1fr each;
+              last col mirrors col 1 width so the central column (containing CEO
+              + Maintenance) sits exactly at the container's geometric center. */}
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: `1.5fr repeat(${totalLeafCols}, 1fr)`,
+              gridTemplateColumns: `1.5fr repeat(${Math.max(
+                totalLeafCols - 1,
+                0
+              )}, 1fr) 1.5fr`,
               columnGap: "24px",
               rowGap: "5rem",
               alignItems: "start",
             }}
           >
-            {/* Row 1: CEO (full-width centered) */}
+            {/* Row 1: CEO — align center to col 3 (Maintenance center) by
+                spanning the same range as Maintenance dept. */}
             <div
               style={{
                 gridRow: 1,
-                gridColumn: `1 / ${totalGridCols + 1}`,
+                gridColumn: "2 / 5",
                 justifySelf: "center",
               }}
             >
@@ -675,12 +678,8 @@ function LeafCard({
           : undefined
       }
       style={{
-        backgroundColor: shared
-          ? "rgb(var(--color-primary) / 0.04)"
-          : SURFACE,
-        border: shared
-          ? `1.25px dashed rgb(var(--color-primary) / 0.55)`
-          : `1px solid ${LINE_SOFT}`,
+        backgroundColor: SURFACE,
+        border: `1px solid ${LINE_SOFT}`,
         borderRadius: "10px",
         padding: "9px 14px",
         display: "flex",
@@ -887,12 +886,8 @@ function MTree({
                   : undefined
               }
               style={{
-                backgroundColor: item.shared
-                  ? "rgb(var(--color-primary) / 0.04)"
-                  : SURFACE,
-                border: item.shared
-                  ? "1.25px dashed rgb(var(--color-primary) / 0.55)"
-                  : `1px solid ${LINE_SOFT}`,
+                backgroundColor: SURFACE,
+                border: `1px solid ${LINE_SOFT}`,
                 borderRadius: "10px",
                 padding: "9px 14px",
                 display: "inline-flex",
