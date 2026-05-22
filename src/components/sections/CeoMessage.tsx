@@ -228,7 +228,7 @@ export default function CeoMessage({
             {/* Name + Signature — same baseline row. w-fit + ml-auto forces the row to hug its content and stick to the right edge. */}
             <div
               data-paragraph
-              className="opacity-0 flex items-center gap-4 sm:gap-5 mb-3 w-fit ml-auto"
+              className="opacity-0 flex items-center gap-2 sm:gap-3 mb-3 w-fit ml-auto"
             >
               <span
                 className="font-heading font-semibold text-[rgb(var(--color-ink))]"
@@ -243,14 +243,13 @@ export default function CeoMessage({
               <Image
                 src="/about/ceo-signature.png"
                 alt={signatureAlt}
-                width={240}
-                height={88}
+                width={142}
+                height={50}
                 draggable={false}
                 onContextMenu={(e) => e.preventDefault()}
                 className="select-none"
                 style={{
-                  height: "auto",
-                  maxHeight: "clamp(56px, 7vw, 84px)",
+                  height: "clamp(30px, 3.2vw, 42px)",
                   width: "auto",
                   objectFit: "contain",
                   WebkitUserSelect: "none",

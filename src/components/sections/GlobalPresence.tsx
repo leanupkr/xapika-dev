@@ -362,7 +362,7 @@ export default function GlobalPresence({
                 aria-hidden
                 style={{
                   width: "100%",
-                  aspectRatio: `${isMobile ? 500 : 800} / ${isMobile ? 420 : 600}`,
+                  aspectRatio: `${isMobile ? 500 : 800} / ${isMobile ? 420 : 760}`,
                 }}
               />
             )}
@@ -377,7 +377,7 @@ export default function GlobalPresence({
                 scale: isMobile ? 110 : 145,
               }}
               width={isMobile ? 500 : 800}
-              height={isMobile ? 420 : 600}
+              height={isMobile ? 420 : 760}
               style={{ width: "100%", height: "auto" }}
             >
               <Geographies geography={GEO_URL}>

@@ -6,24 +6,13 @@ export const BASE_URL =
 
 export const SITE_NAME = "Xapika Engineering";
 
-export const LOCALES = ["en"] as const;
-export type Locale = (typeof LOCALES)[number];
-
-export const DEFAULT_LOCALE: Locale = "en";
-
-/**
- * 절대 URL을 생성한다.
- * `localePrefix: 'never'` 정책에 따라 모든 locale이 동일 URL을 공유.
- * locale 인자는 시그니처 호환성을 위해 받지만 URL에는 반영하지 않는다.
- */
-export function localeUrl(_locale: string, path: string = ""): string {
+export function siteUrl(path: string = ""): string {
   const cleanPath = path.replace(/^\/+/, "");
   return cleanPath ? `${BASE_URL}/${cleanPath}` : BASE_URL;
 }
 
-export function buildAlternates(_locale: string, path: string) {
-  const url = localeUrl(_locale, path);
-  // 모든 locale이 같은 URL이므로 alternates는 동일. hreflang은 cookie 기반 분기 안내용.
+export function buildAlternates(path: string) {
+  const url = siteUrl(path);
   return {
     canonical: url,
     languages: {
@@ -34,7 +23,6 @@ export function buildAlternates(_locale: string, path: string) {
 }
 
 type OgInput = {
-  locale: string;
   path: string;
   title: string;
   description: string;
@@ -42,13 +30,12 @@ type OgInput = {
 };
 
 export function buildOpenGraph({
-  locale,
   path,
   title,
   description,
   ogPath,
 }: OgInput): NonNullable<Metadata["openGraph"]> {
-  const url = localeUrl(locale, path);
+  const url = siteUrl(path);
 
   const og: NonNullable<Metadata["openGraph"]> = {
     type: "website",
@@ -59,10 +46,6 @@ export function buildOpenGraph({
     locale: "en_US",
   };
 
-  // When ogPath is given, point at a static asset. Otherwise let Next.js
-  // auto-merge the segment's `opengraph-image.tsx` route into the metadata —
-  // that guarantees the URL matches what is actually served (important under
-  // the `[locale]` dynamic segment that catches `/opengraph-image`).
   if (ogPath) {
     og.images = [
       {
@@ -91,25 +74,22 @@ export function buildTwitter({
   if (ogPath) {
     twitter.images = [`${BASE_URL}${ogPath}`];
   }
-  // No explicit image → consumers fall back to the og:image tag, which is
-  // populated automatically from the segment's `opengraph-image.tsx`.
 
   return twitter;
 }
 
 export function buildPageMetadata(input: {
-  locale: string;
   path: string;
   title: string;
   description: string;
   ogPath?: string;
 }): Metadata {
-  const { locale, path, title, description, ogPath } = input;
+  const { path, title, description, ogPath } = input;
   return {
     title,
     description,
-    alternates: buildAlternates(locale, path),
-    openGraph: buildOpenGraph({ locale, path, title, description, ogPath }),
+    alternates: buildAlternates(path),
+    openGraph: buildOpenGraph({ path, title, description, ogPath }),
     twitter: buildTwitter({ title, description, ogPath }),
   };
 }

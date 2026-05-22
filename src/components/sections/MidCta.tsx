@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export type MidCtaProps = {

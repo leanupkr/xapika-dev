@@ -1,11 +1,10 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
-import { type LucideIcon, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 type Props = {
   href: string;
-  icon: LucideIcon;
   label: string;
   description?: string;
   onClick?: () => void;
@@ -14,7 +13,6 @@ type Props = {
 
 export default function MegaDropdownItem({
   href,
-  icon: Icon,
   label,
   description,
   onClick,
@@ -35,18 +33,6 @@ export default function MegaDropdownItem({
       ].join(" ")}
       style={{ fontSize: "13px" }}
     >
-      {/* Icon container */}
-      <span
-        className={[
-          "flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-md transition-colors duration-150",
-          "bg-ink/5 text-ink/50",
-          "group-hover:bg-primary/10 group-hover:text-primary",
-          "group-focus-visible:bg-primary/10 group-focus-visible:text-primary",
-        ].join(" ")}
-      >
-        <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
-      </span>
-
       {/* Text */}
       <span className="flex-1 min-w-0">
         <span

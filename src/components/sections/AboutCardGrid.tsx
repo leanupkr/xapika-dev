@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, MessageSquare, Clock, Compass, Network, Handshake } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 
 type CardData = {
   title: string;

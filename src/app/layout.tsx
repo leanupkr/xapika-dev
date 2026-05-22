@@ -2,6 +2,13 @@ import type { Metadata, Viewport } from "next";
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
 import { BASE_URL, SITE_NAME } from "@/lib/seo";
+import { inter, spaceGrotesk } from "@/app/fonts";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import PageTransition from "@/components/motion/PageTransition";
+import JsonLd, { organizationLd, websiteLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -32,14 +39,35 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-// Minimal root layout — html/body are rendered by the locale layout
-// so that <html lang={locale}> can be set from the [locale] segment.
-// This follows the Next.js 16 nested-layout i18n pattern:
-// https://nextjs.org/docs/app/guides/internationalization
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <html
+      lang="en"
+      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="overflow-x-hidden">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-[9999] focus:left-4 focus:top-4 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:font-medium focus:rounded focus:shadow-lg"
+        >
+          Skip to content
+        </a>
+
+        <JsonLd id="ld-organization" data={organizationLd()} />
+        <JsonLd id="ld-website" data={websiteLd()} />
+        <PageTransition />
+        <Header />
+        <main id="main-content">{children}</main>
+        <Footer />
+
+        <SpeedInsights />
+        <Analytics />
+      </body>
+    </html>
+  );
 }

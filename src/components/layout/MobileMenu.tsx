@@ -3,13 +3,35 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronDown } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // Sub-items share the same href/key shape — reuse a minimal type
 type SubItem = {
   key: string;
   href: string;
+};
+
+const NAV_LABELS: Record<string, string> = {
+  about:                        "About Us",
+  solutions:                    "Solutions",
+  portfolios:                   "Portfolios",
+  locations:                    "Locations",
+  contact:                      "Contact Us",
+  about_ceo:                    "CEO Message",
+  about_history:                "Our History",
+  about_vision:                 "Vision & Principles",
+  about_organization:           "Organization",
+  about_clients:                "Our Clients",
+  solutions_light_maintenance:  "Light Maintenance",
+  solutions_heavy_maintenance:  "Heavy Maintenance",
+  solutions_supply_chain:       "Supply Chain",
+  solutions_digital_asset:      "Digital Asset Management",
+  solutions_commercial:         "Commercial Services",
+  portfolios_ukraine:           "Ukraine HRCS2 EMU",
+  portfolios_warsaw:            "Tramwaje Warszawskie",
+  portfolios_uzbekistan:        "Uzbekistan HSR",
+  portfolios_all:               "View All Portfolios",
 };
 
 const ABOUT_SUB: SubItem[] = [
@@ -49,7 +71,6 @@ type Props = {
 };
 
 export default function MobileMenu({ isOpen, onClose }: Props) {
-  const t = useTranslations("nav");
   const pathname = usePathname();
 
   const labelId = useId();
@@ -191,7 +212,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
                           ].join(" ")}
                           style={{ fontSize: "1.125rem" }}
                         >
-                          {t(key as Parameters<typeof t>[0])}
+                          {NAV_LABELS[key]}
                           <ChevronDown
                             size={16}
                             strokeWidth={2}
@@ -230,7 +251,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
                                           : "text-white/55 hover:text-white",
                                       ].join(" ")}
                                     >
-                                      {t(item.key as Parameters<typeof t>[0])}
+                                      {NAV_LABELS[item.key]}
                                     </Link>
                                   </li>
                                 );
@@ -261,7 +282,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
                         className="block py-4 text-white/80 hover:text-white font-heading font-medium tracking-widest uppercase transition-colors duration-200 aria-[current=page]:text-primary"
                         style={{ fontSize: "1.125rem" }}
                       >
-                        {t(key as Parameters<typeof t>[0])}
+                        {NAV_LABELS[key]}
                       </Link>
                     </motion.li>
                   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
 
 type TimeState = {
   warsawTime: string;
@@ -53,7 +52,6 @@ function computeTimeState(): TimeState {
 }
 
 export default function LiveBusinessHours() {
-  const t = useTranslations("contactPage.liveHours");
   const [timeState, setTimeState] = useState<TimeState>(null);
 
   useEffect(() => {
@@ -96,10 +94,10 @@ export default function LiveBusinessHours() {
             letterSpacing: "-0.005em",
           }}
         >
-          {t("warsawLabel")} {warsawTime}
+          Warsaw (CET) {warsawTime}
         </span>
         <span
-          aria-label={isOpen ? t("openNow") : t("closedNow")}
+          aria-label={isOpen ? "Open now" : "Closed"}
           className="font-heading font-medium"
           style={{
             fontSize: "12px",
@@ -108,7 +106,7 @@ export default function LiveBusinessHours() {
             paddingLeft: "4px",
           }}
         >
-          {isOpen ? t("openNow") : t("closedNow")}
+          {isOpen ? "Open now" : "Closed"}
         </span>
       </div>
       <span
@@ -119,7 +117,7 @@ export default function LiveBusinessHours() {
           lineHeight: 1.4,
         }}
       >
-        {t("seoulLabel")} {seoulTime}
+        Seoul (KST) {seoulTime}
       </span>
       <span
         className="font-heading uppercase"
@@ -130,7 +128,7 @@ export default function LiveBusinessHours() {
           marginTop: "2px",
         }}
       >
-        {t("weeklyNote")}
+        Mon–Fri 09:00–18:00 CET
       </span>
     </div>
   );

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 export type RelatedProjectItem = {

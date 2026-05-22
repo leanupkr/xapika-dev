@@ -2,29 +2,20 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import {
-  Menu,
-  ChevronDown,
-  UserSquare2,
-  Clock,
-  Compass,
-  Network,
-  Handshake,
-  Lightbulb,
-  Wrench,
-  Truck,
-  Database,
-  Store,
-  Train,
-  TramFront,
-  Sparkles,
-  ArrowUpRight,
-} from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Menu, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import MobileMenu from "./MobileMenu";
 import MegaDropdown, { type MegaDropdownItem } from "./MegaDropdown";
+
+const NAV_LABELS: Record<string, string> = {
+  about:      "About Us",
+  solutions:  "Solutions",
+  portfolios: "Portfolios",
+  locations:  "Locations",
+  contact:    "Contact Us",
+};
 
 const NAV_LINKS = [
   { key: "about",      href: "/about" },
@@ -34,8 +25,38 @@ const NAV_LINKS = [
   { key: "contact",    href: "/contact" },
 ] as const;
 
+const aboutItems: MegaDropdownItem[] = [
+  { key: "ceo",          label: "CEO Message",         description: "A note from the founder.",         href: "/about/ceo" },
+  { key: "history",      label: "Our History",         description: "Ten years across five countries.", href: "/about/history" },
+  { key: "vision",       label: "Vision & Principles", description: "Perfect work, safe operations.",   href: "/about/vision" },
+  { key: "organization", label: "Organization",        description: "Cross-functional teams.",          href: "/about/organization" },
+  { key: "clients",      label: "Our Clients",         description: "National rail operators.",         href: "/about/clients" },
+];
+
+const solutionsItems: MegaDropdownItem[] = [
+  { key: "light_maintenance", label: "Light Maintenance",        description: "Daily inspections & functional checks.", href: "/solutions/light-maintenance" },
+  { key: "heavy_maintenance", label: "Heavy Maintenance",        description: "Full overhauls under warranty.",         href: "/solutions/heavy-maintenance" },
+  { key: "supply_chain",      label: "Supply Chain",             description: "Parts sourcing across 50+ partners.",    href: "/solutions/supply-chain" },
+  { key: "digital_asset",     label: "Digital Asset Management", description: "MMIS platform via VISION IT.",           href: "/solutions/digital-asset-management" },
+  { key: "commercial",        label: "Commercial Services",      description: "Station retail & concessions.",          href: "/solutions/commercial-services" },
+];
+
+const portfoliosItems: MegaDropdownItem[] = [
+  { key: "ukraine",    label: "Ukraine HRCS2 EMU",    description: "100 high-speed units · since 2017.", href: "/portfolios/ukraine-emu" },
+  { key: "warsaw",     label: "Tramwaje Warszawskie", description: "123 trams · 140-year network.",       href: "/portfolios/warsaw-tram" },
+  { key: "uzbekistan", label: "Uzbekistan HSR",       description: "Launching May 2026.",                 href: "/portfolios/uzbekistan-rail" },
+  { key: "all",        label: "View All Portfolios",  description: "Complete portfolio overview.",        href: "/portfolios" },
+];
+
+const dropdownByKey: Record<string, MegaDropdownItem[] | null> = {
+  about:      aboutItems,
+  solutions:  solutionsItems,
+  portfolios: portfoliosItems,
+  locations:  null,
+  contact:    null,
+};
+
 export default function Header() {
-  const t = useTranslations("nav");
   const pathname = usePathname();
 
   const [scrolled, setScrolled] = useState(false);
@@ -45,38 +66,6 @@ export default function Header() {
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // --- i18n-aware dropdown items (built inside component for t() access) ---
-  const aboutItems: MegaDropdownItem[] = [
-    { key: "ceo",          label: t("about_ceo"),          description: t("about_ceo_desc"),          href: "/about/ceo",          icon: UserSquare2 },
-    { key: "history",      label: t("about_history"),      description: t("about_history_desc"),      href: "/about/history",      icon: Clock },
-    { key: "vision",       label: t("about_vision"),       description: t("about_vision_desc"),       href: "/about/vision",       icon: Compass },
-    { key: "organization", label: t("about_organization"), description: t("about_organization_desc"), href: "/about/organization", icon: Network },
-    { key: "clients",      label: t("about_clients"),      description: t("about_clients_desc"),      href: "/about/clients",      icon: Handshake },
-  ];
-
-  const solutionsItems: MegaDropdownItem[] = [
-    { key: "light_maintenance", label: t("solutions_light_maintenance"), description: t("solutions_light_maintenance_desc"), href: "/solutions/light-maintenance",       icon: Lightbulb },
-    { key: "heavy_maintenance", label: t("solutions_heavy_maintenance"), description: t("solutions_heavy_maintenance_desc"), href: "/solutions/heavy-maintenance",       icon: Wrench },
-    { key: "supply_chain",      label: t("solutions_supply_chain"),      description: t("solutions_supply_chain_desc"),      href: "/solutions/supply-chain",            icon: Truck },
-    { key: "digital_asset",     label: t("solutions_digital_asset"),     description: t("solutions_digital_asset_desc"),     href: "/solutions/digital-asset-management",icon: Database },
-    { key: "commercial",        label: t("solutions_commercial"),        description: t("solutions_commercial_desc"),        href: "/solutions/commercial-services",     icon: Store },
-  ];
-
-  const portfoliosItems: MegaDropdownItem[] = [
-    { key: "ukraine",    label: t("portfolios_ukraine"),    description: t("portfolios_ukraine_desc"),    href: "/portfolios/ukraine-emu",     icon: Train },
-    { key: "warsaw",     label: t("portfolios_warsaw"),     description: t("portfolios_warsaw_desc"),     href: "/portfolios/warsaw-tram",     icon: TramFront },
-    { key: "uzbekistan", label: t("portfolios_uzbekistan"), description: t("portfolios_uzbekistan_desc"), href: "/portfolios/uzbekistan-rail", icon: Sparkles },
-    { key: "all",        label: t("portfolios_all"),        description: t("portfolios_all_desc"),        href: "/portfolios",                 icon: ArrowUpRight },
-  ];
-
-  const dropdownByKey: Record<string, MegaDropdownItem[] | null> = {
-    about:      aboutItems,
-    solutions:  solutionsItems,
-    portfolios: portfoliosItems,
-    locations:  null,
-    contact:    null,
-  };
 
   // --- Scroll listener ---
   useEffect(() => {
@@ -227,7 +216,7 @@ export default function Header() {
                         }
                         onKeyDown={(e) => handleTriggerKeyDown(e, key)}
                       >
-                        {t(key as Parameters<typeof t>[0])}
+                        {NAV_LABELS[key]}
                         <ChevronDown
                           size={14}
                           strokeWidth={2}
@@ -266,7 +255,7 @@ export default function Header() {
                     ].join(" ")}
                     style={{ fontSize: "13px" }}
                   >
-                    {t(key as Parameters<typeof t>[0])}
+                    {NAV_LABELS[key]}
                   </Link>
                 );
               })}

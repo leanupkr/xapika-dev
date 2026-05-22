@@ -6,9 +6,8 @@ import { useMediaQuery } from "@/lib/useMediaQuery";
 
 const PARTNERS = [
   { name: "VISION IT", src: "/partners/vision-it.png" },
-  { name: "MSB Housing", src: null },
   { name: "Intel", src: "/partners/intel.png" },
-  { name: "Member of Cambridge University", src: null },
+  { name: "Member of Cambridge University", src: "/partners/cambridge.png" },
 ] as const;
 
 export default function TrustedBy({ overline }: { overline: string }) {
@@ -17,14 +16,17 @@ export default function TrustedBy({ overline }: { overline: string }) {
   const [paused, setPaused] = useState(false);
   const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
-  const loop = [...PARTNERS, ...PARTNERS];
+  // Marquee 끊김 방지 — translateX(-50%) 트릭이 매끄럽게 동작하려면
+  // 트랙 절반 폭이 viewport 폭보다 커야 한다. 파트너 3개로는 와이드 화면에서
+  // 갭이 생기므로 짝수 배수(여기선 6배)로 복제해 양쪽 절반이 항상 동일하게 유지되도록 함.
+  const loop = [...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS];
 
   return (
     <section
       ref={ref}
       data-bg="dark"
       aria-labelledby="partners-title"
-      className="relative py-14 md:py-16"
+      className="relative pt-10 md:pt-12 pb-14 md:pb-16"
       style={{ backgroundColor: "rgb(var(--color-ink))" }}
     >
       {/* 상단 hairline */}
@@ -38,7 +40,7 @@ export default function TrustedBy({ overline }: { overline: string }) {
         initial={{ opacity: 0, y: 12 }}
         animate={inView ? { opacity: 1, y: 0 } : undefined}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="flex items-center justify-center mb-10 md:mb-12 px-6"
+        className="flex items-center justify-center mb-6 md:mb-8 px-6"
       >
         <span
           id="partners-title"
@@ -141,34 +143,20 @@ export default function TrustedBy({ overline }: { overline: string }) {
                 }}
                 title={p.name}
               >
-                {p.src ? (
-                  <img
-                    src={p.src}
-                    alt={p.name}
-                    loading="lazy"
-                    decoding="async"
-                    className="partner-logo"
-                    style={{
-                      maxHeight: "44px",
-                      maxWidth: "160px",
-                      width: "auto",
-                      height: "auto",
-                      objectFit: "contain",
-                    }}
-                  />
-                ) : (
-                  <span
-                    className="font-heading font-semibold text-center leading-tight"
-                    style={{
-                      fontSize: "0.8125rem",
-                      letterSpacing: "0.03em",
-                      color: "rgb(var(--color-ink))",
-                      maxWidth: "140px",
-                    }}
-                  >
-                    {p.name}
-                  </span>
-                )}
+                <img
+                  src={p.src}
+                  alt={p.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="partner-logo"
+                  style={{
+                    maxHeight: "44px",
+                    maxWidth: "160px",
+                    width: "auto",
+                    height: "auto",
+                    objectFit: "contain",
+                  }}
+                />
               </div>
             </Fragment>
           ))}

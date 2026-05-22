@@ -1,4 +1,4 @@
-import { BASE_URL, SITE_NAME, localeUrl } from "@/lib/seo";
+import { BASE_URL, SITE_NAME, siteUrl } from "@/lib/seo";
 
 type JsonLdProps = {
   data: Record<string, unknown> | ReadonlyArray<Record<string, unknown>>;
@@ -16,13 +16,13 @@ export default function JsonLd({ data, id }: JsonLdProps) {
   );
 }
 
-export function organizationLd(locale: string) {
+export function organizationLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${BASE_URL}/#organization`,
     name: SITE_NAME,
-    url: localeUrl(locale),
+    url: siteUrl(),
     logo: `${BASE_URL}/logo.png`,
     description:
       "Precision rail maintenance with uncompromised safety — operations across Poland, Ukraine, Türkiye, Brazil, USA, Egypt, Korea, and Uzbekistan.",
@@ -35,23 +35,23 @@ export function organizationLd(locale: string) {
   };
 }
 
-export function websiteLd(locale: string) {
+export function websiteLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${BASE_URL}/#website`,
-    url: localeUrl(locale),
+    url: siteUrl(),
     name: SITE_NAME,
     inLanguage: "en-US",
     publisher: { "@id": `${BASE_URL}/#organization` },
   };
 }
 
-export function aboutPageLd(locale: string, description: string) {
+export function aboutPageLd(description: string) {
   return {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    url: localeUrl(locale, "about"),
+    url: siteUrl("about"),
     name: `About — ${SITE_NAME}`,
     description,
     inLanguage: "en-US",
@@ -60,18 +60,17 @@ export function aboutPageLd(locale: string, description: string) {
 }
 
 export function serviceLd(input: {
-  locale: string;
   slug: string;
   name: string;
   description: string;
 }) {
-  const { locale, slug, name, description } = input;
+  const { slug, name, description } = input;
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     name,
     description,
-    url: localeUrl(locale, `solutions/${slug}`),
+    url: siteUrl(`solutions/${slug}`),
     provider: { "@id": `${BASE_URL}/#organization` },
     serviceType: "Rail maintenance",
     areaServed: ["Poland", "Ukraine", "Turkey", "Brazil", "USA", "Egypt", "Korea", "Uzbekistan"],
@@ -79,14 +78,13 @@ export function serviceLd(input: {
 }
 
 export function caseStudyLd(input: {
-  locale: string;
   slug: string;
   name: string;
   description: string;
   country: string;
 }) {
-  const { locale, slug, name, description, country } = input;
-  const url = localeUrl(locale, `portfolios/${slug}`);
+  const { slug, name, description, country } = input;
+  const url = siteUrl(`portfolios/${slug}`);
   return {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -128,15 +126,13 @@ export function placesLd(offices: ReadonlyArray<OfficeInput>) {
 
 type BreadcrumbItem = {
   name: string;
-  /** Slug or path segment appended after the locale (e.g. "about" or "solutions/heavy-maintenance"). Omit on the final crumb if it should be the current page. */
   path: string;
 };
 
 export function breadcrumbLd(input: {
-  locale: string;
   trail: ReadonlyArray<BreadcrumbItem>;
 }) {
-  const { locale, trail } = input;
+  const { trail } = input;
   const home: BreadcrumbItem = {
     name: "Home",
     path: "",
@@ -145,7 +141,7 @@ export function breadcrumbLd(input: {
     "@type": "ListItem",
     position: i + 1,
     name: crumb.name,
-    item: localeUrl(locale, crumb.path),
+    item: siteUrl(crumb.path),
   }));
   return {
     "@context": "https://schema.org",

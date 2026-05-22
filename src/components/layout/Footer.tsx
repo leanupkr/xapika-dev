@@ -1,32 +1,28 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { MapPin } from "lucide-react";
 import FooterCtaGate from "./FooterCtaGate";
 
 const FOOTER_LINKS = [
-  { key: "about", href: "/about" },
-  { key: "solutions", href: "/solutions" },
-  { key: "portfolios", href: "/portfolios" },
-  { key: "locations", href: "/locations" },
+  { key: "about",      href: "/about",      label: "About Us" },
+  { key: "solutions",  href: "/solutions",  label: "Solutions" },
+  { key: "portfolios", href: "/portfolios", label: "Portfolios" },
+  { key: "locations",  href: "/locations",  label: "Locations" },
 ] as const;
 
 const OFFICES = [
-  { nameKey: "warsawHq",     country: "Poland",     detailKey: "warsawHqDetail" },
-  { nameKey: "warsawOffice", country: "Poland",     detailKey: "warsawOfficeDetail" },
-  { nameKey: "kyiv",         country: "Ukraine",    detailKey: "kyivDetail" },
-  { nameKey: "seoul",        country: "Korea",      detailKey: "seoulDetail" },
-  { nameKey: "tashkent",     country: "Uzbekistan", detailKey: "tashkentDetail" },
-  { nameKey: "cairo",        country: "Egypt",      detailKey: "cairoDetail" },
-  { nameKey: "virginia",     country: "USA",        detailKey: "virginiaDetail" },
-  { nameKey: "saoPaulo",     country: "Brazil",     detailKey: "saoPauloDetail" },
-  { nameKey: "istanbul",     country: "Türkiye",    detailKey: "istanbulDetail" },
+  { nameKey: "warsawHq",     name: "Warsaw HQ",  country: "Poland",     detail: "Headquarters" },
+  { nameKey: "warsawOffice", name: "Warsaw",      country: "Poland",     detail: "Tram & Metro Office" },
+  { nameKey: "kyiv",         name: "Kyiv",        country: "Ukraine",    detail: "EMU Crew" },
+  { nameKey: "seoul",        name: "Seoul",       country: "Korea",      detail: "Asia Pacific" },
+  { nameKey: "tashkent",     name: "Tashkent",    country: "Uzbekistan", detail: "Central Asia" },
+  { nameKey: "cairo",        name: "Cairo",       country: "Egypt",      detail: "MENA" },
+  { nameKey: "virginia",     name: "Virginia",    country: "USA",        detail: "North America" },
+  { nameKey: "saoPaulo",     name: "São Paulo",   country: "Brazil",     detail: "Latin America" },
+  { nameKey: "istanbul",     name: "Istanbul",    country: "Türkiye",    detail: "Founding Office" },
 ] as const;
 
-export default async function Footer() {
-  const tFooter = await getTranslations("footer");
-  const tNav = await getTranslations("nav");
-
+export default function Footer() {
   return (
     <footer
       className="bg-ink text-white"
@@ -37,7 +33,10 @@ export default async function Footer() {
         style={{ maxWidth: "var(--max-width)" }}
       >
         {/* CTA strip */}
-        <FooterCtaGate tagline={tFooter("tagline")} cta={tFooter("cta")} />
+        <FooterCtaGate
+          tagline="Ready to build the future of rail with us?"
+          cta="Contact Us"
+        />
 
         {/* Main grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
@@ -57,13 +56,13 @@ export default async function Footer() {
               className="font-heading font-semibold text-[rgb(var(--color-primary))] mb-3"
               style={{ fontSize: "0.875rem", letterSpacing: "0.02em" }}
             >
-              {tFooter("slogan")}
+              Engineered for Perfection. Committed to Safety.
             </p>
             <p
               className="text-white/50 leading-relaxed"
               style={{ fontSize: "0.875rem" }}
             >
-              {tFooter("brandTagline")}
+              Precision rail maintenance with uncompromising safety.
             </p>
           </div>
 
@@ -73,17 +72,17 @@ export default async function Footer() {
               className="font-heading font-semibold tracking-widest uppercase text-white/40 mb-5"
               style={{ fontSize: "0.6875rem" }}
             >
-              {tFooter("navHeading")}
+              Navigation
             </h3>
             <ul className="space-y-3">
-              {FOOTER_LINKS.map(({ key, href }) => (
+              {FOOTER_LINKS.map(({ key, href, label }) => (
                 <li key={key}>
                   <Link
                     href={href}
                     className="text-white/60 hover:text-white transition-colors duration-200 font-heading font-medium"
                     style={{ fontSize: "0.875rem" }}
                   >
-                    {tNav(key)}
+                    {label}
                   </Link>
                 </li>
               ))}
@@ -96,12 +95,12 @@ export default async function Footer() {
               className="font-heading font-semibold tracking-widest uppercase text-white/40 mb-5"
               style={{ fontSize: "0.6875rem" }}
             >
-              {tFooter("officesHeading")}
+              Global Offices
             </h3>
             {/* grid-cols-1 on mobile (<640px) prevents city names from
                 wrapping in narrow 2-col layout; sm: restores 2 cols */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
-              {OFFICES.map(({ nameKey, country, detailKey }) => (
+              {OFFICES.map(({ nameKey, name, country, detail }) => (
                 <div key={nameKey} className="flex gap-2">
                   <MapPin
                     size={14}
@@ -113,7 +112,7 @@ export default async function Footer() {
                       className="text-white/80 font-medium"
                       style={{ fontSize: "0.8125rem" }}
                     >
-                      {tFooter(nameKey)}
+                      {name}
                     </p>
                     <p
                       className="text-white/40"
@@ -125,7 +124,7 @@ export default async function Footer() {
                       className="text-white/30 hidden sm:block"
                       style={{ fontSize: "0.75rem" }}
                     >
-                      {tFooter(detailKey)}
+                      {detail}
                     </p>
                   </div>
                 </div>
@@ -138,7 +137,7 @@ export default async function Footer() {
         {/* Bottom bar */}
         <div className="mt-10 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/30" style={{ fontSize: "0.8125rem" }}>
-            {tFooter("copyright")}
+            © 2026 Xapika Engineering. All rights reserved.
           </p>
           <div
             className="flex items-center gap-5"
@@ -148,7 +147,7 @@ export default async function Footer() {
               href="/privacy"
               className="text-white/40 hover:text-white/70 transition-colors duration-200"
             >
-              {tFooter("privacyLink")}
+              Privacy Policy
             </Link>
             <span aria-hidden="true" className="text-white/20">
               ·
@@ -157,11 +156,11 @@ export default async function Footer() {
               href="/terms"
               className="text-white/40 hover:text-white/70 transition-colors duration-200"
             >
-              {tFooter("termsLink")}
+              Terms of Use
             </Link>
           </div>
           <p className="hidden sm:block text-white/20" style={{ fontSize: "0.75rem" }}>
-            {tFooter("rightTagline")}
+            Engineering excellence in rail maintenance
           </p>
         </div>
       </div>

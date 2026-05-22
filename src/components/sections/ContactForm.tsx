@@ -9,41 +9,63 @@ import {
 } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { ArrowRight, AlertCircle, Loader2 } from "lucide-react";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "next/navigation";
 import {
   contactSchema,
   CONTACT_LOCATION_IDS,
   type ContactInput,
-  type ContactLocationId,
 } from "@/lib/contactSchema";
 import {
   submitContact,
   initialContactState,
   type ContactState,
-} from "@/app/[locale]/contact/actions";
+} from "@/app/contact/actions";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const DRAFT_KEY = "xapika-contact-draft";
 
-function safeT(
-  t: (key: string) => string,
-  key: string,
-  fallback: string = "generic"
-): string {
-  try {
-    const v = t(key);
-    if (typeof v === "string" && !v.startsWith("contactPage.errors.")) return v;
-  } catch {
-    /* missing key */
-  }
-  try {
-    return t(fallback);
-  } catch {
-    return key;
-  }
+const ERRORS: Record<string, string> = {
+  firstName_min:    "Please enter at least 2 characters.",
+  firstName_max:    "First name is too long.",
+  lastName_min:     "Please enter at least 2 characters.",
+  lastName_max:     "Last name is too long.",
+  company_min:      "Please enter your company name.",
+  company_max:      "Company name is too long.",
+  email_invalid:    "Please enter a valid email address.",
+  email_max:        "Email address is too long.",
+  phone_format:     "Phone may include digits, spaces, +, -, ().",
+  phone_max:        "Phone number is too long.",
+  location_required:"Please select the closest office.",
+  subject_min:      "Subject must be at least 3 characters.",
+  subject_max:      "Subject is too long.",
+  message_min:      "Please share at least 20 characters so we can route your inquiry.",
+  message_max:      "Message is too long (2000 character limit).",
+  consent_required: "Please agree before sending the message.",
+  honeypot_invalid: "Submission rejected.",
+  generic:          "Please review this field.",
+  formError:        "Something went wrong. Please review the form and try again.",
+  network:          "We could not reach the server. Please retry in a moment.",
+  rate_limited:     "You're sending requests too quickly. Please wait a minute and try again.",
+  send_failed:      "We received your message but couldn't deliver it just now. Please try again or email us directly.",
+};
+
+const LOCATION_LABELS: Record<string, string> = {
+  "warsaw-hq":    "Warsaw — HQ",
+  "warsaw-office":"Warsaw — Office",
+  "kyiv":         "Kyiv",
+  "seoul":        "Seoul",
+  "sao-paulo":    "São Paulo",
+  "virginia":     "Virginia",
+  "istanbul":     "Istanbul",
+  "tashkent":     "Tashkent",
+  "cairo":        "Cairo",
+  "other":        "Other / not listed",
+};
+
+function safeT(key: string, fallback: string = "generic"): string {
+  return ERRORS[key] ?? ERRORS[fallback] ?? key;
 }
 
 const FIELD_INPUT_BASE: React.CSSProperties = {
@@ -69,8 +91,6 @@ export default function ContactForm({
   externalSubject,
   autoFocusKey,
 }: ContactFormProps) {
-  const t = useTranslations("contactPage.form");
-  const tErr = useTranslations("contactPage.errors");
   const router = useRouter();
 
   const [state, formAction, pending] = useActionState<ContactState, FormData>(
@@ -185,16 +205,16 @@ export default function ContactForm({
     if (state.formError) {
       const known = new Set(["rate_limited", "send_failed"]);
       const key = known.has(state.formError) ? state.formError : "formError";
-      setFormError(safeT(tErr, key, "formError"));
+      setFormError(safeT(key, "formError"));
     } else if (state.errors) {
-      setFormError(safeT(tErr, "formError"));
+      setFormError(safeT("formError"));
     }
-  }, [state, reset, router, setError, tErr]);
+  }, [state, reset, router, setError]);
 
   const errMsg = (key: keyof ContactInput): string | null => {
     const code = errors[key]?.message;
     if (!code) return null;
-    return safeT(tErr, code as string, "generic");
+    return safeT(code as string, "generic");
   };
 
   const busy = pending || isSubmitting;
@@ -323,8 +343,8 @@ export default function ContactForm({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-7">
         <Field
           id="firstName"
-          label={t("firstName.label")}
-          placeholder={t("firstName.placeholder")}
+          label="First name"
+          placeholder="Anna"
           autoComplete="given-name"
           register={register("firstName")}
           error={errMsg("firstName")}
@@ -333,8 +353,8 @@ export default function ContactForm({
         />
         <Field
           id="lastName"
-          label={t("lastName.label")}
-          placeholder={t("lastName.placeholder")}
+          label="Last name"
+          placeholder="Kowalski"
           autoComplete="family-name"
           register={register("lastName")}
           error={errMsg("lastName")}
@@ -343,8 +363,8 @@ export default function ContactForm({
         <div className="sm:col-span-2">
           <Field
             id="company"
-            label={t("company.label")}
-            placeholder={t("company.placeholder")}
+            label="Company"
+            placeholder="Company / Organization"
             autoComplete="organization"
             register={register("company")}
             error={errMsg("company")}
@@ -354,8 +374,8 @@ export default function ContactForm({
         <Field
           id="email"
           type="email"
-          label={t("email.label")}
-          placeholder={t("email.placeholder")}
+          label="Work email"
+          placeholder="you@company.com"
           autoComplete="email"
           register={register("email")}
           error={errMsg("email")}
@@ -364,8 +384,8 @@ export default function ContactForm({
         <Field
           id="phone"
           type="tel"
-          label={t("phone.label")}
-          placeholder={t("phone.placeholder")}
+          label="Phone (optional)"
+          placeholder="+48 22 ..."
           autoComplete="tel"
           register={register("phone")}
           error={errMsg("phone")}
@@ -374,13 +394,11 @@ export default function ContactForm({
         <div className="sm:col-span-2">
           <SelectField
             id="location"
-            label={t("location.label")}
-            placeholder={t("location.placeholder")}
+            label="Closest office"
+            placeholder="Select an office"
             options={CONTACT_LOCATION_IDS.map((id) => ({
               value: id,
-              label: t(
-                `location.options.${id}` as `location.options.${ContactLocationId}`
-              ),
+              label: LOCATION_LABELS[id] ?? id,
             }))}
             register={register("location")}
             error={errMsg("location")}
@@ -390,7 +408,7 @@ export default function ContactForm({
         <div className="sm:col-span-2">
           <FieldShell
             id="subject"
-            label={t("subject.label")}
+            label="Subject"
             error={errMsg("subject")}
             counter={
               <CharCounter current={subjectLen} max={160} />
@@ -398,7 +416,7 @@ export default function ContactForm({
           >
             <SubjectInput
               id="subject"
-              placeholder={t("subject.placeholder")}
+              placeholder="Project name or inquiry topic"
               register={register("subject")}
               error={errMsg("subject")}
               disabled={busy}
@@ -408,7 +426,7 @@ export default function ContactForm({
         <div className="sm:col-span-2">
           <FieldShell
             id="message"
-            label={t("message.label")}
+            label="Message"
             error={errMsg("message")}
             counter={
               <CharCounter current={messageLen} max={2000} />
@@ -416,7 +434,7 @@ export default function ContactForm({
           >
             <TextareaInput
               id="message"
-              placeholder={t("message.placeholder")}
+              placeholder="Tell us about your operations needs — fleet size, timeline, regulators."
               register={register("message")}
               error={errMsg("message")}
               disabled={busy}
@@ -426,7 +444,7 @@ export default function ContactForm({
         <div className="sm:col-span-2">
           <CheckboxField
             id="consent"
-            label={t("consent.label")}
+            label="I agree to the processing of my personal data per the privacy policy."
             register={register("consent")}
             error={errMsg("consent")}
             disabled={busy}
@@ -444,9 +462,9 @@ export default function ContactForm({
             letterSpacing: "0.02em",
           }}
         >
-          {t("responseNote")}
+          Typical response within 2 business days.
         </p>
-        <SubmitButton busy={busy} label={t("submit")} submittingLabel={t("submitting")} />
+        <SubmitButton busy={busy} label="Send message" submittingLabel="Sending…" />
       </div>
     </motion.form>
   );

@@ -2,7 +2,6 @@
 
 import { useCallback } from "react";
 import { Check } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 export type IntentKey =
   | "businessInquiry"
@@ -17,14 +16,19 @@ const INTENT_KEYS: IntentKey[] = [
   "careers",
 ];
 
+const INTENT_LABELS: Record<IntentKey, string> = {
+  businessInquiry:    "Business Inquiry",
+  maintenanceRequest: "Maintenance Request",
+  pressMedia:         "Press & Media",
+  careers:            "Careers",
+};
+
 type IntentChipsProps = {
   selected: IntentKey | null;
   onSelect: (key: IntentKey | null) => void;
 };
 
 export default function IntentChips({ selected, onSelect }: IntentChipsProps) {
-  const t = useTranslations("contactPage.intentChips");
-
   const handleSelect = useCallback(
     (key: IntentKey) => {
       onSelect(selected === key ? null : key);
@@ -54,7 +58,7 @@ export default function IntentChips({ selected, onSelect }: IntentChipsProps) {
             color: "rgba(11,31,58,0.48)",
           }}
         >
-          {t("groupLabel")}
+          What&apos;s this about?
         </p>
         <div
           role="group"
@@ -66,7 +70,7 @@ export default function IntentChips({ selected, onSelect }: IntentChipsProps) {
             return (
               <IntentChip
                 key={key}
-                label={t(key)}
+                label={INTENT_LABELS[key]}
                 isSelected={isSelected}
                 onClick={() => handleSelect(key)}
               />

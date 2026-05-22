@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 
 export type OpsCard = {
   office: string;

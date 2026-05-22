@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { type LucideIcon } from "lucide-react";
 import MegaDropdownItem from "./MegaDropdownItem";
 
 export type MegaDropdownItem = {
@@ -10,7 +9,6 @@ export type MegaDropdownItem = {
   label: string;
   description?: string;
   href: string;
-  icon: LucideIcon;
 };
 
 type MegaDropdownProps = {
@@ -93,7 +91,7 @@ export default function MegaDropdown({
               "border overflow-hidden max-w-[calc(100vw-2rem)]",
               layout === "wide"
                 ? "min-w-[320px] lg:min-w-[640px]"
-                : "min-w-[280px] md:min-w-[360px] lg:min-w-[420px]",
+                : "min-w-[240px] md:min-w-[280px] lg:min-w-[300px]",
             ].join(" ")}
             style={{
               borderColor: "rgb(var(--color-ink) / 0.08)",
@@ -115,7 +113,6 @@ export default function MegaDropdown({
                 <MegaDropdownItem
                   key={item.key}
                   href={item.href}
-                  icon={item.icon}
                   label={item.label}
                   description={item.description}
                   onClick={onClose}

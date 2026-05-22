@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { Train, TrainFront, Factory } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 export type TrackRecordClient = {

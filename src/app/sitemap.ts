@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { localeUrl } from "@/lib/seo";
+import { siteUrl } from "@/lib/seo";
 
 type RouteConfig = {
   path: string;
@@ -26,9 +26,8 @@ const ROUTES: ReadonlyArray<RouteConfig> = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-  // localePrefix: 'never' — 모든 locale이 동일 URL이므로 route당 entry 한 개만 생성.
   return ROUTES.map((route) => {
-    const url = localeUrl("en", route.path);
+    const url = siteUrl(route.path);
     return {
       url,
       lastModified,
@@ -37,7 +36,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           en: url,
-          ko: url,
           "x-default": url,
         },
       },

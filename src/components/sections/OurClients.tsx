@@ -43,14 +43,16 @@ const CLIENTS: ReadonlyArray<Client> = [
     logo: { src: "/partners/ukrzaliznytsia.svg", aspect: "wide" },
   },
   {
-    name: "Kiev Metro",
+    name: "Kyiv Metro",
     fullName: "Kyiv Metro (Toshiba / Tokyo Car Corp.)",
     country: "Ukraine",
+    logo: { src: "/partners/kyiv-metro.svg", aspect: "square" },
   },
   {
     name: "KRCBW",
     fullName: "Kryukovsky Railway Car Building Works",
     country: "Ukraine",
+    logo: { src: "/partners/krcbw.svg", aspect: "square" },
   },
   {
     name: "TCDD Taşımacılık A.Ş.",
@@ -267,7 +269,7 @@ export default function OurClients({
                 )}
               </div>
 
-              {/* Bottom row: hairline + (placeholder note OR empty spacer) */}
+              {/* Bottom row: hairline + company name (or placeholder note when logo absent) */}
               <div className="flex items-center justify-between gap-3 pt-3">
                 <span
                   aria-hidden="true"
@@ -277,17 +279,15 @@ export default function OurClients({
                     backgroundColor: "rgb(var(--color-ink) / 0.10)",
                   }}
                 />
-                {!c.logo && (
-                  <span
-                    className="font-heading font-medium uppercase text-[rgb(var(--color-ink-muted))] whitespace-nowrap"
-                    style={{
-                      fontSize: "10px",
-                      letterSpacing: "0.18em",
-                    }}
-                  >
-                    {logoArrivingNote}
-                  </span>
-                )}
+                <span
+                  className="font-heading font-medium uppercase text-[rgb(var(--color-ink-muted))] whitespace-nowrap"
+                  style={{
+                    fontSize: "10px",
+                    letterSpacing: "0.18em",
+                  }}
+                >
+                  {c.logo ? c.name : logoArrivingNote}
+                </span>
               </div>
             </li>
           ))}
