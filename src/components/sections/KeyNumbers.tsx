@@ -112,7 +112,7 @@ function StatBlock({
       {/* 숫자 */}
       <div className="flex items-baseline gap-2 mb-4 overflow-hidden">
         <span
-          className="font-heading font-medium text-[rgb(var(--color-ink))] leading-none tabular-nums whitespace-nowrap"
+          className="font-heading font-medium text-[rgb(var(--color-ink))] leading-none tabular-nums"
           style={{
             fontSize: "clamp(2.5rem, 5.5vw, 5.25rem)",
             letterSpacing: "-0.035em",

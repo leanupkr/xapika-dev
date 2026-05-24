@@ -131,7 +131,7 @@ function StatBlock({
               </span>
             )}
             <span
-              className="font-heading font-medium text-[rgb(var(--color-ink))] leading-none tabular-nums whitespace-nowrap"
+              className="font-heading font-medium text-[rgb(var(--color-ink))] leading-none tabular-nums"
               style={{
                 fontSize: "clamp(1.75rem, 4vw, 3rem)",
                 letterSpacing: "-0.03em",
@@ -159,7 +159,7 @@ function StatBlock({
             className={
               qualitative
                 ? "font-heading font-medium text-[rgb(var(--color-ink))] leading-tight"
-                : "font-heading font-medium text-[rgb(var(--color-ink))] leading-none whitespace-nowrap"
+                : "font-heading font-medium text-[rgb(var(--color-ink))] leading-none"
             }
             style={{
               fontSize: qualitative

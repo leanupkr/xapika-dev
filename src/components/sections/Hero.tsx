@@ -171,9 +171,9 @@ export default function Hero({
 
           <h1
             data-hero-headline
-            className="font-heading font-bold text-white mb-8 max-w-[90vw] md:max-w-none"
+            className="font-heading font-bold text-white mb-8 max-w-full"
             style={{
-              fontSize: "clamp(1.75rem, 9vw, 7.5rem)",
+              fontSize: "clamp(1.75rem, 7.5vw, 7.5rem)",
               letterSpacing: "-0.025em",
               lineHeight: 0.97,
             }}

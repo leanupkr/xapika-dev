@@ -104,7 +104,7 @@ export default function Footer() {
                 <div key={nameKey} className="flex gap-2">
                   <MapPin
                     size={14}
-                    className="text-primary mt-0.5 flex-shrink-0 hidden sm:inline-block"
+                    className="text-primary mt-0.5 flex-shrink-0 inline-block w-3 h-3 sm:w-3.5 sm:h-3.5"
                     strokeWidth={2}
                   />
                   <div>

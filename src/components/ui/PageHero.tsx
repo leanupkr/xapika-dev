@@ -235,11 +235,14 @@ export default function PageHero({
             </p>
           </div>
 
-          {/* Right slot — 4/12 cols, hidden on mobile */}
+          {/* Right slot — mobile: stacks below text; desktop: 4/12 cols */}
           {rightSlot ? (
-            <div className="hidden md:block md:col-span-4 lg:col-span-4">
-              {rightSlot}
-            </div>
+            <>
+              <div className="md:hidden mt-10">{rightSlot}</div>
+              <div className="hidden md:block md:col-span-4 lg:col-span-4">
+                {rightSlot}
+              </div>
+            </>
           ) : null}
         </div>
       </div>

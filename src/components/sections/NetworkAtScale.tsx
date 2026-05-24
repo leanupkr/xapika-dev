@@ -99,7 +99,7 @@ function ScaleCell({
       </span>
       <div className="flex items-baseline mb-4 overflow-hidden">
         <span
-          className="font-heading font-medium text-[rgb(var(--color-ink))] tabular-nums leading-none whitespace-nowrap"
+          className="font-heading font-medium text-[rgb(var(--color-ink))] tabular-nums leading-none"
           style={{
             fontSize: "clamp(2.75rem, 4.5vw, 4.25rem)",
             letterSpacing: "-0.035em",
