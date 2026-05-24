@@ -52,12 +52,12 @@ const SIZE_TO_CLASSES: Record<Size, { grid: string; minH: string; titleSize: str
   },
   secondary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[200px] sm:min-h-[240px] md:min-h-[340px] lg:min-h-[480px]",
+    minH: "min-h-[300px] sm:min-h-[300px] md:min-h-[340px] lg:min-h-[480px]",
     titleSize: "clamp(1.0625rem, 1.7vw, 1.5rem)",
   },
   tertiary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[200px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[320px]",
+    minH: "min-h-[300px] sm:min-h-[300px] md:min-h-[280px] lg:min-h-[320px]",
     titleSize: "clamp(1.0625rem, 1.7vw, 1.5rem)",
   },
 };

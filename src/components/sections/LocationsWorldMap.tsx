@@ -314,9 +314,9 @@ export default function LocationsWorldMap({
                       onMouseLeave={() => setActiveId(null)}
                       style={{ cursor: "pointer" }}
                     >
-                      {/* Hit area */}
+                      {/* Hit area — enlarged for touch (r+24) */}
                       <circle
-                        r={r + 14}
+                        r={r + 24}
                         fill="transparent"
                         role="button"
                         aria-label={`${o.city}, ${o.country} — ${roleLabel(o.role)}`}
@@ -414,21 +414,22 @@ export default function LocationsWorldMap({
               </ComposableMap>
             )}
 
-            {/* Hover card overlay */}
+            {/* Hover / tap card overlay */}
             {active && (
               <div
                 role="status"
                 aria-live="polite"
-                className="pointer-events-none absolute"
+                className="absolute"
                 style={{
                   bottom: "12px",
                   left: "12px",
                   right: "12px",
                   maxWidth: "360px",
+                  pointerEvents: isMobile ? "auto" : "none",
                 }}
               >
                 <div
-                  className="rounded-md backdrop-blur"
+                  className="relative rounded-md backdrop-blur"
                   style={{
                     backgroundColor: "rgba(11,31,58,0.86)",
                     border: "1px solid rgba(246,163,23,0.35)",
@@ -436,6 +437,29 @@ export default function LocationsWorldMap({
                     boxShadow: "0 12px 36px rgba(0,0,0,0.45)",
                   }}
                 >
+                  {/* Close button — mobile tap only */}
+                  {isMobile && (
+                    <button
+                      aria-label="Close office card"
+                      onClick={() => setActiveId(null)}
+                      className="absolute top-2 right-2"
+                      style={{
+                        width: "28px",
+                        height: "28px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "rgba(255,255,255,0.55)",
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        fontSize: "18px",
+                        lineHeight: 1,
+                      }}
+                    >
+                      ×
+                    </button>
+                  )}
                   <div
                     className="flex items-center gap-2 font-heading uppercase mb-2"
                     style={{

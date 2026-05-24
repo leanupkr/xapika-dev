@@ -596,10 +596,10 @@ export default function GlobalPresence({
                         style={{
                           fontFamily: "'Space Grotesk', sans-serif",
                           fontSize: pin.isHQ
-                            ? "11px"
+                            ? (isMobile ? "14px" : "11px")
                             : isActive
-                              ? "11px"
-                              : "10px",
+                              ? (isMobile ? "14px" : "11px")
+                              : (isMobile ? "13px" : "10px"),
                           fontWeight: pin.isHQ ? 700 : isActive ? 700 : 500,
                           fill: pin.isHQ
                             ? "rgb(246,163,23)"

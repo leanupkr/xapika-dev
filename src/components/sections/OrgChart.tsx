@@ -716,7 +716,7 @@ function StaffCard({ staff }: { staff: StaffDepartment }) {
           borderRadius: "12px",
           padding: "18px 30px",
           textAlign: "center",
-          minWidth: "320px",
+          minWidth: "min(320px, 100%)",
           maxWidth: "560px",
         }}
       >

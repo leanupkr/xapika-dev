@@ -353,7 +353,7 @@ export default function PortfolioRestoration({
               <span
                 className="font-heading font-semibold"
                 style={{
-                  fontSize: "clamp(3.25rem, 8vw, 6rem)",
+                  fontSize: "clamp(2.75rem, 6vw, 6rem)",
                   lineHeight: 0.9,
                   letterSpacing: "-0.04em",
                   color: "rgb(var(--color-primary))",
