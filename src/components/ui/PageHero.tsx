@@ -164,15 +164,18 @@ export default function PageHero({
         <div
           className={
             rightSlot
-              ? "grid grid-cols-12 gap-x-8 gap-y-12 items-end"
+              ? "md:grid md:grid-cols-12 md:gap-x-8 md:gap-y-12 md:items-end"
               : undefined
           }
         >
-          {/* Left text block — 8/12 cols when rightSlot present, full-width otherwise */}
+          {/* Left text block — 8/12 cols on md+ when rightSlot present, full-width otherwise.
+              On mobile we deliberately do NOT use a 12-col grid: 11×32px gaps would
+              exceed a 272px content area at 320px viewport, pushing the title 80px
+              off the right edge. */}
           <div
             className={
               rightSlot
-                ? "col-span-12 md:col-span-8 lg:col-span-8 max-w-2xl"
+                ? "md:col-span-8 lg:col-span-8 max-w-2xl"
                 : "max-w-2xl"
             }
           >
@@ -197,10 +200,13 @@ export default function PageHero({
               {overline}
             </span>
 
-            {/* Title with per-word stagger */}
+            {/* Title with per-word stagger — `aria-label` provides the full
+                title to screen readers; child spans are aria-hidden because
+                their concatenated textContent has no spaces between words. */}
             <h1
               id={`${patternId}-title`}
               ref={titleRef}
+              aria-label={title}
               className="font-heading font-semibold text-white mb-6"
               style={{
                 fontSize: "clamp(1.625rem, 6.5vw, 3.75rem)",
@@ -212,6 +218,7 @@ export default function PageHero({
                 <span
                   key={`${word}-${i}`}
                   data-word
+                  aria-hidden="true"
                   className="inline-block opacity-0"
                   style={{ marginRight: i < words.length - 1 ? "0.25em" : 0 }}
                 >

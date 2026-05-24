@@ -171,6 +171,7 @@ export default function Hero({
 
           <h1
             data-hero-headline
+            aria-label={headline}
             className="font-heading font-bold text-white mb-8 max-w-full"
             style={{
               fontSize: "clamp(1.75rem, 7.5vw, 7.5rem)",

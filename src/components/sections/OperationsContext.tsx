@@ -49,7 +49,7 @@ function OpsCardItem({
         delay: 0.1 + 0.08 * index,
         ease: EASE,
       }}
-      className={`group ${isLastOdd ? "col-span-2 md:col-span-1" : ""}`}
+      className={`group ${isLastOdd ? "sm:col-span-2 md:col-span-1" : ""}`}
     >
       <Link
         href={card.href}
@@ -117,7 +117,7 @@ function OpsCardItem({
         </p>
 
         <div
-          className="flex items-center justify-between mt-3 sm:mt-6 pt-3 sm:pt-5 gap-2 sm:gap-3"
+          className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 mt-3 sm:mt-6 pt-3 sm:pt-5"
           style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.07)" }}
         >
           <span
@@ -223,7 +223,7 @@ export default function OperationsContext({
         </div>
 
         <ul
-          className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-6"
           role="list"
         >
           {items.map((card, i) => (

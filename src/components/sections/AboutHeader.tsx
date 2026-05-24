@@ -147,10 +147,13 @@ export default function AboutHeader({
             {overline}
           </span>
 
-          {/* H1 — word-by-word */}
+          {/* H1 — word-by-word. aria-label exposes the full title with spaces
+              to screen readers; child spans are aria-hidden (their textContent
+              would otherwise concatenate without spaces). */}
           <h1
             id="about-header-title"
             ref={titleRef}
+            aria-label={title}
             className="font-heading font-semibold text-white mb-6"
             style={{
               fontSize: "clamp(1.75rem, 7vw, 4.25rem)",
@@ -162,6 +165,7 @@ export default function AboutHeader({
               <span
                 key={`${word}-${i}`}
                 data-word
+                aria-hidden="true"
                 className="inline-block opacity-0"
                 style={{ marginRight: i < words.length - 1 ? "0.25em" : 0 }}
               >
