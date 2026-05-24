@@ -3,6 +3,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import JsonLd, { caseStudyLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import PortfolioHero from "@/components/sections/PortfolioHero";
 import PortfolioStory from "@/components/sections/PortfolioStory";
+import PortfolioRestoration, {
+  type RestorationPhoto,
+} from "@/components/sections/PortfolioRestoration";
 import PortfolioScrollGallery, {
   type GallerySlide,
 } from "@/components/sections/PortfolioScrollGallery";
@@ -29,6 +32,46 @@ export default async function UkraineEmuPage() {
     "On the morning of February 24, 2022, the schedule did not change. Trains kept moving — for civilians evacuating, for press crews, for cargo headed to where the rail still ran. Ground staff worked under blackout conditions. Inventory adapted to disrupted supply lines. The maintenance log kept its same columns.",
     "Nine years on, the program has logged over 82,000 maintenance actions, and not a single contractual default has been recorded in the regulator's audit. We do not describe this as resilience. We describe it as the work.",
     "Continuity here is not a posture. It is the sum of an accountable team, an audited maintenance regime, and a partner who structured the contract to outlast the conditions around it.",
+  ];
+
+  const restorationEstablishing: RestorationPhoto = {
+    src: "/portfolios/ukraine-emu/restoration/establishing-night-fire.jpg",
+    alt:
+      "HRCS2 trainset on fire at the trackside at night — Ukraine, February 2022",
+    caption: "Night attack · Feb 2022",
+  };
+
+  const restorationGrid: ReadonlyArray<RestorationPhoto> = [
+    {
+      src: "/portfolios/ukraine-emu/restoration/damage-01-exterior.jpg",
+      alt: "Exterior of a burnt HRCS2 carriage on the track, daytime",
+      caption: "Exterior — daylight",
+    },
+    {
+      src: "/portfolios/ukraine-emu/restoration/damage-02-windows.jpg",
+      alt: "HRCS2 carriage with windows blown out, smoke still rising",
+      caption: "Windows · aftermath",
+    },
+    {
+      src: "/portfolios/ukraine-emu/restoration/damage-03-interior.jpg",
+      alt: "Passenger cabin gutted by fire, seat frames reduced to ash",
+      caption: "Cabin · gutted",
+    },
+    {
+      src: "/portfolios/ukraine-emu/restoration/damage-04-cabin.jpg",
+      alt: "Cabin interior with a single surviving seat cushion amid charred wreckage",
+      caption: "Cabin · sole survivor",
+    },
+    {
+      src: "/portfolios/ukraine-emu/restoration/damage-05-corridor.jpg",
+      alt: "Charred vestibule corridor with glass shards on the floor",
+      caption: "Vestibule",
+    },
+    {
+      src: "/portfolios/ukraine-emu/restoration/damage-06-seats.jpg",
+      alt: "Stripped aluminium seat shells, fire-damaged, removed for restoration",
+      caption: "Seats · stripped",
+    },
   ];
 
   const gallerySlides: ReadonlyArray<GallerySlide> = [
@@ -150,7 +193,7 @@ export default async function UkraineEmuPage() {
       statusOverride: "SUPPLY PARTNER · SINCE 2022",
       items: [
         "Journal box services — special tools, boring & refurbishment",
-        "Supply chain for parts replacing Russian components",
+        "Supply chain for parts disrupted by The War",
       ],
     },
   ];
@@ -215,6 +258,21 @@ export default async function UkraineEmuPage() {
         photoKicker="Ukraine · 2017–"
         imageSrc="/portfolios/ukraine-emu/story-01.jpg"
         imageAlt="Depot crew on shift — HRCS2 maintenance program"
+      />
+      <PortfolioRestoration
+        overline="Restoration record"
+        title="Six trainsets. Brought back."
+        intro="Six HRCS2 trainsets were caught by The War — burned interiors, blown windows, charred vestibules. They went into the heavy maintenance bay, came out rebuilt, and returned to revenue service."
+        establishing={restorationEstablishing}
+        establishingMeta="Ukraine · 2022"
+        grid={restorationGrid}
+        stat={{
+          value: "6",
+          valueSuffix: "trainsets",
+          description:
+            "Damaged in The War. Restored. Back on the line.",
+        }}
+        footnote="Photos courtesy of Ukrzaliznytsia, 2022."
       />
       <TrackRecordCards
         overline="Track Record"
