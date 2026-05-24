@@ -63,7 +63,7 @@ export default function IntentChips({ selected, onSelect }: IntentChipsProps) {
         <div
           role="group"
           aria-labelledby="intent-chips-label"
-          className="grid grid-cols-2 lg:grid-cols-4 gap-3"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
         >
           {INTENT_KEYS.map((key) => {
             const isSelected = selected === key;

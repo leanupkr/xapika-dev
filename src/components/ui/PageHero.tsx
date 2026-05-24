@@ -235,10 +235,12 @@ export default function PageHero({
             </p>
           </div>
 
-          {/* Right slot — mobile: stacks below text; desktop: 4/12 cols */}
+          {/* Right slot — mobile: stacks below text (col-span-12 so the inner
+              contents get full row width, not the 1-col-track auto-placement);
+              desktop: 4/12 cols on md+. */}
           {rightSlot ? (
             <>
-              <div className="md:hidden mt-10">{rightSlot}</div>
+              <div className="md:hidden col-span-12 mt-10">{rightSlot}</div>
               <div className="hidden md:block md:col-span-4 lg:col-span-4">
                 {rightSlot}
               </div>
