@@ -45,3 +45,6 @@ screenshots/
 # client raw materials (private — do not commit)
 xapika-update/
 xapika-feedback/
+
+# claude worktrees + scratch
+.claude/
