@@ -59,6 +59,20 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ─── Mobile foundation ─── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+:where(button, a, [role="button"], [role="link"]) {
+  touch-action: manipulation;
+}
+
+:where(button, a) {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

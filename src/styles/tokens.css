@@ -30,6 +30,7 @@
     --max-width: 1440px;
     --max-width-content: 1280px; /* 본문 섹션 표준 (Hero/Header는 1440px 유지) */
     --gutter: 24px;
+    --touch-target-min: 44px; /* WCAG 2.1 minimum touch-target — reference token, used in component review */
 
     /* GSAP Easing & Typography tokens */
     --ease-power3-out: cubic-bezier(0.215, 0.61, 0.355, 1);
