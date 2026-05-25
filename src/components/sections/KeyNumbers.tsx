@@ -97,13 +97,15 @@ function StatBlock({
       }}
       className="relative flex flex-col min-w-0"
     >
-      {/* 라벨 (overline) */}
+      {/* 라벨 (overline) — 2-line min-height reserved so 컬럼 간 숫자/언더라인 정렬 보장 */}
       <span
-        className="font-heading uppercase mb-5 text-[rgb(var(--color-ink-muted))]"
+        className="font-heading uppercase mb-5 text-[rgb(var(--color-ink-muted))] block"
         style={{
           fontSize: "11px",
           letterSpacing: "0.18em",
           fontWeight: 600,
+          lineHeight: 1.4,
+          minHeight: "2.8em",
         }}
       >
         {`0${index + 1}`.slice(-2)} — {stat.label}

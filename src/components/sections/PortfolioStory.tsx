@@ -13,6 +13,12 @@ type PortfolioStoryProps = {
   /** When set, renders an actual photograph instead of the dashed placeholder. */
   imageSrc?: string;
   imageAlt?: string;
+  /**
+   * Small editorial callouts rendered below the sticky photo on lg+ to fill
+   * the otherwise-empty right column when the story copy is much taller than
+   * the 16:9 photo. Typically 3 short fact/value pairs.
+   */
+  highlights?: ReadonlyArray<{ label: string; value: string }>;
 };
 
 export default function PortfolioStory({
@@ -23,6 +29,7 @@ export default function PortfolioStory({
   photoKicker,
   imageSrc,
   imageAlt,
+  highlights,
 }: PortfolioStoryProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -64,7 +71,7 @@ export default function PortfolioStory({
     <section
       ref={sectionRef}
       data-bg="dark"
-      className="relative overflow-hidden"
+      className="relative"
       style={{
         backgroundColor: "rgb(var(--color-ink))",
         paddingTop: "clamp(3.5rem, 10vh, 8rem)",
@@ -143,8 +150,9 @@ export default function PortfolioStory({
           </div>
         </div>
 
-        {/* Photo */}
-        <div className="lg:col-span-6 lg:pl-8">
+        {/* Photo column — sticky on lg+ so the photo + highlights follow the reader
+            past the much taller text column instead of leaving a void on the right. */}
+        <div className="lg:col-span-6 lg:pl-8 lg:sticky lg:top-28 lg:self-start">
           {imageSrc ? (
             <div
               data-fade
@@ -343,6 +351,50 @@ export default function PortfolioStory({
               ))}
             </div>
           )}
+
+          {/* Editorial highlights — fills the right column when the story copy
+              is much longer than the 16:9 photo. Renders only when the page
+              supplies them. */}
+          {highlights && highlights.length > 0 ? (
+            <dl
+              data-fade
+              className="opacity-0 mt-8 grid grid-cols-1"
+              style={{
+                borderTop: "1px solid rgba(255,255,255,0.10)",
+              }}
+            >
+              {highlights.map((h, i) => (
+                <div
+                  key={`${h.label}-${i}`}
+                  className="flex items-baseline justify-between gap-6 py-4"
+                  style={{
+                    borderBottom: "1px solid rgba(255,255,255,0.10)",
+                  }}
+                >
+                  <dt
+                    className="font-heading font-medium uppercase"
+                    style={{
+                      fontSize: "11px",
+                      letterSpacing: "0.22em",
+                      color: "rgba(255,255,255,0.55)",
+                    }}
+                  >
+                    {h.label}
+                  </dt>
+                  <dd
+                    className="font-heading font-medium text-white tabular-nums text-right"
+                    style={{
+                      fontSize: "clamp(1rem, 1.4vw, 1.25rem)",
+                      letterSpacing: "-0.01em",
+                      fontVariantNumeric: "tabular-nums",
+                    }}
+                  >
+                    {h.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
         </div>
       </div>
     </section>

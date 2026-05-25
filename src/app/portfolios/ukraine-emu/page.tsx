@@ -258,6 +258,11 @@ export default async function UkraineEmuPage() {
         photoKicker="Ukraine · 2017–"
         imageSrc="/portfolios/ukraine-emu/story-01.jpg"
         imageAlt="Depot crew on shift — HRCS2 maintenance program"
+        highlights={[
+          { label: "Xapika since", value: "2017" },
+          { label: "Fleet", value: "100 units" },
+          { label: "Service delivered", value: "82,000+" },
+        ]}
       />
       <PortfolioRestoration
         overline="Restoration record"

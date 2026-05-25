@@ -193,6 +193,11 @@ export default async function WarsawTramPage() {
         photoKicker="Poland · 1882–"
         imageSrc="/portfolios/warsaw-tram/story-01.jpg"
         imageAlt="Warsaw tram summer maintenance on the line"
+        highlights={[
+          { label: "First service", value: "1882" },
+          { label: "Active fleet", value: "123 units" },
+          { label: "Xapika since", value: "Oct 2021" },
+        ]}
       />
       <WarsawSeasonTimeline
         overline="Field log"
