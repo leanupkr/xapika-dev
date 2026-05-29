@@ -397,9 +397,11 @@ function SolutionLargeCard({
           {item.description}
         </p>
 
-        {/* Footer row */}
+        {/* Footer row — stack vertically on very narrow viewports so the
+            whitespace-nowrap "Learn more" link doesn't push past the card edge
+            when paired with a long metric string at 320w. */}
         <div
-          className="flex items-end justify-between gap-2 sm:gap-4 mt-4 sm:mt-7 pt-3 sm:pt-5"
+          className="flex flex-col items-start gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-4 mt-4 sm:mt-7 pt-3 sm:pt-5"
           style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.06)" }}
         >
           <div

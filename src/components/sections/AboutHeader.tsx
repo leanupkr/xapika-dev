@@ -121,11 +121,12 @@ export default function AboutHeader({
       />
 
       <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16 w-full grid grid-cols-12 gap-x-8 gap-y-12 items-end"
+        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16 w-full md:grid md:grid-cols-12 md:gap-x-8 md:gap-y-12 md:items-end"
         style={{ maxWidth: "var(--max-width)" }}
       >
-        {/* Text block */}
-        <div className="col-span-12 max-w-2xl">
+        {/* Text block — grid 12-col only on md+ (mobile uses block flow so the
+            ~32px×11 gap budget doesn't push the text 56px past the viewport). */}
+        <div className="max-w-2xl md:col-span-12">
           {/* Overline */}
           <span
             ref={overlineRef}

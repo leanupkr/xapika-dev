@@ -474,9 +474,10 @@ function PortfolioLargeCard({
           {item.summary}
         </p>
 
-        {/* Footer row */}
+        {/* Footer row — stack vertically on narrow viewports so the
+            whitespace-nowrap action link doesn't push past the card edge. */}
         <div
-          className="flex items-end justify-between gap-2 md:gap-4 mt-3 md:mt-7 pt-3 md:pt-5"
+          className="flex flex-col items-start gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-4 mt-3 md:mt-7 pt-3 md:pt-5"
           style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.06)" }}
         >
           <div
