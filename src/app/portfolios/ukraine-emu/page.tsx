@@ -22,13 +22,13 @@ export async function generateMetadata(): Promise<Metadata> {
     path: "/portfolios/ukraine-emu",
     title: "Ukraine HRCS2 EMU.",
     description:
-      "Daily inspection, functional checks, and heavy overhauls across 100 high-speed units — sustained through wartime conditions since 2022. Four operators, four programs — 136 engineers in Kyiv.",
+      "Daily inspection, functional checks, and heavy overhauls across 90 high-speed cars — sustained through wartime conditions since 2022. Four operators, four programs — 136 engineers in Kyiv.",
   });
 }
 
 export default async function UkraineEmuPage() {
   const storyParagraphs: ReadonlyArray<string> = [
-    "In 2017, Ukrainian Railways awarded the long-horizon contract for 100 high-speed HRCS2 units. The depot teams have run the same operating routine every day since: pre-departure inspection at 04:30, functional checks before each journey, scheduled overhauls on a 90-day cadence.",
+    "In 2017, Ukrainian Railways awarded the long-horizon contract for 90 high-speed HRCS2 cars. The depot teams have run the same operating routine every day since: pre-departure inspection at 04:30, functional checks before each journey, scheduled overhauls on a 90-day cadence.",
     "On the morning of February 24, 2022, the schedule did not change. Trains kept moving — for civilians evacuating, for press crews, for cargo headed to where the rail still ran. Ground staff worked under blackout conditions. Inventory adapted to disrupted supply lines. The maintenance log kept its same columns.",
     "Nine years on, the program has logged over 82,000 maintenance actions, and not a single contractual default has been recorded in the regulator's audit. We do not describe this as resilience. We describe it as the work.",
     "Continuity here is not a posture. It is the sum of an accountable team, an audited maintenance regime, and a partner who structured the contract to outlast the conditions around it.",
@@ -78,7 +78,7 @@ export default async function UkraineEmuPage() {
     {
       overline: "2017",
       caption: "First HRCS2 fleet enters service.",
-      metric: "100 units",
+      metric: "90 cars",
       src: "/portfolios/ukraine-emu/gallery-01.jpg",
       alt: "HRCS2 unit at depot — first fleet, 2017",
     },
@@ -174,10 +174,10 @@ export default async function UkraineEmuPage() {
       fullName: "Hyundai Rotem HRCS2 — Intercity+",
       accent: "orange",
       since: "2017",
-      models: "Intercity+ 100 cars",
+      models: "Intercity+ 90 cars",
       icon: "train",
       items: [
-        "HRCS2 Intercity+ 160 km/h — 100 cars",
+        "HRCS2 Intercity+ 160 km/h — 90 cars",
         "Full maintenance: PM, CM & overhaul",
         "Overhaul at 3M km & 4M km milestones",
         "Operations maintained during wartime",
@@ -234,14 +234,14 @@ export default async function UkraineEmuPage() {
           slug: "ukraine-emu",
           name: "Ukraine HRCS2 EMU.",
           description:
-            "Daily inspection, functional checks, and heavy overhauls across 100 high-speed units — sustained through wartime conditions since 2022. Four operators, four programs — 136 engineers in Kyiv.",
+            "Daily inspection, functional checks, and heavy overhauls across 90 high-speed cars — sustained through wartime conditions since 2022. Four operators, four programs — 136 engineers in Kyiv.",
           country: "Ukraine",
         })}
       />
       <PortfolioHero
         overline="Portfolios"
         title="Ukraine HRCS2 EMU."
-        subtitle="Daily inspection, functional checks, and heavy overhauls across 100 high-speed units — sustained through wartime conditions since 2022. Four operators, four programs — 136 engineers in Kyiv."
+        subtitle="Daily inspection, functional checks, and heavy overhauls across 90 high-speed cars — sustained through wartime conditions since 2022. Four operators, four programs — 136 engineers in Kyiv."
         index="01 / 03"
         accentBadge="Uninterrupted Since War"
         placeholder="Site photograph arriving"
@@ -260,7 +260,7 @@ export default async function UkraineEmuPage() {
         imageAlt="Depot crew on shift — HRCS2 maintenance program"
         highlights={[
           { label: "Xapika since", value: "2017" },
-          { label: "Fleet", value: "100 units" },
+          { label: "Fleet", value: "90 cars" },
           { label: "Service delivered", value: "82,000+" },
         ]}
       />

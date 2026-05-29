@@ -35,15 +35,14 @@
   position: absolute;
   inset: 0;
   opacity: 0;
-  /* 크로스페이드: 5초 hold → 1.2초 fade-out → 다음 슬라이드 fade-in */
-  animation: hero-fade var(--hero-cycle, 18s) ease-in-out infinite;
+  /* 크로스페이드: hold → fade-out → 다음 슬라이드 fade-in */
+  animation: hero-fade var(--hero-cycle, 12s) ease-in-out infinite;
 }
 
-/* 3장 슬라이드 → 18초 사이클 (슬라이드당 6초)
-   각 슬라이드를 1/3씩 오프셋 */
+/* 2장 슬라이드 → 12초 사이클 (슬라이드당 6초)
+   각 슬라이드를 1/2씩 오프셋 */
 .hero-slide:nth-child(1) { animation-delay: 0s; }
 .hero-slide:nth-child(2) { animation-delay: 6s; }
-.hero-slide:nth-child(3) { animation-delay: 12s; }
 
 /* LCP 개선 — 첫 슬라이드는 fade-in 없이 즉시 표시.
    다음 사이클 재진입 시에만 정상 cross-fade로 돌아옴. */
@@ -75,7 +74,7 @@
   filter: brightness(0.70) contrast(1.10) saturate(0.80);
 
   /* Ken Burns 줌 인 — 슬라이드별 독립 animation */
-  animation: ken-burns-zoom var(--hero-cycle, 18s) ease-out infinite;
+  animation: ken-burns-zoom var(--hero-cycle, 12s) ease-out infinite;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -154,14 +153,11 @@
 
 /* 슬라이드별 Ken Burns 방향 다변화 — 단조로움 방지 */
 .hero-slide:nth-child(1) .hero-slide__img {
-  animation: ken-burns-zoom var(--hero-cycle, 18s) ease-out infinite;
+  animation: ken-burns-zoom var(--hero-cycle, 12s) ease-out infinite;
   transform-origin: center center;
 }
 .hero-slide:nth-child(2) .hero-slide__img {
-  animation: ken-burns-zoom-right var(--hero-cycle, 18s) ease-out infinite;
-}
-.hero-slide:nth-child(3) .hero-slide__img {
-  animation: ken-burns-zoom-left var(--hero-cycle, 18s) ease-out infinite;
+  animation: ken-burns-zoom-right var(--hero-cycle, 12s) ease-out infinite;
 }
 
 @keyframes ken-burns-zoom-right {
@@ -248,7 +244,6 @@
 .hero-slideshow--paused .hero-slide,
 .hero-slideshow--paused .hero-slide:nth-child(1) .hero-slide__img,
 .hero-slideshow--paused .hero-slide:nth-child(2) .hero-slide__img,
-.hero-slideshow--paused .hero-slide:nth-child(3) .hero-slide__img,
 .hero-slideshow--paused .hero-slide__img {
   animation-play-state: paused;
 }
@@ -263,7 +258,7 @@
   }
 
   .hero-slide {
-    animation: hero-fade-static var(--hero-cycle, 18s) ease-in-out infinite;
+    animation: hero-fade-static var(--hero-cycle, 12s) ease-in-out infinite;
   }
   /* 첫 슬라이드는 reduced-motion에서도 즉시 표시 (LCP 개선) */
   .hero-slide:nth-child(1) {
@@ -272,8 +267,7 @@
   }
   .hero-slide__img,
   .hero-slide:nth-child(1) .hero-slide__img,
-  .hero-slide:nth-child(2) .hero-slide__img,
-  .hero-slide:nth-child(3) .hero-slide__img {
+  .hero-slide:nth-child(2) .hero-slide__img {
     animation: none;
     transform: none;
   }

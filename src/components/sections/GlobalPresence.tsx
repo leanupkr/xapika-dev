@@ -38,7 +38,7 @@ type Pin = {
   /** Where to place the country name relative to the dot. "top" (default)
       sits above; "bottom"/"left"/"right" peel the label off in that
       direction when two pins are close enough that top-anchored labels
-      would collide (Poland↔Ukraine, Türkiye↔Egypt on mobile). */
+      would collide (Poland↔Ukraine). */
   labelAnchor?: "top" | "bottom" | "left" | "right";
 };
 
@@ -48,9 +48,7 @@ const PINS: Pin[] = [
   { id: "turkey",     name: "Türkiye",     label: "Istanbul",    coords: [28.98, 41.01],     countryId: "792", labelAnchor: "right" },
   { id: "uzbekistan", name: "Uzbekistan",  label: "Tashkent",    coords: [69.28, 41.30],     countryId: "860" },
   { id: "korea",      name: "South Korea", label: "Seoul",       coords: [126.98, 37.57],    countryId: "410" },
-  { id: "egypt",      name: "Egypt",       label: "Cairo",       coords: [31.24, 30.04],     countryId: "818", labelAnchor: "bottom" },
   { id: "usa",        name: "USA",         label: "Virginia",    coords: [-77.43, 37.54],    countryId: "840" },
-  { id: "brazil",     name: "Brazil",      label: "São Paulo",   coords: [-46.63, -23.55],   countryId: "076" },
 ];
 
 const HQ = PINS.find((p) => p.isHQ)!;
@@ -370,10 +368,9 @@ export default function GlobalPresence({
             <ComposableMap
               projection="geoMercator"
               projectionConfig={{
-                // Center near the centroid of all 8 hubs so the Americas
-                // (Virginia, São Paulo) sit fully inside the canvas alongside
-                // the Europe/Asia/Africa hubs.
-                center: isMobile ? [25, 30] : [25, 28],
+                // Center across the six hubs so North America (Virginia)
+                // sits inside the canvas alongside the Europe/Asia hubs.
+                center: isMobile ? [25, 35] : [25, 32],
                 scale: isMobile ? 110 : 145,
               }}
               width={isMobile ? 500 : 800}

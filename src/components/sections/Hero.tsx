@@ -6,16 +6,12 @@ import "@/styles/hero.css";
 
 const SLIDES = [
   {
-    src: "/hero/hero-02-work.jpg",
-    alt: "Xapika Engineering maintenance depot",
+    src: "/portfolios/warsaw-tram/hero-main.jpg",
+    alt: "Warsaw tram maintenance depot — Tramwaje Warszawskie program",
   },
   {
-    src: "/hero/hero-01-wide.jpg",
-    alt: "Xapika Engineering maintenance depot",
-  },
-  {
-    src: "/hero/hero-03-detail.jpg",
-    alt: "Xapika Engineering maintenance depot",
+    src: "/hero/hero-04-work.jpg",
+    alt: "HRCS2 high-speed EMU maintenance depot — Ukraine program",
   },
 ] as const;
 

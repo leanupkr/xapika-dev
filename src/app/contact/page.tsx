@@ -35,7 +35,7 @@ export default function ContactPage() {
             hqLabel="Headquarters"
             hqValue="Kolejowa 234, 05-092 Dziekanów Leśny, Poland"
             hoursLabel="Business hours"
-            officeLink="View 9 offices"
+            officeLink="View 7 offices"
             openInMaps="Open in Google Maps"
           />
         }

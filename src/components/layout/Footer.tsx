@@ -16,9 +16,7 @@ const OFFICES = [
   { nameKey: "kyiv",         name: "Kyiv",        country: "Ukraine",    detail: "EMU Crew" },
   { nameKey: "seoul",        name: "Seoul",       country: "South Korea", detail: "Asia Pacific" },
   { nameKey: "tashkent",     name: "Tashkent",    country: "Uzbekistan", detail: "Central Asia" },
-  { nameKey: "cairo",        name: "Cairo",       country: "Egypt",      detail: "MENA" },
   { nameKey: "virginia",     name: "Virginia",    country: "USA",        detail: "North America" },
-  { nameKey: "saoPaulo",     name: "São Paulo",   country: "Brazil",     detail: "Latin America" },
   { nameKey: "istanbul",     name: "Istanbul",    country: "Türkiye",    detail: "Founding Office" },
 ] as const;
 

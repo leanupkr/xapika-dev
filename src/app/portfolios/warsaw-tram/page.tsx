@@ -26,7 +26,7 @@ export default async function WarsawTramPage() {
     "We service 123 units across the active fleet, working alongside Tramwaje Warszawskie's own depot teams. Every car is inspected before its first run of the day. Service intervals follow the city's published timetable, audited against it rather than internal targets.",
     "In the months following the 2022 invasion, the network adapted to a sharp rise in cross-border ridership. Refugee passengers travelled free, and operating frequency held to schedule under heavier loads. The work was kept routine — that was the point.",
     "Maintenance here is not a young system imported into an old one. It is a discipline matched to a network that has already proved itself for a century and a half. Our role is to keep that record intact.",
-    "XAPIKA also serves clients in Türkiye, Brazil, and Egypt from its Warsaw headquarters — the same operational discipline now extended across three continents.",
+    "XAPIKA also serves clients in Türkiye and across Central Asia from its Warsaw headquarters — the same operational discipline now extended across multiple programs.",
   ];
 
   const galleryEntries: ReadonlyArray<SeasonEntry> = [

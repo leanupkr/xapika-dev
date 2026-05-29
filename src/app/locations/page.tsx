@@ -96,18 +96,6 @@ const OFFICES: ReadonlyArray<OfficeRow> = [
     blurb: "APAC bridgehead · digital asset platform & supply-chain coordination.",
   },
   {
-    id: "sao-paulo",
-    city: "São Paulo",
-    country: "Brazil",
-    flag: "🇧🇷",
-    role: "office",
-    since: "2019.06",
-    lat: -23.5505,
-    lng: -46.6333,
-    showOnMap: true,
-    blurb: "Latin America hub · component overhaul & technician training.",
-  },
-  {
     id: "virginia",
     city: "Virginia",
     country: "USA",
@@ -143,31 +131,17 @@ const OFFICES: ReadonlyArray<OfficeRow> = [
     showOnMap: true,
     blurb: "Central Asia hub · high-speed corridor O&M and crew training.",
   },
-  {
-    id: "cairo",
-    city: "Cairo",
-    country: "Egypt",
-    flag: "🇪🇬",
-    role: "office",
-    since: "2023.10",
-    lat: 30.0444,
-    lng: 31.2357,
-    showOnMap: true,
-    blurb: "MENA delivery node · parts pipeline & on-site engineering.",
-  },
 ];
 
 const HISTORY_EVENTS: ReadonlyArray<HistoryEventRaw> = [
   { year: "2016", month: "10", country: "Turkiye", event: "Istanbul Office Established" },
   { year: "2017", month: "06", country: "Ukraine", event: "HSR O&M Operations Begin" },
   { year: "2018", month: "11", country: "Ukraine", event: "Ukraine HQ Opened" },
-  { year: "2019", month: "06", country: "Brazil", event: "São Paulo Office Established" },
   { year: "2021", month: "07", country: "Poland", event: "Poland Office Established" },
   { year: "2021", month: "10", country: "Poland", event: "Warsaw Tram O&M Operations Begin" },
   { year: "2022", month: "03", country: "Poland", event: "Warsaw HQ Relocated to New Facility" },
   { year: "2022", month: "05", country: "Poland", event: "Poland Warehouse Opened" },
   { year: "2023", month: "06", country: "USA", event: "Virginia Office Established" },
-  { year: "2023", month: "10", country: "Egypt", event: "Cairo Office Established" },
   { year: "2026", month: "03", country: "South Korea", event: "Seoul Office Established" },
   { year: "2026", month: "04", country: "Uzbekistan", event: "Tashkent Office Established" },
   { year: "2026", month: "05", country: "Uzbekistan", event: "Uzbekistan HSR O&M Begin" },
@@ -178,7 +152,7 @@ export function generateMetadata(): Metadata {
     path: "/locations",
     title: "Locations",
     description:
-      "Nine Xapika offices across Europe, the Americas, MENA, and Central Asia — local crews, regional warehouses, regulator-aligned operations.",
+      "Seven Xapika offices across Europe, North America, and Central Asia — local crews, regional warehouses, regulator-aligned operations.",
   });
 }
 
@@ -245,7 +219,7 @@ export default function LocationsPage() {
 
       <LocationsHero
         overline="Locations"
-        title="Nine offices. One operating clock."
+        title="Seven offices. One operating clock."
         subtitle="From Warsaw to Tashkent — local crews, regional warehouses, regulator-aligned operations."
         stats={[
           { value: "9", label: "Cities" },
@@ -257,13 +231,13 @@ export default function LocationsPage() {
       <NetworkAtScale
         overline="Global footprint"
         title="A network built over a decade."
-        subtitle="Nine operating sites across eight countries — each one a full depot or engineering team, not a representative office."
+        subtitle="Seven operating sites across six countries — each one a full depot or engineering team, not a representative office."
         citiesValue="9"
         citiesLabel="Cities"
         citiesNote="From Warsaw to Tashkent"
-        countriesValue="8"
+        countriesValue="6"
         countriesLabel="Countries"
-        countriesNote="Europe · Asia · Americas · Africa"
+        countriesNote="Europe · Asia · North America"
         continentsValue="4"
         continentsLabel="Continents"
         continentsNote="No single-timezone dependency"
@@ -274,7 +248,7 @@ export default function LocationsPage() {
 
       <LocationsWorldMap
         overline="Where we operate"
-        title="A live network across nine cities."
+        title="A live network across seven cities."
         subtitle="Hover any marker to read the office record. Warsaw is our headquarters; the rest are full operating sites — not sales outposts."
         hqLabel="Headquarters"
         officeLabel="Office"
@@ -283,7 +257,7 @@ export default function LocationsPage() {
         comingLabel="Coming"
         legendHq="HQ"
         legendOffice="Office"
-        liveTag="9 Sites · Live"
+        liveTag="7 Sites · Live"
         offices={mapOffices}
       />
 
@@ -319,7 +293,7 @@ export default function LocationsPage() {
             flag: "🇺🇦",
             project: "Ukraine HRCS2 — EMU heavy maintenance",
             blurb: "Ukraine high-speed intercity EMU — maintenance operations since 2017, sustained through wartime.",
-            metric: "100 units · 82,000+ maintenance delivered",
+            metric: "90 cars · 82,000+ maintenance delivered",
             cta: "View program record",
             href: OPS_HREFS.ukraine,
           },

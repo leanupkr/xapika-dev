@@ -5,11 +5,9 @@ export const CONTACT_LOCATION_IDS = [
   "warsaw-office",
   "kyiv",
   "seoul",
-  "sao-paulo",
   "virginia",
   "istanbul",
   "tashkent",
-  "cairo",
   "other",
 ] as const;
 

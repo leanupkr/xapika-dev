@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
     path: "/about/clients",
     title: "Our Clients",
     description:
-      "National rail operators from Seoul to Cairo that trust Xapika with their fleets and stations.",
+      "National rail operators from Seoul to Warsaw that trust Xapika with their fleets and stations.",
   });
 }
 
@@ -28,12 +28,12 @@ export default async function ClientsPage() {
       <AboutHeader
         overline="Our Clients"
         title="Trusted by national rail operators."
-        subtitle="From Seoul to Cairo, Xapika serves the operators that move millions every day."
+        subtitle="From Seoul to Warsaw, Xapika serves the operators that move millions every day."
       />
       <OurClients
         overline="Our Clients"
         title="Trusted by national rail operators."
-        subtitle="From Seoul to Cairo, Xapika serves the operators that move millions every day."
+        subtitle="From Seoul to Warsaw, Xapika serves the operators that move millions every day."
         logoArrivingNote="Logo arriving"
       />
     </>

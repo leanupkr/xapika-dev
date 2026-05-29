@@ -56,11 +56,9 @@ const LOCATION_LABELS: Record<string, string> = {
   "warsaw-office":"Warsaw — Office",
   "kyiv":         "Kyiv",
   "seoul":        "Seoul",
-  "sao-paulo":    "São Paulo",
   "virginia":     "Virginia",
   "istanbul":     "Istanbul",
   "tashkent":     "Tashkent",
-  "cairo":        "Cairo",
   "other":        "Other / not listed",
 };
 

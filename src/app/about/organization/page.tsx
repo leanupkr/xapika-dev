@@ -27,8 +27,8 @@ export default async function OrganizationPage() {
       />
       <AboutHeader
         overline="Organization"
-        title="Cross-functional teams across five countries."
-        subtitle="From Warsaw to Seoul, Cairo, and São Paulo — six international offices, one operational standard."
+        title="Cross-functional teams across six countries."
+        subtitle="From Warsaw to Seoul and Virginia — international offices aligned on one operational standard."
       />
       <OrgChart
         ceoLabel="Chief Executive Officer"
@@ -40,9 +40,6 @@ export default async function OrganizationPage() {
             children: [
               "South Korea Office",
               "Uzbekistan Office",
-              "Morocco Office",
-              "Egypt Office",
-              "São Paulo Office",
               "Türkiye Office",
             ],
           },

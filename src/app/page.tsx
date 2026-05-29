@@ -122,8 +122,8 @@ export default function HomePage() {
             project: "HRCS2 Fleet — Ukrzaliznytsia",
             since: "Since 2017",
             badge: "Uninterrupted Since War",
-            m1_value: "100",
-            m1_label: "HRCS2 units",
+            m1_value: "90",
+            m1_label: "HRCS2 cars",
             m2_value: "82,000+",
             m2_label: "Maintenance actions",
             m3_value: "9 yrs",
@@ -158,8 +158,8 @@ export default function HomePage() {
       <TrustedBy overline="Strategic partners enabling global operations" />
       <GlobalPresence
         overline="Global Network"
-        title="Eight countries. One standard."
-        subtitle="Active depots and engineering crews across Europe, Asia, the Americas, and Africa."
+        title="Six countries. One standard."
+        subtitle="Active depots and engineering crews across Europe, Asia, and North America."
         stat1Value="3"
         stat1Unit="Warehouses"
         stat2Value="5"

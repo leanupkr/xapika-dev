@@ -37,12 +37,6 @@ const CLIENTS: ReadonlyArray<Client> = [
     logo: { src: "/partners/nat-egypt.png", aspect: "square" },
   },
   {
-    name: "UZ Railways",
-    fullName: "UZ Railways (Ukrzaliznytsia)",
-    country: "Ukraine",
-    logo: { src: "/partners/ukrzaliznytsia.svg", aspect: "wide" },
-  },
-  {
     name: "Kyiv Metro",
     fullName: "Kyiv Metro (Toshiba / Tokyo Car Corp.)",
     country: "Ukraine",

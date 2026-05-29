@@ -21,7 +21,7 @@ export default async function PortfoliosIndexPage() {
       href: "/portfolios/ukraine-emu",
       country: "Ukraine",
       project: "Ukraine HRCS2 EMU",
-      metric: "100 units · since 2017",
+      metric: "90 cars · since 2017",
       summary: "Operating uninterrupted since the 2022 invasion.",
       image: "/portfolios/ukraine-emu/hero-main.jpg",
       imgAlt:
