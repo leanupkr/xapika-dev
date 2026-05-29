@@ -164,7 +164,7 @@ export default function HomePage() {
         stat1Unit="Warehouses"
         stat2Value="5"
         stat2Unit="Engineering Locations"
-        stat3Value="9"
+        stat3Value="7"
         stat3Unit="Offices"
       />
     </>

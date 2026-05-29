@@ -352,7 +352,7 @@ export default function GlobalPresence({
                   animation: "livepulse 1.8s ease-in-out infinite",
                 }}
               />
-              8 Hubs · Live
+              6 Hubs · Live
             </div>
 
             {!mounted && (
