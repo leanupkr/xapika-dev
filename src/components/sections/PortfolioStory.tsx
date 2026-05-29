@@ -106,7 +106,7 @@ export default function PortfolioStory({
         <div className="lg:col-span-6">
           <span
             data-fade
-            className="opacity-0 flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
+            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
             style={{ fontSize: "12px", letterSpacing: "0.22em" }}
           >
             <span
@@ -123,7 +123,7 @@ export default function PortfolioStory({
           <h2
             id="portfolio-story-title"
             data-fade
-            className="opacity-0 font-heading font-semibold text-white mb-8"
+            className="font-heading font-semibold text-white mb-8"
             style={{
               fontSize: "clamp(1.875rem, 3.6vw, 2.875rem)",
               letterSpacing: "-0.02em",
@@ -137,7 +137,7 @@ export default function PortfolioStory({
               <p
                 key={i}
                 data-fade
-                className="opacity-0 font-body"
+                className="font-body"
                 style={{
                   fontSize: "clamp(0.9375rem, 1.1vw, 1.0625rem)",
                   color: "rgba(255,255,255,0.72)",
@@ -156,7 +156,7 @@ export default function PortfolioStory({
           {imageSrc ? (
             <div
               data-fade
-              className="relative opacity-0 overflow-hidden"
+              className="relative overflow-hidden"
               style={{
                 aspectRatio: "16 / 9",
                 backgroundColor: "rgba(255,255,255,0.02)",
@@ -245,7 +245,7 @@ export default function PortfolioStory({
           ) : (
             <div
               data-fade
-              className="relative opacity-0"
+              className="relative"
               style={{
                 aspectRatio: "16 / 9",
                 border: "1.5px dashed rgba(255,255,255,0.22)",
@@ -358,7 +358,7 @@ export default function PortfolioStory({
           {highlights && highlights.length > 0 ? (
             <dl
               data-fade
-              className="opacity-0 mt-8 grid grid-cols-1"
+              className="mt-8 grid grid-cols-1"
               style={{
                 borderTop: "1px solid rgba(255,255,255,0.10)",
               }}

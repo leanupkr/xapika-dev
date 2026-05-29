@@ -113,7 +113,7 @@ export default function UzbekTimeline({
           <div ref={headerRef} className="lg:col-span-4 lg:sticky lg:top-28">
             <span
               data-header-item
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))] opacity-0"
+              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
               style={{ fontSize: "13px", letterSpacing: "0.22em" }}
             >
               <span
@@ -131,7 +131,7 @@ export default function UzbekTimeline({
             <h2
               id="uzbek-timeline-title"
               data-header-item
-              className="font-heading font-semibold text-[rgb(var(--color-ink))] opacity-0"
+              className="font-heading font-semibold text-[rgb(var(--color-ink))]"
               style={{
                 fontSize: "clamp(2rem, 4vw, 3rem)",
                 letterSpacing: "-0.02em",
@@ -164,7 +164,7 @@ export default function UzbekTimeline({
                   <li
                     key={`${event.year}-${event.month}-${i}`}
                     data-node
-                    className={`relative pl-10 opacity-0 ${
+                    className={`relative pl-10 ${
                       isLast ? "pb-0" : "pb-12 md:pb-16"
                     }`}
                   >

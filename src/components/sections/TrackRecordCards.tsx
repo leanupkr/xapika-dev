@@ -153,7 +153,7 @@ export default function TrackRecordCards({
           {/* C7: overline color fixed to #A86700 (~4.65:1 on white, WCAG AA) */}
           <span
             data-header-item
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 opacity-0"
+            className="flex items-center gap-3 font-heading font-medium uppercase mb-6"
             style={{ fontSize: "13px", letterSpacing: "0.22em", color: "#A86700" }}
           >
             <span
@@ -171,7 +171,7 @@ export default function TrackRecordCards({
           <h2
             id="track-record-title"
             data-header-item
-            className="font-heading font-semibold text-[rgb(var(--color-ink))] opacity-0"
+            className="font-heading font-semibold text-[rgb(var(--color-ink))]"
             style={{
               fontSize: "clamp(2rem, 4.5vw, 3.25rem)",
               letterSpacing: "-0.02em",
@@ -183,7 +183,7 @@ export default function TrackRecordCards({
 
           <p
             data-header-item
-            className="font-body text-[rgb(var(--color-ink-muted))] mt-6 opacity-0"
+            className="font-body text-[rgb(var(--color-ink-muted))] mt-6"
             style={{
               fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
               lineHeight: 1.65,
@@ -196,7 +196,7 @@ export default function TrackRecordCards({
           <div
             data-header-item
             aria-hidden="true"
-            className="mt-10 flex flex-col gap-[2px] opacity-0"
+            className="mt-10 flex flex-col gap-[2px]"
             style={{ maxWidth: "120px" }}
           >
             <span
@@ -239,7 +239,7 @@ export default function TrackRecordCards({
               <li
                 key={client.name}
                 data-track-card
-                className="relative flex bg-white opacity-0"
+                className="relative flex bg-white"
                 style={{
                   border: "1px solid rgb(var(--color-ink) / 0.10)",
                 }}

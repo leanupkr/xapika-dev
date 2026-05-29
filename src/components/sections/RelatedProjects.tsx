@@ -130,7 +130,7 @@ export default function RelatedProjects({
             <div className="lg:sticky lg:top-28">
               <span
                 data-header-item
-                className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))] opacity-0"
+                className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
                 style={{ fontSize: "13px", letterSpacing: "0.22em" }}
               >
                 <span
@@ -148,7 +148,7 @@ export default function RelatedProjects({
               <h2
                 id="related-title"
                 data-header-item
-                className="font-heading font-semibold text-[rgb(var(--color-ink))] opacity-0"
+                className="font-heading font-semibold text-[rgb(var(--color-ink))]"
                 style={{
                   fontSize: "clamp(1.75rem, 3.4vw, 2.5rem)",
                   letterSpacing: "-0.02em",
@@ -188,7 +188,7 @@ function RelatedCard({
       href={hrefFor(item)}
       aria-label={`${item.country} — ${item.project}`}
       data-related-card
-      className="group relative block opacity-0 transition-colors duration-[320ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-primary))] focus-visible:ring-offset-2"
+      className="group relative block transition-colors duration-[320ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-primary))] focus-visible:ring-offset-2"
       style={{
         backgroundColor: "rgb(var(--color-surface))",
         border: "1px solid rgb(var(--color-ink) / 0.10)",

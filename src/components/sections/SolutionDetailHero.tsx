@@ -226,7 +226,7 @@ export default function SolutionDetailHero({
             style={{ maxWidth: "var(--max-width-content)" }}
           >
             {/* What We Do — full row */}
-            <div data-detail-block className="opacity-0">
+            <div data-detail-block className="">
               <PlaceholderBlock
                 kicker="01"
                 label={sectionLabels?.whatWeDo ?? ""}
@@ -237,7 +237,7 @@ export default function SolutionDetailHero({
 
             {/* Key Stats + Related Projects — 12-col grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-14 md:mt-20">
-              <div data-detail-block className="lg:col-span-5 opacity-0">
+              <div data-detail-block className="lg:col-span-5">
                 <PlaceholderBlock
                   kicker="02"
                   label={sectionLabels?.keyStats ?? ""}
@@ -245,7 +245,7 @@ export default function SolutionDetailHero({
                   variant="stats"
                 />
               </div>
-              <div data-detail-block className="lg:col-span-7 opacity-0">
+              <div data-detail-block className="lg:col-span-7">
                 <PlaceholderBlock
                   kicker="03"
                   label={sectionLabels?.relatedProjects ?? ""}
@@ -258,7 +258,7 @@ export default function SolutionDetailHero({
             {/* CTA */}
             <div
               data-detail-block
-              className="mt-14 md:mt-24 opacity-0 relative"
+              className="mt-14 md:mt-24 relative"
               style={{
                 borderTop: "1px solid rgb(var(--color-ink) / 0.08)",
                 paddingTop: "clamp(3rem, 7vh, 4.5rem)",

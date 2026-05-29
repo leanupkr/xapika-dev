@@ -232,7 +232,7 @@ function SolutionLargeCard({
       data-solution-card
       href={item.href}
       aria-label={`${item.title} — ${item.description}`}
-      className={`group relative block opacity-0 transition-colors duration-[320ms] ${
+      className={`group relative block transition-colors duration-[320ms] ${
         isFeatured ? "col-span-2 md:col-span-2" : ""
       }`}
       style={{

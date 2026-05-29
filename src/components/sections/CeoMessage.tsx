@@ -116,7 +116,7 @@ export default function CeoMessage({
         <div ref={headerRef} className="mb-14 md:mb-20" style={{ maxWidth: "640px" }}>
           <span
             data-header-item
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))] opacity-0"
+            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
             style={{ fontSize: "13px", letterSpacing: "0.22em" }}
           >
             <span
@@ -134,7 +134,7 @@ export default function CeoMessage({
           <h2
             id="ceo-title"
             data-header-item
-            className="font-heading font-semibold text-[rgb(var(--color-ink))] opacity-0"
+            className="font-heading font-semibold text-[rgb(var(--color-ink))]"
             style={{
               fontSize: "clamp(2rem, 4.5vw, 3.25rem)",
               letterSpacing: "-0.02em",
@@ -146,7 +146,7 @@ export default function CeoMessage({
 
           <p
             data-header-item
-            className="font-body text-[rgb(var(--color-ink-muted))] mt-6 opacity-0"
+            className="font-body text-[rgb(var(--color-ink-muted))] mt-6"
             style={{
               fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
               lineHeight: 1.65,
@@ -182,7 +182,7 @@ export default function CeoMessage({
               <p
                 key={i}
                 data-paragraph
-                className="font-body opacity-0"
+                className="font-body"
                 style={{
                   fontSize:
                     i === 0
@@ -213,7 +213,7 @@ export default function CeoMessage({
             {/* "Sincerely," closing */}
             <p
               data-paragraph
-              className="font-heading font-medium opacity-0"
+              className="font-heading font-medium"
               style={{
                 fontSize: "13px",
                 letterSpacing: "0.14em",
@@ -228,7 +228,7 @@ export default function CeoMessage({
             {/* Name + Signature — same baseline row. w-fit + ml-auto forces the row to hug its content and stick to the right edge. */}
             <div
               data-paragraph
-              className="opacity-0 flex items-center gap-2 sm:gap-3 mb-3 w-fit ml-auto"
+              className="flex items-center gap-2 sm:gap-3 mb-3 w-fit ml-auto"
             >
               <span
                 className="font-heading font-semibold text-[rgb(var(--color-ink))]"
@@ -264,7 +264,7 @@ export default function CeoMessage({
             {/* Position */}
             <div
               data-paragraph
-              className="font-heading opacity-0"
+              className="font-heading"
               style={{
                 fontSize: "11px",
                 letterSpacing: "0.14em",

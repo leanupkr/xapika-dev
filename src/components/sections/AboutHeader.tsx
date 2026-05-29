@@ -129,7 +129,7 @@ export default function AboutHeader({
           {/* Overline */}
           <span
             ref={overlineRef}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 opacity-0"
+            className="flex items-center gap-3 font-heading font-medium uppercase mb-6"
             style={{
               fontSize: "13px",
               letterSpacing: "0.22em",
@@ -166,7 +166,7 @@ export default function AboutHeader({
                 key={`${word}-${i}`}
                 data-word
                 aria-hidden="true"
-                className="inline-block opacity-0"
+                className="inline-block"
                 style={{ marginRight: i < words.length - 1 ? "0.25em" : 0 }}
               >
                 {word}
@@ -177,7 +177,7 @@ export default function AboutHeader({
           {/* Subtitle */}
           <p
             ref={subRef}
-            className="font-body opacity-0"
+            className="font-body"
             style={{
               fontSize: "clamp(1rem, 1.4vw, 1.1875rem)",
               color: "rgba(255,255,255,0.72)",

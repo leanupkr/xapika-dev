@@ -157,7 +157,7 @@ export default function OurClients({
         <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">
           <span
             data-header-item
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))] opacity-0"
+            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
             style={{ fontSize: "13px", letterSpacing: "0.22em" }}
           >
             <span
@@ -175,7 +175,7 @@ export default function OurClients({
           <h2
             id="clients-title"
             data-header-item
-            className="font-heading font-semibold text-[rgb(var(--color-ink))] opacity-0"
+            className="font-heading font-semibold text-[rgb(var(--color-ink))]"
             style={{
               fontSize: "clamp(2rem, 4.5vw, 3.25rem)",
               letterSpacing: "-0.02em",
@@ -187,7 +187,7 @@ export default function OurClients({
 
           <p
             data-header-item
-            className="font-body text-[rgb(var(--color-ink-muted))] mt-6 opacity-0"
+            className="font-body text-[rgb(var(--color-ink-muted))] mt-6"
             style={{
               fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
               lineHeight: 1.65,
@@ -206,7 +206,7 @@ export default function OurClients({
             <li
               key={c.name}
               data-client-card
-              className="group relative flex flex-col justify-between bg-white opacity-0 transition-colors duration-[320ms] ease-out hover:border-[rgb(var(--color-primary)/0.5)] min-w-0 aspect-[5/4] sm:aspect-[16/9]"
+              className="group relative flex flex-col justify-between bg-white transition-colors duration-[320ms] ease-out hover:border-[rgb(var(--color-primary)/0.5)] min-w-0 aspect-[5/4] sm:aspect-[16/9]"
               style={{
                 minHeight: "160px",
                 border: "1px solid rgb(var(--color-ink) / 0.10)",

@@ -55,6 +55,13 @@ export default function PageHero({
       const reduced = prefersReducedMotion();
       const titleWords = titleRef.current?.querySelectorAll("[data-word]");
 
+      // Progressive enhancement: Tailwind className no longer starts at
+      // opacity-0, so if GSAP fails to load the content stays visible.
+      // When GSAP IS available, set opacity 0 here (paint-blocked via
+      // useLayoutEffect inside useGSAP) so the fade-in still feels intentional.
+      gsap.set([overlineRef.current, subRef.current], { opacity: 0 });
+      if (titleWords?.length) gsap.set(titleWords, { opacity: 0 });
+
       if (reduced) {
         gsap.set(
           [overlineRef.current, titleRef.current, subRef.current],
@@ -182,7 +189,7 @@ export default function PageHero({
             {/* Overline */}
             <span
               ref={overlineRef}
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 opacity-0"
+              className="flex items-center gap-3 font-heading font-medium uppercase mb-6"
               style={{
                 fontSize: "13px",
                 letterSpacing: "var(--tracking-overline, 0.22em)",
@@ -219,7 +226,7 @@ export default function PageHero({
                   key={`${word}-${i}`}
                   data-word
                   aria-hidden="true"
-                  className="inline-block opacity-0"
+                  className="inline-block"
                   style={{ marginRight: i < words.length - 1 ? "0.25em" : 0 }}
                 >
                   {word}
@@ -230,7 +237,7 @@ export default function PageHero({
             {/* Subtitle */}
             <p
               ref={subRef}
-              className="font-body opacity-0"
+              className="font-body"
               style={{
                 fontSize: "clamp(1rem, 1.4vw, 1.1875rem)",
                 color: "rgba(255,255,255,0.72)",

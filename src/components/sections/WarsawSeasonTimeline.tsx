@@ -345,7 +345,7 @@ export default function WarsawSeasonTimeline({
                       data-season-node
                       {...(isFirst ? { "data-year-first": year } : {})}
                       {...(isLast ? { "data-year-last": year } : {})}
-                      className="relative pb-14 md:pb-20 last:pb-0 opacity-0"
+                      className="relative pb-14 md:pb-20 last:pb-0"
                     >
                       {/* Axis dot */}
                       <span

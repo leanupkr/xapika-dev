@@ -250,7 +250,7 @@ function PortfolioLargeCard({
       data-portfolio-card
       href={item.href}
       aria-label={`${item.project} — ${item.summary}`}
-      className={`group relative block opacity-0 transition-colors duration-[480ms] bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-ink)/0.10)] hover:border-[rgb(var(--color-primary)/0.5)] ${
+      className={`group relative block transition-colors duration-[480ms] bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-ink)/0.10)] hover:border-[rgb(var(--color-primary)/0.5)] ${
         emphasized ? "col-span-2 md:col-span-2" : ""
       }`}
     >

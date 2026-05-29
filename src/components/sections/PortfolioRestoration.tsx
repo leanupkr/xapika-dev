@@ -160,7 +160,7 @@ export default function PortfolioRestoration({
           <div className="lg:col-span-7">
             <span
               data-fade
-              className="opacity-0 flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
+              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
               style={{ fontSize: "12px", letterSpacing: "0.22em" }}
             >
               <span
@@ -177,7 +177,7 @@ export default function PortfolioRestoration({
             <h2
               id="portfolio-restoration-title"
               data-fade
-              className="opacity-0 font-heading font-semibold text-white"
+              className="font-heading font-semibold text-white"
               style={{
                 fontSize: "clamp(2rem, 4vw, 3.25rem)",
                 letterSpacing: "-0.02em",
@@ -190,7 +190,7 @@ export default function PortfolioRestoration({
           <div className="lg:col-span-5 lg:pt-3">
             <p
               data-fade
-              className="opacity-0 font-body"
+              className="font-body"
               style={{
                 fontSize: "clamp(0.9375rem, 1.1vw, 1.0625rem)",
                 color: "rgba(255,255,255,0.72)",
@@ -206,7 +206,7 @@ export default function PortfolioRestoration({
         {/* Establishing photo */}
         <div
           data-fade
-          className="relative opacity-0 overflow-hidden mb-3 md:mb-4"
+          className="relative overflow-hidden mb-3 md:mb-4"
           style={{
             aspectRatio: "16 / 9",
             backgroundColor: "rgba(255,255,255,0.02)",
@@ -280,7 +280,7 @@ export default function PortfolioRestoration({
               <li
                 key={photo.src}
                 data-fade
-                className="opacity-0 relative overflow-hidden group"
+                className="relative overflow-hidden group"
                 style={{
                   aspectRatio: "4 / 3",
                   backgroundColor: "rgba(255,255,255,0.02)",
@@ -340,7 +340,7 @@ export default function PortfolioRestoration({
         {/* Stat strip */}
         <div
           data-fade
-          className="opacity-0 relative"
+          className="relative"
           style={{
             borderTop: "1px solid rgba(255,255,255,0.12)",
             borderBottom: "1px solid rgba(255,255,255,0.12)",

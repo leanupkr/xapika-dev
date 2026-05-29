@@ -286,7 +286,7 @@ export default function HistoryTimeline({
         <div ref={headerRef} className="max-w-[580px] mb-8 md:mb-20">
           <span
             data-header-item
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))] opacity-0"
+            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
             style={{ fontSize: "13px", letterSpacing: "0.22em" }}
           >
             <span
@@ -303,7 +303,7 @@ export default function HistoryTimeline({
           <h2
             id="history-title"
             data-header-item
-            className="font-heading font-semibold text-[rgb(var(--color-ink))] opacity-0"
+            className="font-heading font-semibold text-[rgb(var(--color-ink))]"
             style={{
               fontSize: "clamp(2rem, 4.5vw, 3.25rem)",
               letterSpacing: "-0.02em",
@@ -315,7 +315,7 @@ export default function HistoryTimeline({
 
           <p
             data-header-item
-            className="font-body text-[rgb(var(--color-ink-muted))] mt-6 opacity-0"
+            className="font-body text-[rgb(var(--color-ink-muted))] mt-6"
             style={{
               fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
               lineHeight: 1.65,
@@ -344,7 +344,7 @@ export default function HistoryTimeline({
               <li
                 key={`${event.year}-${event.month}-${i}`}
                 data-node
-                className="relative pb-6 md:pb-20 last:pb-0 opacity-0"
+                className="relative pb-6 md:pb-20 last:pb-0"
               >
                 {/* Dot on axis */}
                 <span

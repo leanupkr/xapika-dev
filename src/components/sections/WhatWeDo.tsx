@@ -103,7 +103,7 @@ export default function WhatWeDo({ overline, title, items }: WhatWeDoProps) {
             <div className="lg:sticky lg:top-28">
               <span
                 data-header-item
-                className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))] opacity-0"
+                className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
                 style={{ fontSize: "13px", letterSpacing: "0.22em" }}
               >
                 <span
@@ -121,7 +121,7 @@ export default function WhatWeDo({ overline, title, items }: WhatWeDoProps) {
               <h2
                 id="wwd-title"
                 data-header-item
-                className="font-heading font-semibold text-[rgb(var(--color-ink))] opacity-0"
+                className="font-heading font-semibold text-[rgb(var(--color-ink))]"
                 style={{
                   fontSize: "clamp(1.875rem, 3.6vw, 2.75rem)",
                   letterSpacing: "-0.02em",
@@ -144,7 +144,7 @@ export default function WhatWeDo({ overline, title, items }: WhatWeDoProps) {
               <li
                 key={item.index}
                 data-wwd-item
-                className="group relative opacity-0"
+                className="group relative"
                 style={{
                   borderBottom: "1px solid rgb(var(--color-ink) / 0.10)",
                 }}

@@ -136,7 +136,7 @@ export default function Vision({
         <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">
           <span
             data-header-item
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 opacity-0"
+            className="flex items-center gap-3 font-heading font-medium uppercase mb-6"
             style={{
               fontSize: "13px",
               letterSpacing: "0.22em",
@@ -158,7 +158,7 @@ export default function Vision({
           <h2
             id="vision-title"
             data-header-item
-            className="font-heading font-semibold text-white opacity-0"
+            className="font-heading font-semibold text-white"
             style={{
               fontSize: "clamp(2rem, 4.5vw, 3.25rem)",
               letterSpacing: "-0.02em",
@@ -170,7 +170,7 @@ export default function Vision({
 
           <p
             data-header-item
-            className="font-body mt-6 opacity-0"
+            className="font-body mt-6"
             style={{
               fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
               lineHeight: 1.65,
@@ -190,7 +190,7 @@ export default function Vision({
             <li
               key={item.index}
               data-vision-card
-              className="group relative opacity-0"
+              className="group relative"
             >
               {/* Top hairline — animates to primary on hover */}
               <span

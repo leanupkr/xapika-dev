@@ -214,7 +214,7 @@ export default function OverhaulProcess({
               <li
                 key={phase.label}
                 data-phase
-                className="relative opacity-0 group"
+                className="relative group"
                 style={{
                   borderBottom: "1px solid rgba(255,255,255,0.08)",
                 }}
