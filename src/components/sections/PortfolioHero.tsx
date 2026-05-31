@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import PageHero from "@/components/ui/PageHero";
+import CornerTicks from "@/components/ui/CornerTicks";
 
 type PortfolioHeroProps = {
   overline: string;
@@ -68,42 +69,7 @@ export default function PortfolioHero({
         }}
       />
       {/* Corner ticks — preserve framing motif even with real photo */}
-      {[
-        { top: 8, left: 8 },
-        { top: 8, right: 8 },
-        { bottom: 8, left: 8 },
-        { bottom: 8, right: 8 },
-      ].map((pos, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          className="absolute block pointer-events-none"
-          style={{
-            top: pos.top,
-            left: pos.left,
-            right: pos.right,
-            bottom: pos.bottom,
-            width: "10px",
-            height: "10px",
-            borderTop:
-              pos.top !== undefined
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-            borderBottom:
-              pos.bottom !== undefined
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-            borderLeft:
-              pos.left !== undefined
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-            borderRight:
-              pos.right !== undefined
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-          }}
-        />
-      ))}
+      <CornerTicks size={10} />
     </div>
   ) : (
     <div
@@ -188,42 +154,7 @@ export default function PortfolioHero({
       </div>
 
       {/* Corner ticks */}
-      {[
-        { top: 8, left: 8 },
-        { top: 8, right: 8 },
-        { bottom: 8, left: 8 },
-        { bottom: 8, right: 8 },
-      ].map((pos, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          className="absolute block"
-          style={{
-            top: pos.top,
-            left: pos.left,
-            right: pos.right,
-            bottom: pos.bottom,
-            width: "8px",
-            height: "8px",
-            borderTop:
-              pos.top !== undefined
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-            borderBottom:
-              pos.bottom !== undefined
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-            borderLeft:
-              pos.left !== undefined
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-            borderRight:
-              pos.right !== undefined
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-          }}
-        />
-      ))}
+      <CornerTicks size={8} />
     </div>
   );
 

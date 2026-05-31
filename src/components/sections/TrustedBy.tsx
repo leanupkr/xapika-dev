@@ -3,6 +3,7 @@
 import { Fragment, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
+import { EASE } from "@/lib/motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
 const PARTNERS = [
@@ -40,7 +41,7 @@ export default function TrustedBy({ overline }: { overline: string }) {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={inView ? { opacity: 1, y: 0 } : undefined}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, ease: EASE }}
         className="flex items-center justify-center mb-6 md:mb-8 px-6"
       >
         <span

@@ -1,35 +1,20 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import dynamic from "next/dynamic";
 import { useMediaQuery } from "@/lib/useMediaQuery";
-
-/* ── react-simple-maps: SSR-safe dynamic imports ─────────────────────────── */
-const ComposableMap = dynamic(
-  () => import("react-simple-maps").then((m) => m.ComposableMap),
-  { ssr: false },
-);
-const Geographies = dynamic(
-  () => import("react-simple-maps").then((m) => m.Geographies),
-  { ssr: false },
-);
-const Geography = dynamic(
-  () => import("react-simple-maps").then((m) => m.Geography),
-  { ssr: false },
-);
-const Marker = dynamic(
-  () => import("react-simple-maps").then((m) => m.Marker),
-  { ssr: false },
-);
-const Line = dynamic(
-  () => import("react-simple-maps").then((m) => m.Line),
-  { ssr: false },
-);
-
-/* ── Constants ───────────────────────────────────────────────────────────── */
-const GEO_URL =
-  "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+import { EASE } from "@/lib/motion";
+import { useMounted } from "@/lib/useMounted";
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker,
+  Line,
+  GEO_URL,
+} from "@/lib/reactSimpleMaps";
+import SectionOverline from "@/components/ui/SectionOverline";
+import SectionContainer from "@/components/ui/SectionContainer";
 
 /** numericId → ISO numeric from Natural Earth / world-atlas */
 const HIGHLIGHT_COUNTRIES: Record<string, string> = {
@@ -83,7 +68,6 @@ const CORRIDOR_SEGMENTS: [PinId, PinId][] = [
   ["tashkent", "seoul"],
 ];
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const DOT_R = 5;
 
 /* ── Prop types ──────────────────────────────────────────────────────────── */
@@ -104,25 +88,16 @@ export default function UzbekRouteMap({
   title,
   subtitle,
   pins,
-}: UzbekRouteMapProps): React.JSX.Element {
+}: UzbekRouteMapProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { amount: 0, once: true });
 
-  const [hasEntered, setHasEntered] = useState(true);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
 
   const isMobile = useMediaQuery("(max-width: 1023px)");
   const prefersReducedMotion = useMediaQuery(
     "(prefers-reduced-motion: reduce)",
   );
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (inView && !hasEntered) setHasEntered(true);
-  }, [inView, hasEntered]);
 
   /* Map dimensions */
   const mapWidth = 800;
@@ -163,43 +138,25 @@ export default function UzbekRouteMap({
         }}
       />
 
-      <div
-        className="relative mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
           {/* ── Left: Text block ── */}
           <div className="lg:col-span-5 flex flex-col">
             {/* Overline */}
-            <motion.span
+            <SectionOverline
+              as={motion.span}
               initial={{ opacity: 0, x: -16 }}
-              animate={hasEntered ? { opacity: 1, x: 0 } : undefined}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6"
-              style={{
-                fontSize: "12px",
-                letterSpacing: "0.22em",
-                color: "rgb(var(--color-primary))",
-              }}
             >
-              <span
-                aria-hidden
-                style={{
-                  display: "inline-block",
-                  width: "24px",
-                  height: "2px",
-                  flexShrink: 0,
-                  backgroundColor: "rgb(var(--color-primary))",
-                }}
-              />
               {overline}
-            </motion.span>
+            </SectionOverline>
 
             {/* Title */}
             <motion.h2
               id="uzbek-route-map-title"
               initial={{ opacity: 0, y: 20 }}
-              animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
               className="font-heading font-semibold mb-5"
               style={{
@@ -215,7 +172,7 @@ export default function UzbekRouteMap({
             {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 16 }}
-              animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.18, ease: EASE }}
               className="font-body mb-10"
               style={{
@@ -231,7 +188,7 @@ export default function UzbekRouteMap({
             {/* 3-city list */}
             <motion.ul
               initial={{ opacity: 0, y: 12 }}
-              animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.26, ease: EASE }}
               className="flex flex-col gap-4"
               aria-label="Corridor cities"
@@ -241,7 +198,6 @@ export default function UzbekRouteMap({
                   key={pin.id}
                   label={pins[pin.id]}
                   index={i}
-                  hasEntered={hasEntered}
                   prefersReducedMotion={prefersReducedMotion}
                 />
               ))}
@@ -252,7 +208,7 @@ export default function UzbekRouteMap({
           <motion.div
             className="lg:col-span-7 relative"
             initial={{ opacity: 0 }}
-            animate={hasEntered ? { opacity: 1 } : undefined}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
           >
             {/* Microcopy badge — top-right corner */}
@@ -342,9 +298,7 @@ export default function UzbekRouteMap({
 
                   {/* Corridor lines — staggered draw-in animation */}
                   {CORRIDOR_SEGMENTS.map(([fromId, toId], segIdx) => {
-                    const drawDelay = hasEntered
-                      ? `${prefersReducedMotion ? 0 : 0.55 + segIdx * 0.45}s`
-                      : "9999s"; // effectively hidden until entry
+                    const drawDelay = `${prefersReducedMotion ? 0 : 0.55 + segIdx * 0.45}s`;
 
                     return (
                       <motion.g
@@ -369,12 +323,10 @@ export default function UzbekRouteMap({
                           strokeDasharray="5 4"
                           strokeLinecap="round"
                           style={{
-                            opacity: hasEntered ? 1 : 0,
-                            animationName: hasEntered
-                              ? prefersReducedMotion
-                                ? "dashflow"
-                                : "dashReveal, dashflow"
-                              : "none",
+                            opacity: 1,
+                            animationName: prefersReducedMotion
+                              ? "dashflow"
+                              : "dashReveal, dashflow",
                             animationDuration: prefersReducedMotion
                               ? "2.2s"
                               : "0.7s, 2.2s",
@@ -409,11 +361,7 @@ export default function UzbekRouteMap({
                         {/* Outer ring */}
                         <motion.g
                           initial={{ scale: 0, opacity: 0 }}
-                          animate={
-                            hasEntered
-                              ? { scale: 1, opacity: 1 }
-                              : undefined
-                          }
+                          animate={{ scale: 1, opacity: 1 }}
                           transition={{
                             delay: dotDelay,
                             duration: prefersReducedMotion ? 0 : 0.45,
@@ -472,11 +420,7 @@ export default function UzbekRouteMap({
                         {/* Label */}
                         <motion.g
                           initial={{ opacity: 0, y: 8 }}
-                          animate={
-                            hasEntered
-                              ? { opacity: 1, y: 0 }
-                              : undefined
-                          }
+                          animate={{ opacity: 1, y: 0 }}
                           transition={{
                             delay: labelDelay,
                             duration: prefersReducedMotion ? 0 : 0.5,
@@ -523,7 +467,7 @@ export default function UzbekRouteMap({
             `}</style>
           </motion.div>
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }
@@ -532,18 +476,16 @@ export default function UzbekRouteMap({
 function CityRow({
   label,
   index,
-  hasEntered,
   prefersReducedMotion,
 }: {
   label: string;
   index: number;
-  hasEntered: boolean;
   prefersReducedMotion: boolean;
 }) {
   return (
     <motion.li
       initial={{ opacity: 0, x: -12 }}
-      animate={hasEntered ? { opacity: 1, x: 0 } : undefined}
+      animate={{ opacity: 1, x: 0 }}
       transition={{
         duration: prefersReducedMotion ? 0 : 0.5,
         delay: prefersReducedMotion ? 0 : 0.32 + index * 0.1,

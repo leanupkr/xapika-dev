@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { killScrollTriggersWithin } from "@/lib/reveal";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 type CeoMessageProps = {
   overline: string;
@@ -81,11 +83,7 @@ export default function CeoMessage({
         }
       }
 
-      return () => {
-        ScrollTrigger.getAll()
-          .filter((st) => sectionRef.current?.contains(st.trigger as Node))
-          .forEach((st) => st.kill());
-      };
+      return () => killScrollTriggersWithin(sectionRef.current);
     },
     { scope: sectionRef }
   );
@@ -114,22 +112,9 @@ export default function CeoMessage({
       >
         {/* Header */}
         <div ref={headerRef} className="mb-14 md:mb-20" style={{ maxWidth: "640px" }}>
-          <span
-            data-header-item
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.22em" }}
-          >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
+          <SectionOverline data-header-item>
             {overline}
-          </span>
+          </SectionOverline>
 
           <h2
             id="ceo-title"

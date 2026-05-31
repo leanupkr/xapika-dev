@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
+import { EASE } from "@/lib/motion";
+import SectionOverline from "@/components/ui/SectionOverline";
+import SectionContainer from "@/components/ui/SectionContainer";
+import CornerTicks from "@/components/ui/CornerTicks";
 
 // ────────────────────────────────────────────────────────────────────────────
 // Types
@@ -88,7 +92,7 @@ function DigitUnit({ value, label, isFirst = false, index, inView }: DigitUnitPr
         transition={{
           duration: 0.65,
           delay: 0.1 + index * 0.1,
-          ease: [0.16, 1, 0.3, 1],
+          ease: EASE,
         }}
       >
         {/* Big digit */}
@@ -234,38 +238,25 @@ export default function LaunchCountdown({
         {announceText}
       </span>
 
-      <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-16 items-center"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-16 items-center">
         {/* ── Left column (col-span-7) ──────────────────────────────────── */}
         <div className="lg:col-span-7 flex flex-col gap-0">
           {/* Overline */}
-          <motion.span
+          <SectionOverline
+            as={motion.span}
             initial={{ opacity: 0, x: -16 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 font-heading font-medium uppercase text-[rgb(var(--color-primary))] mb-6"
-            style={{ fontSize: "12px", letterSpacing: "0.22em" }}
+            transition={{ duration: 0.5, ease: EASE }}
           >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
             {overline}
-          </motion.span>
+          </SectionOverline>
 
           {/* Title */}
           <motion.h2
             id="launch-countdown-title"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.65, delay: 0.08, ease: EASE }}
             className="font-heading font-semibold text-white mb-4"
             style={{
               fontSize: "clamp(2rem, 4vw, 3.25rem)",
@@ -280,7 +271,7 @@ export default function LaunchCountdown({
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
             className="font-body mb-10"
             style={{
               fontSize: "clamp(0.9375rem, 1.1vw, 1.0625rem)",
@@ -388,7 +379,7 @@ export default function LaunchCountdown({
                 style={{ backgroundColor: "rgb(var(--color-primary))" }}
                 initial={{ width: "0%" }}
                 animate={inView ? { width: `${progressPct}%` } : undefined}
-                transition={{ duration: 1.4, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.4, delay: 0.7, ease: EASE }}
               />
             </div>
             <div
@@ -407,7 +398,7 @@ export default function LaunchCountdown({
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
             className="relative"
             style={{
               border: "1px solid rgba(255,255,255,0.10)",
@@ -425,45 +416,8 @@ export default function LaunchCountdown({
               style={{ display: "block" }}
             />
 
-            {/* Corner ticks — PortfolioStory pattern */}
-            {(
-              [
-                { top: 6, left: 6 },
-                { top: 6, right: 6 },
-                { bottom: 6, left: 6 },
-                { bottom: 6, right: 6 },
-              ] as Array<{ top?: number; right?: number; bottom?: number; left?: number }>
-            ).map((pos, i) => (
-              <span
-                key={i}
-                aria-hidden="true"
-                className="absolute block pointer-events-none"
-                style={{
-                  top: pos.top,
-                  left: pos.left,
-                  right: pos.right,
-                  bottom: pos.bottom,
-                  width: "8px",
-                  height: "8px",
-                  borderTop:
-                    pos.top !== undefined
-                      ? "1.5px solid rgb(var(--color-primary))"
-                      : undefined,
-                  borderBottom:
-                    pos.bottom !== undefined
-                      ? "1.5px solid rgb(var(--color-primary))"
-                      : undefined,
-                  borderLeft:
-                    pos.left !== undefined
-                      ? "1.5px solid rgb(var(--color-primary))"
-                      : undefined,
-                  borderRight:
-                    pos.right !== undefined
-                      ? "1.5px solid rgb(var(--color-primary))"
-                      : undefined,
-                }}
-              />
-            ))}
+            {/* Corner ticks */}
+            <CornerTicks size={8} />
           </motion.div>
 
           {/* Partner caption */}
@@ -494,7 +448,7 @@ export default function LaunchCountdown({
             </span>
           </motion.div>
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

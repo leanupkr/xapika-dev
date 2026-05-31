@@ -5,65 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-// Sub-items share the same href/key shape — reuse a minimal type
-type SubItem = {
-  key: string;
-  href: string;
-};
-
-const NAV_LABELS: Record<string, string> = {
-  about:                        "About Us",
-  solutions:                    "Solutions",
-  portfolios:                   "Portfolios",
-  locations:                    "Locations",
-  contact:                      "Contact Us",
-  about_ceo:                    "CEO Message",
-  about_history:                "Our History",
-  about_vision:                 "Vision & Principles",
-  about_organization:           "Organization",
-  about_clients:                "Our Clients",
-  solutions_light_maintenance:  "Light Maintenance",
-  solutions_heavy_maintenance:  "Heavy Maintenance",
-  solutions_supply_chain:       "Supply Chain",
-  solutions_digital_asset:      "Digital Asset Management",
-  solutions_commercial:         "Commercial Services",
-  portfolios_ukraine:           "Ukraine HRCS2 EMU",
-  portfolios_warsaw:            "Tramwaje Warszawskie",
-  portfolios_uzbekistan:        "Uzbekistan HSR",
-  portfolios_all:               "View All Portfolios",
-};
-
-const ABOUT_SUB: SubItem[] = [
-  { key: "about_ceo",          href: "/about/ceo" },
-  { key: "about_history",      href: "/about/history" },
-  { key: "about_vision",       href: "/about/vision" },
-  { key: "about_organization", href: "/about/organization" },
-  { key: "about_clients",      href: "/about/clients" },
-];
-
-const SOLUTIONS_SUB: SubItem[] = [
-  { key: "solutions_light_maintenance", href: "/solutions/light-maintenance" },
-  { key: "solutions_heavy_maintenance", href: "/solutions/heavy-maintenance" },
-  { key: "solutions_supply_chain",      href: "/solutions/supply-chain" },
-  { key: "solutions_digital_asset",     href: "/solutions/digital-asset-management" },
-  { key: "solutions_commercial",        href: "/solutions/commercial-services" },
-];
-
-const PORTFOLIOS_SUB: SubItem[] = [
-  { key: "portfolios_ukraine",    href: "/portfolios/ukraine-emu" },
-  { key: "portfolios_warsaw",     href: "/portfolios/warsaw-tram" },
-  { key: "portfolios_uzbekistan", href: "/portfolios/uzbekistan-rail" },
-  { key: "portfolios_all",        href: "/portfolios" },
-];
-
-const NAV_LINKS = [
-  { key: "about",      href: "/about",      subItems: ABOUT_SUB },
-  { key: "solutions",  href: "/solutions",  subItems: SOLUTIONS_SUB },
-  { key: "portfolios", href: "/portfolios", subItems: PORTFOLIOS_SUB },
-  { key: "locations",  href: "/locations",  subItems: null },
-  { key: "contact",    href: "/contact",    subItems: null },
-] as const;
+import { EASE } from "@/lib/motion";
+import { NAV_ITEMS } from "@/data/nav";
 
 type Props = {
   isOpen: boolean;
@@ -155,7 +98,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.32, ease: EASE }}
             className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-sm bg-ink flex flex-col overflow-y-auto"
             data-bg="dark"
           >
@@ -184,26 +127,26 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
             {/* Navigation links */}
             <nav className="flex-1 px-6 py-6" aria-label="Primary">
               <ul className="space-y-0">
-                {NAV_LINKS.map(({ key, href, subItems }, index) => {
+                {NAV_ITEMS.map((item, index) => {
                   const isActive =
-                    pathname === href || pathname.startsWith(`${href}/`);
-                  const isExpanded = expanded === key;
+                    pathname === item.href || pathname.startsWith(`${item.href}/`);
+                  const isExpanded = expanded === item.key;
 
-                  if (subItems) {
+                  if (item.children) {
                     return (
                       <motion.li
-                        key={key}
+                        key={item.key}
                         initial={{ opacity: 0, x: 24 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{
                           delay: 0.08 + index * 0.06,
                           duration: 0.32,
-                          ease: [0.16, 1, 0.3, 1],
+                          ease: EASE,
                         }}
                         className="border-b border-white/8"
                       >
                         <button
-                          onClick={() => toggleExpanded(key)}
+                          onClick={() => toggleExpanded(item.key)}
                           aria-expanded={isExpanded}
                           className={[
                             "flex items-center justify-between w-full py-4",
@@ -212,7 +155,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
                           ].join(" ")}
                           style={{ fontSize: "1.125rem" }}
                         >
-                          {NAV_LABELS[key]}
+                          {item.label}
                           <ChevronDown
                             size={16}
                             strokeWidth={2}
@@ -232,16 +175,16 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
                               exit={{ height: 0, opacity: 0 }}
                               transition={{
                                 duration: 0.22,
-                                ease: [0.16, 1, 0.3, 1],
+                                ease: EASE,
                               }}
                               className="overflow-hidden pl-2 pb-3 space-y-0.5"
                             >
-                              {(subItems as SubItem[]).map((item) => {
-                                const subActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+                              {item.children.map((child) => {
+                                const subActive = pathname === child.href || pathname.startsWith(`${child.href}/`);
                                 return (
-                                  <li key={item.key}>
+                                  <li key={child.key}>
                                     <Link
-                                      href={item.href}
+                                      href={child.href}
                                       onClick={onClose}
                                       aria-current={subActive ? "page" : undefined}
                                       className={[
@@ -251,7 +194,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
                                           : "text-white/55 hover:text-white",
                                       ].join(" ")}
                                     >
-                                      {NAV_LABELS[item.key]}
+                                      {child.label}
                                     </Link>
                                   </li>
                                 );
@@ -263,26 +206,26 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
                     );
                   }
 
-                  // Plain link (Contact)
+                  // Plain link (Locations, Contact)
                   return (
                     <motion.li
-                      key={key}
+                      key={item.key}
                       initial={{ opacity: 0, x: 24 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{
                         delay: 0.08 + index * 0.06,
                         duration: 0.32,
-                        ease: [0.16, 1, 0.3, 1],
+                        ease: EASE,
                       }}
                     >
                       <Link
-                        href={href}
+                        href={item.href}
                         onClick={onClose}
                         aria-current={isActive ? "page" : undefined}
                         className="block py-4 text-white/80 hover:text-white font-heading font-medium tracking-widest uppercase transition-colors duration-200 aria-[current=page]:text-primary"
                         style={{ fontSize: "1.125rem" }}
                       >
-                        {NAV_LABELS[key]}
+                        {item.label}
                       </Link>
                     </motion.li>
                   );

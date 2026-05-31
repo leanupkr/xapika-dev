@@ -1,7 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type UzbekEvent = {
   year: string;
@@ -104,29 +106,13 @@ export default function UzbekTimeline({
         style={{ height: "1px", backgroundColor: "rgb(var(--color-ink) / 0.06)" }}
       />
 
-      <div
-        className="relative mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* ── Left column — sticky header ───────────────────────────────── */}
           <div ref={headerRef} className="lg:col-span-4 lg:sticky lg:top-28">
-            <span
-              data-header-item
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-              style={{ fontSize: "13px", letterSpacing: "0.22em" }}
-            >
-              <span
-                aria-hidden="true"
-                className="inline-block flex-shrink-0"
-                style={{
-                  width: "24px",
-                  height: "2px",
-                  backgroundColor: "rgb(var(--color-primary))",
-                }}
-              />
+            <SectionOverline data-header-item>
               {overline}
-            </span>
+            </SectionOverline>
 
             <h2
               id="uzbek-timeline-title"
@@ -268,7 +254,7 @@ export default function UzbekTimeline({
             </ol>
           </div>
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

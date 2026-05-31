@@ -4,6 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { EASE } from "@/lib/motion";
+import { flagFor } from "@/lib/countryFlags";
+import SectionOverline from "@/components/ui/SectionOverline";
+import SectionContainer from "@/components/ui/SectionContainer";
 
 export type MilestoneEvent = {
   year: string;
@@ -22,29 +26,6 @@ export type OfficeOpeningsRailProps = {
   events: ReadonlyArray<MilestoneEvent>;
 };
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-// Locale-agnostic flag lookup — accepts English and Korean country names from PDF source.
-const FLAG_BY_COUNTRY: Record<string, string> = {
-  Turkiye: "🇹🇷",
-  Türkiye: "🇹🇷",
-  튀르키예: "🇹🇷",
-  Ukraine: "🇺🇦",
-  우크라이나: "🇺🇦",
-  Poland: "🇵🇱",
-  폴란드: "🇵🇱",
-  USA: "🇺🇸",
-  미국: "🇺🇸",
-  "South Korea": "🇰🇷",
-  Korea: "🇰🇷",
-  한국: "🇰🇷",
-  Uzbekistan: "🇺🇿",
-  우즈베키스탄: "🇺🇿",
-};
-
-function flagFor(country: string): string {
-  return FLAG_BY_COUNTRY[country] ?? "";
-}
 
 function ComingBadge({ label }: { label: string }) {
   return (
@@ -401,29 +382,16 @@ export default function OfficeOpeningsRail({
         style={{ height: "1px", backgroundColor: "rgba(255,255,255,0.06)" }}
       />
 
-      <div
-        className="relative mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative">
         <div className="max-w-2xl mb-12 md:mb-16">
-          <motion.span
+          <SectionOverline
+            as={motion.span}
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
             transition={{ duration: 0.5, ease: EASE }}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.22em" }}
           >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
             {overline}
-          </motion.span>
+          </SectionOverline>
 
           <motion.h2
             id="office-openings-title"
@@ -462,7 +430,7 @@ export default function OfficeOpeningsRail({
           comingBadge={comingBadge}
           inView={inView}
         />
-      </div>
+      </SectionContainer>
     </section>
   );
 }

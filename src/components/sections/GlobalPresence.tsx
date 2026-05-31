@@ -2,31 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import dynamic from "next/dynamic";
 import { useMediaQuery } from "@/lib/useMediaQuery";
-
-const ComposableMap = dynamic(
-  () => import("react-simple-maps").then((m) => m.ComposableMap),
-  { ssr: false },
-);
-const Geographies = dynamic(
-  () => import("react-simple-maps").then((m) => m.Geographies),
-  { ssr: false },
-);
-const Geography = dynamic(
-  () => import("react-simple-maps").then((m) => m.Geography),
-  { ssr: false },
-);
-const Marker = dynamic(
-  () => import("react-simple-maps").then((m) => m.Marker),
-  { ssr: false },
-);
-const Line = dynamic(
-  () => import("react-simple-maps").then((m) => m.Line),
-  { ssr: false },
-);
-
-const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+import { EASE } from "@/lib/motion";
+import { useMounted } from "@/lib/useMounted";
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker,
+  Line,
+  GEO_URL,
+} from "@/lib/reactSimpleMaps";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 type Pin = {
   id: string;
@@ -54,8 +41,6 @@ const PINS: Pin[] = [
 const HQ = PINS.find((p) => p.isHQ)!;
 const SPOKES = PINS.filter((p) => !p.isHQ);
 const PIN_BY_COUNTRY = Object.fromEntries(PINS.map((p) => [p.countryId, p])) as Record<string, Pin | undefined>;
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
 const CYCLE_INTERVAL_MS = 3500;
 const SPOTLIGHT_HOLD_MS = 2800; // 나머지 700ms는 rest
 
@@ -89,12 +74,9 @@ export default function GlobalPresence({
   const [hasEntered, setHasEntered] = useState(false);
 
   // 클라이언트 마운트 후에만 지도 렌더 (SSR과 client의 부동소수점 차이로 인한 path d-attr hydration mismatch 방지)
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const isMobile = useMediaQuery("(max-width: 1023px)");
   const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // hover(수동) vs auto-spotlight(자동) 두 출처를 분리
   const [userHovered, setUserHovered] = useState<string | null>(null);
@@ -177,23 +159,14 @@ export default function GlobalPresence({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
           {/* 좌측: 텍스트 블록 */}
           <div className="lg:col-span-4 lg:sticky lg:top-28">
-            <motion.span
+            <SectionOverline
+              as={motion.span}
               initial={{ opacity: 0, x: -20 }}
               animate={hasEntered ? { opacity: 1, x: 0 } : undefined}
               transition={{ duration: 0.5, ease: EASE }}
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-              style={{ fontSize: "13px", letterSpacing: "0.2em" }}
             >
-              <span
-                className="inline-block flex-shrink-0"
-                style={{
-                  width: "24px",
-                  height: "2px",
-                  backgroundColor: "rgb(var(--color-primary))",
-                }}
-              />
               {overline}
-            </motion.span>
+            </SectionOverline>
 
             <motion.h2
               id="global-presence-title"

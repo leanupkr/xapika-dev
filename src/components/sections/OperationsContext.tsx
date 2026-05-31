@@ -4,6 +4,9 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { EASE } from "@/lib/motion";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type OpsCard = {
   office: string;
@@ -26,8 +29,6 @@ export type OperationsContextProps = {
     uzbekistan: OpsCard;
   };
 };
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 function OpsCardItem({
   card,
@@ -168,29 +169,16 @@ export default function OperationsContext({
         paddingBottom: "clamp(5rem, 12vh, 8rem)",
       }}
     >
-      <div
-        className="mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer>
         <div className="max-w-2xl mb-14 md:mb-20">
-          <motion.span
+          <SectionOverline
+            as={motion.span}
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
             transition={{ duration: 0.5, ease: EASE }}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.22em" }}
           >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
             {overline}
-          </motion.span>
+          </SectionOverline>
 
           <motion.h2
             id="ops-context-title"
@@ -236,7 +224,7 @@ export default function OperationsContext({
             />
           ))}
         </ul>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

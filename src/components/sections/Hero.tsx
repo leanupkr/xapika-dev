@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import HeroClient from "./HeroClient";
+import SectionOverline from "@/components/ui/SectionOverline";
 import "@/styles/hero.css";
 
 const SLIDES = [
@@ -145,25 +146,9 @@ export default function Hero({
           className="w-full pb-[clamp(5rem,16vh,11rem)] md:pb-[clamp(3rem,6vw,5rem)]"
           style={{ maxWidth: "56rem" }}
         >
-          <span
-            data-hero-overline
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6"
-            style={{
-              fontSize: "14px",
-              letterSpacing: "0.2em",
-              color: "rgba(255,255,255,0.90)",
-            }}
-          >
-            <span
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
+          <SectionOverline data-hero-overline tone="onDark">
             {overline}
-          </span>
+          </SectionOverline>
 
           <h1
             data-hero-headline

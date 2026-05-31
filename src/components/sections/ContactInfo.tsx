@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Clock } from "lucide-react";
 import LiveBusinessHours from "@/components/contact/LiveBusinessHours";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type ContactInfoProps = {
   overline: string;
@@ -21,21 +22,7 @@ export default function ContactInfo({
 }: ContactInfoProps) {
   return (
     <aside className="flex flex-col">
-      <span
-        className="flex items-center gap-3 font-heading font-medium uppercase mb-8 text-[rgb(var(--color-primary))]"
-        style={{ fontSize: "13px", letterSpacing: "0.22em" }}
-      >
-        <span
-          aria-hidden
-          className="inline-block flex-shrink-0"
-          style={{
-            width: "24px",
-            height: "2px",
-            backgroundColor: "rgb(var(--color-primary))",
-          }}
-        />
-        {overline}
-      </span>
+      <SectionOverline>{overline}</SectionOverline>
 
       <div className="flex flex-col gap-6">
         <InfoRow

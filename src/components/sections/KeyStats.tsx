@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView } from "framer-motion";
 import { prefersReducedMotion } from "@/lib/gsap";
+import { EASE } from "@/lib/motion";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type KeyStatItem = {
   value: string;
@@ -82,7 +85,7 @@ function StatBlock({
     const startTimer = setTimeout(() => {
       const controls = animate(0, parsed.target, {
         duration: 1.4,
-        ease: [0.16, 1, 0.3, 1],
+        ease: EASE,
         onUpdate: (latest) => setDisplay(formatNumber(latest, useCommas)),
         onComplete: () => setBlurring(false),
       });
@@ -99,7 +102,7 @@ function StatBlock({
       transition={{
         duration: 0.6,
         delay: 0.05 + index * 0.1,
-        ease: [0.16, 1, 0.3, 1],
+        ease: EASE,
       }}
       className="relative flex flex-col min-w-0"
     >
@@ -185,7 +188,7 @@ function StatBlock({
           transition={{
             duration: 1.3,
             delay: 0.15 + index * 0.1,
-            ease: [0.16, 1, 0.3, 1],
+            ease: EASE,
           }}
         />
       </div>
@@ -213,36 +216,23 @@ export default function KeyStats({
       }}
       aria-labelledby="keystats-title"
     >
-      <div
-        className="mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer>
         {/* Header */}
         <div className="max-w-2xl mb-12 md:mb-16">
-          <motion.span
+          <SectionOverline
+            as={motion.span}
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-5 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.2em" }}
+            transition={{ duration: 0.5, ease: EASE }}
           >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
             {overline}
-          </motion.span>
+          </SectionOverline>
 
           <motion.h2
             id="keystats-title"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
             className="font-heading font-semibold text-[rgb(var(--color-ink))]"
             style={{
               fontSize: "clamp(1.75rem, 3.4vw, 2.5rem)",
@@ -266,7 +256,7 @@ export default function KeyStats({
             />
           ))}
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

@@ -5,6 +5,9 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { EASE } from "@/lib/motion";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 type Size = "featured" | "standard";
 type BadgeTone = "primary" | "neutral";
@@ -93,7 +96,7 @@ function PortfolioCard({
       transition={{
         duration: 0.8,
         delay: 0.12 * index,
-        ease: [0.16, 1, 0.3, 1],
+        ease: EASE,
       }}
       className={`relative ${isFeatured ? "sm:col-span-2 min-h-[280px] md:min-h-[460px] lg:min-h-[520px]" : "min-h-[200px] md:min-h-[360px] lg:min-h-[400px]"}`}
     >
@@ -373,36 +376,24 @@ export default function PortfoliosPreview({
       style={{ backgroundColor: "#fafbfc" }}
       aria-labelledby="portfolios-title"
     >
-      <div
-        className="mx-auto px-6 md:px-10 lg:px-12"
-        style={{ maxWidth: "1360px" }}
-      >
+      <SectionContainer maxWidth="1360px" className="lg:px-12">
         {/* 헤더 — 2단 레이아웃: 좌측 타이틀 / 우측 subtitle */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14 md:mb-20">
           <div className="max-w-2xl">
-            <motion.span
+            <SectionOverline
+              as={motion.span}
               initial={{ opacity: 0, x: -20 }}
               animate={inView ? { opacity: 1, x: 0 } : undefined}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-              style={{ fontSize: "13px", letterSpacing: "0.2em" }}
+              transition={{ duration: 0.5, ease: EASE }}
             >
-              <span
-                className="inline-block flex-shrink-0"
-                style={{
-                  width: "24px",
-                  height: "2px",
-                  backgroundColor: "rgb(var(--color-primary))",
-                }}
-              />
               {overline}
-            </motion.span>
+            </SectionOverline>
 
             <motion.h2
               id="portfolios-title"
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : undefined}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
               className="font-heading font-semibold"
               style={{
                 fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
@@ -418,7 +409,7 @@ export default function PortfoliosPreview({
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             className="font-body"
             style={{
               fontSize: "clamp(0.9375rem, 1.1vw, 1.0625rem)",
@@ -442,7 +433,7 @@ export default function PortfoliosPreview({
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : undefined}
-          transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
           className="mt-12 md:mt-16 flex justify-center"
         >
           <Link
@@ -476,7 +467,7 @@ export default function PortfoliosPreview({
             />
           </Link>
         </motion.div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

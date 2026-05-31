@@ -5,6 +5,7 @@ import { Train, TrainFront, Factory } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import SectionContainer from "@/components/ui/SectionContainer";
 
 export type TrackRecordClient = {
   name: string;
@@ -141,10 +142,7 @@ export default function TrackRecordCards({
       }}
       aria-labelledby="track-record-title"
     >
-      <div
-        className="relative mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative">
         {/* Header */}
         <div
           ref={headerRef}
@@ -436,7 +434,7 @@ export default function TrackRecordCards({
             </Link>
           </div>
         )}
-      </div>
+      </SectionContainer>
     </section>
   );
 }

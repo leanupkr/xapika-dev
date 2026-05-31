@@ -22,8 +22,8 @@ import {
   initialContactState,
   type ContactState,
 } from "@/app/contact/actions";
+import { EASE } from "@/lib/motion";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const DRAFT_KEY = "xapika-contact-draft";
 
 const ERRORS: Record<string, string> = {

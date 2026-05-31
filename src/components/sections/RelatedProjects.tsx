@@ -4,7 +4,10 @@ import { useRef } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { revealHeaderItems, killScrollTriggersWithin } from "@/lib/reveal";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type RelatedProjectItem = {
   key: string;
@@ -51,31 +54,7 @@ export default function RelatedProjects({
     () => {
       const prefersReduced = prefersReducedMotion();
 
-      if (headerRef.current) {
-        const headerTargets = headerRef.current.querySelectorAll(
-          "[data-header-item]"
-        );
-        if (prefersReduced) {
-          gsap.set(headerTargets, { opacity: 1, y: 0 });
-        } else {
-          gsap.fromTo(
-            headerTargets,
-            { opacity: 0, y: 16 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.7,
-              stagger: 0.12,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: headerRef.current,
-                start: "top 82%",
-                toggleActions: "play none none none",
-              },
-            }
-          );
-        }
-      }
+      revealHeaderItems(headerRef.current, prefersReduced);
 
       if (cardsRef.current) {
         const cards = cardsRef.current.querySelectorAll("[data-related-card]");
@@ -101,11 +80,7 @@ export default function RelatedProjects({
         }
       }
 
-      return () => {
-        ScrollTrigger.getAll()
-          .filter((st) => sectionRef.current?.contains(st.trigger as Node))
-          .forEach((st) => st.kill());
-      };
+      return () => killScrollTriggersWithin(sectionRef.current);
     },
     { scope: sectionRef }
   );
@@ -120,30 +95,14 @@ export default function RelatedProjects({
       }}
       aria-labelledby="related-title"
     >
-      <div
-        className="mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-y-0 lg:gap-x-12">
           {/* Left — sticky header */}
           <div ref={headerRef} className="lg:col-span-4">
             <div className="lg:sticky lg:top-28">
-              <span
-                data-header-item
-                className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-                style={{ fontSize: "13px", letterSpacing: "0.22em" }}
-              >
-                <span
-                  aria-hidden="true"
-                  className="inline-block flex-shrink-0"
-                  style={{
-                    width: "24px",
-                    height: "2px",
-                    backgroundColor: "rgb(var(--color-primary))",
-                  }}
-                />
+              <SectionOverline data-header-item>
                 {overline}
-              </span>
+              </SectionOverline>
 
               <h2
                 id="related-title"
@@ -171,7 +130,7 @@ export default function RelatedProjects({
             ))}
           </div>
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

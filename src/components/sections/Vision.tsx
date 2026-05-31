@@ -1,7 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { revealHeaderItems, killScrollTriggersWithin } from "@/lib/reveal";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type VisionItem = {
   index: string;
@@ -30,31 +33,7 @@ export default function Vision({
     () => {
       const prefersReduced = prefersReducedMotion();
 
-      if (headerRef.current) {
-        const headerTargets = headerRef.current.querySelectorAll(
-          "[data-header-item]"
-        );
-        if (prefersReduced) {
-          gsap.set(headerTargets, { opacity: 1, x: 0, y: 0 });
-        } else {
-          gsap.fromTo(
-            headerTargets,
-            { opacity: 0, y: 16 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.7,
-              stagger: 0.12,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: headerRef.current,
-                start: "top 82%",
-                toggleActions: "play none none none",
-              },
-            }
-          );
-        }
-      }
+      revealHeaderItems(headerRef.current, prefersReduced);
 
       if (cardsRef.current) {
         const cards = cardsRef.current.querySelectorAll("[data-vision-card]");
@@ -80,11 +59,7 @@ export default function Vision({
         }
       }
 
-      return () => {
-        ScrollTrigger.getAll()
-          .filter((st) => sectionRef.current?.contains(st.trigger as Node))
-          .forEach((st) => st.kill());
-      };
+      return () => killScrollTriggersWithin(sectionRef.current);
     },
     { scope: sectionRef }
   );
@@ -128,32 +103,12 @@ export default function Vision({
         <rect width="100%" height="100%" fill="url(#vision-grid)" />
       </svg>
 
-      <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative z-10">
         {/* Header — left-aligned, max 580px */}
         <div ref={headerRef} className="max-w-[580px] mb-14 md:mb-20">
-          <span
-            data-header-item
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6"
-            style={{
-              fontSize: "13px",
-              letterSpacing: "0.22em",
-              color: "rgba(255,255,255,0.85)",
-            }}
-          >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
+          <SectionOverline data-header-item tone="onDark">
             {overline}
-          </span>
+          </SectionOverline>
 
           <h2
             id="vision-title"
@@ -256,7 +211,7 @@ export default function Vision({
             </li>
           ))}
         </ol>
-      </div>
+      </SectionContainer>
 
       {/* Bottom hairline */}
       <div

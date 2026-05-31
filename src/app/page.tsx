@@ -38,7 +38,7 @@ export default function HomePage() {
       <KeyNumbers
         overline="By the Numbers"
         title="Measured in fleet, miles, and uptime."
-        subtitle="Operational scale across five countries, verified by customers and regulators."
+        subtitle="Operational scale across six countries, verified by customers and regulators."
         stats={[
           {
             value: "227",
@@ -51,7 +51,7 @@ export default function HomePage() {
             note: "Verified service actions",
           },
           {
-            value: "5",
+            value: "6",
             unit: "countries",
             label: "Countries of Operations",
             note: "Active depots and crews",

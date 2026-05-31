@@ -2,7 +2,10 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { killScrollTriggersWithin } from "@/lib/reveal";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type OverhaulPhase = {
   label: string;
@@ -57,11 +60,7 @@ export default function OverhaulProcess({
           }
         );
       }
-      return () => {
-        ScrollTrigger.getAll()
-          .filter((st) => sectionRef.current?.contains(st.trigger as Node))
-          .forEach((st) => st.kill());
-      };
+      return () => killScrollTriggersWithin(sectionRef.current);
     },
     { scope: sectionRef }
   );
@@ -84,27 +83,12 @@ export default function OverhaulProcess({
         style={{ height: "1px", backgroundColor: "rgba(255,255,255,0.08)" }}
       />
 
-      <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative z-10">
         {/* Header */}
         <div className="max-w-2xl mb-12 md:mb-16">
-          <span
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.22em" }}
-          >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "28px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
+          <SectionOverline>
             {overline}
-          </span>
+          </SectionOverline>
           <h2
             id="overhaul-process-title"
             className="font-heading font-semibold text-white mb-5"
@@ -277,7 +261,7 @@ export default function OverhaulProcess({
             ))}
           </ol>
         </div>
-      </div>
+      </SectionContainer>
 
       <div
         aria-hidden="true"

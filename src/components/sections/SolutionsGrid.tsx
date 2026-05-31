@@ -5,6 +5,9 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { EASE } from "@/lib/motion";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 type Size = "featured" | "secondary" | "tertiary";
 
@@ -81,7 +84,7 @@ function SolutionCard({
       transition={{
         duration: 0.8,
         delay: 0.08 * index,
-        ease: [0.16, 1, 0.3, 1],
+        ease: EASE,
       }}
       className={`${sizeClasses.grid} ${sizeClasses.minH} relative`}
     >
@@ -322,35 +325,23 @@ export default function SolutionsGrid({
         style={{ height: "1px", backgroundColor: "rgba(255,255,255,0.06)" }}
       />
 
-      <div
-        className="mx-auto px-6 md:px-10 lg:px-12"
-        style={{ maxWidth: "1360px" }}
-      >
+      <SectionContainer maxWidth="1360px" className="lg:px-12">
         {/* 헤더 */}
         <div className="max-w-3xl mb-14 md:mb-20">
-          <motion.span
+          <SectionOverline
+            as={motion.span}
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.2em" }}
+            transition={{ duration: 0.5, ease: EASE }}
           >
-            <span
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
             {overline}
-          </motion.span>
+          </SectionOverline>
 
           <motion.h2
             id="solutions-title"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
             className="font-heading font-semibold text-white"
             style={{
               fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
@@ -364,7 +355,7 @@ export default function SolutionsGrid({
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             className="font-body text-white/60 mt-6"
             style={{
               fontSize: "clamp(1rem, 1.4vw, 1.125rem)",
@@ -385,7 +376,7 @@ export default function SolutionsGrid({
             <SolutionCard key={item.key} item={item} index={i} inView={inView} />
           ))}
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

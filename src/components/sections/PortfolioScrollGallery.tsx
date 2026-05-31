@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import SectionContainer from "@/components/ui/SectionContainer";
+import CornerTicks from "@/components/ui/CornerTicks";
 
 export type GallerySlide = {
   overline: string;
@@ -154,7 +156,7 @@ export default function PortfolioScrollGallery({
       className="relative"
       style={{
         backgroundColor: "rgb(var(--color-ink))",
-        height: `${slides.length * (isMobile ? 60 : 100)}vh`,
+        height: `${slides.length * 100}vh`,
       }}
       aria-label={sectionTitle}
     >
@@ -184,10 +186,7 @@ export default function PortfolioScrollGallery({
           className="absolute top-0 left-0 right-0 z-20 pointer-events-none"
           style={{ paddingTop: "clamp(1.5rem, 4vh, 2.75rem)" }}
         >
-          <div
-            className="mx-auto px-6 md:px-10 lg:px-16 flex items-center gap-4"
-            style={{ maxWidth: "var(--max-width-content)" }}
-          >
+          <SectionContainer className="flex items-center gap-4">
             <span
               className="flex items-center gap-3 font-heading font-medium uppercase text-white/80"
               style={{ fontSize: "11px", letterSpacing: "0.22em" }}
@@ -215,7 +214,7 @@ export default function PortfolioScrollGallery({
             >
               {counter}
             </span>
-          </div>
+          </SectionContainer>
         </div>
 
         {/* Right dot indicators */}
@@ -270,10 +269,7 @@ export default function PortfolioScrollGallery({
                     "opacity 600ms cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
-                <div
-                  className="mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 px-6 md:px-10 lg:px-16"
-                  style={{ maxWidth: "var(--max-width-content)" }}
-                >
+                <SectionContainer className="w-full grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10">
                   {/* Photo */}
                   <div className="lg:col-span-7">
                     <div
@@ -386,42 +382,7 @@ export default function PortfolioScrollGallery({
                         </>
                       )}
                       {/* Corner ticks — always render */}
-                      {[
-                        { top: 8, left: 8 },
-                        { top: 8, right: 8 },
-                        { bottom: 8, left: 8 },
-                        { bottom: 8, right: 8 },
-                      ].map((pos, ti) => (
-                        <span
-                          key={ti}
-                          aria-hidden="true"
-                          className="absolute block pointer-events-none"
-                          style={{
-                            top: pos.top,
-                            left: pos.left,
-                            right: pos.right,
-                            bottom: pos.bottom,
-                            width: "10px",
-                            height: "10px",
-                            borderTop:
-                              pos.top !== undefined
-                                ? "1.5px solid rgb(var(--color-primary))"
-                                : undefined,
-                            borderBottom:
-                              pos.bottom !== undefined
-                                ? "1.5px solid rgb(var(--color-primary))"
-                                : undefined,
-                            borderLeft:
-                              pos.left !== undefined
-                                ? "1.5px solid rgb(var(--color-primary))"
-                                : undefined,
-                            borderRight:
-                              pos.right !== undefined
-                                ? "1.5px solid rgb(var(--color-primary))"
-                                : undefined,
-                          }}
-                        />
-                      ))}
+                      <CornerTicks size={10} />
                     </div>
                   </div>
 
@@ -518,7 +479,7 @@ export default function PortfolioScrollGallery({
                       </div>
                     )}
                   </div>
-                </div>
+                </SectionContainer>
               </div>
             );
           })}

@@ -47,7 +47,6 @@
 }
 
 /* 다크 배경 내부 focus — ring-offset을 ink 색상으로 */
-.dark-bg *:focus-visible,
 [data-bg="dark"] *:focus-visible {
   box-shadow:
     0 0 0 2px rgb(var(--color-ink)),

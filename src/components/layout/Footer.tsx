@@ -2,23 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import FooterCtaGate from "./FooterCtaGate";
+import { NAV_ITEMS } from "@/data/nav";
+import { OFFICES } from "@/data/offices";
 
-const FOOTER_LINKS = [
-  { key: "about",      href: "/about",      label: "About Us" },
-  { key: "solutions",  href: "/solutions",  label: "Solutions" },
-  { key: "portfolios", href: "/portfolios", label: "Portfolios" },
-  { key: "locations",  href: "/locations",  label: "Locations" },
-] as const;
-
-const OFFICES = [
-  { nameKey: "warsawHq",     name: "Warsaw HQ",  country: "Poland",     detail: "Headquarters" },
-  { nameKey: "warsawOffice", name: "Warsaw",      country: "Poland",     detail: "Tram & Metro Office" },
-  { nameKey: "kyiv",         name: "Kyiv",        country: "Ukraine",    detail: "EMU Crew" },
-  { nameKey: "seoul",        name: "Seoul",       country: "South Korea", detail: "Asia Pacific" },
-  { nameKey: "tashkent",     name: "Tashkent",    country: "Uzbekistan", detail: "Central Asia" },
-  { nameKey: "virginia",     name: "Virginia",    country: "USA",        detail: "North America" },
-  { nameKey: "istanbul",     name: "Istanbul",    country: "Türkiye",    detail: "Founding Office" },
-] as const;
+// Footer shows all nav sections except Contact
+const FOOTER_LINKS = NAV_ITEMS.filter((i) => i.key !== "contact");
 
 export default function Footer() {
   return (
@@ -98,8 +86,8 @@ export default function Footer() {
             {/* grid-cols-1 on mobile (<640px) prevents city names from
                 wrapping in narrow 2-col layout; sm: restores 2 cols */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
-              {OFFICES.map(({ nameKey, name, country, detail }) => (
-                <div key={nameKey} className="flex gap-2">
+              {OFFICES.map(({ id, footerName, country, footerDetail }) => (
+                <div key={id} className="flex gap-2">
                   <MapPin
                     size={14}
                     className="text-primary mt-0.5 flex-shrink-0 inline-block w-3 h-3 sm:w-3.5 sm:h-3.5"
@@ -110,7 +98,7 @@ export default function Footer() {
                       className="text-white/80 font-medium"
                       style={{ fontSize: "0.8125rem" }}
                     >
-                      {name}
+                      {footerName}
                     </p>
                     <p
                       className="text-white/40"
@@ -122,7 +110,7 @@ export default function Footer() {
                       className="text-white/30 hidden sm:block"
                       style={{ fontSize: "0.75rem" }}
                     >
-                      {detail}
+                      {footerDetail}
                     </p>
                   </div>
                 </div>

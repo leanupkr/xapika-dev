@@ -4,6 +4,9 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, MessageSquare, Clock, Compass, Network, Handshake } from "lucide-react";
 import Link from "next/link";
+import { EASE } from "@/lib/motion";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 type CardData = {
   title: string;
@@ -77,36 +80,23 @@ export default function AboutCardGrid({ overline, title, cards }: AboutCardGridP
         paddingBottom: "clamp(5rem, 12vh, 8rem)",
       }}
     >
-      <div
-        className="mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer>
         {/* Header */}
         <div className="max-w-2xl mb-14 md:mb-20">
-          <motion.span
+          <SectionOverline
+            as={motion.span}
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.22em" }}
+            transition={{ duration: 0.5, ease: EASE }}
           >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
             {overline}
-          </motion.span>
+          </SectionOverline>
 
           <motion.h2
             id="about-card-grid-title"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
             className="font-heading font-semibold text-[rgb(var(--color-ink))]"
             style={{
               fontSize: "clamp(2rem, 4.5vw, 3.25rem)",
@@ -134,7 +124,7 @@ export default function AboutCardGrid({ overline, title, cards }: AboutCardGridP
                 transition={{
                   duration: 0.7,
                   delay: 0.1 + 0.08 * i,
-                  ease: [0.16, 1, 0.3, 1],
+                  ease: EASE,
                 }}
                 className={`group ${isLastOdd ? "col-span-2 sm:col-span-2 lg:col-span-1" : ""}`}
               >
@@ -208,7 +198,7 @@ export default function AboutCardGrid({ overline, title, cards }: AboutCardGridP
             );
           })}
         </ul>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

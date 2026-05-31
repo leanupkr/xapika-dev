@@ -3,7 +3,10 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { killScrollTriggersWithin } from "@/lib/reveal";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 type VisionItCalloutProps = {
   overline: string;
@@ -54,11 +57,7 @@ export default function VisionItCallout({
           }
         );
       }
-      return () => {
-        ScrollTrigger.getAll()
-          .filter((st) => sectionRef.current?.contains(st.trigger as Node))
-          .forEach((st) => st.kill());
-      };
+      return () => killScrollTriggersWithin(sectionRef.current);
     },
     { scope: sectionRef }
   );
@@ -89,28 +88,13 @@ export default function VisionItCallout({
         }}
       />
 
-      <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-y-0 lg:gap-x-12 items-center">
           {/* Left: text */}
           <div className="lg:col-span-6" data-vit-block>
-            <span
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-              style={{ fontSize: "13px", letterSpacing: "0.22em" }}
-            >
-              <span
-                aria-hidden="true"
-                className="inline-block flex-shrink-0"
-                style={{
-                  width: "28px",
-                  height: "2px",
-                  backgroundColor: "rgb(var(--color-primary))",
-                }}
-              />
+            <SectionOverline>
               {overline}
-            </span>
+            </SectionOverline>
 
             {/* Logo */}
             <div
@@ -213,7 +197,7 @@ export default function VisionItCallout({
             </div>
           </div>
         </div>
-      </div>
+      </SectionContainer>
 
       <div
         aria-hidden="true"

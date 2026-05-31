@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
+import SectionContainer from "@/components/ui/SectionContainer";
 
 /* ───────────────────────────── Types ───────────────────────────── */
 
@@ -341,10 +342,7 @@ export default function OrgChart({
         }}
       />
 
-      <div
-        className="relative mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative">
         <SectionCaption />
 
         {/* DESKTOP */}
@@ -485,7 +483,7 @@ export default function OrgChart({
             <StaffCard staff={staff} />
           </div>
         )}
-      </div>
+      </SectionContainer>
     </section>
   );
 }

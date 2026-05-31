@@ -2,7 +2,11 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { killScrollTriggersWithin } from "@/lib/reveal";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
+import CornerTicks from "@/components/ui/CornerTicks";
 
 export type RestorationPhoto = {
   src: string;
@@ -27,50 +31,6 @@ type PortfolioRestorationProps = {
   footnote?: string;
 };
 
-const CORNER_POSITIONS = [
-  { top: 8, left: 8 },
-  { top: 8, right: 8 },
-  { bottom: 8, left: 8 },
-  { bottom: 8, right: 8 },
-] as const;
-
-function CornerTicks({ size = 10 }: { size?: number }) {
-  return (
-    <>
-      {CORNER_POSITIONS.map((pos, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          className="absolute block pointer-events-none"
-          style={{
-            top: "top" in pos ? pos.top : undefined,
-            left: "left" in pos ? pos.left : undefined,
-            right: "right" in pos ? pos.right : undefined,
-            bottom: "bottom" in pos ? pos.bottom : undefined,
-            width: size,
-            height: size,
-            borderTop:
-              "top" in pos
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-            borderBottom:
-              "bottom" in pos
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-            borderLeft:
-              "left" in pos
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-            borderRight:
-              "right" in pos
-                ? "1.5px solid rgb(var(--color-primary))"
-                : undefined,
-          }}
-        />
-      ))}
-    </>
-  );
-}
 
 export default function PortfolioRestoration({
   overline,
@@ -109,11 +69,7 @@ export default function PortfolioRestoration({
           },
         }
       );
-      return () => {
-        ScrollTrigger.getAll()
-          .filter((st) => sectionRef.current?.contains(st.trigger as Node))
-          .forEach((st) => st.kill());
-      };
+      return () => killScrollTriggersWithin(sectionRef.current);
     },
     { scope: sectionRef }
   );
@@ -151,29 +107,13 @@ export default function PortfolioRestoration({
         }}
       />
 
-      <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative z-10">
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-8 items-start mb-12 md:mb-16">
           <div className="lg:col-span-7">
-            <span
-              data-fade
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-              style={{ fontSize: "12px", letterSpacing: "0.22em" }}
-            >
-              <span
-                aria-hidden="true"
-                className="inline-block flex-shrink-0"
-                style={{
-                  width: "24px",
-                  height: "2px",
-                  backgroundColor: "rgb(var(--color-primary))",
-                }}
-              />
+            <SectionOverline data-fade>
               {overline}
-            </span>
+            </SectionOverline>
             <h2
               id="portfolio-restoration-title"
               data-fade
@@ -409,7 +349,7 @@ export default function PortfolioRestoration({
             {footnote}
           </p>
         ) : null}
-      </div>
+      </SectionContainer>
     </section>
   );
 }

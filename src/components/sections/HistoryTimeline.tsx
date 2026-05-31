@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type HistoryEvent = {
   year: string;
@@ -284,21 +285,7 @@ export default function HistoryTimeline({
       >
         {/* Header */}
         <div ref={headerRef} className="max-w-[580px] mb-8 md:mb-20">
-          <span
-            data-header-item
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.22em" }}
-          >
-            <span
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
-            {overline}
-          </span>
+          <SectionOverline data-header-item>{overline}</SectionOverline>
 
           <h2
             id="history-title"

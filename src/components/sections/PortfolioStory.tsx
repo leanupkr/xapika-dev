@@ -2,7 +2,11 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { killScrollTriggersWithin } from "@/lib/reveal";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
+import CornerTicks from "@/components/ui/CornerTicks";
 
 type PortfolioStoryProps = {
   overline: string;
@@ -58,11 +62,7 @@ export default function PortfolioStory({
           },
         }
       );
-      return () => {
-        ScrollTrigger.getAll()
-          .filter((st) => sectionRef.current?.contains(st.trigger as Node))
-          .forEach((st) => st.kill());
-      };
+      return () => killScrollTriggersWithin(sectionRef.current);
     },
     { scope: sectionRef }
   );
@@ -98,28 +98,12 @@ export default function PortfolioStory({
         }}
       />
 
-      <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-12 items-start"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-12 items-start">
         {/* Text */}
         <div className="lg:col-span-6">
-          <span
-            data-fade
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "12px", letterSpacing: "0.22em" }}
-          >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
+          <SectionOverline data-fade>
             {overline}
-          </span>
+          </SectionOverline>
           <h2
             id="portfolio-story-title"
             data-fade
@@ -205,42 +189,7 @@ export default function PortfolioStory({
                 </span>
               </div>
               {/* Corner ticks — preserve framing motif */}
-              {[
-                { top: 8, left: 8 },
-                { top: 8, right: 8 },
-                { bottom: 8, left: 8 },
-                { bottom: 8, right: 8 },
-              ].map((pos, i) => (
-                <span
-                  key={i}
-                  aria-hidden="true"
-                  className="absolute block pointer-events-none"
-                  style={{
-                    top: pos.top,
-                    left: pos.left,
-                    right: pos.right,
-                    bottom: pos.bottom,
-                    width: "10px",
-                    height: "10px",
-                    borderTop:
-                      pos.top !== undefined
-                        ? "1.5px solid rgb(var(--color-primary))"
-                        : undefined,
-                    borderBottom:
-                      pos.bottom !== undefined
-                        ? "1.5px solid rgb(var(--color-primary))"
-                        : undefined,
-                    borderLeft:
-                      pos.left !== undefined
-                        ? "1.5px solid rgb(var(--color-primary))"
-                        : undefined,
-                    borderRight:
-                      pos.right !== undefined
-                        ? "1.5px solid rgb(var(--color-primary))"
-                        : undefined,
-                  }}
-                />
-              ))}
+              <CornerTicks size={10} />
             </div>
           ) : (
             <div
@@ -313,42 +262,7 @@ export default function PortfolioStory({
                   {photoCaption}
                 </span>
               </div>
-              {[
-                { top: 8, left: 8 },
-                { top: 8, right: 8 },
-                { bottom: 8, left: 8 },
-                { bottom: 8, right: 8 },
-              ].map((pos, i) => (
-                <span
-                  key={i}
-                  aria-hidden="true"
-                  className="absolute block"
-                  style={{
-                    top: pos.top,
-                    left: pos.left,
-                    right: pos.right,
-                    bottom: pos.bottom,
-                    width: "8px",
-                    height: "8px",
-                    borderTop:
-                      pos.top !== undefined
-                        ? "1.5px solid rgb(var(--color-primary))"
-                        : undefined,
-                    borderBottom:
-                      pos.bottom !== undefined
-                        ? "1.5px solid rgb(var(--color-primary))"
-                        : undefined,
-                    borderLeft:
-                      pos.left !== undefined
-                        ? "1.5px solid rgb(var(--color-primary))"
-                        : undefined,
-                    borderRight:
-                      pos.right !== undefined
-                        ? "1.5px solid rgb(var(--color-primary))"
-                        : undefined,
-                  }}
-                />
-              ))}
+              <CornerTicks size={8} />
             </div>
           )}
 
@@ -396,7 +310,7 @@ export default function PortfolioStory({
             </dl>
           ) : null}
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

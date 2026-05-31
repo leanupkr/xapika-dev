@@ -14,28 +14,8 @@ import OfficeOpeningsRail, {
 } from "@/components/sections/OfficeOpeningsRail";
 import OperationsContext from "@/components/sections/OperationsContext";
 import { isOfficeComing } from "@/lib/officeStatus";
-
-type HistoryEventRaw = {
-  year: string;
-  month: string;
-  country: string;
-  event: string;
-};
-
-type OfficeRow = {
-  id: string;
-  city: string;
-  country: string;
-  flag: string;
-  role: "headquarters" | "office" | "warehouse";
-  since: string;
-  lat: number;
-  lng: number;
-  showOnMap: boolean;
-  blurb: string;
-  address?: string;
-  mapsUrl?: string;
-};
+import { OFFICES } from "@/data/offices";
+import { HISTORY_EVENTS } from "@/data/companyHistory";
 
 // Internal portfolio links — kept in code so translations can't redirect users.
 const OPS_HREFS = {
@@ -43,109 +23,6 @@ const OPS_HREFS = {
   poland: "/portfolios/warsaw-tram",
   uzbekistan: "/portfolios/uzbekistan-rail",
 } as const;
-
-const OFFICES: ReadonlyArray<OfficeRow> = [
-  {
-    id: "warsaw-hq",
-    city: "Warsaw",
-    country: "Poland",
-    flag: "🇵🇱",
-    role: "headquarters",
-    since: "2022.03",
-    lat: 52.2297,
-    lng: 21.0118,
-    showOnMap: true,
-    blurb: "Headquarters · group operations, finance, fleet program management.",
-    address: "Kolejowa 234, 05-092 Dziekanów Leśny, Poland",
-    mapsUrl: "https://maps.app.goo.gl/rLqMLkcSUbWgM13y5",
-  },
-  {
-    id: "warsaw-office",
-    city: "Warsaw",
-    country: "Poland",
-    flag: "🇵🇱",
-    role: "office",
-    since: "2021.07",
-    lat: 52.2297,
-    lng: 21.0118,
-    showOnMap: false,
-    blurb: "Tram & metro maintenance program — Tramwaje Warszawskie partnership.",
-  },
-  {
-    id: "kyiv",
-    city: "Kyiv",
-    country: "Ukraine",
-    flag: "🇺🇦",
-    role: "office",
-    since: "2018.11",
-    lat: 50.4501,
-    lng: 30.5234,
-    showOnMap: true,
-    blurb: "EMU heavy-maintenance crew — operating through wartime conditions since 2022.",
-  },
-  {
-    id: "seoul",
-    city: "Seoul",
-    country: "South Korea",
-    flag: "🇰🇷",
-    role: "office",
-    since: "2026.03",
-    lat: 37.5665,
-    lng: 126.978,
-    showOnMap: true,
-    blurb: "APAC bridgehead · digital asset platform & supply-chain coordination.",
-  },
-  {
-    id: "virginia",
-    city: "Virginia",
-    country: "USA",
-    flag: "🇺🇸",
-    role: "office",
-    since: "2023.06",
-    lat: 37.5407,
-    lng: -77.436,
-    showOnMap: true,
-    blurb: "North America operations · transit fleet & commercial services.",
-  },
-  {
-    id: "istanbul",
-    city: "Istanbul",
-    country: "Türkiye",
-    flag: "🇹🇷",
-    role: "office",
-    since: "2016.10",
-    lat: 41.0082,
-    lng: 28.9784,
-    showOnMap: true,
-    blurb: "Founding office · cross-border logistics & MENA program lead.",
-  },
-  {
-    id: "tashkent",
-    city: "Tashkent",
-    country: "Uzbekistan",
-    flag: "🇺🇿",
-    role: "office",
-    since: "2026.04",
-    lat: 41.2995,
-    lng: 69.2401,
-    showOnMap: true,
-    blurb: "Central Asia hub · high-speed corridor O&M and crew training.",
-  },
-];
-
-const HISTORY_EVENTS: ReadonlyArray<HistoryEventRaw> = [
-  { year: "2016", month: "10", country: "Turkiye", event: "Istanbul Office Established" },
-  { year: "2017", month: "06", country: "Ukraine", event: "HSR O&M Operations Begin" },
-  { year: "2018", month: "11", country: "Ukraine", event: "Ukraine HQ Opened" },
-  { year: "2021", month: "07", country: "Poland", event: "Poland Office Established" },
-  { year: "2021", month: "10", country: "Poland", event: "Warsaw Tram O&M Operations Begin" },
-  { year: "2022", month: "03", country: "Poland", event: "Warsaw HQ Relocated to New Facility" },
-  { year: "2022", month: "05", country: "Poland", event: "Poland Warehouse Opened" },
-  { year: "2023", month: "06", country: "USA", event: "Virginia Office Established" },
-  { year: "2026", month: "03", country: "South Korea", event: "Seoul Office Established" },
-  { year: "2026", month: "04", country: "Uzbekistan", event: "Tashkent Office Established" },
-  { year: "2026", month: "05", country: "Uzbekistan", event: "Uzbekistan HSR O&M Begin" },
-];
 
 export function generateMetadata(): Metadata {
   return buildPageMetadata({
@@ -223,7 +100,7 @@ export default function LocationsPage() {
         subtitle="From Warsaw to Tashkent — local crews, regional warehouses, regulator-aligned operations."
         stats={[
           { value: "9", label: "Cities" },
-          { value: "8", label: "Countries" },
+          { value: "6", label: "Countries" },
           { value: "4", label: "Continents" },
         ]}
       />

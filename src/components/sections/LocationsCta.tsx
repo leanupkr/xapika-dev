@@ -4,8 +4,8 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+import { EASE } from "@/lib/motion";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type LocationsCtaProps = {
   overline: string;
@@ -51,24 +51,14 @@ export default function LocationsCta({
         style={{ maxWidth: "var(--max-width)" }}
       >
         <div className="max-w-2xl">
-          <motion.span
+          <SectionOverline
+            as={motion.span}
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
             transition={{ duration: 0.5, ease: EASE }}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-4 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.2em" }}
           >
-            <span
-              aria-hidden
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
             {overline}
-          </motion.span>
+          </SectionOverline>
 
           <motion.h2
             id="locations-cta-title"

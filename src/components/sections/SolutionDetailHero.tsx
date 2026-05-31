@@ -4,8 +4,10 @@ import type { ReactNode } from "react";
 import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { killScrollTriggersWithin } from "@/lib/reveal";
 import PageHero from "@/components/ui/PageHero";
+import CornerTicks from "@/components/ui/CornerTicks";
 
 // Solution-specific SVG pattern defs — each solution gets a distinctive
 // hero background motif so the 5 detail pages don't all look identical.
@@ -156,11 +158,7 @@ export default function SolutionDetailHero({
         );
       }
 
-      return () => {
-        ScrollTrigger.getAll()
-          .filter((st) => sectionsRef.current?.contains(st.trigger as Node))
-          .forEach((st) => st.kill());
-      };
+      return () => killScrollTriggersWithin(sectionsRef.current);
     },
     { scope: sectionsRef }
   );
@@ -405,42 +403,7 @@ function PlaceholderBlock({
         {variant === "cards" && <ProjectCards />}
 
         {/* Corner ticks */}
-        {[
-          { top: 10, left: 10 },
-          { top: 10, right: 10 },
-          { bottom: 10, left: 10 },
-          { bottom: 10, right: 10 },
-        ].map((pos, i) => (
-          <span
-            key={i}
-            aria-hidden="true"
-            className="absolute block"
-            style={{
-              top: pos.top,
-              left: pos.left,
-              right: pos.right,
-              bottom: pos.bottom,
-              width: "8px",
-              height: "8px",
-              borderTop:
-                pos.top !== undefined
-                  ? "1.5px solid rgb(var(--color-primary))"
-                  : undefined,
-              borderBottom:
-                pos.bottom !== undefined
-                  ? "1.5px solid rgb(var(--color-primary))"
-                  : undefined,
-              borderLeft:
-                pos.left !== undefined
-                  ? "1.5px solid rgb(var(--color-primary))"
-                  : undefined,
-              borderRight:
-                pos.right !== undefined
-                  ? "1.5px solid rgb(var(--color-primary))"
-                  : undefined,
-            }}
-          />
-        ))}
+        <CornerTicks size={8} />
       </div>
     </div>
   );

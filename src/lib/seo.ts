@@ -11,7 +11,7 @@ export function siteUrl(path: string = ""): string {
   return cleanPath ? `${BASE_URL}/${cleanPath}` : BASE_URL;
 }
 
-export function buildAlternates(path: string) {
+function buildAlternates(path: string) {
   const url = siteUrl(path);
   return {
     canonical: url,
@@ -29,7 +29,7 @@ type OgInput = {
   ogPath?: string;
 };
 
-export function buildOpenGraph({
+function buildOpenGraph({
   path,
   title,
   description,
@@ -60,7 +60,7 @@ export function buildOpenGraph({
   return og;
 }
 
-export function buildTwitter({
+function buildTwitter({
   title,
   description,
   ogPath,

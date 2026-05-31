@@ -4,6 +4,8 @@ import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { EASE } from "@/lib/motion";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type MidCtaProps = {
   overline: string;
@@ -85,29 +87,20 @@ export default function MidCta({
       >
         {/* 텍스트 */}
         <div className="max-w-2xl">
-          <motion.span
+          <SectionOverline
+            as={motion.span}
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-4 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.2em" }}
+            transition={{ duration: 0.5, ease: EASE }}
           >
-            <span
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
             {overline}
-          </motion.span>
+          </SectionOverline>
 
           <motion.h2
             id="mid-cta-title"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
             className="font-heading font-bold text-white mb-4"
             style={{
               fontSize: "clamp(1.875rem, 3.6vw, 2.75rem)",
@@ -121,7 +114,7 @@ export default function MidCta({
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             className="font-body text-white/60"
             style={{
               fontSize: "clamp(0.9375rem, 1.1vw, 1.0625rem)",
@@ -137,7 +130,7 @@ export default function MidCta({
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : undefined}
-          transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, delay: 0.35, ease: EASE }}
           className="flex flex-col sm:flex-row gap-4"
         >
           <Link

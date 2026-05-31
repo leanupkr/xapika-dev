@@ -4,6 +4,7 @@ import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import ContactInfo from "@/components/sections/ContactInfo";
 import ContactInteractive from "@/components/contact/ContactInteractive";
+import { HQ_ADDRESS } from "@/lib/constants";
 
 export function generateMetadata(): Metadata {
   return buildPageMetadata({
@@ -33,7 +34,7 @@ export default function ContactPage() {
           <ContactInfo
             overline="Get in touch"
             hqLabel="Headquarters"
-            hqValue="Kolejowa 234, 05-092 Dziekanów Leśny, Poland"
+            hqValue={HQ_ADDRESS}
             hoursLabel="Business hours"
             officeLink="View 7 offices"
             openInMaps="Open in Google Maps"

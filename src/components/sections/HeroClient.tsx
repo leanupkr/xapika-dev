@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { prefersReducedMotion } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 type Props = {
   pauseAriaLabel: string;

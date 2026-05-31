@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type CtaSecondaryButton = {
   label: string;
@@ -51,27 +53,10 @@ export default function CtaSection({
         }}
       />
 
-      <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-y-0 lg:gap-x-12 items-end">
           <div className="lg:col-span-8">
-            <span
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-              style={{ fontSize: "12px", letterSpacing: "0.22em" }}
-            >
-              <span
-                aria-hidden="true"
-                className="inline-block flex-shrink-0"
-                style={{
-                  width: "24px",
-                  height: "2px",
-                  backgroundColor: "rgb(var(--color-primary))",
-                }}
-              />
-              {overline}
-            </span>
+            <SectionOverline>{overline}</SectionOverline>
             <h2
               id={titleId}
               className="font-heading font-semibold text-white"
@@ -148,7 +133,7 @@ export default function CtaSection({
             ) : null}
           </div>
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

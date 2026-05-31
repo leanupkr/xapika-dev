@@ -3,7 +3,11 @@
 import { useRef } from "react";
 import type { JSX } from "react";
 import Image from "next/image";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { killScrollTriggersWithin } from "@/lib/reveal";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
+import CornerTicks from "@/components/ui/CornerTicks";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -29,47 +33,6 @@ type WarsawSeasonTimelineProps = {
   };
   entries: ReadonlyArray<SeasonEntry>;
 };
-
-// ---------------------------------------------------------------------------
-// Corner ticks — identical to PortfolioStory framing motif
-// ---------------------------------------------------------------------------
-
-const TICK_POSITIONS = [
-  { top: 8, left: 8 },
-  { top: 8, right: 8 },
-  { bottom: 8, left: 8 },
-  { bottom: 8, right: 8 },
-] as const;
-
-function CornerTicks() {
-  return (
-    <>
-      {TICK_POSITIONS.map((pos, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          className="absolute block pointer-events-none"
-          style={{
-            top: "top" in pos ? pos.top : undefined,
-            left: "left" in pos ? pos.left : undefined,
-            right: "right" in pos ? pos.right : undefined,
-            bottom: "bottom" in pos ? pos.bottom : undefined,
-            width: "10px",
-            height: "10px",
-            borderTop:
-              "top" in pos ? "1.5px solid rgb(var(--color-primary))" : undefined,
-            borderBottom:
-              "bottom" in pos ? "1.5px solid rgb(var(--color-primary))" : undefined,
-            borderLeft:
-              "left" in pos ? "1.5px solid rgb(var(--color-primary))" : undefined,
-            borderRight:
-              "right" in pos ? "1.5px solid rgb(var(--color-primary))" : undefined,
-          }}
-        />
-      ))}
-    </>
-  );
-}
 
 // ---------------------------------------------------------------------------
 // WarsawSeasonTimeline
@@ -175,11 +138,7 @@ export default function WarsawSeasonTimeline({
         });
       });
 
-      return () => {
-        ScrollTrigger.getAll()
-          .filter((st) => sectionRef.current?.contains(st.trigger as Node))
-          .forEach((st) => st.kill());
-      };
+      return () => killScrollTriggersWithin(sectionRef.current);
     },
     { scope: sectionRef }
   );
@@ -220,27 +179,10 @@ export default function WarsawSeasonTimeline({
       />
 
       {/* Container */}
-      <div
-        className="relative z-10 mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer className="relative z-10">
         {/* Section header */}
         <header className="mb-8 md:mb-24">
-          <span
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-5 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "12px", letterSpacing: "var(--tracking-overline)" }}
-          >
-            <span
-              aria-hidden="true"
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
-            {overline}
-          </span>
+          <SectionOverline>{overline}</SectionOverline>
           <h2
             id={headingId}
             className="font-heading font-semibold text-white"
@@ -412,7 +354,7 @@ export default function WarsawSeasonTimeline({
             </div>
           );
         })}
-      </div>
+      </SectionContainer>
     </section>
   );
 }

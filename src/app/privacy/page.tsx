@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import PageHero from "@/components/ui/PageHero";
+import SectionContainer from "@/components/ui/SectionContainer";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 export function generateMetadata(): Metadata {
   return buildPageMetadata({
@@ -36,10 +38,7 @@ export default function PrivacyPage() {
           paddingBottom: "clamp(5rem, 10vh, 7.5rem)",
         }}
       >
-        <div
-          className="mx-auto px-6 md:px-10 lg:px-16"
-          style={{ maxWidth: "var(--max-width-content)" }}
-        >
+        <SectionContainer>
           <div className="max-w-2xl">
             <p
               className="font-heading uppercase mb-4 text-[rgb(var(--color-primary))]"
@@ -78,15 +77,15 @@ export default function PrivacyPage() {
             >
               For inquiries about how we handle your data in the meantime, please contact{" "}
               <a
-                href="mailto:info@xapika.pl"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="text-[rgb(var(--color-primary))] underline underline-offset-4 hover:opacity-80 transition-opacity"
               >
-                info@xapika.pl
+                {CONTACT_EMAIL}
               </a>
               .
             </p>
           </div>
-        </div>
+        </SectionContainer>
       </section>
     </>
   );

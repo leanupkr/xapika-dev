@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { prefersReducedMotion } from "@/lib/gsap";
+import { EASE } from "@/lib/motion";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 type Stat = {
   value: string;
@@ -93,7 +95,7 @@ function StatBlock({
       transition={{
         duration: 0.6,
         delay: 0.05 + index * 0.12,
-        ease: [0.16, 1, 0.3, 1],
+        ease: EASE,
       }}
       className="relative flex flex-col min-w-0"
     >
@@ -158,7 +160,7 @@ function StatBlock({
           transition={{
             duration: 1.6,
             delay: 0.15 + index * 0.12,
-            ease: [0.16, 1, 0.3, 1],
+            ease: EASE,
           }}
         />
       </div>
@@ -196,30 +198,21 @@ export default function KeyNumbers({
         {/* 헤더 */}
         <div className="max-w-3xl mb-16 md:mb-24">
           {/* Overline */}
-          <motion.span
+          <SectionOverline
+            as={motion.span}
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : undefined}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 font-heading font-medium uppercase mb-6 text-[rgb(var(--color-primary))]"
-            style={{ fontSize: "13px", letterSpacing: "0.2em" }}
+            transition={{ duration: 0.5, ease: EASE }}
           >
-            <span
-              className="inline-block flex-shrink-0"
-              style={{
-                width: "24px",
-                height: "2px",
-                backgroundColor: "rgb(var(--color-primary))",
-              }}
-            />
             {overline}
-          </motion.span>
+          </SectionOverline>
 
           {/* Title */}
           <motion.h2
             id="key-numbers-title"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
             className="font-heading font-semibold text-[rgb(var(--color-ink))]"
             style={{
               fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
@@ -234,7 +227,7 @@ export default function KeyNumbers({
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             className="font-body text-[rgb(var(--color-ink-muted))] mt-6"
             style={{
               fontSize: "clamp(1rem, 1.4vw, 1.125rem)",

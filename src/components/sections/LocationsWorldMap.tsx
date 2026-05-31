@@ -1,34 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import dynamic from "next/dynamic";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { isOfficeComing } from "@/lib/officeStatus";
-
-const ComposableMap = dynamic(
-  () => import("react-simple-maps").then((m) => m.ComposableMap),
-  { ssr: false },
-);
-const Geographies = dynamic(
-  () => import("react-simple-maps").then((m) => m.Geographies),
-  { ssr: false },
-);
-const Geography = dynamic(
-  () => import("react-simple-maps").then((m) => m.Geography),
-  { ssr: false },
-);
-const Marker = dynamic(
-  () => import("react-simple-maps").then((m) => m.Marker),
-  { ssr: false },
-);
-const Line = dynamic(
-  () => import("react-simple-maps").then((m) => m.Line),
-  { ssr: false },
-);
-
-const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+import { EASE } from "@/lib/motion";
+import { useMounted } from "@/lib/useMounted";
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker,
+  Line,
+  GEO_URL,
+} from "@/lib/reactSimpleMaps";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type WorldMapOffice = {
   id: string;
@@ -72,14 +58,10 @@ export default function LocationsWorldMap({
 }: LocationsWorldMapProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { amount: 0.15, once: true });
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const isMobile = useMediaQuery("(max-width: 1023px)");
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const [activeId, setActiveId] = useState<string | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const roleLabel = (role: WorldMapOffice["role"]) =>
     role === "headquarters"
@@ -151,28 +133,15 @@ export default function LocationsWorldMap({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left text */}
           <div className="lg:col-span-4">
-            <motion.span
+            <SectionOverline
+              as={motion.span}
+              tone="onDark"
               initial={{ opacity: 0, x: -20 }}
               animate={inView ? { opacity: 1, x: 0 } : undefined}
               transition={{ duration: 0.5, ease: EASE }}
-              className="flex items-center gap-3 font-heading font-medium uppercase mb-6"
-              style={{
-                fontSize: "13px",
-                letterSpacing: "0.22em",
-                color: "rgba(255,255,255,0.85)",
-              }}
             >
-              <span
-                aria-hidden
-                className="inline-block flex-shrink-0"
-                style={{
-                  width: "28px",
-                  height: "2px",
-                  backgroundColor: "rgb(var(--color-primary))",
-                }}
-              />
               {overline}
-            </motion.span>
+            </SectionOverline>
 
             <motion.h2
               id="locations-map-title"

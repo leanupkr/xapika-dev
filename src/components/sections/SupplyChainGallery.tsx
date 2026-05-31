@@ -1,4 +1,6 @@
 import Image from "next/image";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SectionOverline from "@/components/ui/SectionOverline";
 
 export type GallerySlide = {
   src: string;
@@ -91,25 +93,10 @@ export default function SupplyChainGallery({
       }}
     >
       {/* Header */}
-      <div
-        className="mx-auto px-6 md:px-10 lg:px-16 mb-10 md:mb-14"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
-        <span
-          className="flex items-center gap-3 font-heading font-medium uppercase mb-5 text-[rgb(var(--color-primary))]"
-          style={{ fontSize: "13px", letterSpacing: "0.2em" }}
-        >
-          <span
-            aria-hidden="true"
-            className="inline-block flex-shrink-0"
-            style={{
-              width: "24px",
-              height: "2px",
-              backgroundColor: "rgb(var(--color-primary))",
-            }}
-          />
+      <SectionContainer className="mb-10 md:mb-14">
+        <SectionOverline>
           {overline}
-        </span>
+        </SectionOverline>
 
         <h2
           id="sc-gallery-title"
@@ -123,13 +110,10 @@ export default function SupplyChainGallery({
         >
           {title}
         </h2>
-      </div>
+      </SectionContainer>
 
       {/* Gallery grid */}
-      <div
-        className="mx-auto px-6 md:px-10 lg:px-16"
-        style={{ maxWidth: "var(--max-width-content)" }}
-      >
+      <SectionContainer>
         <div className="flex flex-col gap-3">
           {/* Row 1: Hero — full width
               모바일에서 21/8(≈2.6:1)는 너무 얕아 사진 디테일이 묻힘. 모바일은 16/9, sm부터 21/8. */}
@@ -218,7 +202,7 @@ export default function SupplyChainGallery({
             </div>
           )}
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 }

@@ -7,54 +7,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import MobileMenu from "./MobileMenu";
-import MegaDropdown, { type MegaDropdownItem } from "./MegaDropdown";
-
-const NAV_LABELS: Record<string, string> = {
-  about:      "About Us",
-  solutions:  "Solutions",
-  portfolios: "Portfolios",
-  locations:  "Locations",
-  contact:    "Contact Us",
-};
-
-const NAV_LINKS = [
-  { key: "about",      href: "/about" },
-  { key: "solutions",  href: "/solutions" },
-  { key: "portfolios", href: "/portfolios" },
-  { key: "locations",  href: "/locations" },
-  { key: "contact",    href: "/contact" },
-] as const;
-
-const aboutItems: MegaDropdownItem[] = [
-  { key: "ceo",          label: "CEO Message",         description: "A note from the founder.",         href: "/about/ceo" },
-  { key: "history",      label: "Our History",         description: "Ten years across five countries.", href: "/about/history" },
-  { key: "vision",       label: "Vision & Principles", description: "Perfect work, safe operations.",   href: "/about/vision" },
-  { key: "organization", label: "Organization",        description: "Cross-functional teams.",          href: "/about/organization" },
-  { key: "clients",      label: "Our Clients",         description: "National rail operators.",         href: "/about/clients" },
-];
-
-const solutionsItems: MegaDropdownItem[] = [
-  { key: "light_maintenance", label: "Light Maintenance",        description: "Daily inspections & functional checks.", href: "/solutions/light-maintenance" },
-  { key: "heavy_maintenance", label: "Heavy Maintenance",        description: "Full overhauls under warranty.",         href: "/solutions/heavy-maintenance" },
-  { key: "supply_chain",      label: "Supply Chain",             description: "Parts sourcing across 50+ partners.",    href: "/solutions/supply-chain" },
-  { key: "digital_asset",     label: "Digital Asset Management", description: "MMIS platform via VISION IT.",           href: "/solutions/digital-asset-management" },
-  { key: "commercial",        label: "Commercial Services",      description: "Station retail & concessions.",          href: "/solutions/commercial-services" },
-];
-
-const portfoliosItems: MegaDropdownItem[] = [
-  { key: "ukraine",    label: "Ukraine HRCS2 EMU",    description: "100 high-speed units · since 2017.", href: "/portfolios/ukraine-emu" },
-  { key: "warsaw",     label: "Tramwaje Warszawskie", description: "123 trams · 140-year network.",       href: "/portfolios/warsaw-tram" },
-  { key: "uzbekistan", label: "Uzbekistan HSR",       description: "Launching May 2026.",                 href: "/portfolios/uzbekistan-rail" },
-  { key: "all",        label: "View All Portfolios",  description: "Complete portfolio overview.",        href: "/portfolios" },
-];
-
-const dropdownByKey: Record<string, MegaDropdownItem[] | null> = {
-  about:      aboutItems,
-  solutions:  solutionsItems,
-  portfolios: portfoliosItems,
-  locations:  null,
-  contact:    null,
-};
+import MegaDropdown from "./MegaDropdown";
+import { EASE } from "@/lib/motion";
+import { NAV_ITEMS } from "@/data/nav";
 
 export default function Header() {
   const pathname = usePathname();
@@ -151,7 +106,7 @@ export default function Header() {
       <motion.header
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, ease: EASE }}
         className={[
           "fixed top-0 left-0 right-0 z-30 transition-all duration-300",
           scrolled
@@ -178,62 +133,62 @@ export default function Header() {
               className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               aria-label="Primary"
             >
-              {NAV_LINKS.map(({ key, href }) => {
+              {NAV_ITEMS.map((item) => {
                 const isActive =
-                  pathname === href || pathname.startsWith(`${href}/`);
-                const dropdown = dropdownByKey[key];
+                  pathname === item.href || pathname.startsWith(`${item.href}/`);
+                const dropdown = item.children;
 
                 if (dropdown) {
                   return (
                     <div
-                      key={key}
+                      key={item.key}
                       className="relative"
-                      onMouseEnter={() => handleEnter(key)}
+                      onMouseEnter={() => handleEnter(item.key)}
                       onMouseLeave={handleLeave}
                     >
                       <button
                         ref={(el) => {
-                          triggerRefs.current[key] = el;
+                          triggerRefs.current[item.key] = el;
                         }}
-                        id={`${key}-trigger`}
+                        id={`${item.key}-trigger`}
                         className={[
                           "flex items-center gap-1 font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
                           scrolled
                             ? "text-ink hover:text-primary"
                             : "text-white/90 hover:text-white",
-                          activeMenu === key
+                          activeMenu === item.key
                             ? scrolled
                               ? "text-primary"
                               : "text-white"
                             : "",
                         ].join(" ")}
                         style={{ fontSize: "13px" }}
-                        aria-expanded={activeMenu === key}
+                        aria-expanded={activeMenu === item.key}
                         aria-haspopup="menu"
                         aria-current={isActive ? "page" : undefined}
                         onClick={() =>
-                          setActiveMenu(activeMenu === key ? null : key)
+                          setActiveMenu(activeMenu === item.key ? null : item.key)
                         }
-                        onKeyDown={(e) => handleTriggerKeyDown(e, key)}
+                        onKeyDown={(e) => handleTriggerKeyDown(e, item.key)}
                       >
-                        {NAV_LABELS[key]}
+                        {item.label}
                         <ChevronDown
                           size={14}
                           strokeWidth={2}
                           className={[
                             "transition-transform duration-200",
-                            activeMenu === key ? "rotate-180" : "",
+                            activeMenu === item.key ? "rotate-180" : "",
                           ].join(" ")}
                           aria-hidden="true"
                         />
                       </button>
 
                       <MegaDropdown
-                        triggerId={`${key}-trigger`}
+                        triggerId={`${item.key}-trigger`}
                         items={dropdown}
-                        isOpen={activeMenu === key}
+                        isOpen={activeMenu === item.key}
                         onClose={closeMenu}
-                        onEnter={() => handleEnter(key)}
+                        onEnter={() => handleEnter(item.key)}
                         onLeave={handleLeave}
                         layout="compact"
                       />
@@ -241,11 +196,11 @@ export default function Header() {
                   );
                 }
 
-                // Plain link (Contact)
+                // Plain link (Locations, Contact)
                 return (
                   <Link
-                    key={key}
-                    href={href}
+                    key={item.key}
+                    href={item.href}
                     aria-current={isActive ? "page" : undefined}
                     className={[
                       "font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
@@ -255,7 +210,7 @@ export default function Header() {
                     ].join(" ")}
                     style={{ fontSize: "13px" }}
                   >
-                    {NAV_LABELS[key]}
+                    {item.label}
                   </Link>
                 );
               })}

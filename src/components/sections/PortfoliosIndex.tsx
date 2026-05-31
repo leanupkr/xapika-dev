@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import PageHero from "@/components/ui/PageHero";
+import SectionContainer from "@/components/ui/SectionContainer";
 
 export type PortfolioKey = "ukraine" | "warsaw" | "uzbekistan";
 
@@ -175,10 +176,7 @@ export default function PortfoliosIndex({
             paddingBottom: "clamp(5rem, 12vh, 8rem)",
           }}
         >
-          <div
-            className="mx-auto px-6 md:px-10 lg:px-16"
-            style={{ maxWidth: "var(--max-width-content)" }}
-          >
+          <SectionContainer>
             <div
               className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-6 md:px-8 py-5 md:py-6"
               style={{
@@ -225,7 +223,7 @@ export default function PortfoliosIndex({
                 Download
               </a>
             </div>
-          </div>
+          </SectionContainer>
         </section>
       )}
     </>
