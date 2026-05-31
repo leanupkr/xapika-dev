@@ -99,9 +99,9 @@ export default function LocationsPage() {
         title="Seven offices. One operating clock."
         subtitle="From Warsaw to Tashkent — local crews, regional warehouses, regulator-aligned operations."
         stats={[
-          { value: "9", label: "Cities" },
+          { value: "7", label: "Offices" },
           { value: "6", label: "Countries" },
-          { value: "4", label: "Continents" },
+          { value: "3", label: "Continents" },
         ]}
       />
 
@@ -109,13 +109,13 @@ export default function LocationsPage() {
         overline="Global footprint"
         title="A network built over a decade."
         subtitle="Seven operating sites across six countries — each one a full depot or engineering team, not a representative office."
-        citiesValue="9"
-        citiesLabel="Cities"
+        citiesValue="7"
+        citiesLabel="Offices"
         citiesNote="From Warsaw to Tashkent"
         countriesValue="6"
         countriesLabel="Countries"
         countriesNote="Europe · Asia · North America"
-        continentsValue="4"
+        continentsValue="3"
         continentsLabel="Continents"
         continentsNote="No single-timezone dependency"
         yearsValue="10"

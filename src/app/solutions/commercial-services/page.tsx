@@ -62,7 +62,7 @@ export default async function CommercialServicesPage() {
       key: "ukraine",
       country: "Ukraine",
       project: "HRCS2 Fleet — Ukrzaliznytsia",
-      desc: "Long-horizon commercial agreement on the 100 high-speed unit programme, structured to hold through wartime operations.",
+      desc: "Long-horizon commercial agreement on the 90 high-speed car programme, structured to hold through wartime operations.",
       imgAlt: "HRCS2 long-horizon commercial agreement",
     },
   ];

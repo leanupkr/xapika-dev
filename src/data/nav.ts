@@ -50,7 +50,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
     label: "Portfolios",
     href: "/portfolios",
     children: [
-      { key: "ukraine",    label: "Ukraine HRCS2 EMU",    href: "/portfolios/ukraine-emu",     description: "100 high-speed units · since 2017." },
+      { key: "ukraine",    label: "Ukraine HRCS2 EMU",    href: "/portfolios/ukraine-emu",     description: "90 cars · since 2017." },
       { key: "warsaw",     label: "Tramwaje Warszawskie", href: "/portfolios/warsaw-tram",     description: "123 trams · 140-year network." },
       { key: "uzbekistan", label: "Uzbekistan HSR",       href: "/portfolios/uzbekistan-rail", description: "Launching May 2026." },
       { key: "all",        label: "View All Portfolios",  href: "/portfolios",                 description: "Complete portfolio overview." },

@@ -64,7 +64,7 @@ export default async function DigitalAssetManagementPage() {
       key: "ukraine",
       country: "Ukraine",
       project: "HRCS2 Fleet — Ukrzaliznytsia",
-      desc: "100 high-speed units fully tracked through MMIS — work orders, parts, and component health visible across borders.",
+      desc: "90 high-speed cars fully tracked through MMIS — work orders, parts, and component health visible across borders.",
       imgAlt: "HRCS2 fleet on MMIS",
     },
     {

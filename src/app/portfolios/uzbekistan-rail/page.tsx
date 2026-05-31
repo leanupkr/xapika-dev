@@ -87,7 +87,7 @@ export default async function UzbekistanRailPage() {
     {
       key: "ukraine",
       country: "Ukraine",
-      project: "HRCS2 EMU — 100 high-speed units",
+      project: "HRCS2 EMU — 90 cars",
       desc: "Nine years uninterrupted. 82,000+ audited maintenance actions, including through wartime conditions.",
       image: "/portfolios/ukraine-emu/hero-main.jpg",
       imgAlt: "HRCS2 unit at Kyiv depot — Xapika maintenance program",

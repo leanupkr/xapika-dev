@@ -85,7 +85,7 @@ export default async function HeavyMaintenancePage() {
       key: "ukraine",
       country: "Ukraine",
       project: "HRCS2 Fleet — Ukrzaliznytsia",
-      desc: "100 high-speed units under continuous heavy overhaul cycle since 2017 — uninterrupted through wartime.",
+      desc: "90 high-speed cars under continuous heavy overhaul cycle since 2017 — uninterrupted through wartime.",
       imgAlt: "HRCS2 heavy overhaul at Ukrzaliznytsia",
     },
     {

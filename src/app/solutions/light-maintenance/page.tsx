@@ -64,7 +64,7 @@ export default async function LightMaintenancePage() {
       key: "ukraine",
       country: "Ukraine",
       project: "HRCS2 Fleet — Ukrzaliznytsia",
-      desc: "Daily inspection and functional checks across 100 high-speed units, sustained through wartime conditions since 2022.",
+      desc: "Daily inspection and functional checks across 90 high-speed cars, sustained through wartime conditions since 2022.",
       imgAlt: "HRCS2 inspection at Ukrzaliznytsia depot",
     },
     {

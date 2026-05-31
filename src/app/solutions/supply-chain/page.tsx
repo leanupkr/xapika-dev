@@ -135,7 +135,7 @@ export default async function SupplyChainPage() {
       key: "ukraine",
       country: "Ukraine",
       project: "HRCS2 Fleet — Ukrzaliznytsia",
-      desc: "Cross-border parts pipeline sustaining 100 high-speed units through wartime logistics constraints since 2022.",
+      desc: "Cross-border parts pipeline sustaining 90 high-speed cars through wartime logistics constraints since 2022.",
       imgAlt: "Ukraine HRCS2 parts supply",
     },
     {
