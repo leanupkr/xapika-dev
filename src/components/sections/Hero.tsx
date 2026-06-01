@@ -6,14 +6,10 @@ import SectionOverline from "@/components/ui/SectionOverline";
 import "@/styles/hero.css";
 
 const SLIDES = [
-  {
-    src: "/portfolios/warsaw-tram/hero-main.jpg",
-    alt: "Warsaw tram maintenance depot — Tramwaje Warszawskie program",
-  },
-  {
-    src: "/hero/hero-04-work.jpg",
-    alt: "HRCS2 high-speed EMU maintenance depot — Ukraine program",
-  },
+  { src: "/portfolios/warsaw-tram/hero-main.jpg",      alt: "Warsaw tram maintenance depot — Tramwaje Warszawskie program" },
+  { src: "/portfolios/warsaw-tram/story-01.jpg",       alt: "Tram bogie maintenance in progress — Warsaw depot" },
+  { src: "/hero/hero-04-work.jpg",                     alt: "HRCS2 high-speed EMU maintenance depot — Ukraine program" },
+  { src: "/portfolios/warsaw-tram/season-2024-01.jpg", alt: "Tram running-gear overhaul in progress — Warsaw depot" },
 ] as const;
 
 type HeroProps = {

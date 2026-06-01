@@ -2,7 +2,7 @@
  * hero.css — Xapika Hero 사진 톤 통일 + Ken Burns 크로스페이드
  *
  * 추천 전략: Strategy C (filter + overlay 혼합)
- * - CSS filter로 기본 색보정(밝기·채도·대비) → 3장 균일 베이스
+ * - CSS filter로 기본 색보정(밝기·채도·대비) → 4장 균일 베이스
  * - ::after overlay로 브랜드 네이비(#0B1F3A) 그라데이션 입혀 시네마틱 룩 완성
  * - 결과: 차가운 네이비 블루 톤, 흰색 텍스트 가독성 확보
  *
@@ -36,13 +36,15 @@
   inset: 0;
   opacity: 0;
   /* 크로스페이드: hold → fade-out → 다음 슬라이드 fade-in */
-  animation: hero-fade var(--hero-cycle, 12s) ease-in-out infinite;
+  animation: hero-fade var(--hero-cycle, 24s) ease-in-out infinite;
 }
 
-/* 2장 슬라이드 → 12초 사이클 (슬라이드당 6초)
-   각 슬라이드를 1/2씩 오프셋 */
-.hero-slide:nth-child(1) { animation-delay: 0s; }
-.hero-slide:nth-child(2) { animation-delay: 6s; }
+/* 4장 슬라이드 → 24초 사이클 (슬라이드당 6초)
+   각 슬라이드를 1/4씩 오프셋 */
+.hero-slide:nth-child(1) { animation-delay:  0s; }
+.hero-slide:nth-child(2) { animation-delay:  6s; }
+.hero-slide:nth-child(3) { animation-delay: 12s; }
+.hero-slide:nth-child(4) { animation-delay: 18s; }
 
 /* LCP 개선 — 첫 슬라이드는 fade-in 없이 즉시 표시.
    다음 사이클 재진입 시에만 정상 cross-fade로 돌아옴. */
@@ -68,13 +70,13 @@
    * contrast(1.10)   : 어두운 영역 깊이감 강화
    * saturate(0.80)   : 채도 낮춤 → 차가운 시네마틱 톤
    *
-   * 3장 원본이 서로 다른 노출/화이트밸런스를 갖더라도
+   * 4장 원본이 서로 다른 노출/화이트밸런스를 갖더라도
    * 이 값으로 균일한 베이스로 수렴시킴.
    */
   filter: brightness(0.70) contrast(1.10) saturate(0.80);
 
   /* Ken Burns 줌 인 — 슬라이드별 독립 animation */
-  animation: ken-burns-zoom var(--hero-cycle, 12s) ease-out infinite;
+  animation: ken-burns-zoom var(--hero-cycle, 24s) ease-out infinite;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -139,7 +141,7 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   7. Ken Burns 줌 인 keyframes
+   7. Ken Burns 줌 keyframes
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @keyframes ken-burns-zoom {
   /*
@@ -151,50 +153,71 @@
   100% { transform: scale(1.07); transform-origin: center center; }
 }
 
-/* 슬라이드별 Ken Burns 방향 다변화 — 단조로움 방지 */
-.hero-slide:nth-child(1) .hero-slide__img {
-  animation: ken-burns-zoom var(--hero-cycle, 12s) ease-out infinite;
-  transform-origin: center center;
-}
-.hero-slide:nth-child(2) .hero-slide__img {
-  animation: ken-burns-zoom-right var(--hero-cycle, 12s) ease-out infinite;
-}
-
 @keyframes ken-burns-zoom-right {
   0%   { transform: scale(1.00) translateX(0%); }
   100% { transform: scale(1.06) translateX(-2%); }
+}
+
+@keyframes ken-burns-zoom-left {
+  0%   { transform: scale(1.00) translateX(0%); }
+  100% { transform: scale(1.06) translateX(2%); }
+}
+
+/* 슬라이드별 Ken Burns 방향 다변화 — 4슬라이드, 단조로움 방지 */
+.hero-slide:nth-child(1) .hero-slide__img {
+  animation: ken-burns-zoom var(--hero-cycle, 24s) ease-out infinite;
+  transform-origin: center center;
+}
+.hero-slide:nth-child(2) .hero-slide__img {
+  animation: ken-burns-zoom-right var(--hero-cycle, 24s) ease-out infinite;
+}
+.hero-slide:nth-child(3) .hero-slide__img {
+  animation: ken-burns-zoom-left var(--hero-cycle, 24s) ease-out infinite;
+}
+.hero-slide:nth-child(4) .hero-slide__img {
+  animation: ken-burns-zoom var(--hero-cycle, 24s) ease-out infinite;
+  transform-origin: 60% 40%;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    8. 크로스페이드 keyframes
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 /*
- * 18초 사이클 (슬라이드당 6초):
- *   0%    — fade-in 시작 (opacity 0)
- *   6.7%  — fade-in 완료 (opacity 1, ~1.2초)
- *   55.6% — hold 상태 (opacity 1, 약 4.4초 유지)
- *   66.7% — fade-out 완료 (opacity 0, ~2초)
- *   100%  — 비활성 대기
+ * 24초 사이클 (4슬라이드, 슬라이드당 6초):
+ *
+ *   딜레이 오프셋: (1)=0s  (2)=6s  (3)=12s  (4)=18s
+ *
+ *   hero-fade 퍼센트 기준 (24s 사이클):
+ *     0%  =  0s  — fade-in 시작 (opacity 0)
+ *     4%  = 0.96s — fade-in 완료 (opacity 1, ~1초)
+ *    25%  =  6s  — 활성 구간 종료 직전 (opacity 1)
+ *    29%  = 6.96s — fade-out 완료 (opacity 0, ~1초)
+ *   100%  = 24s  — 비활성 대기
  *
  * ease-in-out curve 사용:
  * → 밝기 점프를 최소화하는 S커브 전환
  * → linear 대비 크로스오버 구간의 "이중 노출" 효과 감소
  */
 @keyframes hero-fade {
-  0%    { opacity: 0; }
-  6.7%  { opacity: 1; }
-  55.6% { opacity: 1; }
-  66.7% { opacity: 0; }
-  100%  { opacity: 0; }
+  0%   { opacity: 0; }
+  4%   { opacity: 1; }
+  25%  { opacity: 1; }
+  29%  { opacity: 0; }
+  100% { opacity: 0; }
 }
 
-/* 첫 슬라이드 전용 — 시작 즉시 opacity 1, fade-in 단계 생략 (LCP 개선) */
+/*
+ * 첫 슬라이드 전용 — 시작 즉시 opacity 1, fade-in 단계 생략 (LCP 개선).
+ * 96%→100% 구간(23.04s→24s)에서 opacity 0→1 재진입:
+ * slide-4가 페이드아웃(18s+29%≈25.0s)되는 시점에 slide-1이 다시 페이드인하여
+ * 루프 이음새를 seamless하게 처리.
+ */
 @keyframes hero-fade-first {
-  0%    { opacity: 1; }
-  55.6% { opacity: 1; }
-  66.7% { opacity: 0; }
-  93.3% { opacity: 0; }
-  100%  { opacity: 1; }
+  0%   { opacity: 1; }
+  25%  { opacity: 1; }
+  29%  { opacity: 0; }
+  96%  { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -235,10 +258,13 @@
   border-color: rgba(255, 255, 255, 0.55) !important;
 }
 
-/* paused 상태: .hero-slideshow--paused 클래스로 모든 슬라이드 animation 정지 */
+/* paused 상태: .hero-slideshow--paused 클래스로 모든 슬라이드 animation 정지
+   — 4슬라이드 전체 커버 (slide + img 각각) */
 .hero-slideshow--paused .hero-slide,
 .hero-slideshow--paused .hero-slide:nth-child(1) .hero-slide__img,
 .hero-slideshow--paused .hero-slide:nth-child(2) .hero-slide__img,
+.hero-slideshow--paused .hero-slide:nth-child(3) .hero-slide__img,
+.hero-slideshow--paused .hero-slide:nth-child(4) .hero-slide__img,
 .hero-slideshow--paused .hero-slide__img {
   animation-play-state: paused;
 }
@@ -252,35 +278,40 @@
     display: none;
   }
 
+  /* 4슬라이드 전체: Ken Burns 제거, 크로스페이드는 유지 */
   .hero-slide {
-    animation: hero-fade-static var(--hero-cycle, 12s) ease-in-out infinite;
+    animation: hero-fade-static var(--hero-cycle, 24s) ease-in-out infinite;
   }
   /* 첫 슬라이드는 reduced-motion에서도 즉시 표시 (LCP 개선) */
   .hero-slide:nth-child(1) {
     animation-name: hero-fade-first-static;
     opacity: 1;
   }
+  /* 4슬라이드 모두 Ken Burns 제거 */
   .hero-slide__img,
   .hero-slide:nth-child(1) .hero-slide__img,
-  .hero-slide:nth-child(2) .hero-slide__img {
+  .hero-slide:nth-child(2) .hero-slide__img,
+  .hero-slide:nth-child(3) .hero-slide__img,
+  .hero-slide:nth-child(4) .hero-slide__img {
     animation: none;
     transform: none;
   }
 
+  /* 24초 사이클 기준, 4슬라이드 — hero-fade-first-static */
   @keyframes hero-fade-first-static {
-    0%    { opacity: 1; }
-    55.6% { opacity: 1; }
-    66.7% { opacity: 0; }
-    93.3% { opacity: 0; }
-    100%  { opacity: 1; }
+    0%   { opacity: 1; }
+    25%  { opacity: 1; }
+    29%  { opacity: 0; }
+    96%  { opacity: 0; }
+    100% { opacity: 1; }
   }
 
   /* Ken Burns 제거, 크로스페이드는 유지 */
   @keyframes hero-fade-static {
-    0%    { opacity: 0; }
-    6.7%  { opacity: 1; }
-    55.6% { opacity: 1; }
-    66.7% { opacity: 0; }
-    100%  { opacity: 0; }
+    0%   { opacity: 0; }
+    4%   { opacity: 1; }
+    25%  { opacity: 1; }
+    29%  { opacity: 0; }
+    100% { opacity: 0; }
   }
 }
