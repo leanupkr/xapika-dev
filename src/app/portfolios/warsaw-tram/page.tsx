@@ -14,7 +14,7 @@ import RelatedProjects, {
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     path: "/portfolios/warsaw-tram",
-    title: "150 years of urban motion.",
+    title: "144 years of urban motion.",
     description:
       "Tram operations and maintenance for Warsaw — one of Europe's oldest continuously operating tram systems.",
   });
@@ -131,7 +131,7 @@ export default async function WarsawTramPage() {
     { value: "123", label: "Tram units" },
     { value: "25", label: "Engineers, Warsaw" },
     { value: "1882", label: "Network founded" },
-    { value: "140+ yrs", label: "Heritage of service" },
+    { value: "144 yrs", label: "Heritage of service" },
   ];
 
   const relatedItems: ReadonlyArray<RelatedProjectItem> = [
@@ -147,9 +147,9 @@ export default async function WarsawTramPage() {
       key: "uzbekistan",
       country: "Uzbekistan",
       project: "Tashkent high-speed corridor",
-      desc: "Mobilising for May 2026 launch — crew, parts pipeline and MMIS platform configured before day one.",
+      desc: "Launched May 2026 — crew, parts pipeline and MMIS platform operational from day one.",
       imgAlt: "Uzbekistan high-speed program — launch frame",
-      placeholderLabel: "Launching 31 May 2026 · Tashkent",
+      placeholderLabel: "Launched 31 May 2026 · Tashkent",
     },
   ];
 
@@ -160,7 +160,7 @@ export default async function WarsawTramPage() {
         data={breadcrumbLd({
           trail: [
             { name: "Portfolios", path: "portfolios" },
-            { name: "150 years of urban motion.", path: "portfolios/warsaw-tram" },
+            { name: "144 years of urban motion.", path: "portfolios/warsaw-tram" },
           ],
         })}
       />
@@ -168,7 +168,7 @@ export default async function WarsawTramPage() {
         id="ld-case-warsaw"
         data={caseStudyLd({
           slug: "warsaw-tram",
-          name: "150 years of urban motion.",
+          name: "144 years of urban motion.",
           description:
             "Tram operations and maintenance for Warsaw — one of Europe's oldest continuously operating tram systems.",
           country: "Poland",
@@ -176,7 +176,7 @@ export default async function WarsawTramPage() {
       />
       <PortfolioHero
         overline="Portfolios"
-        title="150 years of urban motion."
+        title="144 years of urban motion."
         subtitle="Tram operations and maintenance for Warsaw — one of Europe's oldest continuously operating tram systems."
         index="02 / 03"
         placeholder="Site photograph arriving"
@@ -201,7 +201,7 @@ export default async function WarsawTramPage() {
       />
       <WarsawSeasonTimeline
         overline="Field log"
-        title="Three years, four seasons."
+        title="Four years, four seasons."
         yearLabels={yearLabels}
         entries={galleryEntries}
       />

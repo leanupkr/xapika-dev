@@ -15,7 +15,7 @@ export type UzbekEvent = {
 type UzbekTimelineProps = {
   overline: string;
   title: string;
-  comingBadge: string;
+  comingBadge?: string;
   events: ReadonlyArray<UzbekEvent>;
 };
 

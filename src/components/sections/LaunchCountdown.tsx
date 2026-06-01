@@ -359,7 +359,7 @@ export default function LaunchCountdown({
               textTransform: "uppercase",
             }}
           >
-            Launch · 31 May 2026 · Tashkent
+            Launched · 31 May 2026 · Tashkent
           </motion.p>
 
           {/* ── Progress bar ─────────────────────────────────────────── */}

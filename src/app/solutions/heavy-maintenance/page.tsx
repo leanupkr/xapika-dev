@@ -133,7 +133,7 @@ export default async function HeavyMaintenancePage() {
       >
         <OverhaulProcess
           overline="The Overhaul Sequence"
-          title="Four disciplines under one safety warranty."
+          title="Four-phase overhaul sequence."
           subtitle="Comprehensive heavy maintenance to restore performance, enhance reliability, and ensure long-term operational safety — every action audited."
           phases={phases}
           heroImage="/solutions/heavy-maintenance/overhaul-hero.jpg"

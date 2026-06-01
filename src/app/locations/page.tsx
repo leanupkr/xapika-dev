@@ -191,7 +191,7 @@ export default function LocationsPage() {
             metric: "Launch · 2026.05",
             cta: "Program preview",
             href: OPS_HREFS.uzbekistan,
-            comingBadge: "Coming 2026.05",
+            comingBadge: "Live · 2026.05",
           },
         }}
       />

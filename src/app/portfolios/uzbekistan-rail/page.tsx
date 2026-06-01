@@ -15,9 +15,9 @@ import RelatedProjects, {
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     path: "/portfolios/uzbekistan-rail",
-    title: "A new high-speed program. Opening this year.",
+    title: "A new high-speed program. Now operational.",
     description:
-      "O&M operations launching May 2026 — content arriving as we go live.",
+      "O&M operations launched May 2026 — Tashkent depot fully operational.",
   });
 }
 
@@ -51,7 +51,6 @@ export default async function UzbekistanRailPage() {
       year: "2026",
       month: "05",
       label: "High-speed rail O&M commences — Tashkent.",
-      isComing: true,
     },
   ];
 
@@ -110,7 +109,7 @@ export default async function UzbekistanRailPage() {
           trail: [
             { name: "Portfolios", path: "portfolios" },
             {
-              name: "A new high-speed program. Opening this year.",
+              name: "A new high-speed program. Now operational.",
               path: "portfolios/uzbekistan-rail",
             },
           ],
@@ -120,20 +119,20 @@ export default async function UzbekistanRailPage() {
         id="ld-case-uzbekistan"
         data={caseStudyLd({
           slug: "uzbekistan-rail",
-          name: "A new high-speed program. Opening this year.",
+          name: "A new high-speed program. Now operational.",
           description:
-            "O&M operations launching May 2026 — content arriving as we go live.",
+            "O&M operations launched May 2026 — Tashkent depot fully operational.",
           country: "Uzbekistan",
         })}
       />
       <PortfolioHero
         overline="Portfolios"
-        title="A new high-speed program. Opening this year."
-        subtitle="O&M operations launching May 2026 — content arriving as we go live."
+        title="A new high-speed program. Now operational."
+        subtitle="O&M operations launched May 2026 — Tashkent depot fully operational."
         index="03 / 03"
-        accentBadge="Coming 2026.05"
+        accentBadge="Live · 2026.05"
         placeholder="Site photograph arriving"
-        placeholderKicker="Uzbekistan · Coming 2026"
+        placeholderKicker="Uzbekistan · Live 2026"
       />
       <UzbekRouteMap
         overline="Network"
@@ -143,8 +142,8 @@ export default async function UzbekistanRailPage() {
       />
       <LaunchCountdown
         overline="Launch"
-        title="Days to Tashkent operations."
-        subtitle="Revenue service begins in May 2026 — Xapika's Tashkent office opened in April 2026, the program is mobilised, and the team is in final preparation."
+        title="Tashkent operations — live."
+        subtitle="Revenue service commenced 31 May 2026 — Xapika's Tashkent office opened April 2026; the program is fully operational."
         launchDate="2026-05-31T00:00:00+05:00"
         labels={countdownLabels}
         partnerNote="In partnership with VISION IT — MMIS platform configured before day one."
@@ -152,7 +151,6 @@ export default async function UzbekistanRailPage() {
       <UzbekTimeline
         overline="Mobilisation schedule"
         title="From contract to day one."
-        comingBadge="Coming"
         events={timelineEvents}
       />
       <WhatWeDo

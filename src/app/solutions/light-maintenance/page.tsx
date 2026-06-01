@@ -54,7 +54,7 @@ export default async function LightMaintenancePage() {
 
   const stats: ReadonlyArray<KeyStatItem> = [
     { value: "5,900+", label: "Activities Annually" },
-    { value: "213", label: "HRCS2 Units/Cars Served" },
+    { value: "213", label: "Units in Daily Maintenance" },
     { value: "2017", label: "Operations Since" },
     { value: "45,000+", label: "Maintenance Delivered" },
   ];

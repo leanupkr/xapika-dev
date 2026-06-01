@@ -5,7 +5,7 @@ import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Your message is on track. — Xapika Engineering",
+    title: "Your message is on track.",
     description:
       "We'll respond within 2 business days — usually faster. If your inquiry is operational and time-sensitive, mention it in the subject line.",
     robots: { index: false, follow: false },

@@ -211,9 +211,9 @@ export default async function UkraineEmuPage() {
       key: "uzbekistan",
       country: "Uzbekistan",
       project: "Tashkent high-speed corridor",
-      desc: "Mobilising for May 2026 launch — crew, parts pipeline and MMIS platform configured before day one.",
+      desc: "Launched May 2026 — crew, parts pipeline and MMIS platform operational from day one.",
       imgAlt: "Uzbekistan high-speed program — launch frame",
-      placeholderLabel: "Launching 31 May 2026 · Tashkent",
+      placeholderLabel: "Launched 31 May 2026 · Tashkent",
     },
   ];
 

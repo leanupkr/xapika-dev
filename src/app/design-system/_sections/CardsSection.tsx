@@ -109,7 +109,7 @@ function StatCard() {
               fontVariantNumeric: "tabular-nums",
             }}
           >
-            227
+            213
           </span>
           {/* 주황 언더라인 */}
           <div className="mt-2 h-0.5 w-16 bg-[rgb(var(--color-primary))]" />

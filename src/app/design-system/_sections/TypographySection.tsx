@@ -72,7 +72,7 @@ const typeSamples: TypeSample[] = [
     label: "Body",
     spec: "1rem / 400 / leading-relaxed",
     sample:
-      "Xapika Engineering provides comprehensive rail vehicle maintenance services, ensuring operational excellence across 227 vehicles in our fleet portfolio.",
+      "Xapika Engineering provides comprehensive rail vehicle maintenance services, ensuring operational excellence across 213 vehicles in our fleet portfolio.",
     style: { fontSize: "1rem", fontWeight: 400, lineHeight: 1.65 },
   },
   {

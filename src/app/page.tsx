@@ -41,7 +41,7 @@ export default function HomePage() {
         subtitle="Operational scale across six countries, verified by customers and regulators."
         stats={[
           {
-            value: "227",
+            value: "213",
             label: "Total Maintenance Fleet",
             note: "Trains actively maintained",
           },
@@ -145,8 +145,8 @@ export default function HomePage() {
             number: "CASE 03",
             country: "Uzbekistan",
             project: "High-Speed Rail Maintenance Hub",
-            since: "Coming May 2026",
-            badge: "In preparation",
+            since: "Live · since 2026.05",
+            badge: "Launched",
             m1_value: "HSR",
             m1_label: "Service class",
             m2_value: "Tashkent",

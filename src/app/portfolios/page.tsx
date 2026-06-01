@@ -33,7 +33,7 @@ export default async function PortfoliosIndexPage() {
       country: "Poland",
       project: "Tramwaje Warszawskie",
       metric: "123 units · since 2021",
-      summary: "150-year-old transit lifeline, modern maintenance discipline.",
+      summary: "144-year-old transit lifeline, modern maintenance discipline.",
       image: "/portfolios/warsaw-tram/hero-main.jpg",
       imgAlt:
         "Warsaw tram on mainline service — Tramwaje Warszawskie maintenance program, 2022–",
@@ -43,9 +43,8 @@ export default async function PortfoliosIndexPage() {
       href: "/portfolios/uzbekistan-rail",
       country: "Uzbekistan",
       project: "Uzbekistan HSR O&M",
-      metric: "Coming 2026.05",
-      summary: "New high-speed program, opening this year.",
-      comingBadge: "Coming",
+      metric: "Live · since 2026.05",
+      summary: "New high-speed program, now operational.",
     },
   ];
 

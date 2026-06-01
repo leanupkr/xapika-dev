@@ -22,12 +22,12 @@ const VISION_ITEMS: ReadonlyArray<VisionItem> = [
   {
     index: "02",
     title: "Safe Operations.",
-    body: "A nine-year zero-incident record across six countries. Safety is not a campaign — it is the operating boundary inside which speed, cost, and uptime are negotiated.",
+    body: "A ten-year zero-incident record across six countries. Safety is not a campaign — it is the operating boundary inside which speed, cost, and uptime are negotiated.",
   },
   {
     index: "03",
     title: "Precise Engineering.",
-    body: "Every part replaced is traced. Every work order is timestamped. Precision is what makes a fleet of 227 cars feel like one.",
+    body: "Every part replaced is traced. Every work order is timestamped. Precision is what makes a fleet of 213 units feel like one.",
   },
 ];
 
