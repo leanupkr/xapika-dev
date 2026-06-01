@@ -347,6 +347,7 @@ export default function ContactForm({
           register={register("firstName")}
           error={errMsg("firstName")}
           disabled={busy}
+          required
           inputRef={firstNameRef}
         />
         <Field
@@ -357,6 +358,7 @@ export default function ContactForm({
           register={register("lastName")}
           error={errMsg("lastName")}
           disabled={busy}
+          required
         />
         <div className="sm:col-span-2">
           <Field
@@ -367,6 +369,7 @@ export default function ContactForm({
             register={register("company")}
             error={errMsg("company")}
             disabled={busy}
+            required
           />
         </div>
         <Field
@@ -378,6 +381,7 @@ export default function ContactForm({
           register={register("email")}
           error={errMsg("email")}
           disabled={busy}
+          required
         />
         <Field
           id="phone"
@@ -401,6 +405,7 @@ export default function ContactForm({
             register={register("location")}
             error={errMsg("location")}
             disabled={busy}
+            required
           />
         </div>
         <div className="sm:col-span-2">
@@ -408,6 +413,7 @@ export default function ContactForm({
             id="subject"
             label="Subject"
             error={errMsg("subject")}
+            required
             counter={
               <CharCounter current={subjectLen} max={160} />
             }
@@ -418,6 +424,7 @@ export default function ContactForm({
               register={register("subject")}
               error={errMsg("subject")}
               disabled={busy}
+              required
             />
           </FieldShell>
         </div>
@@ -426,6 +433,7 @@ export default function ContactForm({
             id="message"
             label="Message"
             error={errMsg("message")}
+            required
             counter={
               <CharCounter current={messageLen} max={2000} />
             }
@@ -436,6 +444,7 @@ export default function ContactForm({
               register={register("message")}
               error={errMsg("message")}
               disabled={busy}
+              required
             />
           </FieldShell>
         </div>
@@ -446,6 +455,7 @@ export default function ContactForm({
             register={register("consent")}
             error={errMsg("consent")}
             disabled={busy}
+            required
           />
         </div>
       </div>
@@ -470,6 +480,11 @@ export default function ContactForm({
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
+/** Accessible dark-red for error text — #C0341D ≈ 5.9:1 on white */
+const ERROR_COLOR = "#C0341D";
+/** Amber used only for focus/active borders, not error state */
+const FOCUS_BORDER_COLOR = "rgb(var(--color-primary))";
+
 type RegisterReturn = ReturnType<
   ReturnType<typeof useForm<ContactInput>>["register"]
 >;
@@ -480,6 +495,7 @@ type FieldBaseProps = {
   placeholder?: string;
   error: string | null;
   disabled?: boolean;
+  required?: boolean;
   register: RegisterReturn;
 };
 
@@ -487,12 +503,14 @@ function FieldShell({
   id,
   label,
   error,
+  required,
   counter,
   children,
 }: {
   id: string;
   label: string;
   error: string | null;
+  required?: boolean;
   counter?: React.ReactNode;
   children: React.ReactNode;
 }) {
@@ -505,13 +523,16 @@ function FieldShell({
           style={{
             fontSize: "11px",
             letterSpacing: "0.18em",
-            color: error
-              ? "rgb(var(--color-primary))"
-              : "rgba(11,31,58,0.62)",
+            color: error ? ERROR_COLOR : "rgba(11,31,58,0.62)",
             transition: "color 0.2s",
           }}
         >
           {label}
+          {required && (
+            <span aria-hidden="true" style={{ color: ERROR_COLOR, marginLeft: "3px" }}>
+              *
+            </span>
+          )}
         </label>
       </div>
       {children}
@@ -525,7 +546,7 @@ function FieldShell({
               className="font-body"
               style={{
                 fontSize: "12px",
-                color: "rgb(var(--color-primary))",
+                color: ERROR_COLOR,
                 letterSpacing: "0.02em",
               }}
             >
@@ -571,6 +592,7 @@ function Field({
   register,
   error,
   disabled,
+  required,
   inputRef,
 }: FieldBaseProps & {
   type?: string;
@@ -592,7 +614,7 @@ function Field({
   );
 
   return (
-    <FieldShell id={id} label={label} error={error}>
+    <FieldShell id={id} label={label} error={error} required={required}>
       <input
         ref={callbackRef}
         id={id}
@@ -600,6 +622,7 @@ function Field({
         placeholder={placeholder}
         autoComplete={autoComplete}
         disabled={disabled}
+        aria-required={required ? "true" : undefined}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
         {...registerRest}
@@ -614,9 +637,9 @@ function Field({
         style={{
           ...FIELD_INPUT_BASE,
           borderBottomColor: error
-            ? "rgb(var(--color-primary))"
+            ? ERROR_COLOR
             : focused
-              ? "rgb(var(--color-primary))"
+              ? FOCUS_BORDER_COLOR
               : "rgba(11,31,58,0.18)",
           opacity: disabled ? 0.5 : 1,
           cursor: disabled ? "not-allowed" : "text",
@@ -632,6 +655,7 @@ function SubjectInput({
   register,
   error,
   disabled,
+  required,
 }: Omit<FieldBaseProps, "label">) {
   const [focused, setFocused] = useState(false);
   return (
@@ -640,6 +664,7 @@ function SubjectInput({
       type="text"
       placeholder={placeholder}
       disabled={disabled}
+      aria-required={required ? "true" : undefined}
       aria-invalid={!!error}
       aria-describedby={error ? `${id}-error` : undefined}
       {...register}
@@ -654,9 +679,9 @@ function SubjectInput({
       style={{
         ...FIELD_INPUT_BASE,
         borderBottomColor: error
-          ? "rgb(var(--color-primary))"
+          ? ERROR_COLOR
           : focused
-            ? "rgb(var(--color-primary))"
+            ? FOCUS_BORDER_COLOR
             : "rgba(11,31,58,0.18)",
         opacity: disabled ? 0.5 : 1,
         cursor: disabled ? "not-allowed" : "text",
@@ -671,6 +696,7 @@ function TextareaInput({
   register,
   error,
   disabled,
+  required,
 }: Omit<FieldBaseProps, "label">) {
   const [focused, setFocused] = useState(false);
   return (
@@ -679,6 +705,7 @@ function TextareaInput({
       placeholder={placeholder}
       disabled={disabled}
       rows={5}
+      aria-required={required ? "true" : undefined}
       aria-invalid={!!error}
       aria-describedby={error ? `${id}-error` : undefined}
       {...register}
@@ -696,9 +723,9 @@ function TextareaInput({
         padding: "12px 0",
         resize: "vertical",
         borderBottomColor: error
-          ? "rgb(var(--color-primary))"
+          ? ERROR_COLOR
           : focused
-            ? "rgb(var(--color-primary))"
+            ? FOCUS_BORDER_COLOR
             : "rgba(11,31,58,0.18)",
         lineHeight: 1.55,
         opacity: disabled ? 0.5 : 1,
@@ -716,16 +743,18 @@ function SelectField({
   register,
   error,
   disabled,
+  required,
 }: FieldBaseProps & {
   options: ReadonlyArray<{ value: string; label: string }>;
 }) {
   const [focused, setFocused] = useState(false);
   return (
-    <FieldShell id={id} label={label} error={error}>
+    <FieldShell id={id} label={label} error={error} required={required}>
       <div className="relative">
         <select
           id={id}
           disabled={disabled}
+          aria-required={required ? "true" : undefined}
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-error` : undefined}
           {...register}
@@ -741,9 +770,9 @@ function SelectField({
             MozAppearance: "none",
             paddingRight: "32px",
             borderBottomColor: error
-              ? "rgb(var(--color-primary))"
+              ? ERROR_COLOR
               : focused
-                ? "rgb(var(--color-primary))"
+                ? FOCUS_BORDER_COLOR
                 : "rgba(11,31,58,0.18)",
             opacity: disabled ? 0.5 : 1,
             cursor: disabled ? "not-allowed" : "pointer",
@@ -783,6 +812,7 @@ function CheckboxField({
   register,
   error,
   disabled,
+  required,
 }: Omit<FieldBaseProps, "placeholder">) {
   return (
     <div>
@@ -795,6 +825,7 @@ function CheckboxField({
           id={id}
           type="checkbox"
           disabled={disabled}
+          aria-required={required ? "true" : undefined}
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-error` : undefined}
           {...register}
@@ -815,6 +846,11 @@ function CheckboxField({
           }}
         >
           {label}
+          {required && (
+            <span aria-hidden="true" style={{ color: ERROR_COLOR, marginLeft: "3px" }}>
+              *
+            </span>
+          )}
         </span>
       </label>
       {error && (
@@ -825,7 +861,7 @@ function CheckboxField({
           className="mt-1.5 ml-7 font-body"
           style={{
             fontSize: "12px",
-            color: "rgb(var(--color-primary))",
+            color: ERROR_COLOR,
           }}
         >
           {error}

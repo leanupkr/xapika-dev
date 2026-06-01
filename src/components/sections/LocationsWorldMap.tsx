@@ -223,7 +223,7 @@ export default function LocationsWorldMap({
                 aria-hidden
                 style={{
                   width: "100%",
-                  aspectRatio: `${isMobile ? 540 : 880} / ${isMobile ? 360 : 460}`,
+                  aspectRatio: `${isMobile ? 540 : 880} / ${isMobile ? 500 : 460}`,
                 }}
               />
             )}
@@ -235,7 +235,7 @@ export default function LocationsWorldMap({
                   center: [10, 18],
                 }}
                 width={isMobile ? 540 : 880}
-                height={isMobile ? 360 : 460}
+                height={isMobile ? 500 : 460}
                 style={{ width: "100%", height: "auto" }}
               >
                 <Geographies geography={GEO_URL}>
@@ -411,10 +411,10 @@ export default function LocationsWorldMap({
                     <button
                       aria-label="Close office card"
                       onClick={() => setActiveId(null)}
-                      className="absolute top-2 right-2"
+                      className="absolute top-1 right-1"
                       style={{
-                        width: "28px",
-                        height: "28px",
+                        minWidth: "44px",
+                        minHeight: "44px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -424,6 +424,7 @@ export default function LocationsWorldMap({
                         cursor: "pointer",
                         fontSize: "18px",
                         lineHeight: 1,
+                        padding: "8px",
                       }}
                     >
                       ×

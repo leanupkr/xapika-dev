@@ -55,11 +55,12 @@ export default function Footer() {
           {/* Navigation column */}
           <div>
             <h3
-              className="font-heading font-semibold tracking-widest uppercase text-white/40 mb-5"
+              className="font-heading font-semibold tracking-widest uppercase text-white/60 mb-5"
               style={{ fontSize: "0.6875rem" }}
             >
               Navigation
             </h3>
+            <nav aria-label="Footer">
             <ul className="space-y-3">
               {FOOTER_LINKS.map(({ key, href, label }) => (
                 <li key={key}>
@@ -73,12 +74,13 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            </nav>
           </div>
 
           {/* Offices column */}
           <div className="md:col-span-2">
             <h3
-              className="font-heading font-semibold tracking-widest uppercase text-white/40 mb-5"
+              className="font-heading font-semibold tracking-widest uppercase text-white/60 mb-5"
               style={{ fontSize: "0.6875rem" }}
             >
               Global Offices
@@ -122,7 +124,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-10 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/30" style={{ fontSize: "0.8125rem" }}>
+          <p className="text-white/55" style={{ fontSize: "0.8125rem" }}>
             © 2026 Xapika Engineering. All rights reserved.
           </p>
           <div

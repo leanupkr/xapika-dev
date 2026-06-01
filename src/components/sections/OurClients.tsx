@@ -208,7 +208,7 @@ export default function OurClients({
                   </div>
                 ) : (
                   <div className="text-center">
-                    <h4
+                    <h3
                       className="font-heading font-semibold text-[rgb(var(--color-ink))]"
                       style={{
                         fontSize: "clamp(1.0625rem, 1.5vw, 1.25rem)",
@@ -217,7 +217,7 @@ export default function OurClients({
                       }}
                     >
                       {c.fullName}
-                    </h4>
+                    </h3>
                   </div>
                 )}
               </div>

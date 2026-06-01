@@ -353,6 +353,53 @@ function HorizontalRail({
   );
 }
 
+function VerticalRail({
+  events,
+  sinceLabel,
+  comingBadge,
+  inView,
+}: {
+  events: ReadonlyArray<MilestoneEvent>;
+  sinceLabel: string;
+  comingBadge: string;
+  inView: boolean;
+}) {
+  return (
+    <div className="relative">
+      {/* Vertical connector line */}
+      <motion.span
+        aria-hidden="true"
+        className="absolute bg-white/16"
+        style={{ width: "1px", top: 0, bottom: 0, left: "16px" }}
+        initial={{ scaleY: 0, transformOrigin: "top center" }}
+        animate={inView ? { scaleY: 1 } : undefined}
+        transition={{ duration: 1.4, delay: 0.25, ease: EASE }}
+      />
+      <div className="mb-4">
+        <span
+          className="font-heading font-semibold uppercase text-white/55"
+          style={{ fontSize: "11px", letterSpacing: "0.22em" }}
+        >
+          {sinceLabel}
+        </span>
+      </div>
+      <ol>
+        {events.map((e, i) => (
+          <Node
+            key={`${e.year}-${e.month}-${i}`}
+            event={e}
+            index={i}
+            total={events.length}
+            inView={inView}
+            comingBadge={comingBadge}
+            orientation="vertical"
+          />
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export default function OfficeOpeningsRail({
   overline,
   title,
@@ -363,6 +410,7 @@ export default function OfficeOpeningsRail({
 }: OfficeOpeningsRailProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.15 });
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   return (
     <section
@@ -424,12 +472,21 @@ export default function OfficeOpeningsRail({
           </motion.p>
         </div>
 
-        <HorizontalRail
-          events={events}
-          sinceLabel={sinceLabel}
-          comingBadge={comingBadge}
-          inView={inView}
-        />
+        {isDesktop ? (
+          <HorizontalRail
+            events={events}
+            sinceLabel={sinceLabel}
+            comingBadge={comingBadge}
+            inView={inView}
+          />
+        ) : (
+          <VerticalRail
+            events={events}
+            sinceLabel={sinceLabel}
+            comingBadge={comingBadge}
+            inView={inView}
+          />
+        )}
       </SectionContainer>
     </section>
   );

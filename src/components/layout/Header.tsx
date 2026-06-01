@@ -130,7 +130,7 @@ export default function Header() {
             {/* Desktop nav — absolutely centered */}
             <nav
               ref={containerRef}
-              className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              className="hidden lg:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               aria-label="Primary"
             >
               {NAV_ITEMS.map((item) => {
@@ -152,15 +152,18 @@ export default function Header() {
                         }}
                         id={`${item.key}-trigger`}
                         className={[
-                          "flex items-center gap-1 font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
+                          "relative flex items-center gap-1 whitespace-nowrap font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
+                          "after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-[2px] after:rounded-full after:transition-opacity after:duration-200",
+                          isActive
+                            ? "after:opacity-100 after:bg-primary"
+                            : "after:opacity-0 after:bg-primary",
                           scrolled
-                            ? "text-ink hover:text-primary"
-                            : "text-white/90 hover:text-white",
-                          activeMenu === item.key
-                            ? scrolled
-                              ? "text-primary"
-                              : "text-white"
-                            : "",
+                            ? isActive || activeMenu === item.key
+                              ? "text-primary hover:text-primary"
+                              : "text-ink hover:text-primary"
+                            : isActive || activeMenu === item.key
+                              ? "text-white hover:text-white"
+                              : "text-white/90 hover:text-white",
                         ].join(" ")}
                         style={{ fontSize: "13px" }}
                         aria-expanded={activeMenu === item.key}
@@ -203,10 +206,18 @@ export default function Header() {
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
                     className={[
-                      "font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
+                      "relative whitespace-nowrap font-heading font-medium tracking-[0.05em] uppercase transition-colors duration-200",
+                      "after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-[2px] after:rounded-full after:transition-opacity after:duration-200",
+                      isActive
+                        ? "after:opacity-100 after:bg-primary"
+                        : "after:opacity-0 after:bg-primary",
                       scrolled
-                        ? "text-ink hover:text-primary"
-                        : "text-white/90 hover:text-white",
+                        ? isActive
+                          ? "text-primary hover:text-primary"
+                          : "text-ink hover:text-primary"
+                        : isActive
+                          ? "text-white hover:text-white"
+                          : "text-white/90 hover:text-white",
                     ].join(" ")}
                     style={{ fontSize: "13px" }}
                   >
@@ -220,7 +231,7 @@ export default function Header() {
                 slight visual alignment without pushing icon to the unsafe edge */}
             <button
               className={[
-                "md:hidden p-3 -ml-1 transition-colors duration-200",
+                "lg:hidden p-3 -ml-1 transition-colors duration-200",
                 scrolled
                   ? "text-ink hover:text-primary"
                   : "text-white hover:text-white/70",
@@ -244,7 +255,7 @@ export default function Header() {
             >
               <Image
                 src={scrolled ? "/logo.png" : "/logo-white.png"}
-                alt="Xapika Engineering"
+                alt=""
                 width={120}
                 height={32}
                 className="object-contain transition-opacity duration-300"

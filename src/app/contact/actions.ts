@@ -229,10 +229,7 @@ export async function submitContact(
   // If Resend is not configured (no API key in env), accept the submission so
   // the form still functions in dev / preview, log the payload, and report ok.
   if (!isResendConfigured || !resend) {
-    console.log("[contact] received submission (Resend not configured)", {
-      ...data,
-      receivedAt,
-    });
+    console.warn("[contact] Resend not configured — submission accepted but not delivered");
     return { ok: true, ts: Date.now() };
   }
 

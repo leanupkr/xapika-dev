@@ -372,7 +372,7 @@ function PortfolioLargeCard({
               <span
                 className="font-heading font-medium uppercase"
                 style={{
-                  fontSize: "10px",
+                  fontSize: "11px",
                   letterSpacing: "0.22em",
                   color: "rgba(255,255,255,0.55)",
                 }}
@@ -429,7 +429,7 @@ function PortfolioLargeCard({
             <span
               className="font-heading font-medium uppercase"
               style={{
-                fontSize: "10px",
+                fontSize: "11px",
                 letterSpacing: "0.22em",
                 color: "rgb(var(--color-primary))",
               }}
@@ -479,7 +479,7 @@ function PortfolioLargeCard({
           style={{ borderTop: "1px solid rgb(var(--color-ink) / 0.06)" }}
         >
           <div
-            className="font-heading font-medium tabular-nums text-[10px] md:text-[12px]"
+            className="font-heading font-medium tabular-nums text-[11px] md:text-[12px]"
             style={{
               letterSpacing: "0.16em",
               color: "rgb(var(--color-ink-muted))",
@@ -490,7 +490,7 @@ function PortfolioLargeCard({
             {item.metric}
           </div>
           <span
-            className="inline-flex items-center gap-1.5 md:gap-2 font-heading font-medium text-[rgb(var(--color-ink))] group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300 text-[11px] md:text-[13px] whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 md:gap-2 font-heading font-medium text-[rgb(var(--color-ink))] group-hover:text-[rgb(var(--color-primary))] transition-colors duration-300 text-[12px] md:text-[13px] whitespace-nowrap"
             style={{ letterSpacing: "0.02em" }}
           >
             {readMore}

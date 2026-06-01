@@ -346,7 +346,7 @@ export default function OrgChart({
         <SectionCaption />
 
         {/* DESKTOP */}
-        <div ref={containerRef} className="relative hidden md:block">
+        <div ref={containerRef} className="relative hidden lg:block">
           <svg
             aria-hidden
             className="absolute inset-0 pointer-events-none"
@@ -782,7 +782,7 @@ function MobileTree({
 }) {
   const noopRef: RefCB = () => {};
   return (
-    <div className="md:hidden flex flex-col items-center">
+    <div className="lg:hidden flex flex-col items-center">
       <CeoCard label={ceoLabel} name={ceoName} refSetter={noopRef} />
 
       {departments.map((d) => {
