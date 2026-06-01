@@ -10,6 +10,11 @@ type RouteConfig = {
 const ROUTES: ReadonlyArray<RouteConfig> = [
   { path: "", changeFrequency: "weekly", priority: 1.0 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/about/ceo", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/about/vision", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/about/history", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/about/organization", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/about/clients", changeFrequency: "monthly", priority: 0.7 },
   { path: "/solutions", changeFrequency: "monthly", priority: 0.8 },
   { path: "/solutions/heavy-maintenance", changeFrequency: "monthly", priority: 0.8 },
   { path: "/solutions/light-maintenance", changeFrequency: "monthly", priority: 0.8 },

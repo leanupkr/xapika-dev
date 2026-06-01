@@ -45,6 +45,10 @@ export default function PortfolioScrollGallery({
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   useEffect(() => {
+    // Mobile branch renders a simple card list and doesn't use activeIndex;
+    // skip registering scroll/resize listeners entirely.
+    if (isMobile) return;
+
     function onScroll() {
       const section = sectionRef.current;
       if (!section) return;
@@ -59,14 +63,19 @@ export default function PortfolioScrollGallery({
       );
       setActiveIndex(idx);
     }
+
+    function onResize() {
+      requestAnimationFrame(onScroll);
+    }
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
     };
-  }, [slides.length]);
+  }, [isMobile, slides.length]);
 
   const counter = `${String(activeIndex + 1).padStart(2, "0")} / ${String(
     slides.length,

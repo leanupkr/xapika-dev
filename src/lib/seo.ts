@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://xapika-dev.vercel.app";
+  "https://xapika.pl";
 
 export const SITE_NAME = "Xapika Engineering";
 
@@ -43,7 +43,7 @@ function buildOpenGraph({
     title,
     description,
     url,
-    locale: "en_US",
+    locale: "ko_KR",
   };
 
   if (ogPath) {

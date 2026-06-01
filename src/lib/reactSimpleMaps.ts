@@ -7,8 +7,7 @@ import dynamic from "next/dynamic";
  * Import them from here instead.
  */
 
-export const GEO_URL =
-  "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+export const GEO_URL = "/data/world-atlas.json";
 
 export const ComposableMap = dynamic(
   () => import("react-simple-maps").then((m) => m.ComposableMap),

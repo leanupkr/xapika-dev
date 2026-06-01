@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import { BASE_URL, SITE_NAME } from "@/lib/seo";
-import { inter, spaceGrotesk } from "@/app/fonts";
+import { spaceGrotesk } from "@/app/fonts";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/layout/Header";
@@ -46,8 +46,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      lang="ko"
+      className={`${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
       <body className="overflow-x-hidden">

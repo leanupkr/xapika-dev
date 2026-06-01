@@ -11,8 +11,8 @@
   --color-bg: rgb(var(--color-bg));
   --color-surface: rgb(var(--color-surface));
 
-  --font-heading: var(--font-space-grotesk), var(--font-heading);
-  --font-body: var(--font-inter), var(--font-body);
+  --font-heading: var(--font-space-grotesk), "Space Grotesk", "Pretendard Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Pretendard Variable", "Pretendard", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Selection color */
@@ -38,19 +38,16 @@
   background: rgb(var(--color-ink-muted) / 0.5);
 }
 
-/* Focus ring — 통일된 주황 ring (WCAG AA 대응) */
+/* Focus ring — solid 2px ink ring (WCAG 2.2 non-text contrast ≥3:1) */
 *:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 2px rgb(var(--color-surface)),
-    0 0 0 4px rgb(246 163 23 / 0.4);
+  outline: 2px solid rgb(var(--color-ink));
+  outline-offset: 2px;
 }
 
-/* 다크 배경 내부 focus — ring-offset을 ink 색상으로 */
+/* 다크 배경 내부 focus — white ring for contrast on dark surfaces */
 [data-bg="dark"] *:focus-visible {
-  box-shadow:
-    0 0 0 2px rgb(var(--color-ink)),
-    0 0 0 4px rgb(246 163 23 / 0.5);
+  outline: 2px solid rgb(var(--color-surface));
+  outline-offset: 2px;
 }
 
 /* Smooth scroll */
