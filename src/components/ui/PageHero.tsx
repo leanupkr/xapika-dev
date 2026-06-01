@@ -55,13 +55,9 @@ export default function PageHero({
       const reduced = prefersReducedMotion();
       const titleWords = titleRef.current?.querySelectorAll("[data-word]");
 
-      // Progressive enhancement: Tailwind className no longer starts at
-      // opacity-0, so if GSAP fails to load the content stays visible.
-      // When GSAP IS available, set opacity 0 here (paint-blocked via
-      // useLayoutEffect inside useGSAP) so the fade-in still feels intentional.
-      gsap.set([overlineRef.current, subRef.current], { opacity: 0 });
-      if (titleWords?.length) gsap.set(titleWords, { opacity: 0 });
-
+      // Reduced-motion: content is visible by default (no opacity-0 in CSS).
+      // Bail BEFORE hiding anything so a (possibly throttled) reveal tween can
+      // never strand the headline at opacity:0.
       if (reduced) {
         gsap.set(
           [overlineRef.current, titleRef.current, subRef.current],
@@ -72,6 +68,12 @@ export default function PageHero({
         }
         return;
       }
+
+      // Animation path only: hide now, then reveal via the timeline below.
+      // (Tailwind className does NOT start at opacity-0, so if GSAP never runs
+      // the content stays visible — progressive enhancement.)
+      gsap.set([overlineRef.current, subRef.current], { opacity: 0 });
+      if (titleWords?.length) gsap.set(titleWords, { opacity: 0 });
 
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 

@@ -130,9 +130,9 @@ function NodeContent({
               className="block bg-[rgb(var(--color-primary))]"
               style={{
                 height: "1.5px",
-                width: "0%",
-                maxWidth: "56px",
+                width: "56px",
                 flex: "0 0 56px",
+                transformOrigin: "left center",
               }}
             />
           )}
@@ -152,9 +152,9 @@ function NodeContent({
               className="block bg-[rgb(var(--color-primary))]"
               style={{
                 height: "1.5px",
-                width: "0%",
-                maxWidth: "56px",
+                width: "56px",
                 flex: "0 0 56px",
+                transformOrigin: "left center",
               }}
             />
           )}
@@ -175,10 +175,33 @@ export default function HistoryTimeline({
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLOListElement>(null);
+  const spineRef = useRef<HTMLSpanElement>(null);
 
   useGSAP(
     () => {
       const prefersReduced = prefersReducedMotion();
+
+      // ── Central axis spine: scaleY draw-in from top (transform only, no layout) ──
+      if (spineRef.current) {
+        if (prefersReduced) {
+          gsap.set(spineRef.current, { scaleY: 1, transformOrigin: "top center" });
+        } else {
+          gsap.fromTo(
+            spineRef.current,
+            { scaleY: 0, transformOrigin: "top center" },
+            {
+              scaleY: 1,
+              duration: 1.4,
+              ease: "power2.inOut",
+              scrollTrigger: {
+                trigger: spineRef.current,
+                start: "top 80%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        }
+      }
 
       // Header reveal
       if (headerRef.current) {
@@ -232,20 +255,20 @@ export default function HistoryTimeline({
           );
         });
 
-        // Since-war line draw
+        // Since-war line draw — scaleX instead of width to avoid layout shift
         const sinceWarLines = listRef.current.querySelectorAll(
           "[data-since-war-line]"
         );
         sinceWarLines.forEach((line) => {
           if (prefersReduced) {
-            gsap.set(line, { width: "100%" });
+            gsap.set(line, { scaleX: 1, transformOrigin: "left center" });
             return;
           }
           gsap.fromTo(
             line,
-            { width: "0%" },
+            { scaleX: 0, transformOrigin: "left center" },
             {
-              width: "100%",
+              scaleX: 1,
               duration: 0.9,
               ease: "power2.inOut",
               scrollTrigger: {
@@ -315,10 +338,12 @@ export default function HistoryTimeline({
 
         {/* Timeline */}
         <ol ref={listRef} className="relative">
-          {/* Continuous central axis */}
+          {/* Continuous central axis — scaleY draw-in on scroll entry */}
           <span
+            ref={spineRef}
             aria-hidden="true"
             className="absolute top-0 bottom-0 w-px bg-[rgb(var(--color-ink)/0.12)] left-6 md:left-1/2 md:-translate-x-1/2"
+            style={{ transformOrigin: "top center" }}
           />
 
           {events.map((event, i) => {

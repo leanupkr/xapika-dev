@@ -1,5 +1,10 @@
+"use client";
+
+import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { EASE } from "@/lib/motion";
 import SectionContainer from "@/components/ui/SectionContainer";
 import SectionOverline from "@/components/ui/SectionOverline";
 
@@ -28,8 +33,12 @@ export default function CtaSection({
   titleId = "cta-title",
   secondaryButton,
 }: CtaSectionProps) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+
   return (
     <section
+      ref={ref}
       data-bg="dark"
       className="relative overflow-hidden"
       style={{
@@ -55,7 +64,12 @@ export default function CtaSection({
 
       <SectionContainer className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-y-0 lg:gap-x-12 items-end">
-          <div className="lg:col-span-8">
+          <motion.div
+            className="lg:col-span-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : undefined}
+            transition={{ duration: 0.6, ease: EASE }}
+          >
             <SectionOverline>{overline}</SectionOverline>
             <h2
               id={titleId}
@@ -80,13 +94,16 @@ export default function CtaSection({
             >
               {subtitle}
             </p>
-          </div>
-          <div
+          </motion.div>
+          <motion.div
             className={
               secondaryButton
                 ? "lg:col-span-4 flex flex-col gap-3 lg:items-end"
                 : "lg:col-span-4 lg:flex lg:justify-end"
             }
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : undefined}
+            transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
           >
             <Link
               href={href}
@@ -131,7 +148,7 @@ export default function CtaSection({
                 </Link>
               )
             ) : null}
-          </div>
+          </motion.div>
         </div>
       </SectionContainer>
     </section>

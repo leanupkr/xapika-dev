@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { EASE } from "@/lib/motion";
@@ -90,7 +90,7 @@ export default function UzbekRouteMap({
   pins,
 }: UzbekRouteMapProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { amount: 0, once: true });
+  const inView = useInView(sectionRef, { amount: 0.15, once: true });
 
   const mounted = useMounted();
 
@@ -146,7 +146,7 @@ export default function UzbekRouteMap({
             <SectionOverline
               as={motion.span}
               initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
+              animate={inView ? { opacity: 1, x: 0 } : undefined}
               transition={{ duration: 0.5, ease: EASE }}
             >
               {overline}
@@ -156,7 +156,7 @@ export default function UzbekRouteMap({
             <motion.h2
               id="uzbek-route-map-title"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={inView ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
               className="font-heading font-semibold mb-5"
               style={{
@@ -172,7 +172,7 @@ export default function UzbekRouteMap({
             {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={inView ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.6, delay: 0.18, ease: EASE }}
               className="font-body mb-10"
               style={{
@@ -188,7 +188,7 @@ export default function UzbekRouteMap({
             {/* 3-city list */}
             <motion.ul
               initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={inView ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.6, delay: 0.26, ease: EASE }}
               className="flex flex-col gap-4"
               aria-label="Corridor cities"
@@ -198,6 +198,7 @@ export default function UzbekRouteMap({
                   key={pin.id}
                   label={pins[pin.id]}
                   index={i}
+                  inView={inView}
                   prefersReducedMotion={prefersReducedMotion}
                 />
               ))}
@@ -208,7 +209,7 @@ export default function UzbekRouteMap({
           <motion.div
             className="lg:col-span-7 relative"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={inView ? { opacity: 1 } : undefined}
             transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
           >
             {/* Microcopy badge — top-right corner */}
@@ -296,9 +297,41 @@ export default function UzbekRouteMap({
                     }
                   </Geographies>
 
-                  {/* Corridor lines — staggered draw-in animation */}
+                  {/* Corridor lines — staggered draw-in animation, gated on inView */}
                   {CORRIDOR_SEGMENTS.map(([fromId, toId], segIdx) => {
+                    // drawDelay is relative to the moment inView becomes true (animation start)
                     const drawDelay = `${prefersReducedMotion ? 0 : 0.55 + segIdx * 0.45}s`;
+                    // Before entering view: show lines at rest (dashflow only, no draw reveal)
+                    const lineStyle: React.CSSProperties = inView
+                      ? {
+                          opacity: 1,
+                          animationName: prefersReducedMotion
+                            ? "dashflow"
+                            : "dashReveal, dashflow",
+                          animationDuration: prefersReducedMotion
+                            ? "2.2s"
+                            : "0.7s, 2.2s",
+                          animationDelay: prefersReducedMotion
+                            ? "0s"
+                            : `${drawDelay}, ${drawDelay}`,
+                          animationTimingFunction: prefersReducedMotion
+                            ? "linear"
+                            : "cubic-bezier(0.16,1,0.3,1), linear",
+                          animationFillMode: "forwards, none",
+                          animationIterationCount: prefersReducedMotion
+                            ? "infinite"
+                            : "1, infinite",
+                          transition: "opacity 0.4s",
+                        }
+                      : {
+                          // Content visible without JS / before scroll entry:
+                          // lines rendered but invisible via opacity so they
+                          // don't spoil the reveal. Progressive-enhancement
+                          // note: the framer-motion wrappers above also start
+                          // at opacity:0 and resolve to 1 on inView — same pattern.
+                          opacity: 0,
+                          transition: "opacity 0.4s",
+                        };
 
                     return (
                       <motion.g
@@ -312,7 +345,7 @@ export default function UzbekRouteMap({
                           stroke="rgb(246,163,23)"
                           strokeWidth={4}
                           strokeLinecap="round"
-                          style={{ opacity: 0.07 }}
+                          style={{ opacity: inView ? 0.07 : 0 }}
                         />
                         {/* Main dashed corridor line */}
                         <Line
@@ -322,26 +355,7 @@ export default function UzbekRouteMap({
                           strokeWidth={1.2}
                           strokeDasharray="5 4"
                           strokeLinecap="round"
-                          style={{
-                            opacity: 1,
-                            animationName: prefersReducedMotion
-                              ? "dashflow"
-                              : "dashReveal, dashflow",
-                            animationDuration: prefersReducedMotion
-                              ? "2.2s"
-                              : "0.7s, 2.2s",
-                            animationDelay: prefersReducedMotion
-                              ? "0s"
-                              : `${drawDelay}, ${drawDelay}`,
-                            animationTimingFunction: prefersReducedMotion
-                              ? "linear"
-                              : "cubic-bezier(0.16,1,0.3,1), linear",
-                            animationFillMode: "forwards, none",
-                            animationIterationCount: prefersReducedMotion
-                              ? "infinite"
-                              : "1, infinite",
-                            transition: "opacity 0.4s",
-                          }}
+                          style={lineStyle}
                         />
                       </motion.g>
                     );
@@ -361,7 +375,7 @@ export default function UzbekRouteMap({
                         {/* Outer ring */}
                         <motion.g
                           initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
+                          animate={inView ? { scale: 1, opacity: 1 } : undefined}
                           transition={{
                             delay: dotDelay,
                             duration: prefersReducedMotion ? 0 : 0.45,
@@ -420,7 +434,7 @@ export default function UzbekRouteMap({
                         {/* Label */}
                         <motion.g
                           initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
+                          animate={inView ? { opacity: 1, y: 0 } : undefined}
                           transition={{
                             delay: labelDelay,
                             duration: prefersReducedMotion ? 0 : 0.5,
@@ -476,16 +490,18 @@ export default function UzbekRouteMap({
 function CityRow({
   label,
   index,
+  inView,
   prefersReducedMotion,
 }: {
   label: string;
   index: number;
+  inView: boolean;
   prefersReducedMotion: boolean;
 }) {
   return (
     <motion.li
       initial={{ opacity: 0, x: -12 }}
-      animate={{ opacity: 1, x: 0 }}
+      animate={inView ? { opacity: 1, x: 0 } : undefined}
       transition={{
         duration: prefersReducedMotion ? 0 : 0.5,
         delay: prefersReducedMotion ? 0 : 0.32 + index * 0.1,
