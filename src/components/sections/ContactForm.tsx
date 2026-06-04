@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import {
   contactSchema,
   CONTACT_LOCATION_IDS,
+  CONTACT_LOCATION_LABELS,
   type ContactInput,
 } from "@/lib/contactSchema";
 import {
@@ -51,16 +52,7 @@ const ERRORS: Record<string, string> = {
   send_failed:      "We received your message but couldn't deliver it just now. Please try again or email us directly.",
 };
 
-const LOCATION_LABELS: Record<string, string> = {
-  "warsaw-hq":    "Warsaw — HQ",
-  "warsaw-office":"Warsaw — Office",
-  "kyiv":         "Kyiv",
-  "seoul":        "Seoul",
-  "virginia":     "Virginia",
-  "istanbul":     "Istanbul",
-  "tashkent":     "Tashkent",
-  "other":        "Other / not listed",
-};
+const LOCATION_LABELS = CONTACT_LOCATION_LABELS;
 
 function safeT(key: string, fallback: string = "generic"): string {
   return ERRORS[key] ?? ERRORS[fallback] ?? key;
