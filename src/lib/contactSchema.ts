@@ -13,6 +13,25 @@ export const CONTACT_LOCATION_IDS = [
 
 export type ContactLocationId = (typeof CONTACT_LOCATION_IDS)[number];
 
+/**
+ * Human-readable labels for each office. Shared by the contact form select and
+ * the inquiry notification email so both render the same wording.
+ */
+export const CONTACT_LOCATION_LABELS: Record<ContactLocationId, string> = {
+  "warsaw-hq": "Warsaw — HQ",
+  "warsaw-office": "Warsaw — Office",
+  kyiv: "Kyiv",
+  seoul: "Seoul",
+  virginia: "Virginia",
+  istanbul: "Istanbul",
+  tashkent: "Tashkent",
+  other: "Other / not listed",
+};
+
+export function locationLabel(id: string): string {
+  return (CONTACT_LOCATION_LABELS as Record<string, string>)[id] ?? id;
+}
+
 export const contactSchema = z.object({
   firstName: z
     .string()

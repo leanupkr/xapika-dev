@@ -3,6 +3,11 @@
 import { headers } from "next/headers";
 import { contactSchema } from "@/lib/contactSchema";
 import {
+  renderContactEmailHtml,
+  renderContactEmailText,
+} from "@/lib/contactEmail";
+import { BASE_URL } from "@/lib/seo";
+import {
   resend,
   isResendConfigured,
   CONTACT_FROM_EMAIL,
@@ -76,108 +81,6 @@ async function getRateLimitKey(): Promise<string> {
   return `${ip}::${ua}`;
 }
 
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function renderText(data: {
-  firstName: string;
-  lastName: string;
-  company: string;
-  email: string;
-  phone?: string;
-  location: string;
-  subject: string;
-  message: string;
-  receivedAt: string;
-}): string {
-  const phoneLine = data.phone ? `\nPhone: ${data.phone}` : "";
-  return [
-    "[Xapika Contact Form]",
-    "",
-    `From: ${data.firstName} ${data.lastName} (${data.company})`,
-    `Email: ${data.email}${phoneLine}`,
-    `Closest office: ${data.location}`,
-    `Subject: ${data.subject}`,
-    "",
-    "Message:",
-    data.message,
-    "",
-    "—",
-    `Submitted at ${data.receivedAt} via xapika.pl/contact`,
-  ].join("\n");
-}
-
-function renderHtml(data: {
-  firstName: string;
-  lastName: string;
-  company: string;
-  email: string;
-  phone?: string;
-  location: string;
-  subject: string;
-  message: string;
-  receivedAt: string;
-}): string {
-  const messageHtml = escapeHtml(data.message).replace(/\n/g, "<br/>");
-  const row = (label: string, value: string) =>
-    `<tr><td style="padding:6px 12px 6px 0;color:#475569;font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:500;white-space:nowrap;">${escapeHtml(
-      label
-    )}</td><td style="padding:6px 0;color:#0B1F3A;font-size:14px;">${value}</td></tr>`;
-
-  const phoneRow = data.phone
-    ? row(
-        "Phone",
-        `<a href="tel:${escapeHtml(data.phone)}" style="color:#0B1F3A;text-decoration:none;">${escapeHtml(
-          data.phone
-        )}</a>`
-      )
-    : "";
-
-  return `<!doctype html>
-<html><body style="margin:0;background:#F7F8FA;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;color:#0B1F3A;">
-  <div style="max-width:560px;margin:0 auto;padding:32px 24px;">
-    <div style="display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#f6a317;font-weight:600;">
-      <span style="display:inline-block;width:24px;height:2px;background:#f6a317;"></span>
-      Contact form
-    </div>
-    <h1 style="margin:14px 0 6px;font-size:22px;letter-spacing:-0.01em;color:#0B1F3A;">${escapeHtml(
-      data.subject
-    )}</h1>
-    <p style="margin:0 0 24px;color:#475569;font-size:13.5px;line-height:1.55;">From <strong>${escapeHtml(
-      data.firstName
-    )} ${escapeHtml(data.lastName)}</strong> at <strong>${escapeHtml(
-      data.company
-    )}</strong>.</p>
-
-    <table role="presentation" cellpadding="0" cellspacing="0" style="border-top:1px solid rgba(11,31,58,.10);border-bottom:1px solid rgba(11,31,58,.10);width:100%;margin:0 0 24px;">
-      ${row(
-        "Email",
-        `<a href="mailto:${escapeHtml(data.email)}" style="color:#0B1F3A;text-decoration:none;">${escapeHtml(
-          data.email
-        )}</a>`
-      )}
-      ${phoneRow}
-      ${row("Closest office", escapeHtml(data.location))}
-    </table>
-
-    <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#475569;margin:0 0 8px;">Message</div>
-    <div style="background:#fff;border:1px solid rgba(11,31,58,.10);border-radius:6px;padding:16px 18px;font-size:14.5px;line-height:1.65;color:#0B1F3A;">
-      ${messageHtml}
-    </div>
-
-    <p style="margin:24px 0 0;font-size:11px;color:#475569;letter-spacing:.04em;">Submitted at ${escapeHtml(
-      data.receivedAt
-    )} via xapika.pl/contact</p>
-  </div>
-</body></html>`;
-}
-
 export async function submitContact(
   _prevState: ContactState | undefined,
   formData: FormData
@@ -233,6 +136,18 @@ export async function submitContact(
     return { ok: true, ts: Date.now() };
   }
 
+  const emailData = {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    company: data.company,
+    email: data.email,
+    phone: data.phone || undefined,
+    location: data.location,
+    subject: data.subject,
+    message: data.message,
+    receivedAt,
+  };
+
   try {
     const result = await resend.emails.send({
       from: CONTACT_FROM_EMAIL,
@@ -240,8 +155,11 @@ export async function submitContact(
       cc: CONTACT_CC_EMAIL,
       replyTo: data.email,
       subject: `[Contact] ${data.subject}`,
-      text: renderText({ ...data, phone: data.phone || undefined, receivedAt }),
-      html: renderHtml({ ...data, phone: data.phone || undefined, receivedAt }),
+      text: renderContactEmailText(emailData),
+      html: renderContactEmailHtml(emailData, {
+        logoSrc: `${BASE_URL}/logo-white.png`,
+        baseUrl: BASE_URL,
+      }),
     });
 
     if (result.error) {
