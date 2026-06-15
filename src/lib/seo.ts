@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://xapika.pl";
+  "https://xapika.co.kr";
 
 export const SITE_NAME = "Xapika Engineering";
 

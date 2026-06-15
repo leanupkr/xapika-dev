@@ -7,7 +7,7 @@ export const resend = apiKey ? new Resend(apiKey) : null;
 export const isResendConfigured = !!apiKey;
 
 export const CONTACT_FROM_EMAIL =
-  process.env.CONTACT_FROM_EMAIL ?? "Xapika Contact <noreply@xapika.pl>";
+  process.env.CONTACT_FROM_EMAIL ?? "Xapika Contact <noreply@xapika.co.kr>";
 
 export const CONTACT_TO_EMAIL =
   process.env.CONTACT_TO_EMAIL ?? "info@xapika.pl";

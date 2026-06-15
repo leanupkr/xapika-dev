@@ -6,7 +6,7 @@ Corporate website for **Xapika Engineering** (Polish HQ; Korean entity 하리카
 
 ## Quick Links
 
-- **Production:** `https://xapika.pl` (set after Vercel domain attach)
+- **Production:** `https://xapika.co.kr` (set after Vercel domain attach)
 - **Preview:** Vercel auto-creates a preview URL on every PR
 - **Source:** this repository
 - **Design tokens & component preview:** `/en/design-system` (noindex in production)
@@ -24,7 +24,7 @@ Corporate website for **Xapika Engineering** (Polish HQ; Korean entity 하리카
 | Animation | **GSAP 3** + **Framer Motion 12** | GSAP for scroll/timeline; FM for layout/UI state |
 | Maps | **react-simple-maps 3** + d3-geo + topojson | World map + hub-spoke routes |
 | Forms | **react-hook-form 7** + **zod 4** | Server Actions; bilingual error messages |
-| Email | **Resend 6** | Domain-verified sender; `info@xapika.pl` recipient |
+| Email | **Resend 6** | Sender verified on `xapika.co.kr`; `info@xapika.pl` recipient |
 | Analytics | `@vercel/speed-insights`, `@vercel/analytics` | Mounted in root layout |
 | Fonts | `next/font` (Inter, Space Grotesk) + Pretendard variable | Korean uses Pretendard fallback |
 | Tooling | pnpm, ESLint, Prettier, Playwright (screenshots) | |
@@ -115,12 +115,12 @@ Copy `.env.local.example` → `.env.local` and fill in the values. All vars are 
 | Variable | Required | Default / Behavior if missing | Source |
 |---|---|---|---|
 | `RESEND_API_KEY` | Production only | Form accepts submissions but **does not send email** (logged server-side) | [resend.com/api-keys](https://resend.com/api-keys) |
-| `CONTACT_FROM_EMAIL` | No | `Xapika Contact <noreply@xapika.pl>` | Must be on a Resend-verified domain |
-| `CONTACT_TO_EMAIL` | No | `info@xapika.pl` | Where contact submissions land |
+| `CONTACT_FROM_EMAIL` | No | `Xapika Contact <noreply@xapika.co.kr>` | Must be on a Resend-verified domain |
+| `CONTACT_TO_EMAIL` | No | `info@xapika.pl` | Where contact submissions land (receiving stays on .pl) |
 | `CONTACT_CC_EMAIL` | No | (none) | Optional CC recipient |
-| `NEXT_PUBLIC_SITE_URL` | Production only | `https://xapika.pl` | Used by sitemap, OG, JSON-LD canonical URLs |
+| `NEXT_PUBLIC_SITE_URL` | Production only | `https://xapika.co.kr` | Used by sitemap, OG, JSON-LD canonical URLs |
 
-> **Resend domain verification.** Before production deliverability works, verify `xapika.pl` in the Resend dashboard and add the SPF / DKIM DNS records they provide. Without verification, sends will silently bounce.
+> **Resend domain verification.** Before production deliverability works, verify `xapika.co.kr` in the Resend dashboard and add the SPF / DKIM DNS records they provide. Without verification, sends will silently bounce.
 
 ## Updating Content
 

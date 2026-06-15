@@ -27,11 +27,11 @@ export type ContactEmailData = {
 export type ContactEmailOptions = {
   /**
    * Absolute URL of the white wordmark shown in the header, e.g.
-   * `https://xapika.pl/logo-white.png`. Pass a data: URI for self-contained
+   * `https://xapika.co.kr/logo-white.png`. Pass a data: URI for self-contained
    * previews. When omitted, the header falls back to a styled text wordmark.
    */
   logoSrc?: string;
-  /** Site origin used for footer links. Defaults to https://xapika.pl. */
+  /** Site origin used for footer links. Defaults to https://xapika.co.kr. */
   baseUrl?: string;
 };
 
@@ -99,7 +99,7 @@ export function renderContactEmailText(data: ContactEmailData): string {
     "",
     "—",
     `Reply directly to this email to respond to ${data.firstName}.`,
-    `Submitted ${formatReceivedAt(data.receivedAt)} via xapika.pl/contact`,
+    `Submitted ${formatReceivedAt(data.receivedAt)} via xapika.co.kr/contact`,
   ].join("\n");
 }
 
@@ -118,7 +118,7 @@ export function renderContactEmailHtml(
   data: ContactEmailData,
   options: ContactEmailOptions = {}
 ): string {
-  const baseUrl = (options.baseUrl ?? "https://xapika.pl").replace(/\/$/, "");
+  const baseUrl = (options.baseUrl ?? "https://xapika.co.kr").replace(/\/$/, "");
   const fullName = `${data.firstName} ${data.lastName}`.trim();
   const office = locationLabel(data.location);
   const preheader = buildPreheader(data);
@@ -257,7 +257,7 @@ export function renderContactEmailHtml(
                     Submitted ${escapeHtml(formatReceivedAt(data.receivedAt))}
                   </td>
                   <td align="right" style="vertical-align:middle;font-family:${FONT};font-size:11px;color:${MUTED};">
-                    <a href="${baseUrl}/contact" style="color:${MUTED};text-decoration:none;">xapika.pl/contact</a>
+                    <a href="${baseUrl}/contact" style="color:${MUTED};text-decoration:none;">xapika.co.kr/contact</a>
                   </td>
                 </tr>
               </table>
