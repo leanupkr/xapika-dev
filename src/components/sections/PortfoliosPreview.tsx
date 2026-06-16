@@ -98,7 +98,7 @@ function PortfolioCard({
         delay: 0.12 * index,
         ease: EASE,
       }}
-      className={`relative ${isFeatured ? "col-span-2 min-h-[280px] md:min-h-[460px] lg:min-h-[520px]" : "min-h-[200px] md:min-h-[360px] lg:min-h-[400px]"}`}
+      className={`relative ${isFeatured ? "col-span-2 min-h-[400px] sm:min-h-[420px] md:min-h-[460px] lg:min-h-[520px]" : "min-h-[250px] sm:min-h-[300px] md:min-h-[360px] lg:min-h-[400px]"}`}
     >
       <Link
         href={item.href}
@@ -165,10 +165,8 @@ function PortfolioCard({
           className={`absolute ${isFeatured ? "top-7 left-7 md:top-10 md:left-10" : "top-6 left-6 md:top-7 md:left-7"} flex items-center gap-3 flex-wrap`}
         >
           <span
-            className="font-heading font-medium text-[rgb(var(--color-primary))]"
+            className={`font-heading font-medium text-[rgb(var(--color-primary))] whitespace-nowrap ${isFeatured ? "text-[13px] tracking-[0.22em]" : "text-[10.5px] tracking-[0.08em] md:text-xs md:tracking-[0.22em]"}`}
             style={{
-              fontSize: isFeatured ? "13px" : "12px",
-              letterSpacing: "0.22em",
               textShadow: "0 1px 2px rgba(0,0,0,0.35)",
             }}
           >
@@ -179,7 +177,7 @@ function PortfolioCard({
 
           {item.badge && (
             <span
-              className="inline-flex items-center gap-1.5 font-heading font-medium uppercase"
+              className={`${isFeatured ? "inline-flex" : "hidden sm:inline-flex"} items-center gap-1.5 font-heading font-medium uppercase`}
               style={{
                 fontSize: "10.5px",
                 letterSpacing: "0.18em",
@@ -212,7 +210,7 @@ function PortfolioCard({
 
         {/* 좌하단 콘텐츠 */}
         <div
-          className={`absolute left-0 right-0 bottom-0 ${isFeatured ? "p-7 md:p-10 lg:p-12 md:max-w-[60%]" : "p-6 md:p-8 lg:p-10"}`}
+          className={`absolute left-0 right-0 bottom-0 ${isFeatured ? "p-7 md:p-10 lg:p-12 md:max-w-[60%]" : "p-5 md:p-8 lg:p-10"}`}
         >
           {/* Since */}
           <div
@@ -227,11 +225,11 @@ function PortfolioCard({
 
           {/* 프로젝트명 */}
           <h3
-            className="font-heading font-semibold text-white mb-5 md:mb-6"
+            className="font-heading font-semibold text-white mb-5 md:mb-6 line-clamp-3 md:line-clamp-none"
             style={{
               fontSize: isFeatured
                 ? "clamp(1.75rem, 3vw, 2.5rem)"
-                : "clamp(1.25rem, 1.9vw, 1.625rem)",
+                : "clamp(1.0625rem, 1.9vw, 1.625rem)",
               letterSpacing: "-0.02em",
               lineHeight: 1.15,
               maxWidth: isFeatured ? "22ch" : "22ch",
@@ -242,8 +240,8 @@ function PortfolioCard({
             {item.project}
           </h3>
 
-          {/* 메트릭: 모바일 세로 stack / 데스크톱 가로 divider */}
-          <div className="flex flex-col md:flex-row md:items-center md:flex-wrap gap-3 md:gap-y-3 md:gap-x-0 mb-6">
+          {/* 메트릭: featured는 항상 표시(모바일 세로 stack), standard는 좁은 모바일 카드에서 숨김 → 텍스트 겹침 방지 */}
+          <div className={`${isFeatured ? "flex flex-row flex-wrap items-end gap-x-5 gap-y-2" : "hidden sm:flex flex-col gap-3"} md:flex-row md:items-center md:flex-wrap md:gap-y-3 md:gap-x-0 mb-5 md:mb-6`}>
             {item.metrics.map((m, i) => (
               <div
                 key={`${item.key}-m-${i}`}

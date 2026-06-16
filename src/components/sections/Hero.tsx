@@ -106,13 +106,15 @@ export default function Hero({
 }: HeroProps) {
   return (
     <>
-    {/* dvh fallback: hero.css sets 100vh/100svh; this block overrides with
-        100vh (fallback) then 100dvh (modern — iOS 15.4+, excludes browser UI bars).
+    {/* svh fallback: 100vh (구형 브라우저) → 100svh (iOS 15.4+).
+        svh = "small viewport height" = 주소창이 보이는 최소 뷰포트 기준 고정값.
+        dvh는 스크롤 중 주소창이 접/펴질 때 실시간으로 변해 Hero 높이가 출렁이고
+        아래 콘텐츠가 밀려 스크롤이 예민하게 느껴짐 → svh로 고정해 점프 제거.
         Specificity [0,2,0] beats .hero-slideshow [0,1,0] regardless of source order. */}
     <style>{`
       .hero-slideshow[data-hero-section] {
         height: min(100vh, 880px);
-        height: min(100dvh, 880px);
+        height: min(100svh, 880px);
         min-height: 560px;
       }
     `}</style>
