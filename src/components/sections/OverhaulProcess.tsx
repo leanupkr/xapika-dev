@@ -34,31 +34,61 @@ export default function OverhaulProcess({
   traceabilityImageAlt,
 }: OverhaulProcessProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLOListElement>(null);
 
   useGSAP(
     () => {
-      if (!stripRef.current) return;
-      const items = stripRef.current.querySelectorAll("[data-phase]");
-      if (prefersReducedMotion()) {
-        gsap.set(items, { opacity: 1, x: 0 });
-      } else {
-        gsap.fromTo(
-          items,
-          { opacity: 0, x: 20 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.7,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: stripRef.current,
-              start: "top 78%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
+      const reduced = prefersReducedMotion();
+
+      // Header (overline / heading / subtitle) — reveal on scroll, matching the
+      // phase strip below so the whole section animates in consistently.
+      if (headerRef.current) {
+        const headerEls = headerRef.current.children;
+        if (reduced) {
+          gsap.set(headerEls, { opacity: 1, y: 0 });
+        } else {
+          gsap.fromTo(
+            headerEls,
+            { opacity: 0, y: 16 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              stagger: 0.12,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: headerRef.current,
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        }
+      }
+
+      if (stripRef.current) {
+        const items = stripRef.current.querySelectorAll("[data-phase]");
+        if (reduced) {
+          gsap.set(items, { opacity: 1, x: 0 });
+        } else {
+          gsap.fromTo(
+            items,
+            { opacity: 0, x: 20 },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.7,
+              stagger: 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: stripRef.current,
+                start: "top 78%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        }
       }
       return () => killScrollTriggersWithin(sectionRef.current);
     },
@@ -85,7 +115,7 @@ export default function OverhaulProcess({
 
       <SectionContainer className="relative z-10">
         {/* Header */}
-        <div className="max-w-2xl mb-12 md:mb-16">
+        <div ref={headerRef} className="max-w-2xl mb-12 md:mb-16">
           <SectionOverline>
             {overline}
           </SectionOverline>

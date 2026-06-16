@@ -247,19 +247,32 @@ export default function Header() {
 
           {/* Right group: Logo */}
           <div className="flex items-center gap-4">
-            {/* Logo */}
+            {/* Logo — both variants are rendered and preloaded so the
+                white↔dark swap on scroll crossfades instantly with no flash
+                of a missing logo (the dark one used to load on-demand). */}
             <Link
               href="/"
-              className="flex-shrink-0"
+              className="relative flex items-center flex-shrink-0"
               aria-label="Xapika Engineering — Home"
             >
               <Image
-                src={scrolled ? "/logo.png" : "/logo-white.png"}
-                alt=""
+                src="/logo-white.png"
+                alt="Xapika Engineering"
                 width={120}
                 height={32}
+                priority
                 className="object-contain transition-opacity duration-300"
-                style={{ height: "32px", width: "auto" }}
+                style={{ height: "32px", width: "auto", opacity: scrolled ? 0 : 1 }}
+              />
+              <Image
+                src="/logo.png"
+                alt=""
+                aria-hidden="true"
+                width={120}
+                height={32}
+                priority
+                className="object-contain transition-opacity duration-300 absolute left-0 top-1/2 -translate-y-1/2"
+                style={{ height: "32px", width: "auto", opacity: scrolled ? 1 : 0 }}
               />
             </Link>
           </div>
