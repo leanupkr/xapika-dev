@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ArrowRight, AlertCircle, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -91,6 +91,9 @@ export default function ContactForm({
 
   const formRef = useRef<HTMLFormElement>(null);
   const firstNameRef = useRef<HTMLInputElement>(null);
+  // Gate the entrance animation on scroll-into-view so it plays when the user
+  // actually reaches the form, not on mount while it's still below the fold.
+  const inView = useInView(formRef, { once: true, amount: 0.12 });
 
   const {
     register,
@@ -278,7 +281,7 @@ export default function ContactForm({
       onSubmit={onSubmit}
       onKeyDown={handleFormKeyDown}
       initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
       transition={{ duration: 0.6, ease: EASE }}
       className="relative"
       aria-busy={busy}

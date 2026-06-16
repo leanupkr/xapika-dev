@@ -45,6 +45,7 @@ export default function WarsawSeasonTimeline({
   entries,
 }: WarsawSeasonTimelineProps): JSX.Element {
   const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const headingId = "warsaw-season-timeline-title";
 
   // Group entries by year, preserving insertion order
@@ -70,6 +71,31 @@ export default function WarsawSeasonTimeline({
       if (!sectionRef.current) return;
 
       const reduced = prefersReducedMotion();
+
+      // --- Header reveal (overline + heading) ---
+      if (headerRef.current) {
+        const headerEls = headerRef.current.children;
+        if (reduced) {
+          gsap.set(headerEls, { opacity: 1, y: 0 });
+        } else {
+          gsap.fromTo(
+            headerEls,
+            { opacity: 0, y: 16 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              stagger: 0.12,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: headerRef.current,
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        }
+      }
 
       // --- Entry fade-in ---
       const nodes = sectionRef.current.querySelectorAll<HTMLElement>("[data-season-node]");
@@ -181,7 +207,7 @@ export default function WarsawSeasonTimeline({
       {/* Container */}
       <SectionContainer className="relative z-10">
         {/* Section header */}
-        <header className="mb-8 md:mb-24">
+        <header ref={headerRef} className="mb-8 md:mb-24">
           <SectionOverline>{overline}</SectionOverline>
           <h2
             id={headingId}
