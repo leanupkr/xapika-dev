@@ -231,7 +231,7 @@ export default function Header() {
                 slight visual alignment without pushing icon to the unsafe edge */}
             <button
               className={[
-                "lg:hidden p-3 -ml-1 transition-colors duration-200",
+                "lg:hidden flex items-center justify-center p-3 -ml-1 transition-colors duration-200",
                 scrolled
                   ? "text-ink hover:text-primary"
                   : "text-white hover:text-white/70",

@@ -14,28 +14,7 @@ import {
   CONTACT_TO_EMAIL,
   CONTACT_CC_EMAIL,
 } from "@/lib/resend";
-
-type ContactInputShape = {
-  firstName: string;
-  lastName: string;
-  company: string;
-  email: string;
-  phone: string;
-  location: string;
-  subject: string;
-  message: string;
-  consent: boolean;
-  honeypot: string;
-};
-
-export type ContactState = {
-  ok: boolean;
-  errors?: Partial<Record<keyof ContactInputShape, string>>;
-  formError?: string;
-  ts?: number;
-};
-
-export const initialContactState: ContactState = { ok: false };
+import type { ContactInputShape, ContactState } from "./contactState";
 
 // Best-effort in-memory rate limit. Each serverless instance keeps its own map,
 // so this is a soft guard rather than a strict ceiling. Real protection is
