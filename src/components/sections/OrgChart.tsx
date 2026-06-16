@@ -6,6 +6,8 @@ import {
   useRef,
   useState,
 } from "react";
+import { motion } from "framer-motion";
+import { EASE } from "@/lib/motion";
 import SectionContainer from "@/components/ui/SectionContainer";
 
 /* ───────────────────────────── Types ───────────────────────────── */
@@ -343,6 +345,14 @@ export default function OrgChart({
       />
 
       <SectionContainer className="relative">
+        {/* Opacity-only entrance — no transform, so it never perturbs the
+            getBoundingClientRect measurements that drive the SVG connectors. */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: EASE }}
+        >
         <SectionCaption />
 
         {/* DESKTOP */}
@@ -483,6 +493,7 @@ export default function OrgChart({
             <StaffCard staff={staff} />
           </div>
         )}
+        </motion.div>
       </SectionContainer>
     </section>
   );

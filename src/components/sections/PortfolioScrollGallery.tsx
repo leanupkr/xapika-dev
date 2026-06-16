@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { EASE } from "@/lib/motion";
 import SectionContainer from "@/components/ui/SectionContainer";
 import CornerTicks from "@/components/ui/CornerTicks";
 
@@ -89,7 +91,13 @@ export default function PortfolioScrollGallery({
         className="relative"
         style={{ backgroundColor: "rgb(var(--color-ink))", paddingTop: "2.25rem", paddingBottom: "2.25rem" }}
       >
-        <div className="px-6 mb-6">
+        <motion.div
+          className="px-6 mb-6"
+          initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
           <span
             className="flex items-center gap-3 font-heading font-medium uppercase text-white/80"
             style={{ fontSize: "11px", letterSpacing: "0.22em" }}
@@ -107,7 +115,7 @@ export default function PortfolioScrollGallery({
           >
             {sectionTitle}
           </h2>
-        </div>
+        </motion.div>
         <ol className="px-6 space-y-4">
           {slides.map((slide, i) => (
             <li key={i} className="relative">

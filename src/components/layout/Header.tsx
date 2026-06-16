@@ -271,7 +271,7 @@ export default function Header() {
                 width={120}
                 height={32}
                 priority
-                className="object-contain transition-opacity duration-300 absolute left-0 top-1/2 -translate-y-1/2"
+                className="object-contain transition-opacity duration-300 absolute right-0 top-1/2 -translate-y-1/2"
                 style={{ height: "32px", width: "auto", opacity: scrolled ? 1 : 0 }}
               />
             </Link>

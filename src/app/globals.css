@@ -183,36 +183,57 @@ h1, h2, h3, h4 {
 }
 
 .track-line {
+  position: relative;
   display: inline-block;
-  width: 120px;
+  width: 140px;
   height: 1.5px;
-  background-color: rgb(var(--color-primary));
-  transform-origin: left center;
+  /* faint at origin → bright at destination, reads as direction of travel */
+  background: linear-gradient(
+    to right,
+    rgba(246, 163, 23, 0.3),
+    rgb(var(--color-primary))
+  );
+  transform-origin: center;
   transform: scaleX(0);
-  animation: track-line-in 1100ms cubic-bezier(0.16, 1, 0.3, 1) 280ms forwards;
+  animation: track-line-in 1000ms cubic-bezier(0.16, 1, 0.3, 1) 280ms forwards;
 }
 
+/* Origin node (left) — open ring */
+.track-line::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: rgb(var(--color-ink));
+  border: 1.5px solid rgb(var(--color-primary));
+  transform: translateY(-50%) scale(0);
+  animation: track-node-in 440ms cubic-bezier(0.16, 1, 0.3, 1) 1120ms forwards;
+}
+
+/* Destination node (right) — filled + glow ("arrived") */
 .track-line::after {
   content: "";
-  display: block;
-  width: 6px;
-  height: 6px;
+  position: absolute;
+  right: -3px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background-color: rgb(var(--color-primary));
-  transform: translate(118px, -3.75px);
   box-shadow: 0 0 0 4px rgba(246, 163, 23, 0.18);
-  opacity: 0;
-  animation: track-dot-in 600ms cubic-bezier(0.16, 1, 0.3, 1) 1200ms forwards;
+  transform: translateY(-50%) scale(0);
+  animation: track-node-in 480ms cubic-bezier(0.16, 1, 0.3, 1) 1240ms forwards;
 }
 
-@keyframes track-dot-in {
+@keyframes track-node-in {
   from {
-    opacity: 0;
-    transform: translate(118px, -3.75px) scale(0.4);
+    transform: translateY(-50%) scale(0);
   }
   to {
-    opacity: 1;
-    transform: translate(118px, -3.75px) scale(1);
+    transform: translateY(-50%) scale(1);
   }
 }
 
@@ -221,9 +242,10 @@ h1, h2, h3, h4 {
     animation: none;
     transform: scaleX(1);
   }
+  .track-line::before,
   .track-line::after {
     animation: none;
-    opacity: 1;
+    transform: translateY(-50%) scale(1);
   }
 }
 
