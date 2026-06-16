@@ -127,11 +127,12 @@ export function renderContactEmailHtml(
     `Re: ${data.subject}`
   )}`;
 
-  const logoBlock = options.logoSrc
-    ? `<img src="${escapeHtml(
-        options.logoSrc
-      )}" width="132" height="auto" alt="Xapika Engineering" style="display:block;border:0;outline:none;height:auto;width:132px;max-width:132px;" />`
-    : `<span style="font-family:${FONT};font-size:22px;font-weight:800;letter-spacing:0.04em;color:#FFFFFF;">XAPIKA</span>`;
+  // Always render the white wordmark logo on the dark header. Defaults to the
+  // hosted /logo-white.png when no explicit logoSrc is passed (no text fallback).
+  const logoUrl = options.logoSrc ?? `${baseUrl}/logo-white.png`;
+  const logoBlock = `<img src="${escapeHtml(
+    logoUrl
+  )}" width="132" height="auto" alt="Xapika Engineering" style="display:block;border:0;outline:none;height:auto;width:132px;max-width:132px;" />`;
 
   const phoneRow = data.phone
     ? metaRow(
