@@ -48,19 +48,19 @@ type SolutionsGridProps = {
 
 const SIZE_TO_CLASSES: Record<Size, { grid: string; minH: string; titleSize: string }> = {
   featured: {
-    // mobile (<640px): 1열 풀너비; sm: 2열 풀너비; lg: 8/12 of 12-col grid
-    grid: "col-span-1 sm:col-span-2 lg:col-span-8",
-    minH: "min-h-[360px] md:min-h-[420px] lg:min-h-[480px]",
+    // mobile: spans both bento columns (full-width); lg: 8/12 of 12-col grid
+    grid: "col-span-2 lg:col-span-8",
+    minH: "min-h-[300px] md:min-h-[420px] lg:min-h-[480px]",
     titleSize: "clamp(1.5rem, 2.8vw, 2.25rem)",
   },
   secondary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[300px] sm:min-h-[300px] md:min-h-[340px] lg:min-h-[480px]",
+    minH: "min-h-[210px] sm:min-h-[300px] md:min-h-[340px] lg:min-h-[480px]",
     titleSize: "clamp(1.0625rem, 1.7vw, 1.5rem)",
   },
   tertiary: {
     grid: "lg:col-span-4",
-    minH: "min-h-[300px] sm:min-h-[300px] md:min-h-[280px] lg:min-h-[320px]",
+    minH: "min-h-[210px] sm:min-h-[300px] md:min-h-[280px] lg:min-h-[320px]",
     titleSize: "clamp(1.0625rem, 1.7vw, 1.5rem)",
   },
 };
@@ -367,11 +367,10 @@ export default function SolutionsGrid({
           </motion.p>
         </div>
 
-        {/* 카드 편집 레이아웃: 12-col grid
-            Mobile (<640px): 1열 풀너비
-            SM (640+): 2열
+        {/* 카드 편집 레이아웃: bento grid
+            Mobile: 2열 bento — Featured 풀너비(span 2) + 소형 카드 2×2
             LG (1024+): 12-col — Featured (8) + Secondary (4) / Tertiary (4) × 3 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-12 gap-3 md:gap-5">
           {solutions.map((item, i) => (
             <SolutionCard key={item.key} item={item} index={i} inView={inView} />
           ))}

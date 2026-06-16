@@ -98,7 +98,7 @@ function PortfolioCard({
         delay: 0.12 * index,
         ease: EASE,
       }}
-      className={`relative ${isFeatured ? "sm:col-span-2 min-h-[280px] md:min-h-[460px] lg:min-h-[520px]" : "min-h-[200px] md:min-h-[360px] lg:min-h-[400px]"}`}
+      className={`relative ${isFeatured ? "col-span-2 min-h-[280px] md:min-h-[460px] lg:min-h-[520px]" : "min-h-[200px] md:min-h-[360px] lg:min-h-[400px]"}`}
     >
       <Link
         href={item.href}
@@ -422,8 +422,8 @@ export default function PortfoliosPreview({
           </motion.p>
         </div>
 
-        {/* 카드 그리드: Featured(풀폭) + Standard(2개, 반반) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-5">
+        {/* 카드 그리드: Featured(풀폭, span 2) + Standard(2개, 반반) — 모바일 2열 bento */}
+        <div className="grid grid-cols-2 gap-3 md:gap-5">
           {portfolios.map((item, i) => (
             <PortfolioCard key={item.key} item={item} index={i} inView={inView} />
           ))}
