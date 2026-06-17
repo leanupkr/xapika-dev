@@ -6,6 +6,13 @@ export const BASE_URL =
 
 export const SITE_NAME = "Xapika Engineering";
 
+/**
+ * Site name shown by Google as the result's display name (the small grey
+ * line above the title). Kept short/brand-only so Search shows "XAPIKA"
+ * instead of the bare domain. SITE_NAME stays the full legal brand for titles.
+ */
+export const SITE_DISPLAY_NAME = "XAPIKA";
+
 export function siteUrl(path: string = ""): string {
   const cleanPath = path.replace(/^\/+/, "");
   return cleanPath ? `${BASE_URL}/${cleanPath}` : BASE_URL;
@@ -39,7 +46,7 @@ function buildOpenGraph({
 
   const og: NonNullable<Metadata["openGraph"]> = {
     type: "website",
-    siteName: SITE_NAME,
+    siteName: SITE_DISPLAY_NAME,
     title,
     description,
     url,

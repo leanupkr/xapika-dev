@@ -1,4 +1,5 @@
-import { BASE_URL, SITE_NAME, siteUrl } from "@/lib/seo";
+import { BASE_URL, SITE_NAME, SITE_DISPLAY_NAME, siteUrl } from "@/lib/seo";
+import { NAV_ITEMS } from "@/data/nav";
 
 type JsonLdProps = {
   data: Record<string, unknown> | ReadonlyArray<Record<string, unknown>>;
@@ -21,7 +22,8 @@ export function organizationLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${BASE_URL}/#organization`,
-    name: SITE_NAME,
+    name: SITE_DISPLAY_NAME,
+    alternateName: SITE_NAME,
     url: siteUrl(),
     logo: `${BASE_URL}/logo.png`,
     description:
@@ -41,9 +43,30 @@ export function websiteLd() {
     "@type": "WebSite",
     "@id": `${BASE_URL}/#website`,
     url: siteUrl(),
-    name: SITE_NAME,
+    name: SITE_DISPLAY_NAME,
+    alternateName: SITE_NAME,
     inLanguage: "en-US",
     publisher: { "@id": `${BASE_URL}/#organization` },
+  };
+}
+
+/**
+ * SiteNavigationElement — surfaces the primary navigation to Search so it has
+ * clean candidates for sitelinks. Sitelinks are still chosen automatically by
+ * Google; this only provides clear, machine-readable structure.
+ */
+export function siteNavigationLd() {
+  const items = NAV_ITEMS.map((item, i) => ({
+    "@type": "SiteNavigationElement",
+    position: i + 1,
+    name: item.label,
+    url: siteUrl(item.href),
+  }));
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${BASE_URL}/#nav`,
+    itemListElement: items,
   };
 }
 
