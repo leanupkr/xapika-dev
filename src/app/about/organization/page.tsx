@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import OrgChart from "@/components/sections/OrgChart";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/about/organization",
     title: "Organization",
     description:
@@ -14,11 +17,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function OrganizationPage() {
+  const origin = await getRequestOrigin();
   return (
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [
             { name: "About Us", path: "about" },
             { name: "Organization", path: "about/organization" },

@@ -6,7 +6,7 @@ import {
   renderContactEmailHtml,
   renderContactEmailText,
 } from "@/lib/contactEmail";
-import { BASE_URL } from "@/lib/seo";
+import { PL_ORIGIN } from "@/lib/seo-host";
 import {
   resend,
   isResendConfigured,
@@ -105,6 +105,17 @@ export async function submitContact(
     };
   }
 
+  // Derive which domain this inquiry was submitted from.
+  const h = await headers();
+  const hostRaw = h.get("host") ?? "";
+  const bare = hostRaw.split(":")[0];
+  const sourceDomain =
+    bare === "xapika.co.kr" || bare.endsWith(".xapika.co.kr")
+      ? "xapika.co.kr"
+      : bare === "xapika.pl" || bare.endsWith(".xapika.pl")
+      ? "xapika.pl"
+      : bare || "xapika.pl";
+
   const data = parsed.data;
   const receivedAt = new Date().toISOString();
 
@@ -125,6 +136,7 @@ export async function submitContact(
     subject: data.subject,
     message: data.message,
     receivedAt,
+    sourceDomain,
   };
 
   try {
@@ -136,8 +148,8 @@ export async function submitContact(
       subject: `[Contact] ${data.subject}`,
       text: renderContactEmailText(emailData),
       html: renderContactEmailHtml(emailData, {
-        logoSrc: `${BASE_URL}/logo-white.png`,
-        baseUrl: BASE_URL,
+        logoSrc: `${PL_ORIGIN}/logo-white.png`,
+        baseUrl: PL_ORIGIN,
       }),
     });
 

@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionsIndex, {
   type SolutionItem,
 } from "@/components/sections/SolutionsIndex";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/solutions",
     title: "Solutions",
     description:
@@ -15,6 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function SolutionsPage() {
+  const origin = await getRequestOrigin();
   const items: ReadonlyArray<SolutionItem> = [
     {
       key: "heavy",
@@ -72,7 +76,7 @@ export default async function SolutionsPage() {
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [{ name: "Solutions", path: "solutions" }],
         })}
       />

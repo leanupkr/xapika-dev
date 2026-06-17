@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { caseStudyLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import PortfolioHero from "@/components/sections/PortfolioHero";
 import PortfolioStory from "@/components/sections/PortfolioStory";
@@ -18,7 +19,9 @@ import RelatedProjects, {
 } from "@/components/sections/RelatedProjects";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/portfolios/ukraine-emu",
     title: "Ukraine HRCS2 EMU.",
     description:
@@ -27,6 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function UkraineEmuPage() {
+  const origin = await getRequestOrigin();
   const storyParagraphs: ReadonlyArray<string> = [
     "In 2017, Ukrainian Railways awarded the long-horizon contract for 90 high-speed HRCS2 cars. The depot teams have run the same operating routine every day since: pre-departure inspection at 04:30, functional checks before each journey, scheduled overhauls on a 90-day cadence.",
     "On the morning of February 24, 2022, the schedule did not change. Trains kept moving — for civilians evacuating, for press crews, for cargo headed to where the rail still ran. Ground staff worked under blackout conditions. Inventory adapted to disrupted supply lines. The maintenance log kept its same columns.",
@@ -221,7 +225,7 @@ export default async function UkraineEmuPage() {
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [
             { name: "Portfolios", path: "portfolios" },
             { name: "Ukraine HRCS2 EMU.", path: "portfolios/ukraine-emu" },
@@ -230,7 +234,7 @@ export default async function UkraineEmuPage() {
       />
       <JsonLd
         id="ld-case-ukraine"
-        data={caseStudyLd({
+        data={caseStudyLd(origin, {
           slug: "ukraine-emu",
           name: "Ukraine HRCS2 EMU.",
           description:

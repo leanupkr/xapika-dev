@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
 import WhatWeDo, { type WhatWeDoItem } from "@/components/sections/WhatWeDo";
@@ -13,7 +14,9 @@ import RelatedProjects, {
 import CtaSection from "@/components/sections/CtaSection";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/solutions/supply-chain",
     title: "Global Sourcing. Local Support. Reliable Delivery.",
     description:
@@ -27,6 +30,7 @@ const RELATED_IMAGES: Record<string, string> = {
 };
 
 export default async function SupplyChainPage() {
+  const origin = await getRequestOrigin();
   const wwdItems: ReadonlyArray<WhatWeDoItem> = [
     {
       index: "01",
@@ -155,7 +159,7 @@ export default async function SupplyChainPage() {
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [
             { name: "Solutions", path: "solutions" },
             {
@@ -167,7 +171,7 @@ export default async function SupplyChainPage() {
       />
       <JsonLd
         id="ld-service-supply"
-        data={serviceLd({
+        data={serviceLd(origin, {
           slug: "supply-chain",
           name: "Global Sourcing. Local Support. Reliable Delivery.",
           description:

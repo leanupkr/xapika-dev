@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import HistoryTimeline from "@/components/sections/HistoryTimeline";
 import { HISTORY_EVENTS } from "@/data/companyHistory";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/about/history",
     title: "Our History",
     description:
@@ -15,11 +18,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HistoryPage() {
+  const origin = await getRequestOrigin();
   return (
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [
             { name: "About Us", path: "about" },
             { name: "Our History", path: "about/history" },

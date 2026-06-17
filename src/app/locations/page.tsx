@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { placesLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import LocationsHero from "@/components/sections/LocationsHero";
 import NetworkAtScale from "@/components/sections/NetworkAtScale";
@@ -24,8 +25,10 @@ const OPS_HREFS = {
   uzbekistan: "/portfolios/uzbekistan-rail",
 } as const;
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/locations",
     title: "Locations",
     description:
@@ -33,7 +36,8 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function LocationsPage() {
+export default async function LocationsPage() {
+  const origin = await getRequestOrigin();
   const mapOffices: ReadonlyArray<WorldMapOffice> = OFFICES
     .filter((o) => o.showOnMap)
     .map(({ id, city, country, role, since, lat, lng, blurb }) => ({
@@ -77,7 +81,7 @@ export default function LocationsPage() {
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [{ name: "Locations", path: "locations" }],
         })}
       />

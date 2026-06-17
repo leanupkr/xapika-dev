@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 
 export function generateMetadata(): Metadata {
@@ -12,12 +13,13 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function ThankYouPage() {
+export default async function ThankYouPage() {
+  const origin = await getRequestOrigin();
   return (
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [
             { name: "Contact Us", path: "contact" },
             { name: "Your message is on track.", path: "contact/thank-you" },

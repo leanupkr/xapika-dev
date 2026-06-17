@@ -38,6 +38,7 @@ const sample: ContactEmailData = {
     "week?\n\nBest regards,\nAnna Kowalska\nRolling Stock Procurement",
   // Fixed timestamp so the preview is deterministic.
   receivedAt: "2026-06-04T13:32:00.000Z",
+  sourceDomain: "xapika.pl",
 };
 
 const root = process.cwd();

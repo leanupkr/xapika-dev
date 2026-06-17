@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { serviceLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import SolutionDetailHero from "@/components/sections/SolutionDetailHero";
 import EditorialStatement from "@/components/sections/EditorialStatement";
@@ -11,7 +12,9 @@ import RelatedProjects, {
 import CtaSection from "@/components/sections/CtaSection";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/solutions/commercial-services",
     title: "Creating Value Beyond Railway Maintenance",
     description:
@@ -25,6 +28,7 @@ const RELATED_IMAGES: Record<string, string> = {
 };
 
 export default async function CommercialServicesPage() {
+  const origin = await getRequestOrigin();
   const paragraphs: ReadonlyArray<string> = [
     "Vending, advertising, and commercial facilities — engineered into the operating contract from day one, not bolted on after the first deficit year.",
     "Designed to enhance passenger experience and generate additional revenue across station retail and ancillary touchpoints.",
@@ -75,7 +79,7 @@ export default async function CommercialServicesPage() {
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [
             { name: "Solutions", path: "solutions" },
             {
@@ -87,7 +91,7 @@ export default async function CommercialServicesPage() {
       />
       <JsonLd
         id="ld-service-commercial"
-        data={serviceLd({
+        data={serviceLd(origin, {
           slug: "commercial-services",
           name: "Creating Value Beyond Railway Maintenance",
           description:

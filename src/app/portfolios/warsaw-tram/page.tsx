@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { caseStudyLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import PortfolioHero from "@/components/sections/PortfolioHero";
 import PortfolioStory from "@/components/sections/PortfolioStory";
@@ -12,7 +13,9 @@ import RelatedProjects, {
 } from "@/components/sections/RelatedProjects";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/portfolios/warsaw-tram",
     title: "144 years of urban motion.",
     description:
@@ -21,6 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function WarsawTramPage() {
+  const origin = await getRequestOrigin();
   const storyParagraphs: ReadonlyArray<string> = [
     "Warsaw's tram network began carrying passengers in 1882 — first horse-drawn, electrified within a generation, and continuously operating across two world wars. By the time Xapika joined the maintenance partnership in October 2021, the system had logged nearly 140 unbroken years of public service.",
     "We service 123 units across the active fleet, working alongside Tramwaje Warszawskie's own depot teams. Every car is inspected before its first run of the day. Service intervals follow the city's published timetable, audited against it rather than internal targets.",
@@ -157,7 +161,7 @@ export default async function WarsawTramPage() {
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [
             { name: "Portfolios", path: "portfolios" },
             { name: "144 years of urban motion.", path: "portfolios/warsaw-tram" },
@@ -166,7 +170,7 @@ export default async function WarsawTramPage() {
       />
       <JsonLd
         id="ld-case-warsaw"
-        data={caseStudyLd({
+        data={caseStudyLd(origin, {
           slug: "warsaw-tram",
           name: "144 years of urban motion.",
           description:

@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import ContactInfo from "@/components/sections/ContactInfo";
 import ContactInteractive from "@/components/contact/ContactInteractive";
 import { HQ_ADDRESS } from "@/lib/constants";
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/contact",
     title: "Contact",
     description:
@@ -15,12 +18,13 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const origin = await getRequestOrigin();
   return (
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [{ name: "Contact Us", path: "contact" }],
         })}
       />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { caseStudyLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import PortfolioHero from "@/components/sections/PortfolioHero";
 import UzbekRouteMap from "@/components/sections/UzbekRouteMap";
@@ -13,7 +14,9 @@ import RelatedProjects, {
 } from "@/components/sections/RelatedProjects";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/portfolios/uzbekistan-rail",
     title: "A new high-speed program. Now operational.",
     description:
@@ -22,6 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function UzbekistanRailPage() {
+  const origin = await getRequestOrigin();
   const mapPins = {
     tashkent: "Tashkent · O&M Hub",
     seoul: "Seoul · Tech Partner",
@@ -105,7 +109,7 @@ export default async function UzbekistanRailPage() {
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [
             { name: "Portfolios", path: "portfolios" },
             {
@@ -117,7 +121,7 @@ export default async function UzbekistanRailPage() {
       />
       <JsonLd
         id="ld-case-uzbekistan"
-        data={caseStudyLd({
+        data={caseStudyLd(origin, {
           slug: "uzbekistan-rail",
           name: "A new high-speed program. Now operational.",
           description:

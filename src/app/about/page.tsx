@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { aboutPageLd, breadcrumbLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import AboutCardGrid from "@/components/sections/AboutCardGrid";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/about",
     title: "About Us",
     description:
@@ -14,17 +17,18 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
+  const origin = await getRequestOrigin();
+  const description =
+    "A decade of precision rail maintenance across six countries — Xapika Engineering's history, principles, and operating standard.";
   return (
     <>
       <JsonLd
         id="ld-about"
-        data={aboutPageLd(
-          "A decade of precision rail maintenance across six countries — Xapika Engineering's history, principles, and operating standard.",
-        )}
+        data={aboutPageLd(origin, description)}
       />
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [{ name: "About Us", path: "about" }],
         })}
       />

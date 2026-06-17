@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import PortfoliosIndex, {
   type PortfolioCardItem,
 } from "@/components/sections/PortfoliosIndex";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/portfolios",
     title: "Portfolios",
     description:
@@ -15,6 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PortfoliosIndexPage() {
+  const origin = await getRequestOrigin();
   const items: ReadonlyArray<PortfolioCardItem> = [
     {
       key: "ukraine",
@@ -52,7 +56,7 @@ export default async function PortfoliosIndexPage() {
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [{ name: "Portfolios", path: "portfolios" }],
         })}
       />

@@ -22,16 +22,18 @@ export type ContactEmailData = {
   message: string;
   /** ISO timestamp of submission. */
   receivedAt: string;
+  /** Domain the form was submitted from, e.g. "xapika.pl" or "xapika.co.kr". */
+  sourceDomain: string;
 };
 
 export type ContactEmailOptions = {
   /**
    * Absolute URL of the white wordmark shown in the header, e.g.
-   * `https://xapika.co.kr/logo-white.png`. Pass a data: URI for self-contained
+   * `https://xapika.pl/logo-white.png`. Pass a data: URI for self-contained
    * previews. When omitted, the header falls back to a styled text wordmark.
    */
   logoSrc?: string;
-  /** Site origin used for footer links. Defaults to https://xapika.co.kr. */
+  /** Site origin used for footer links. Defaults to https://xapika.pl. */
   baseUrl?: string;
 };
 
@@ -92,6 +94,7 @@ export function renderContactEmailText(data: ContactEmailData): string {
     `Company: ${data.company}`,
     `Email:   ${data.email}${phoneLine}`,
     `Office:  ${locationLabel(data.location)}`,
+    `Source:  ${data.sourceDomain}`,
     "",
     "Message",
     "-------",
@@ -99,7 +102,7 @@ export function renderContactEmailText(data: ContactEmailData): string {
     "",
     "—",
     `Reply directly to this email to respond to ${data.firstName}.`,
-    `Submitted ${formatReceivedAt(data.receivedAt)} via xapika.co.kr/contact`,
+    `Submitted ${formatReceivedAt(data.receivedAt)} via ${data.sourceDomain}/contact`,
   ].join("\n");
 }
 
@@ -118,7 +121,7 @@ export function renderContactEmailHtml(
   data: ContactEmailData,
   options: ContactEmailOptions = {}
 ): string {
-  const baseUrl = (options.baseUrl ?? "https://xapika.co.kr").replace(/\/$/, "");
+  const baseUrl = (options.baseUrl ?? "https://xapika.pl").replace(/\/$/, "");
   const fullName = `${data.firstName} ${data.lastName}`.trim();
   const office = locationLabel(data.location);
   const preheader = buildPreheader(data);
@@ -220,6 +223,12 @@ export function renderContactEmailHtml(
                 ${phoneRow}
                 ${metaRow("Company", escapeHtml(data.company))}
                 ${metaRow("Office", escapeHtml(office))}
+                ${metaRow(
+                  "Source",
+                  `<span style="display:inline-block;background:${CHIP_BG};color:${CHIP_INK};font-size:12px;font-weight:700;letter-spacing:0.04em;border-radius:4px;padding:3px 9px;font-family:monospace;">${escapeHtml(
+                    data.sourceDomain
+                  )}</span>`
+                )}
               </table>
 
               <!-- message -->
@@ -258,7 +267,7 @@ export function renderContactEmailHtml(
                     Submitted ${escapeHtml(formatReceivedAt(data.receivedAt))}
                   </td>
                   <td align="right" style="vertical-align:middle;font-family:${FONT};font-size:11px;color:${MUTED};">
-                    <a href="${baseUrl}/contact" style="color:${MUTED};text-decoration:none;">xapika.co.kr/contact</a>
+                    <a href="${baseUrl}/contact" style="color:${MUTED};text-decoration:none;">${escapeHtml(data.sourceDomain)}/contact</a>
                   </td>
                 </tr>
               </table>

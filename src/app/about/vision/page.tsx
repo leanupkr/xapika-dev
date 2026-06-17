@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import AboutHeader from "@/components/sections/AboutHeader";
 import Vision, { type VisionItem } from "@/components/sections/Vision";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/about/vision",
     title: "Vision & Principles",
     description:
@@ -32,11 +35,12 @@ const VISION_ITEMS: ReadonlyArray<VisionItem> = [
 ];
 
 export default async function VisionPage() {
+  const origin = await getRequestOrigin();
   return (
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [
             { name: "About Us", path: "about" },
             { name: "Vision & Principles", path: "about/vision" },

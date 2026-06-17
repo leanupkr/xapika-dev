@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import JsonLd, { breadcrumbLd } from "@/components/seo/JsonLd";
 import PageHero from "@/components/ui/PageHero";
 import SectionContainer from "@/components/ui/SectionContainer";
 import { CONTACT_EMAIL } from "@/lib/constants";
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "/terms",
     title: "Terms of Use",
     description:
@@ -14,12 +17,13 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const origin = await getRequestOrigin();
   return (
     <>
       <JsonLd
         id="ld-breadcrumb"
-        data={breadcrumbLd({
+        data={breadcrumbLd(origin, {
           trail: [{ name: "Terms of Use", path: "terms" }],
         })}
       />

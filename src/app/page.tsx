@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { getRequestOrigin } from "@/lib/seo-host";
 import Hero from "@/components/sections/Hero";
 import KeyNumbers from "@/components/sections/KeyNumbers";
 import SolutionsGrid, { type SolutionMetric } from "@/components/sections/SolutionsGrid";
@@ -7,8 +8,10 @@ import PortfoliosPreview from "@/components/sections/PortfoliosPreview";
 import TrustedBy from "@/components/sections/TrustedBy";
 import GlobalPresence from "@/components/sections/GlobalPresence";
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const origin = await getRequestOrigin();
   return buildPageMetadata({
+    origin,
     path: "",
     title: "Xapika Engineering",
     description: "Delivering precision maintenance with uncompromising safety.",
