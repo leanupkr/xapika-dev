@@ -4,6 +4,7 @@ import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 import { projectId, dataset } from "./src/sanity/env";
+import { guideTool } from "./src/sanity/guide/GuideTool";
 
 export default defineConfig({
   name: "default",
@@ -17,6 +18,10 @@ export default defineConfig({
   // (src/app/studio/[[...tool]]).
   basePath: "/studio",
   plugins: [structureTool({ structure })],
+  // Custom "Guide" tab next to Structure / Releases — see
+  // src/sanity/guide/GuideTool.tsx for the Tool API verification and the
+  // content contract it renders.
+  tools: [guideTool],
   schema: {
     // `schema.types` expects Sanity's internal `SchemaTypeDefinition[]`
     // type, which sanity@6.9.2's public entry point does not re-export
