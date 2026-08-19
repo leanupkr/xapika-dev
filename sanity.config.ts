@@ -2,6 +2,7 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./src/sanity/schemaTypes";
+import { structure } from "./src/sanity/structure";
 import { projectId, dataset } from "./src/sanity/env";
 
 export default defineConfig({
@@ -15,7 +16,7 @@ export default defineConfig({
   // "Tool not found: studio". Must stay in sync with the route directory
   // (src/app/studio/[[...tool]]).
   basePath: "/studio",
-  plugins: [structureTool()],
+  plugins: [structureTool({ structure })],
   schema: {
     // `schema.types` expects Sanity's internal `SchemaTypeDefinition[]`
     // type, which sanity@6.9.2's public entry point does not re-export
