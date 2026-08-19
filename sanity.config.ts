@@ -9,6 +9,12 @@ export default defineConfig({
   title: "Xapika News",
   projectId,
   dataset,
+  // Required because the Studio is mounted at /studio rather than at the
+  // domain root. Without it, Studio parses the URL from "/" and reads the
+  // first segment as a tool name — landing on /studio produced
+  // "Tool not found: studio". Must stay in sync with the route directory
+  // (src/app/studio/[[...tool]]).
+  basePath: "/studio",
   plugins: [structureTool()],
   schema: {
     // `schema.types` expects Sanity's internal `SchemaTypeDefinition[]`

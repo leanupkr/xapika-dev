@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { sanityFetch } from "@/sanity/fetch";
 import { newsListQuery } from "@/sanity/queries";
 import type { NewsCardData } from "@/sanity/types";
@@ -32,24 +32,42 @@ async function getPosts(): Promise<NewsCardData[]> {
 }
 
 function NewsCard({ post }: { post: NewsCardData }) {
+  const isExternal = post.kind === "external" && Boolean(post.externalSource);
+  const date = formatPublishedDate(post.publishedAt);
+
   return (
     <Link
       href={`/news/${post.slug}`}
       className="group block border border-ink/15 transition-colors duration-300 hover:border-primary"
     >
-      <div className="aspect-[16/10] overflow-hidden">
+      <div className="relative aspect-[16/10] overflow-hidden">
         <SanityImage
           image={post.coverImage}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
+
+        {/* Same external-coverage badge as the /news list cards — a reader
+            who sees a card here and again on /news must not have to
+            re-learn which posts link out to a third-party publication. */}
+        {isExternal && (
+          <span className="absolute right-3 top-3 z-10 inline-flex items-center gap-1.5 border border-white/25 bg-ink/70 px-2.5 py-1 font-heading text-[10px] font-medium uppercase tracking-[0.14em] text-white/90 backdrop-blur-sm">
+            <ExternalLink size={11} strokeWidth={2} aria-hidden="true" />
+            {post.externalSource}
+          </span>
+        )}
       </div>
       <div className="p-6">
         <div className="flex items-center justify-between gap-3">
           <CategoryChip category={post.category} />
-          <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink/50">
-            {formatPublishedDate(post.publishedAt)}
-          </span>
+          {date && (
+            <time
+              dateTime={post.publishedAt}
+              className="font-heading text-[11px] font-medium uppercase tracking-[0.14em] text-ink/45"
+            >
+              {date}
+            </time>
+          )}
         </div>
         <h3 className="mt-3 font-heading text-lg font-semibold text-ink line-clamp-2">
           {post.title}
