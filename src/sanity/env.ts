@@ -25,7 +25,7 @@ export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "";
 // One Sanity project (9qqh6i55) is shared by four environments, split by
 // dataset:
 //   - Local dev                       → development  (.env.local)
-//   - `develop` branch → Vercel Preview → development (xapika-dev-psi.vercel.app)
+//   - `develop` branch → Vercel Preview → development (xapika-dev-git-develop-xapika.vercel.app)
 //   - `main` branch    → Vercel Production → production (xapika.pl / xapika.co.kr)
 // Vercel is configured (by a human, in the dashboard) to set
 // NEXT_PUBLIC_SANITY_DATASET explicitly per environment, so this `??`

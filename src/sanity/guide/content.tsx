@@ -42,9 +42,9 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         rows: [
           {
             field: "개발(연습용)",
-            label: "홈페이지 xapika-dev-psi.vercel.app",
+            label: "홈페이지 xapika-dev-git-develop-xapika.vercel.app",
             showsUp:
-              "CMS는 xapika-dev-psi.vercel.app/studio. 연습용 저장소를 씁니다 — 여기서 쓰고 지우고 마음껏 연습해도 실제 손님은 절대 못 봅니다.",
+              "CMS는 xapika-dev-git-develop-xapika.vercel.app/studio. 연습용 저장소를 씁니다 — 여기서 쓰고 지우고 마음껏 연습해도 실제 손님은 절대 못 봅니다.",
           },
           {
             field: "실서비스(진짜)",
@@ -62,7 +62,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
       { kind: "shot", shot: {
         name: "studio-url-bar-dev",
-        caption: "브라우저 주소창에 xapika-dev-psi.vercel.app/studio 가 보이도록 캡처. '이게 연습용 주소구나'를 한눈에 알아보는 기준 화면.",
+        caption: "브라우저 주소창에 xapika-dev-git-develop-xapika.vercel.app/studio 가 보이도록 캡처. '이게 연습용 주소구나'를 한눈에 알아보는 기준 화면.",
       } },
       { kind: "shot", shot: {
         name: "studio-url-bar-prod",

@@ -11,7 +11,7 @@
 // site's own domain — that's set per-branch in Vercel's dashboard, outside
 // this repo's runtime control. The four-environment mapping matches
 // .env.local.example's own table and env.ts's branch-mapping comment
-// (`develop` branch -> xapika-dev-psi.vercel.app -> dataset "development";
+// (`develop` branch -> xapika-dev-git-develop-xapika.vercel.app -> dataset "development";
 // `main` branch -> xapika.pl / xapika.co.kr -> dataset "production") — if
 // that mapping ever changes, this is the one place to update it.
 //
@@ -28,8 +28,8 @@ const PRACTICE = {
   icon: "🧪",
   label: "연습용 (Practice)",
   message: "여기서 쓴 글은 실제 사이트에 나오지 않습니다. 마음껏 눌러보고 연습하세요.",
-  site: "xapika-dev-psi.vercel.app",
-  studio: "xapika-dev-psi.vercel.app/studio",
+  site: "xapika-dev-git-develop-xapika.vercel.app",
+  studio: "xapika-dev-git-develop-xapika.vercel.app/studio",
   otherLabel: "실서비스 CMS로 이동",
   otherHref: "https://xapika.pl/studio",
 };
@@ -42,7 +42,7 @@ const LIVE = {
   site: "xapika.pl · xapika.co.kr",
   studio: "xapika.pl/studio",
   otherLabel: "연습용 CMS로 이동",
-  otherHref: "https://xapika-dev-psi.vercel.app/studio",
+  otherHref: "https://xapika-dev-git-develop-xapika.vercel.app/studio",
 };
 
 export function EnvironmentBanner() {

@@ -41,7 +41,15 @@ export function Shot({ name, caption }: GuideShot) {
         <img
           src={src}
           alt={caption}
-          loading="lazy"
+          // Deliberately NOT loading="lazy". A lazy image that is still
+          // below the fold never attempts a fetch, so `onError` never
+          // fires, so `failed` stays false and this renders as a
+          // zero-height empty <img> — the caption floats alone with a
+          // blank gap above it. Eager loading makes every missing
+          // screenshot fail immediately and fall through to the dashed
+          // placeholder. This is a Studio-only admin page, so paying for
+          // ~28 eager requests here is cheaper than a guide that looks
+          // broken.
           className="xk-guide-shot-img"
           onError={() => setFailed(true)}
           onClick={() => setZoomed(true)}
