@@ -13,6 +13,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     "User-Agent: *",
     "Allow: /",
     "Disallow: /design-system",
+    "Disallow: /studio",
     "Disallow: /contact/thank-you",
     "",
     `Sitemap: ${origin}/sitemap.xml`,

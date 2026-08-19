@@ -7,6 +7,7 @@ import SolutionsGrid, { type SolutionMetric } from "@/components/sections/Soluti
 import PortfoliosPreview from "@/components/sections/PortfoliosPreview";
 import TrustedBy from "@/components/sections/TrustedBy";
 import GlobalPresence from "@/components/sections/GlobalPresence";
+import NewsPreview from "@/components/sections/NewsPreview";
 
 export async function generateMetadata(): Promise<Metadata> {
   const origin = await getRequestOrigin();
@@ -170,6 +171,7 @@ export default function HomePage() {
         stat3Value="7"
         stat3Unit="Offices"
       />
+      <NewsPreview />
     </>
   );
 }
