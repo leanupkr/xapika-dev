@@ -18,11 +18,11 @@ import {
   CONTACT_LOCATION_LABELS,
   type ContactInput,
 } from "@/lib/contactSchema";
-import { submitContact } from "@/app/contact/actions";
+import { submitContact } from "@/app/(site)/contact/actions";
 import {
   initialContactState,
   type ContactState,
-} from "@/app/contact/contactState";
+} from "@/app/(site)/contact/contactState";
 import { EASE } from "@/lib/motion";
 
 const DRAFT_KEY = "xapika-contact-draft";
