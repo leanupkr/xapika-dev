@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Xapika 이메일 시스템 안내</title>
+<style>
+  :root{
+    --ink:#0B1F3A; --paper:#EEF1F4; --amber:#F6A317; --card:#FFFFFF;
+    --muted:#5B6B7F; --line:#E2E6EC; --green:#1F8A4C; --redbg:#FDECEC; --red:#B23B3B;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Pretendard","Helvetica Neue",Arial,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all}
+  .wrap{max-width:880px;margin:0 auto;padding:40px 20px 80px}
+  header.top{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:8px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:800}
+  h1{font-size:30px;margin:6px 0 2px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:14px}
+  h2{font-size:19px;margin:38px 0 14px;display:flex;align-items:center;gap:8px}
+  h2 .dot{width:9px;height:9px;border-radius:999px;background:var(--amber);display:inline-block;flex:0 0 auto}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px}
+  .card .lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .card .val{font-size:15px;font-weight:700;margin-top:6px;word-break:break-all}
+  .card .note{font-size:12px;color:var(--muted);margin-top:4px}
+  .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .flow{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+  .step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px dashed var(--line)}
+  .step:last-child{border-bottom:0}
+  .num{flex:0 0 28px;height:28px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;
+    font-weight:800;display:flex;align-items:center;justify-content:center}
+  .step .body strong{display:block;font-size:15px}
+  .step .body span{font-size:13px;color:var(--muted)}
+  .chip{display:inline-block;background:#FDF1DC;color:#8A5A00;border-radius:999px;padding:2px 9px;
+    font-size:12px;font-weight:700;font-family:"JetBrains Mono",monospace;word-break:break-all}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top;word-break:break-all}
+  th{background:#F7F8FA;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  tr:last-child td{border-bottom:0}
+  .qa{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:4px 20px;margin-top:8px}
+  .q{padding:16px 0;border-bottom:1px solid var(--line)}
+  .q:last-child{border-bottom:0}
+  .q .question{font-weight:800;font-size:15px;margin-bottom:6px}
+  .q .answer{font-size:14px;color:#33424f}
+  .badge{display:inline-block;font-size:12px;font-weight:800;border-radius:6px;padding:2px 8px;margin-right:6px;white-space:nowrap}
+  .badge.yes{background:#E7F4EC;color:var(--green)}
+  .badge.no{background:var(--redbg);color:var(--red)}
+  .callout{background:#FFFBF2;border:1px solid #F3D89A;border-radius:8px;padding:14px 16px;font-size:13.5px;margin-top:14px}
+  .callout b{color:#8A5A00}
+  .callout.ok{background:#F0F9F3;border-color:#BFE3CC}
+  .callout.ok b{color:var(--green)}
+  footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+
+  /* ── email preview ── */
+  .mailprev{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .mailprev .hint{font-size:13px;color:var(--muted);margin:0 0 12px}
+  .frame{position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    background:#fff;cursor:zoom-in;max-height:460px}
+  .frame iframe{width:100%;border:0;display:block;background:#fff;pointer-events:none}
+  .frame .fade{position:absolute;left:0;right:0;bottom:0;height:96px;
+    background:linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,.97))}
+  .frame .expand{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+    background:var(--ink);color:#fff;border:0;border-radius:999px;padding:9px 18px;font-size:13px;
+    font-weight:700;cursor:pointer;display:inline-flex;gap:7px;align-items:center;box-shadow:0 4px 14px rgba(11,31,58,.25);white-space:nowrap}
+  .frame .expand:hover{background:#16315a}
+  .replynote{display:flex;gap:10px;align-items:flex-start;background:#F7F8FA;border:1px solid var(--line);
+    border-radius:8px;padding:12px 14px;margin-top:12px;font-size:13px;color:#33424f}
+  .replynote .ic{flex:0 0 auto;font-size:15px}
+  .replynote b{color:var(--ink)}
+
+  /* ── modal ── */
+  .modal{position:fixed;inset:0;z-index:50;display:none;align-items:flex-start;justify-content:center;
+    background:rgba(11,31,58,.55);padding:24px 12px;overflow:auto;-webkit-overflow-scrolling:touch}
+  .modal.open{display:flex}
+  .modal .panel{background:var(--card);border-radius:14px;width:100%;max-width:660px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(11,31,58,.4);margin:auto}
+  .modal .bar{display:flex;align-items:center;justify-content:space-between;
+    padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:2}
+  .modal .bar .t{font-size:13px;font-weight:800;color:var(--ink)}
+  .modal .bar .x{border:0;background:#F1F3F6;border-radius:8px;width:32px;height:32px;font-size:16px;
+    cursor:pointer;color:var(--ink);line-height:1}
+  .modal .body{max-height:80vh;overflow:auto;-webkit-overflow-scrolling:touch;background:#fff}
+  .modal .body iframe{width:100%;border:0;display:block;background:#fff}
+
+  @media(max-width:640px){
+    .wrap{padding:28px 14px 64px}
+    h1{font-size:24px}
+    .cards{grid-template-columns:1fr}
+    h2{font-size:17px}
+    .qa,.flow,.mailprev{padding:14px}
+    .modal{padding:0}
+    .modal .panel{max-width:100%;border-radius:0;min-height:100%}
+    .modal .body{max-height:none;height:calc(100vh - 53px)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="kicker">Xapika Engineering</div>
+    <h1>문의 이메일 시스템 안내</h1>
+    <div class="sub">홈페이지 문의 폼이 어디로, 어떤 주소로 메일을 보내는지 정리한 문서입니다. · 2026-06-16 기준</div>
+  </header>
+
+  <h2><span class="dot"></span> 한눈에 보기</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="lbl">웹사이트 도메인</div>
+      <div class="val mono">xapika.co.kr</div>
+      <div class="note">가비아 등록 · 새 주력 도메인</div>
+    </div>
+    <div class="card">
+      <div class="lbl">문의 메일 — 보내는 주소(발신)</div>
+      <div class="val mono">noreply@xapika.co.kr</div>
+      <div class="note">Resend로 자동 발송 · 인증 완료</div>
+    </div>
+    <div class="card">
+      <div class="lbl">문의 메일 — 받는 주소(수신)</div>
+      <div class="val mono">info@xapika.pl</div>
+      <div class="note">기존 회사 메일함 그대로 유지</div>
+    </div>
+  </div>
+
+  <h2><span class="dot"></span> 받은 메일 미리보기 (실제 메일 창 모양)</h2>
+  <div class="mailprev">
+    <p class="hint">방문자가 문의하면 <b>info@xapika.pl</b> 메일함에 아래 모양으로 도착합니다. 상단에 <b>제목·보낸사람·받는사람</b>이 보이고, 그 아래가 실제 메일 본문입니다. (예시 데이터) — 클릭하면 전체 화면.</p>
+    <div class="frame" id="frame" onclick="openMail()" title="클릭하면 전체 보기">
+      <iframe id="prevFrame" scrolling="no" title="메일 미리보기"></iframe>
+      <div class="fade"></div>
+      <button class="expand" type="button" onclick="event.stopPropagation();openMail()">⤢ 전체 보기</button>
+    </div>
+    <div class="replynote">
+      <span class="ic">↩️</span>
+      <div><b>메일 안의 "Reply to Marek →" 버튼</b>은 <span class="mono">mailto:</span> 링크라, 누르면 <b>지금 info@xapika.pl을 보고 있는 메일 프로그램</b>(Gmail·아웃룩·애플메일·가비아 웹메일 등 — 회사가 쓰는 것)의 <b>답장 작성 창</b>이 열립니다. 메일함의 기본 "답장"을 눌러도 동일합니다. 어느 쪽이든 <b>받는사람이 문의자(Marek)로 자동 입력</b>됩니다. (noreply 주소로는 가지 않습니다.)</div>
+    </div>
+  </div>
+
+  <h2><span class="dot"></span> 문의 한 건이 처리되는 흐름</h2>
+  <div class="flow">
+    <div class="step">
+      <div class="num">1</div>
+      <div class="body">
+        <strong>방문자가 홈페이지 문의 폼을 작성·제출</strong>
+        <span>이름·회사·이메일·문의 내용 등 입력 → "보내기"</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <div class="body">
+        <strong>서버가 메일 1통을 생성해 Resend로 발송</strong>
+        <span>보낸사람 <span class="chip">noreply@xapika.co.kr</span> · 받는사람 <span class="chip">info@xapika.pl</span> · 제목 <span class="mono">[Contact] (문의 제목)</span></span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <div class="body">
+        <strong>회사 메일함(info@xapika.pl)에 문의 내용이 도착</strong>
+        <span>여기서 문의를 확인합니다. 방문자가 입력한 이메일이 <b>답장(Reply-To)</b> 주소로 박혀 있습니다.</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">4</div>
+      <div class="body">
+        <strong>답장은 메일함에서 "답장" 버튼만 누르면 끝</strong>
+        <span>받은 메일에 그대로 답장하면 → <b>방문자(문의자)의 이메일로 바로 전달</b>됩니다. (noreply가 아니라 문의자에게 감)</span>
+      </div>
+    </div>
+  </div>
+
+  <h2><span class="dot"></span> 질문하신 내용 정리</h2>
+  <div class="qa">
+    <div class="q">
+      <div class="question">Q. 홈페이지로 문의하면 info@xapika.pl로 내용이 오나요?</div>
+      <div class="answer"><span class="badge yes">맞습니다</span> 문의 내용은 <b>info@xapika.pl</b> 메일함으로 들어옵니다. (이 주소는 .pl 그대로 유지했습니다 — 회사가 이미 쓰던 메일함이라 바꾸지 않았습니다.)</div>
+    </div>
+    <div class="q">
+      <div class="question">Q. 보낸 사람(발신) 주소와 제목은 어떻게 나오나요?</div>
+      <div class="answer">보낸사람 <b class="mono">Xapika Contact &lt;noreply@xapika.co.kr&gt;</b>, 제목 <b class="mono">[Contact] (방문자가 적은 문의 제목)</b> 으로 표시됩니다. 위 미리보기 상단에서 실제 모양을 확인하세요.</div>
+    </div>
+    <div class="q">
+      <div class="question">Q. "Reply to Marek →" 버튼을 누르면 어떻게 되나요? Gmail이 열리나요?</div>
+      <div class="answer">특정 Gmail이 아니라, <b>info@xapika.pl을 보고 있는 그 메일 프로그램</b>의 답장 작성 창이 열립니다. Gmail로 보고 있으면 Gmail 답장창, 아웃룩이면 아웃룩 답장창 식입니다. (버튼은 <span class="mono">mailto:</span> 링크) 메일함 기본 "답장"과 동일하고, 받는사람은 문의자(Marek)로 자동 입력됩니다.</div>
+    </div>
+    <div class="q">
+      <div class="question">Q. 문의한 사람(방문자)에게도 자동으로 메일이 가나요?</div>
+      <div class="answer"><span class="badge no">가지 않습니다</span> 현재는 <b>방문자에게 자동 확인 메일을 보내지 않습니다.</b> 방문자는 폼 제출 후 화면의 "전송 완료" 메시지만 봅니다. 원하시면 "문의 접수됨" 자동 확인 메일(발신 <span class="mono">noreply@xapika.co.kr</span>)을 추가할 수 있습니다.</div>
+    </div>
+  </div>
+
+  <h2><span class="dot"></span> 도메인별 역할</h2>
+  <table>
+    <tr><th>구분</th><th>도메인 / 주소</th><th>역할</th></tr>
+    <tr><td>웹사이트</td><td class="mono">xapika.co.kr</td><td>홈페이지 접속·문의 폼 (HTTPS)</td></tr>
+    <tr><td>메일 발신</td><td class="mono">noreply@xapika.co.kr</td><td>문의 알림 메일을 보내는 주소 (Resend 인증 완료)</td></tr>
+    <tr><td>메일 수신</td><td class="mono">info@xapika.pl</td><td>문의 내용을 받는 회사 메일함 (기존 유지)</td></tr>
+    <tr><td>답장 대상</td><td class="mono">(방문자 본인 이메일)</td><td>회사가 "답장"하면 방문자에게 직접 전달</td></tr>
+  </table>
+
+  <div class="callout ok">
+    <b>현재 상태</b> — 웹사이트 <span class="mono">xapika.co.kr</span> 전환 완료·정상 작동.
+    문의 메일 발신 도메인(<span class="mono">noreply@xapika.co.kr</span>) <b>Resend 인증 완료(Verified)</b> — 문의 폼 메일이 자동 발송됩니다.
+    수신(<span class="mono">info@xapika.pl</span>)은 변동 없습니다.
+  </div>
+
+  <footer>
+    Xapika Engineering · 문의 메일 시스템 안내 · 작성: LeanUp (admin@leanup.kr)
+  </footer>
+
+</div>
+
+<!-- modal -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeMail()">
+  <div class="panel">
+    <div class="bar">
+      <span class="t">받은 메일 — 전체 보기</span>
+      <button class="x" type="button" onclick="closeMail()" aria-label="닫기">✕</button>
+    </div>
+    <div class="body"><iframe id="fullFrame" title="메일 전체"></iframe></div>
+  </div>
+</div>
+
+<script>
+// 실제 메일 클라이언트(받은편지함)에서 열어본 모양: 상단 헤더(제목/보낸사람/받는사람) + 브랜드 메일 본문
+const EMAIL_HTML = [
+'<!doctype html><html lang="ko"><head><meta charset="utf-8"/>',
+'<meta name="viewport" content="width=device-width, initial-scale=1"/>',
+'<style>body{margin:0}*{box-sizing:border-box}</style></head>',
+'<body style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;color:#0B1F3A;background:#fff;">',
+
+// ── mail client header ──
+'<div style="padding:20px 22px 16px;border-bottom:1px solid #E2E6EC;">',
+'<div style="font-size:19px;font-weight:800;letter-spacing:-0.01em;line-height:1.3;">[Contact] Bogie overhaul — Q3 capacity</div>',
+'<div style="display:flex;gap:12px;align-items:flex-start;margin-top:14px;">',
+'<div style="flex:0 0 auto;width:40px;height:40px;border-radius:999px;background:#0B1F3A;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px;">X</div>',
+'<div style="flex:1 1 auto;min-width:0;font-size:13px;line-height:1.55;">',
+'<div><b style="color:#0B1F3A;">Xapika Contact</b> <span style="color:#5B6B7F;">&lt;noreply@xapika.co.kr&gt;</span></div>',
+'<div style="color:#5B6B7F;">받는사람: <span style="color:#0B1F3A;">info@xapika.pl</span></div>',
+'<div style="color:#5B6B7F;">답장(Reply-To): <span style="color:#0B1F3A;">m.kowalski@pkp-ic.example</span> <span style="color:#8A5A00;background:#FDF1DC;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:700;">문의자 본인</span></div>',
+'</div>',
+'<div style="flex:0 0 auto;color:#9FB0C4;font-size:12px;white-space:nowrap;">2026. 6. 16. 09:39</div>',
+'</div></div>',
+
+// ── branded email body (responsive) ──
+'<div style="background:#EEF1F4;padding:24px 14px;">',
+'<div style="max-width:560px;width:100%;margin:0 auto;background:#FFFFFF;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(11,31,58,0.06);">',
+// header
+'<div style="background:#0B1F3A;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;">',
+'<img src="https://xapika.co.kr/logo-white.png" width="132" height="auto" alt="Xapika Engineering" style="display:block;border:0;outline:none;height:auto;width:132px;max-width:132px;" />',
+'<span style="color:#9FB0C4;font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;">Contact&nbsp;form</span></div>',
+'<div style="height:3px;background:#F6A317;"></div>',
+// body
+'<div style="padding:30px 28px 8px;">',
+'<div style="display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:22px;height:2px;background:#F6A317;"></span>',
+'<span style="color:#F6A317;font-size:11px;font-weight:700;letter-spacing:0.20em;text-transform:uppercase;">New inquiry</span></div>',
+'<h1 style="margin:14px 0 8px;font-size:23px;line-height:1.25;font-weight:800;letter-spacing:-0.01em;color:#0B1F3A;">Bogie overhaul — Q3 capacity</h1>',
+'<p style="margin:0 0 22px;font-size:14px;line-height:1.55;color:#5B6B7F;">From <strong style="color:#0B1F3A;">Marek Kowalski</strong> at <strong style="color:#0B1F3A;">PKP Intercity</strong>&nbsp;·&nbsp;',
+'<span style="display:inline-block;background:#FDF1DC;color:#8A5A00;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;">Warsaw</span></p>',
+// meta
+'<table role="presentation" width="100%" style="border-collapse:collapse;border-top:1px solid #E2E6EC;border-bottom:1px solid #E2E6EC;margin:0 0 24px;">',
+'<tr><td style="padding:11px 16px 11px 0;white-space:nowrap;color:#5B6B7F;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Email</td>',
+'<td style="padding:11px 0;color:#0B1F3A;font-size:15px;word-break:break-all;"><a href="#" style="color:#0B1F3A;text-decoration:none;font-weight:600;">m.kowalski@pkp-ic.example</a></td></tr>',
+'<tr><td style="padding:11px 16px 11px 0;white-space:nowrap;color:#5B6B7F;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Phone</td>',
+'<td style="padding:11px 0;color:#0B1F3A;font-size:15px;">+48 22 000 0000</td></tr>',
+'<tr><td style="padding:11px 16px 11px 0;white-space:nowrap;color:#5B6B7F;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Company</td>',
+'<td style="padding:11px 0;color:#0B1F3A;font-size:15px;">PKP Intercity</td></tr>',
+'<tr><td style="padding:11px 16px 11px 0;white-space:nowrap;color:#5B6B7F;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Office</td>',
+'<td style="padding:11px 0;color:#0B1F3A;font-size:15px;">Warsaw</td></tr></table>',
+// message
+'<div style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#5B6B7F;margin:0 0 10px;">Message</div>',
+'<div style="background:#F7F8FA;border:1px solid #E2E6EC;border-left:3px solid #F6A317;border-radius:10px;padding:18px 20px;font-size:15px;line-height:1.7;color:#0B1F3A;">',
+'We are planning a Q3 overhaul of 12 bogies and would like to discuss your turnaround time and certification scope.<br/>Could we set up a short call next week?</div>',
+// CTA
+'<div style="margin:26px 0 6px;"><a href="#" style="display:inline-block;padding:13px 26px;font-size:14px;font-weight:700;color:#FFFFFF;background:#0B1F3A;text-decoration:none;border-radius:8px;">Reply to Marek &rarr;</a></div>',
+'<p style="margin:6px 0 26px;font-size:12px;line-height:1.5;color:#5B6B7F;">Or just reply to this email — it goes straight to Marek.</p>',
+'</div>',
+// footer
+'<div style="background:#F7F8FA;border-top:1px solid #E2E6EC;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#5B6B7F;">',
+'<div><strong style="color:#0B1F3A;">Xapika Engineering</strong><br/>Submitted 16 Jun 2026, 00:39 UTC</div>',
+'<a href="#" style="color:#5B6B7F;text-decoration:none;">xapika.co.kr/contact</a></div>',
+'</div>',
+'<div style="text-align:center;font-size:10px;color:#9FB0C4;margin-top:16px;">This is an automated notification from the Xapika website contact form.</div>',
+'</div>',
+'</body></html>'
+].join('');
+
+function sizeIframe(ifr){
+  try{
+    var h = ifr.contentWindow.document.body.scrollHeight;
+    ifr.style.height = h + 'px';
+    return h;
+  }catch(e){ ifr.style.height='760px'; return 760; }
+}
+function loadFrames(){
+  var p=document.getElementById('prevFrame');
+  var f=document.getElementById('fullFrame');
+  p.srcdoc=EMAIL_HTML; f.srcdoc=EMAIL_HTML;
+  p.onload=function(){ sizeIframe(p); };
+  f.onload=function(){ sizeIframe(f); };
+}
+function openMail(){
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  var f=document.getElementById('fullFrame');
+  setTimeout(function(){ sizeIframe(f); }, 30);
+}
+function closeMail(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMail(); });
+window.addEventListener('resize', function(){ var p=document.getElementById('prevFrame'); if(p) sizeIframe(p); });
+window.addEventListener('load', loadFrames);
+</script>
+</body>
+</html>

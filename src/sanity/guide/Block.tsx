@@ -71,6 +71,27 @@ export function GuideBlockView({ block }: { block: GuideBlock }) {
       );
     }
 
+    case "urlbar":
+      return (
+        <figure className={`xk-guide-urlbar xk-guide-urlbar--${block.tone}`}>
+          <div className="xk-guide-urlbar-chrome">
+            <span aria-hidden="true" className="xk-guide-urlbar-dots">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className="xk-guide-urlbar-field">
+              <span aria-hidden="true" className="xk-guide-urlbar-lock">
+                🔒
+              </span>
+              <span className="xk-guide-urlbar-url">{block.url}</span>
+            </span>
+            <span className="xk-guide-urlbar-badge">{block.badge}</span>
+          </div>
+          <figcaption>{block.note}</figcaption>
+        </figure>
+      );
+
     default: {
       const exhaustiveCheck: never = block;
       return exhaustiveCheck;

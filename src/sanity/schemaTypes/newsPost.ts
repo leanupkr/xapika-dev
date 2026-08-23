@@ -155,7 +155,14 @@ export const newsPost = {
       type: "slug",
       group: "content",
       description:
-        'The web address for this article, e.g. xapika.pl/news/your-title-here. It fills in automatically from the title above — you almost never need to touch this. Click "Generate" if it looks empty or out of date.',
+        // Says "press Generate", not "fills in automatically". Sanity's slug
+        // input does NOT derive from `source` as you type — the value stays
+        // empty until the button is pressed, which then reads the title.
+        // Verified in the live Studio: typing a title left this field blank
+        // and flagged required, and a new article cannot be published in
+        // that state. The old wording promised automatic behaviour, so the
+        // first thing a new editor met was a red error with no stated fix.
+        'The web address for this article, e.g. xapika.pl/news/your-title-here. Write the title above first, then press "Generate" and it fills itself in — that is all this field ever needs. Press it again if you rewrite the title before the article is published.',
       options: { source: "title", maxLength: 96 },
       validation: (Rule: FieldRule) =>
         Rule.required().error(
@@ -200,7 +207,15 @@ export const newsPost = {
       type: "datetime",
       group: "content",
       description:
-        "The date shown on the article and used to sort the news list (newest first). Defaults to right now — change it if you're backdating a story or preparing one to publish later.",
+        // The UTC note is not pedantry. Studio's datetime input runs in the
+        // editor's own timezone; the site renders every news date in UTC
+        // (NewsIndex/NewsHero/RelatedNews/NewsPreview all pin it, so that
+        // readers in different countries see one date). For an editor in
+        // Seoul, anything before 09:00 local is still the previous day in
+        // UTC — which is exactly how the seeded article came to read
+        // "Aug 20" here and "Aug 19" on the site. Picking a midday time
+        // makes the two agree no matter where the editor is.
+        "The date shown on the article and used to sort the news list (newest first). Defaults to right now — change it if you're backdating a story or preparing one to publish later. Visitors see this date in UTC, so pick a time around midday: a very early-morning time can show up as the previous day on the site.",
       initialValue: () => new Date().toISOString(),
       validation: (Rule: FieldRule) =>
         Rule.required().error("Set a publish date so this article can be sorted into the news list."),

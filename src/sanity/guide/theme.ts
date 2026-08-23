@@ -191,6 +191,64 @@ export const GUIDE_STYLES = `
   .xk-guide-callout--danger { background: #3a1512; border-color: #9c3a32; }
 }
 
+/* ---- drawn browser address bar (kind: "urlbar") -------------------------
+   Not a screenshot — see the GuideBlock union in content.tsx for why the
+   two Studio URLs are drawn rather than photographed. The dev bar is
+   deliberately the calm one and the prod bar the loud one: §1 is asking
+   the reader to notice which of the two they are looking at, and "loud
+   means live" is the association worth building. */
+.xk-guide-urlbar { margin: 14px 0 20px; }
+.xk-guide-urlbar-chrome {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1.5px solid var(--xk-border);
+  border-radius: var(--xk-radius);
+  background: var(--xk-paper-soft);
+}
+.xk-guide-urlbar-dots { display: flex; gap: 5px; flex: none; }
+.xk-guide-urlbar-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--xk-border);
+}
+.xk-guide-urlbar-field {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: var(--xk-paper);
+  border: 1px solid var(--xk-border);
+}
+.xk-guide-urlbar-lock { flex: none; font-size: 10px; line-height: 1; }
+.xk-guide-urlbar-url {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12.5px;
+  /* These URLs are long and must stay readable at any panel width — the
+     Studio pane this renders in is resizable and often narrow. */
+  overflow-wrap: anywhere;
+}
+.xk-guide-urlbar-badge {
+  flex: none;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+.xk-guide-urlbar--dev .xk-guide-urlbar-badge { background: var(--xk-accent-soft); border-color: var(--xk-accent); }
+.xk-guide-urlbar--prod .xk-guide-urlbar-chrome { border-color: #e5766c; }
+.xk-guide-urlbar--prod .xk-guide-urlbar-badge { background: #fdecea; border-color: #e5766c; color: #8a2c22; }
+@media (prefers-color-scheme: dark) {
+  .xk-guide-urlbar--prod .xk-guide-urlbar-badge { background: #3a1512; border-color: #9c3a32; color: #f0b3ab; }
+}
+.xk-guide-urlbar figcaption { font-size: 12.5px; color: var(--xk-ink-soft); margin-top: 6px; }
+
 /* ---- screenshot slot ---------------------------------------------------- */
 .xk-guide-shot { margin: 14px 0 20px; }
 .xk-guide-shot-img {

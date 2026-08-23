@@ -20,7 +20,20 @@ export type GuideBlock =
   | { kind: "steps"; items: string[] }
   | { kind: "shot"; shot: GuideShot }
   | { kind: "mapping"; rows: Array<{ field: string; label: string; showsUp: string }> }
-  | { kind: "callout"; tone: "info" | "warning" | "danger"; body: string };
+  | { kind: "callout"; tone: "info" | "warning" | "danger"; body: string }
+  /**
+   * A drawn browser address bar, not a screenshot.
+   *
+   * §1's whole point is "check the address bar before you type" — which
+   * needs the two Studio URLs shown the way the browser shows them. A
+   * screenshot was the obvious answer and the wrong one: the browser's
+   * own chrome sits outside the page, so it can only be captured by
+   * photographing someone's actual screen, which then goes stale the
+   * moment a URL changes and can quietly leak whatever else was open at
+   * the time. Drawing the bar keeps the URLs in the same source of truth
+   * as the rest of the guide.
+   */
+  | { kind: "urlbar"; tone: "dev" | "prod"; badge: string; url: string; note: string };
 
 export type GuideSection = { id: string; title: string; blocks: GuideBlock[] };
 
@@ -60,14 +73,35 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         body:
           "개발(연습용) 저장소에 쓴 글은 실서비스 사이트(xapika.pl)에 절대 나타나지 않습니다. 반대도 마찬가지입니다. 두 CMS는 겉모습이 완전히 같으니, 글을 쓰기 전에 브라우저 주소창을 먼저 확인하는 습관을 들이세요 — 연습하려던 글을 실서비스에 올리는 사고를 막는 유일한 방법입니다.",
       },
-      { kind: "shot", shot: {
-        name: "studio-url-bar-dev",
-        caption: "브라우저 주소창에 xapika-dev-git-develop-xapika.vercel.app/studio 가 보이도록 캡처. '이게 연습용 주소구나'를 한눈에 알아보는 기준 화면.",
-      } },
-      { kind: "shot", shot: {
-        name: "studio-url-bar-prod",
-        caption: "브라우저 주소창에 xapika.pl/studio 가 보이도록 캡처. 위 개발용 캡처와 나란히 놓고 비교할 것.",
-      } },
+      {
+        kind: "urlbar",
+        tone: "dev",
+        badge: "연습용",
+        url: "xapika-dev-git-develop-xapika.vercel.app/studio",
+        note: "주소에 dev 가 들어가 있으면 연습용입니다. 여기서는 무엇을 쓰든 지우든 실제 방문자에게 보이지 않습니다.",
+      },
+      {
+        kind: "urlbar",
+        tone: "prod",
+        badge: "실서비스",
+        url: "xapika.pl/studio",
+        note: "주소가 xapika.pl 로 시작하면 실서비스입니다. 여기서 Publish를 누르는 순간 실제 방문자에게 공개됩니다.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        body:
+          "연습용 CMS에는 제목이 'Practice example'로 시작하는 연습용 기사가 미리 들어 있습니다. 하나는 자체 기사(본문·사진 있음), 하나는 외부 보도(링크만). 이 두 개는 마음대로 고치고, 사진을 바꾸고, 지워도 됩니다 — 바로 그러라고 넣어둔 것입니다. 이 가이드를 읽으면서 옆에 띄워놓고 똑같이 따라 해보세요.",
+      },
+      {
+        kind: "steps",
+        items: [
+          "연습용 CMS(xapika-dev-...)를 열고, 'Practice example'로 시작하는 기사를 아무거나 하나 엽니다.",
+          "제목이나 요약을 바꿔보고 Publish를 누릅니다.",
+          "연습용 홈페이지의 News 페이지를 새로고침해서, 방금 바꾼 내용이 그대로 보이는지 확인합니다.",
+          "이 세 단계가 익숙해지면 실서비스 CMS에서 해야 할 일도 정확히 이것뿐입니다.",
+        ],
+      },
     ],
   },
 
@@ -183,7 +217,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         kind: "steps",
         items: [
           "새 글을 만들고 Article type에서 'Own article (written by us)'를 선택합니다. (기본값이 이미 이것입니다.)",
-          "Title (English — required)에 영어 제목을 씁니다. Web address (URL)는 제목을 기반으로 자동으로 채워집니다 — 비어 보이거나 이상하면 옆의 Generate만 눌러주면 됩니다.",
+          "Title (English — required)에 영어 제목을 씁니다. 그다음 바로 아래 Web address (URL) 칸 옆의 Generate 버튼을 한 번 눌러주세요 — 제목을 그대로 주소로 바꿔줍니다. 이 버튼을 안 누르면 칸이 비어 빨갛게 표시되고 Publish가 눌리지 않습니다.",
           "Summary (English — required)에 2~3문장짜리 짧은 요약을 씁니다. 240자 넘으면 저장이 안 되니 짧게.",
           "Category에서 이 글이 어디에 속하는지 고릅니다.",
           "Published date는 지금 시각으로 자동 채워져 있습니다. 날짜를 바꾸고 싶을 때만 손대면 됩니다.",
@@ -297,7 +331,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
             field: "slug",
             label: "Web address (URL)",
             showsUp:
-              "이 글의 웹주소가 됩니다. 예: xapika.pl/news/이-부분. 보통 손대지 않습니다.",
+              "이 글의 웹주소가 됩니다. 예: xapika.pl/news/이-부분. 제목을 쓴 뒤 Generate를 한 번 누르면 채워지고, 그 뒤로는 손대지 않습니다.",
           },
           {
             field: "excerpt",
@@ -528,11 +562,11 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       {
         kind: "text",
         body:
-          "편집 화면 오른쪽 위 시계 모양(History) 아이콘을 누르면 과거에 어떻게 바뀌어 왔는지 볼 수 있고, 예전 버전으로 되돌릴 수도 있습니다.",
+          "편집 화면 오른쪽 위 점 세 개(⋯) 메뉴 → History를 누르면 이 글이 언제 어떻게 바뀌어 왔는지 목록으로 볼 수 있습니다. 다만 기록은 3일치만 남습니다 — 그보다 오래된 버전으로는 되돌릴 수 없으니, 큰 폭으로 고치기 전에는 기존 내용을 따로 복사해 두세요.",
       },
       { kind: "shot", shot: {
         name: "document-history-panel",
-        caption: "편집 화면 오른쪽 위 History(시계) 아이콘을 눌렀을 때 열리는 변경 이력 패널 캡처.",
+        caption: "⋯ 메뉴에서 History를 누르면 오른쪽에 열리는 변경 이력 패널. 발행한 시각이 최근 순으로 쌓입니다.",
       } },
       {
         kind: "callout",
@@ -543,11 +577,11 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       {
         kind: "text",
         body:
-          "삭제는 편집 화면 오른쪽 위, Publish 버튼 옆 점 세 개(⋮) 메뉴 안에 있는 Delete를 누르면 됩니다. 확인 창이 한 번 더 뜹니다.",
+          "삭제는 편집 화면 오른쪽 아래, Publish 버튼 바로 옆 점 세 개(⋯) 메뉴 안에 있는 빨간 Delete를 누르면 됩니다. 확인 창이 한 번 더 뜹니다.",
       },
       { kind: "shot", shot: {
         name: "delete-menu",
-        caption: "점 세 개(⋮) 메뉴를 눌러 Delete 항목이 보이는 상태, 그리고 그다음 뜨는 확인 창까지 캡처.",
+        caption: "Publish 버튼 옆 점 세 개(⋯)를 누르면 나오는 메뉴. Duplicate 아래 빨간 Delete가 삭제입니다.",
       } },
       {
         kind: "callout",
