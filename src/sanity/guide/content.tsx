@@ -179,6 +179,18 @@ export const GUIDE_SECTIONS: GuideSection[] = [
           "글을 클릭하면 편집 화면이 열립니다. 위쪽에 탭이 두 개 있습니다.",
       },
       {
+        kind: "callout",
+        tone: "info",
+        body:
+          "편집 화면 맨 위에 크게 뜨는 제목은 눌러도 고쳐지지 않습니다. 지금 어떤 글을 열어놨는지 보여주는 미리보기일 뿐입니다. 제목을 고치려면 아래로 조금 내려 Content 탭의 Title (English — required) 칸에서 고치세요. 거기서 고치면 위의 큰 제목도 따라 바뀝니다.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        body:
+          "제목 앞에 📌 가 붙어 있다면 그건 제목에 들어간 글자가 아닙니다. 이 글이 맨 위에 고정된 상태라는 표시가 자동으로 붙은 것입니다. 떼려면 Settings (optional) 탭의 Pin to top of list를 끄면 됩니다.",
+      },
+      {
         kind: "mapping",
         rows: [
           { field: "편집 화면 탭", label: "Content", showsUp: "기사 내용을 쓰는 칸입니다. 대부분의 작업은 여기서 끝납니다." },
