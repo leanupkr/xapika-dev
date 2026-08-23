@@ -8,16 +8,21 @@ import SectionOverline from "@/components/ui/SectionOverline";
 import SanityImage from "@/components/ui/SanityImage";
 import CategoryChip from "@/components/ui/CategoryChip";
 
+const DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  // Pinned to UTC for the same reason as NewsIndex/NewsHero/RelatedNews:
+  // without it this formatter falls back to the *runtime's* timezone, so
+  // the same article could read "Aug 19" in this homepage rail and
+  // "Aug 20" on /news — publishedAt values sit near midnight UTC often
+  // enough for the two to disagree.
+  timeZone: "UTC",
+});
+
 function formatPublishedDate(iso: string): string {
-  try {
-    return new Date(iso).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  } catch {
-    return "";
-  }
+  const date = new Date(iso);
+  return Number.isNaN(date.getTime()) ? "" : DATE_FORMATTER.format(date);
 }
 
 async function getPosts(): Promise<NewsCardData[]> {

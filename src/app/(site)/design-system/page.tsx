@@ -10,7 +10,7 @@ import { HeroPreviewSection } from "./_sections/HeroPreviewSection";
 import { MotionSection } from "./_sections/MotionSection";
 
 export const metadata = {
-  title: "Design System — Xapika Engineering",
+  title: "Design System",
   description: "Internal style guide: colors, typography, components, and motion.",
   robots: { index: false, follow: false },
 };

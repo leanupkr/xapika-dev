@@ -89,7 +89,18 @@ function formatPublishedDate(value: unknown): string | null {
   if (typeof value !== "string" || !value) return null;
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return null;
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  // Pinned to UTC to match the public site (NewsIndex/NewsHero/
+  // RelatedNews/NewsPreview all format in UTC). The Studio runs in the
+  // editor's *browser* timezone, so without this an editor in Seoul saw
+  // "Aug 20, 2026" in this list while the live article said "Aug 19,
+  // 2026" — the same document, two dates, and no way to tell which one
+  // visitors get.
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 }
 
 export const newsPost = {

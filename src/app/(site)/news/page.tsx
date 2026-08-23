@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     origin,
     path: "/news",
-    title: "News & Press — Xapika Engineering",
+    title: "News & Press",
     description:
       "Company announcements, project milestones, and press coverage from Xapika Engineering's rail maintenance programs.",
   });

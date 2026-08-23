@@ -19,6 +19,8 @@ export default function NewsLangToggle({ slug, currentLang }: NewsLangToggleProp
     <div className="inline-flex" role="group" aria-label="Language">
       <Link
         href={`/news/${slug}`}
+        hrefLang="en"
+        aria-current={currentLang === "en" ? "true" : undefined}
         className={cn(
           base,
           "border-r-0",
@@ -31,6 +33,8 @@ export default function NewsLangToggle({ slug, currentLang }: NewsLangToggleProp
       </Link>
       <Link
         href={`/news/${slug}?lang=ko`}
+        hrefLang="ko"
+        aria-current={currentLang === "ko" ? "true" : undefined}
         className={cn(
           base,
           currentLang === "ko"

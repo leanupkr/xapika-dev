@@ -66,7 +66,7 @@ export async function generateMetadata({
     return buildPageMetadata({
       origin,
       path: `/news/${slug}`,
-      title: "News — Xapika Engineering",
+      title: "News",
       description: "Company announcements, project milestones, and press coverage.",
     });
   }
@@ -74,7 +74,9 @@ export async function generateMetadata({
   return buildPageMetadata({
     origin,
     path: `/news/${slug}`,
-    title: post.seoTitle ?? `${post.title} — Xapika Engineering`,
+    // No brand suffix here — the root layout's title.template appends it.
+    // `seoTitle` is the editor's own override and is used verbatim.
+    title: post.seoTitle ?? post.title,
     description: post.seoDescription ?? post.excerpt,
   });
 }
@@ -125,33 +127,41 @@ export default async function NewsDetailPage({
         })}
       />
 
-      <NewsHero
-        category={post.category}
-        title={title}
-        publishedAt={post.publishedAt}
-        coverImage={post.coverImage}
-        langToggle={
-          post.titleKo ? (
-            <NewsLangToggle slug={slug} currentLang={showKo ? "ko" : "en"} />
-          ) : null
-        }
-      />
-
-      {post.kind === "own" && body && body.length > 0 ? (
-        <NewsBody body={body} />
-      ) : null}
-
-      {post.kind === "own" && post.gallery && post.gallery.length > 0 ? (
-        <NewsGallery images={post.gallery} />
-      ) : null}
-
-      {post.kind === "external" ? (
-        <NewsExternalPanel
-          excerpt={excerpt}
-          externalUrl={post.externalUrl}
-          externalSource={post.externalSource}
+      {/* The root <html lang> is fixed at "en" (the site is English-only),
+          but this block swaps to Korean copy when ?lang=ko resolves. A
+          nested lang attribute is the standard way to say "this subtree is
+          in another language" — without it a screen reader announces the
+          Korean text with English pronunciation rules. Scoped to the
+          article itself: RelatedNews below always renders English titles. */}
+      <div lang={showKo ? "ko" : "en"}>
+        <NewsHero
+          category={post.category}
+          title={title}
+          publishedAt={post.publishedAt}
+          coverImage={post.coverImage}
+          langToggle={
+            post.titleKo ? (
+              <NewsLangToggle slug={slug} currentLang={showKo ? "ko" : "en"} />
+            ) : null
+          }
         />
-      ) : null}
+
+        {post.kind === "own" && body && body.length > 0 ? (
+          <NewsBody body={body} />
+        ) : null}
+
+        {post.kind === "own" && post.gallery && post.gallery.length > 0 ? (
+          <NewsGallery images={post.gallery} />
+        ) : null}
+
+        {post.kind === "external" ? (
+          <NewsExternalPanel
+            excerpt={excerpt}
+            externalUrl={post.externalUrl}
+            externalSource={post.externalSource}
+          />
+        ) : null}
+      </div>
 
       <RelatedNews currentSlug={slug} currentCategory={post.category} />
     </>

@@ -15,6 +15,9 @@ export async function generateMetadata(): Promise<Metadata> {
     origin,
     path: "",
     title: "Xapika Engineering",
+    // The homepage title is the brand itself, so the root layout's
+    // "%s — Xapika Engineering" template would double it.
+    titleAbsolute: true,
     description: "Delivering precision maintenance with uncompromising safety.",
   });
 }
