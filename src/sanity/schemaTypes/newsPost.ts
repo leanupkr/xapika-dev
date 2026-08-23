@@ -105,7 +105,13 @@ function formatPublishedDate(value: unknown): string | null {
 
 export const newsPost = {
   name: "newsPost",
-  title: "News Post",
+  // Shown to the editor above the headline, and as "New Article" on the
+  // create screen. "Article" rather than "News Post" so it matches the
+  // word the rest of the CMS uses — the desk menu says All articles /
+  // Drafts / Published, and the guide says 기사 throughout. `name` stays
+  // "newsPost": that is the stored document type, and changing it would
+  // orphan every existing document.
+  title: "Article",
   type: "document",
   // Two tabs so the form doesn't dump every field on the editor at once.
   // "Content" is where a real article gets published from top to bottom;
