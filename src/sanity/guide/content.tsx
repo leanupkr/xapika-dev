@@ -134,7 +134,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
       { kind: "shot", shot: {
         name: "draft-vs-published-indicator",
-        caption: "글 목록에서 제목 옆/앞에 나타나는 작은 점(도트) 표시를 확대 캡처. 초안 상태와 발행된 상태가 이 점 색깔로 구분되는 부분.",
+        caption: "글 목록 오른쪽 끝의 작은 점. 주황색은 아직 발행하지 않은 초안, 초록색은 발행된 글입니다.",
       } },
     ],
   },
@@ -163,15 +163,15 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
       { kind: "shot", shot: {
         name: "desk-nav",
-        caption: "Studio 왼쪽 전체 메뉴(All articles / Drafts / Published / Pinned / By category)가 다 보이게 캡처.",
+        caption: "왼쪽 메뉴 다섯 개와 그 옆에 열리는 글 목록.",
       } },
       { kind: "shot", shot: {
         name: "studio-all-articles-list",
-        caption: "'All articles'를 눌렀을 때 나오는 글 목록 화면. 각 줄에 제목, 썸네일, 카테고리·날짜가 보이는 상태로 캡처.",
+        caption: "All articles를 누르면 나오는 글 목록. 한 줄에 썸네일, 제목, 카테고리와 날짜가 함께 보입니다.",
       } },
       { kind: "shot", shot: {
         name: "studio-by-category-submenu",
-        caption: "'By category'를 눌러 네 개 카테고리 하위 목록이 펼쳐진 상태 캡처.",
+        caption: "By category를 누르면 오른쪽에 카테고리 네 개가 펼쳐집니다.",
       } },
       {
         kind: "text",
@@ -187,15 +187,15 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
       { kind: "shot", shot: {
         name: "editor-tabs",
-        caption: "편집 화면 위쪽의 Content / Settings (optional) 탭.",
+        caption: "편집 화면 위쪽의 탭. All fields는 전체를 한 번에 보고, 보통은 Content만 쓰면 됩니다.",
       } },
       { kind: "shot", shot: {
         name: "editor-content-tab-full",
-        caption: "Content 탭을 위에서 아래까지 스크롤하며 모든 칸(Article type부터 Photo gallery까지)이 보이도록 캡처(여러 장으로 나눠도 됨).",
+        caption: "Content 탭 위쪽. 여기서부터 아래로 Article type, Title, Web address, Summary 순서로 이어집니다.",
       } },
       { kind: "shot", shot: {
         name: "publish-button",
-        caption: "편집 화면 오른쪽 위, Publish 버튼이 있는 부분을 확대 캡처. 그 옆 점 세 개(⋮) 메뉴도 함께 나오게.",
+        caption: "편집 화면 오른쪽 아래의 Publish 버튼과 그 옆 점 세 개(⋯) 메뉴.",
       } },
     ],
   },
@@ -233,15 +233,15 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
       { kind: "shot", shot: {
         name: "kind-radio-own",
-        caption: "Article type 칸에서 'Own article (written by us)'가 선택된(라디오 버튼이 켜진) 상태 캡처.",
+        caption: "Article type에서 Own article이 선택된 상태입니다. 새 글의 기본값입니다.",
       } },
       { kind: "shot", shot: {
         name: "body-editor-toolbar",
-        caption: "Body (English) 칸 위쪽에 뜨는 서식 도구(굵게, 제목, 인용구, 목록 등 아이콘 줄) 확대 캡처.",
+        caption: "Body 칸 위의 서식 도구줄. 굵게, 기울임, 목록, 그리고 오른쪽에 사진을 넣는 Image 버튼이 있습니다.",
       } },
       { kind: "shot", shot: {
         name: "body-insert-image",
-        caption: "본문을 쓰다가 커서가 있는 줄에 사진을 끼워 넣는 버튼/과정을 캡처(도구줄의 사진 추가 아이콘을 누른 직후 화면).",
+        caption: "Image를 누르면 열리는 창. 사진을 올리고 아래 설명까지 채운 뒤 창을 닫으면 본문에 들어갑니다.",
       } },
     ],
   },
@@ -272,11 +272,11 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
       { kind: "shot", shot: {
         name: "kind-radio-external",
-        caption: "Article type 칸에서 'External press coverage (link out)'가 선택된 상태 캡처. Body/Photo gallery 칸이 사라진 것도 함께 보이게.",
+        caption: "Article type에서 External press coverage를 고른 상태입니다.",
       } },
       { kind: "shot", shot: {
         name: "external-fields",
-        caption: "Link to original article와 Publication name 두 칸이 채워진 상태를 캡처.",
+        caption: "외부 보도에서만 나타나는 두 칸. 원문 주소와 언론사 이름입니다.",
       } },
     ],
   },
@@ -295,15 +295,15 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
       { kind: "shot", shot: {
         name: "news-list-live",
-        caption: "실서비스(또는 개발) 사이트의 /news 목록 페이지 전체 화면 캡처. 아래 표와 나란히 대조하는 기준 화면.",
+        caption: "/news 목록 페이지. 맨 위 고정 글 아래로 나머지 글이 카드로 놓입니다. 아래 표와 나란히 두고 보세요.",
       } },
       { kind: "shot", shot: {
         name: "home-rail-live",
-        caption: "홈페이지 맨 아래쪽, 뉴스 카드 3개가 나열된 구간 전체 캡처.",
+        caption: "홈페이지 아래쪽 뉴스 구간. 최신 글 세 개가 카드로 나옵니다.",
       } },
       { kind: "shot", shot: {
         name: "article-detail-live",
-        caption: "기사 하나를 열었을 때 나오는 상세 페이지 전체 캡처(맨 위 큰 사진부터 본문, 관련 뉴스까지 스크롤하며 여러 장).",
+        caption: "기사 상세 페이지 위쪽. 카테고리, 제목, 날짜, 커버 사진 순서로 놓입니다.",
       } },
       {
         kind: "mapping",
@@ -422,7 +422,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
       { kind: "shot", shot: {
         name: "cover-image-upload",
-        caption: "Cover image 칸에 사진을 업로드하는 화면(업로드 버튼을 누르거나 사진을 끌어다 놓는 순간).",
+        caption: "Cover image 칸. 사진을 끌어다 놓거나 Upload를 누르면 됩니다. Select는 전에 올린 사진을 다시 쓸 때 씁니다.",
       } },
       { kind: "shot", shot: {
         name: "cover-image-placeholder-live",
@@ -430,7 +430,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       } },
       { kind: "shot", shot: {
         name: "alt-text-field",
-        caption: "사진을 올린 직후 바로 아래 나타나는 Photo description (alt text) 입력 칸 확대.",
+        caption: "사진을 올리면 바로 아래에 Photo description 칸이 나타납니다.",
       } },
       {
         kind: "callout",
@@ -455,15 +455,15 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
       { kind: "shot", shot: {
         name: "featured-toggle",
-        caption: "Settings (optional) 탭의 Pin to top of list 스위치가 켜진 상태 확대 캡처.",
+        caption: "Settings (optional) 탭의 Pin to top of list. 스위치가 켜진 상태입니다.",
       } },
       { kind: "shot", shot: {
         name: "featured-card-live",
-        caption: "/news 목록에서 고정된 글이 다른 카드보다 훨씬 크게 나온 모습 전체 캡처.",
+        caption: "고정한 글은 /news 목록 맨 위에 가로 전체 폭으로 크게 나옵니다.",
       } },
       { kind: "shot", shot: {
         name: "featured-pin-emoji-studio",
-        caption: "Studio 글 목록에서 고정된 글 제목 앞에 붙는 📌 표시 확대 캡처.",
+        caption: "고정한 글은 Studio 목록에서 제목 앞에 📌 가 붙습니다.",
       } },
       {
         kind: "callout",
