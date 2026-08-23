@@ -28,10 +28,8 @@ export type NewsCardData = {
   _id: string;
   kind: "own" | "external";
   title: string;
-  titleKo?: string;
   slug: string;
   excerpt: string;
-  excerptKo?: string;
   category: NewsCategory;
   publishedAt: string;
   coverImage?: NewsImage | null;
@@ -42,7 +40,6 @@ export type NewsCardData = {
 
 export type NewsPost = NewsCardData & {
   body?: PortableTextBlock[];
-  bodyKo?: PortableTextBlock[];
   gallery?: NewsImage[];
   seoTitle?: string;
   seoDescription?: string;

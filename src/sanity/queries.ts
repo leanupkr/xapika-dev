@@ -2,7 +2,7 @@
 import { groq } from "next-sanity";
 
 const CARD_FIELDS = groq`
-  _id, kind, title, titleKo, "slug": slug.current, excerpt, excerptKo,
+  _id, kind, title, "slug": slug.current, excerpt,
   category, publishedAt, coverImage, externalUrl, externalSource, featured
 `;
 
@@ -12,7 +12,7 @@ export const newsListQuery = groq`
 
 export const newsBySlugQuery = groq`
   *[_type == "newsPost" && slug.current == $slug][0] {
-    ${CARD_FIELDS}, body, bodyKo, gallery, seoTitle, seoDescription
+    ${CARD_FIELDS}, body, gallery, seoTitle, seoDescription
   }
 `;
 
@@ -27,7 +27,7 @@ export const newsCountQuery = groq`count(*[_type == "newsPost"])`;
 // expected volume (a handful of posts per month per §13(c)).
 export const relatedNewsQuery = groq`
   *[_type == "newsPost" && slug.current != $slug] | order(publishedAt desc) [0...20] {
-    _id, kind, title, titleKo, "slug": slug.current, excerpt, excerptKo,
+    _id, kind, title, "slug": slug.current, excerpt,
     category, publishedAt, coverImage, externalUrl, externalSource, featured
   }
 `;

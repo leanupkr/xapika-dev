@@ -52,7 +52,7 @@ interface FieldRule {
   error(message: string): FieldRule;
 }
 
-// `alt` subfield shared by gallery photos and inline body/bodyKo images —
+// `alt` subfield shared by gallery photos and inline body images —
 // same required-when-present pattern as `coverImage.alt` below (WCAG 1.1.1:
 // these are content photos from the field, not decoration, so Studio must
 // give editors somewhere to type alt text, and must nudge them to fill it).
@@ -107,12 +107,11 @@ export const newsPost = {
   name: "newsPost",
   title: "News Post",
   type: "document",
-  // Three tabs so the form doesn't dump 17 fields on the editor at once.
+  // Two tabs so the form doesn't dump every field on the editor at once.
   // "Content" is where a real article gets published from top to bottom;
-  // the other two are explicitly optional and can be skipped entirely.
+  // "Settings" is explicitly optional and can be skipped entirely.
   groups: [
     { name: "content", title: "Content", default: true },
-    { name: "korean", title: "Korean (optional)" },
     { name: "settings", title: "Settings (optional)" },
   ],
   fields: [
@@ -303,33 +302,6 @@ export const newsPost = {
           return true;
         }),
       hidden: ({ document }: FieldRuleContext) => document?.kind !== "external",
-    },
-    {
-      name: "titleKo",
-      title: "Title (Korean — optional)",
-      type: "string",
-      group: "korean",
-      description:
-        "The Korean headline. Leave this empty and the site shows English only. Fill it in — together with the Korean summary below, and the Korean body if this is an own article — and a Korean/English switch appears on this article's page.",
-    },
-    {
-      name: "excerptKo",
-      title: "Summary (Korean — optional)",
-      type: "text",
-      rows: 3,
-      group: "korean",
-      description:
-        "The Korean summary, shown when a visitor switches this article to Korean. Leave empty if you aren't translating this story.",
-    },
-    {
-      name: "bodyKo",
-      title: "Body (Korean — optional)",
-      type: "array",
-      group: "korean",
-      description:
-        'The full Korean translation of the article body. Only used for "Own article". Fill in the Korean title, summary, and this together to turn on the Korean version of this article.',
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true }, fields: INLINE_IMAGE_FIELDS }],
-      hidden: ({ document }: FieldRuleContext) => document?.kind !== "own",
     },
     {
       name: "featured",

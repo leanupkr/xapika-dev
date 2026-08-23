@@ -11,7 +11,6 @@ import NewsHero from "@/components/sections/NewsHero";
 import NewsBody from "@/components/sections/NewsBody";
 import NewsGallery from "@/components/sections/NewsGallery";
 import NewsExternalPanel from "@/components/sections/NewsExternalPanel";
-import NewsLangToggle from "@/components/sections/NewsLangToggle";
 import RelatedNews from "@/components/sections/RelatedNews";
 
 // Webhook-driven revalidation (see src/app/api/revalidate) is the primary
@@ -90,44 +89,20 @@ export async function generateMetadata({
 
 export default async function NewsDetailPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ lang?: string }>;
 }) {
   const { slug } = await params;
 
-  // Order matters, and this is why it is not one Promise.all.
-  //
-  // getRequestOrigin() reads headers(). generateStaticParams above returns
-  // [] whenever the dataset has no articles yet — which is exactly the
-  // state a freshly launched production site is in — and Next then
-  // prerenders this route's fallback at build time. Calling headers()
-  // inside that prerender throws DYNAMIC_SERVER_USAGE, and because the
-  // failure happens during generation it gets *cached*: xapika.pl/news/
-  // <any-slug> answered 500 instead of 404, from the CDN, until the next
-  // deploy. (Confirmed from the Vercel runtime log: digest
-  // "DYNAMIC_SERVER_USAGE" on /news/no-such-article.) It did not reproduce
-  // on the dev deployment because that dataset had articles, so
-  // generateStaticParams returned real slugs and no fallback was built.
-  //
-  // Fetching the post first means a missing article short-circuits to
-  // notFound() before any dynamic API is touched, so the 404 is a plain
-  // static 404 no matter how the route is being rendered.
+  // Fetch the post before getRequestOrigin(), which reads headers(): a slug
+  // that doesn't exist must reach notFound() without touching a dynamic
+  // API. When this ran the other way round, an unknown slug answered 500
+  // instead of 404 (digest DYNAMIC_SERVER_USAGE) and the failure was cached
+  // by the CDN — see the generateStaticParams note at the top of this file.
   const post = await getPost(slug);
   if (!post) notFound();
 
-  const [{ lang: langParam }, origin] = await Promise.all([
-    searchParams,
-    getRequestOrigin(),
-  ]);
-
-  // Korean toggle (NEWS_CMS_PLAN.md §5 decision a): `?lang=ko` only actually
-  // shows KO copy on articles that have a Korean translation filled in.
-  const showKo = langParam === "ko" && Boolean(post.titleKo);
-  const title = showKo ? (post.titleKo ?? post.title) : post.title;
-  const excerpt = showKo ? (post.excerptKo ?? post.excerpt) : post.excerpt;
-  const body = showKo ? (post.bodyKo ?? post.body) : post.body;
+  const origin = await getRequestOrigin();
 
   return (
     <>
@@ -153,41 +128,28 @@ export default async function NewsDetailPage({
         })}
       />
 
-      {/* The root <html lang> is fixed at "en" (the site is English-only),
-          but this block swaps to Korean copy when ?lang=ko resolves. A
-          nested lang attribute is the standard way to say "this subtree is
-          in another language" — without it a screen reader announces the
-          Korean text with English pronunciation rules. Scoped to the
-          article itself: RelatedNews below always renders English titles. */}
-      <div lang={showKo ? "ko" : "en"}>
-        <NewsHero
-          category={post.category}
-          title={title}
-          publishedAt={post.publishedAt}
-          coverImage={post.coverImage}
-          langToggle={
-            post.titleKo ? (
-              <NewsLangToggle slug={slug} currentLang={showKo ? "ko" : "en"} />
-            ) : null
-          }
+      <NewsHero
+        category={post.category}
+        title={post.title}
+        publishedAt={post.publishedAt}
+        coverImage={post.coverImage}
+      />
+
+      {post.kind === "own" && post.body && post.body.length > 0 ? (
+        <NewsBody body={post.body} />
+      ) : null}
+
+      {post.kind === "own" && post.gallery && post.gallery.length > 0 ? (
+        <NewsGallery images={post.gallery} />
+      ) : null}
+
+      {post.kind === "external" ? (
+        <NewsExternalPanel
+          excerpt={post.excerpt}
+          externalUrl={post.externalUrl}
+          externalSource={post.externalSource}
         />
-
-        {post.kind === "own" && body && body.length > 0 ? (
-          <NewsBody body={body} />
-        ) : null}
-
-        {post.kind === "own" && post.gallery && post.gallery.length > 0 ? (
-          <NewsGallery images={post.gallery} />
-        ) : null}
-
-        {post.kind === "external" ? (
-          <NewsExternalPanel
-            excerpt={excerpt}
-            externalUrl={post.externalUrl}
-            externalSource={post.externalSource}
-          />
-        ) : null}
-      </div>
+      ) : null}
 
       <RelatedNews currentSlug={slug} currentCategory={post.category} />
     </>

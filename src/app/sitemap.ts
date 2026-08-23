@@ -128,7 +128,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("[sitemap] news slug fetch failed", err);
   }
 
-  // Note: ?lang=ko detail URLs are intentionally never registered here —
-  // canonical for every /news/[slug] page is always the query-less English URL.
   return [...staticEntries, ...newsEntries];
 }

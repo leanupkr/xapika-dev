@@ -71,7 +71,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         kind: "callout",
         tone: "warning",
         body:
-          "연습용에 쓴 글은 실서비스 사이트(xapika.pl)에 나타나지 않고, 반대도 마찬가지입니다. 두 화면이 똑같이 생겼기 때문에 글을 쓰기 전에 주소창부터 확인하는 습관이 중요합니다. 연습하려던 글을 실수로 실서비스에 올리는 것을 막아줍니다.",
+          "연습용에 쓴 글은 실서비스 사이트(xapika.pl)에 나타나지 않고, 반대도 마찬가지입니다. 두 화면이 똑같이 생겼으니 글을 쓰기 전에 주소창을 확인해 주세요.",
       },
       {
         kind: "urlbar",
@@ -176,19 +176,18 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       {
         kind: "text",
         body:
-          "글을 클릭하면 편집 화면이 열립니다. 위쪽에 탭이 세 개 있습니다.",
+          "글을 클릭하면 편집 화면이 열립니다. 위쪽에 탭이 두 개 있습니다.",
       },
       {
         kind: "mapping",
         rows: [
           { field: "편집 화면 탭", label: "Content", showsUp: "기사 내용을 쓰는 칸입니다. 대부분의 작업은 여기서 끝납니다." },
-          { field: "편집 화면 탭", label: "Korean (optional)", showsUp: "한국어 번역을 넣는 칸입니다. 비워두어도 됩니다." },
           { field: "편집 화면 탭", label: "Settings (optional)", showsUp: "맨 위 고정, 검색결과에 나올 문구 등 추가 설정입니다." },
         ],
       },
       { kind: "shot", shot: {
         name: "editor-tabs",
-        caption: "편집 화면 상단의 Content / Korean (optional) / Settings (optional) 탭 세 개가 다 보이게 캡처.",
+        caption: "편집 화면 위쪽의 Content / Settings (optional) 탭.",
       } },
       { kind: "shot", shot: {
         name: "editor-content-tab-full",
@@ -230,7 +229,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         kind: "callout",
         tone: "info",
         body:
-          "Article type, Title, Web address, Summary, Category, Body 여섯 칸만 채우면 발행할 수 있습니다. Cover image, Photo gallery, Korean 탭, Settings 탭은 채우면 좋지만 없어도 됩니다.",
+          "Article type, Title, Web address, Summary, Category, Body 여섯 칸만 채우면 발행할 수 있습니다. Cover image, Photo gallery, Settings 탭은 채우면 좋지만 없어도 됩니다.",
       },
       { kind: "shot", shot: {
         name: "kind-radio-own",
@@ -258,12 +257,6 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         kind: "text",
         body:
           "다른 언론사가 회사를 다룬 기사를 사이트에 소개할 때 씁니다. 기사 본문은 옮기지 않고 제목, 출처, 짧은 요약과 원문 링크만 올립니다.",
-      },
-      {
-        kind: "callout",
-        tone: "warning",
-        body:
-          "다른 언론사가 쓴 문장을 그대로 복사해 붙여넣지 말아주세요. 저작권이 해당 언론사에 있습니다. 요약은 직접 새로 작성해 주세요.",
       },
       {
         kind: "steps",
@@ -382,24 +375,6 @@ export const GUIDE_SECTIONS: GuideSection[] = [
               "카드 오른쪽 위 출처 배지에 찍히는 글자, 상세 페이지 'Read on {여기 이름}' 버튼 문구.",
           },
           {
-            field: "titleKo",
-            label: "Title (Korean — optional)",
-            showsUp:
-              "이 칸을 채우면 그 글에만 상세 페이지 오른쪽 위에 EN / KO 전환 버튼이 새로 나타납니다. 방문자가 KO를 누르면 이 제목이 뜹니다. 비워두면 전환 버튼 자체가 안 나타나고 영어만 보입니다.",
-          },
-          {
-            field: "excerptKo",
-            label: "Summary (Korean — optional)",
-            showsUp:
-              "KO로 전환했을 때 보이는 한국어 요약(외부 보도 글은 이게 상세 페이지 본문 자리를 대신 채웁니다).",
-          },
-          {
-            field: "bodyKo",
-            label: "Body (Korean — optional)",
-            showsUp:
-              "KO로 전환했을 때 보이는 한국어 본문 전체(자체 기사만).",
-          },
-          {
             field: "featured",
             label: "Pin to top of list",
             showsUp:
@@ -461,57 +436,17 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         kind: "callout",
         tone: "warning",
         body:
-          "사진을 넣었으면 Photo description (alt text)을 반드시 한 줄 채워주세요. 비워두면 발행이 되지 않습니다. 화면에는 보이지 않지만 시각장애인이 쓰는 화면 읽기 프로그램이 이 설명을 읽어주고, 사진이 불러와지지 않을 때 대신 표시됩니다.",
+          "사진을 넣었으면 Photo description (alt text)을 한 줄 채워주세요. 비워두면 발행이 되지 않습니다.",
       },
     ],
   },
 
   // ────────────────────────────────────────────────────────────────
-  // 8. 한국어 토글
-  // ────────────────────────────────────────────────────────────────
-  {
-    id: "korean-toggle",
-    title: "8. 한국어 번역 넣기",
-    blocks: [
-      {
-        kind: "text",
-        body:
-          "Korean (optional) 탭은 선택 사항입니다. 비워두면 그 글은 영어로만 표시됩니다.",
-      },
-      {
-        kind: "steps",
-        items: [
-          "Korean (optional) 탭을 엽니다.",
-          "Title (Korean — optional)과 Summary (Korean — optional)를 채웁니다. 직접 쓴 기사라면 Body (Korean — optional)도 채웁니다.",
-          "제목만 채워도 그 글의 상세 페이지에 EN / KO 전환 버튼이 나타납니다.",
-        ],
-      },
-      { kind: "shot", shot: {
-        name: "korean-tab-empty",
-        caption: "Korean (optional) 탭이 비어 있는 상태입니다. 이때는 사이트에 한국어 버튼이 나타나지 않습니다.",
-      } },
-      { kind: "shot", shot: {
-        name: "korean-tab-filled",
-        caption: "Korean (optional) 탭에 제목/요약이 채워진 상태 캡처.",
-      } },
-      { kind: "shot", shot: {
-        name: "lang-toggle-live",
-        caption: "실제 사이트 상세 페이지 오른쪽 위에 나타난 EN / KO 전환 버튼을 확대 캡처.",
-      } },
-      {
-        kind: "callout",
-        tone: "info",
-        body: "제목만 번역하는 식으로 일부만 채워도 됩니다. 비워둔 칸은 영어 원문이 대신 표시됩니다.",
-      },
-    ],
-  },
-
-  // ────────────────────────────────────────────────────────────────
-  // 9. 고정(featured)
+  // 8. 고정(featured)
   // ────────────────────────────────────────────────────────────────
   {
     id: "featured-pin",
-    title: "9. 중요한 글 맨 위에 고정하기",
+    title: "8. 중요한 글 맨 위에 고정하기",
     blocks: [
       {
         kind: "text",
@@ -540,11 +475,11 @@ export const GUIDE_SECTIONS: GuideSection[] = [
   },
 
   // ────────────────────────────────────────────────────────────────
-  // 10. 수정·삭제·되살리기
+  // 9. 수정·삭제·되살리기
   // ────────────────────────────────────────────────────────────────
   {
     id: "edit-delete-restore",
-    title: "10. 수정·삭제·되돌리기",
+    title: "9. 수정·삭제·되돌리기",
     blocks: [
       {
         kind: "text",
@@ -593,11 +528,11 @@ export const GUIDE_SECTIONS: GuideSection[] = [
   },
 
   // ────────────────────────────────────────────────────────────────
-  // 11. 꼭 알아야 할 주의사항
+  // 10. 주의사항
   // ────────────────────────────────────────────────────────────────
   {
     id: "must-know",
-    title: "11. 주의사항",
+    title: "10. 주의사항",
     blocks: [
       {
         kind: "callout",
@@ -609,13 +544,13 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         kind: "callout",
         tone: "warning",
         body:
-          "② 변경 이력은 3일만 보관됩니다. 큰 수정 전에는 기존 내용을 따로 복사해 두세요. 자세한 내용은 10번을 참고해 주세요.",
+          "② 변경 이력은 3일만 보관됩니다. 큰 수정 전에는 기존 내용을 따로 복사해 두세요. 자세한 내용은 9번을 참고해 주세요.",
       },
       {
         kind: "callout",
         tone: "danger",
         body:
-          "③ 실서비스 CMS(xapika.pl/studio)의 Publish는 누르는 즉시 실제 방문자에게 공개됩니다. 확신이 서지 않으면 연습용에서 먼저 똑같이 작성해 화면을 확인한 뒤, 실서비스에서 다시 작성해 주세요.",
+          "③ 실서비스 CMS(xapika.pl/studio)의 Publish는 누르는 즉시 실제 방문자에게 공개됩니다.",
       },
     ],
   },

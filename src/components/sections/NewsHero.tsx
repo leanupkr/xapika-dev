@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import CategoryChip from "@/components/ui/CategoryChip";
 import CornerTicks from "@/components/ui/CornerTicks";
 import SanityImage from "@/components/ui/SanityImage";
@@ -22,8 +21,6 @@ type NewsHeroProps = {
   title: string;
   publishedAt: string;
   coverImage?: NewsImage | null;
-  /** Rendered top-right of the meta row — the EN/KO toggle, only when the article has a Korean translation. */
-  langToggle?: ReactNode;
 };
 
 /**
@@ -41,16 +38,12 @@ export default function NewsHero({
   title,
   publishedAt,
   coverImage,
-  langToggle,
 }: NewsHeroProps) {
   const date = formatPublishedDate(publishedAt);
 
   return (
     <SectionContainer className="pt-[clamp(80px,10vw,140px)] pb-10 sm:pb-12">
-      <div className="flex items-center justify-between gap-4">
-        <CategoryChip category={category} />
-        {langToggle}
-      </div>
+      <CategoryChip category={category} />
 
       <h1 className="mt-5 font-heading text-[clamp(28px,5vw,48px)] font-semibold leading-[1.08] text-ink">
         {title}

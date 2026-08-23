@@ -301,10 +301,9 @@ h1, h2, h3, h4 {
    (§8.10 of NEWS_CMS_PLAN.md). No @tailwindcss/typography dependency —
    this codebase's own ink/primary tokens drive it directly. Scoped to the
    article body only; does not touch any global heading/paragraph rule
-   above. `word-break: keep-all` is intentionally re-introduced here only
-   (the site-wide rule above was dropped for the English-only nav/marketing
-   copy) because the Korean toggle (titleKo/bodyKo) renders through this
-   class and needs correct CJK line-breaking.
+   above. `word-break: keep-all` is harmless for the English copy this now
+   renders and is kept as a safeguard: it only changes anything for CJK
+   text, where breaking mid-word is wrong.
 
    Wrapped in `@layer base`: Tailwind v4's `@import "tailwindcss"` (top of
    this file) generates its own utility classes inside named cascade layers
