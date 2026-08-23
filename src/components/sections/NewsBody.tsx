@@ -86,7 +86,13 @@ type NewsBodyProps = {
 export default function NewsBody({ body }: NewsBodyProps) {
   return (
     <SectionContainer className="pb-4">
-      <div className="prose-news mx-auto max-w-[68ch]">
+      {/* Left-aligned, not centred. The measure is capped at 68ch, but
+          centring that column inside the much wider SectionContainer left
+          the body text starting ~300px to the right of the headline,
+          category chip and date directly above it — every other block on
+          this page (NewsHero, NewsExternalPanel) starts at the container's
+          left edge. */}
+      <div className="prose-news max-w-[68ch]">
         <PortableText value={body} components={components} />
       </div>
     </SectionContainer>

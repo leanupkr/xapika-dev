@@ -55,15 +55,25 @@ export default function NewsHero({
         </time>
       ) : null}
 
-      <div className="relative mt-10 aspect-[16/9] overflow-hidden border border-ink/15">
-        <SanityImage
-          image={coverImage}
-          alt={coverImage?.alt || title}
-          sizes="(max-width: 1024px) 100vw, 1200px"
-          widths={[768, 1024, 1440, 1920]}
-        />
-        <CornerTicks size={10} />
-      </div>
+      {/* Rendered only when there is an image, unlike the list cards.
+          SanityImage's dashed placeholder earns its keep in a grid, where
+          one card without a photo would otherwise collapse and break the
+          row. Here there is no row to hold open: a 16/9 box at the full
+          content width is ~900px tall, so an article published without a
+          cover opened on a near-empty screen — a full viewport of empty
+          dashed border between the headline and the first line of text.
+          Omitting it lets the body start right under the date. */}
+      {coverImage?.asset ? (
+        <div className="relative mt-10 aspect-[16/9] overflow-hidden border border-ink/15">
+          <SanityImage
+            image={coverImage}
+            alt={coverImage.alt || title}
+            sizes="(max-width: 1024px) 100vw, 1200px"
+            widths={[768, 1024, 1440, 1920]}
+          />
+          <CornerTicks size={10} />
+        </div>
+      ) : null}
     </SectionContainer>
   );
 }
