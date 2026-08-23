@@ -26,8 +26,8 @@ import { dataset, isProductionDataset } from "../env";
 const PRACTICE = {
   tone: "practice" as const,
   icon: "🧪",
-  label: "연습용 (Practice)",
-  message: "여기서 쓴 글은 실제 사이트에 나오지 않습니다. 마음껏 눌러보고 연습하세요.",
+  label: "연습용",
+  message: "여기서 쓴 글은 실제 사이트에 나오지 않습니다. 편하게 연습해 보셔도 됩니다.",
   site: "xapika-dev-git-develop-xapika.vercel.app",
   studio: "xapika-dev-git-develop-xapika.vercel.app/studio",
   otherLabel: "실서비스 CMS로 이동",
@@ -37,8 +37,8 @@ const PRACTICE = {
 const LIVE = {
   tone: "live" as const,
   icon: "⚠️",
-  label: "실서비스 (Live)",
-  message: "여기서 Publish 버튼을 누르면 xapika.pl에 바로 공개됩니다.",
+  label: "실서비스",
+  message: "여기서 Publish를 누르면 xapika.pl에 바로 공개됩니다. 확인 후 눌러주세요.",
   site: "xapika.pl · xapika.co.kr",
   studio: "xapika.pl/studio",
   otherLabel: "연습용 CMS로 이동",
