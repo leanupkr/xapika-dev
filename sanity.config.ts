@@ -18,10 +18,24 @@ export default defineConfig({
   // (src/app/studio/[[...tool]]).
   basePath: "/studio",
   plugins: [structureTool({ structure })],
-  // Custom "Guide" tab next to Structure / Releases — see
-  // src/sanity/guide/GuideTool.tsx for the Tool API verification and the
-  // content contract it renders.
-  tools: [guideTool],
+  // Adds the custom "Guide" tab (see src/sanity/guide/GuideTool.tsx) and
+  // removes the built-in "Releases" one.
+  //
+  // Releases is a paid add-on: on this project's plan the tab renders
+  // nothing but an "Upgrade to unlock — Content Releases … Talk to sales"
+  // splash (confirmed in the live dev Studio, and the pricing comparison
+  // lists Content releases as "—" for both Free and Growth). Leaving it in
+  // the top nav puts a sales page directly beside Structure and Guide for
+  // a non-developer operator to click into. The tool's name is "releases"
+  // — Sanity routes each tool at /studio/<name>, which is how this string
+  // was verified rather than guessed.
+  //
+  // Function form (not the array form) because `prev` is what the plugins
+  // above contribute; returning a bare array would drop Structure too.
+  tools: (prev) => [
+    ...prev.filter((tool) => tool.name !== "releases"),
+    guideTool,
+  ],
   schema: {
     // `schema.types` expects Sanity's internal `SchemaTypeDefinition[]`
     // type, which sanity@6.9.2's public entry point does not re-export
