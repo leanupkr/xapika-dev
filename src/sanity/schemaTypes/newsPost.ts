@@ -256,7 +256,35 @@ export const newsPost = {
       group: "content",
       description:
         'The full article text, shown on the article page. Write freely and drop photos in anywhere in the text. Required for "Own article"; hidden and unused for "External press coverage" — link to the outside article instead of copying its text (see "Link to original article" below).',
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true }, fields: INLINE_IMAGE_FIELDS }],
+      of: [
+        {
+          type: "block",
+          // `styles` is declared explicitly to match what the site can
+          // actually render. A bare `{ type: "block" }` gets Sanity's
+          // default menu — Normal, Heading 1 through 6, Quote — but
+          // NewsBody.tsx only has components for normal / h2 / h3 /
+          // blockquote. An editor choosing "Heading 1", the most obvious
+          // pick for a heading, got body-sized unstyled text on the
+          // published page with nothing in the editor to warn them.
+          // (Reproduced first-hand while writing a test article.)
+          //
+          // Labels are what a non-developer would call these, not the
+          // HTML level: they never see the markup, and "Heading 2" as the
+          // *largest* option available invites exactly the question this
+          // list is meant to avoid.
+          styles: [
+            { title: "Normal text", value: "normal" },
+            { title: "Section heading", value: "h2" },
+            { title: "Sub-heading", value: "h3" },
+            { title: "Quote", value: "blockquote" },
+          ],
+          lists: [
+            { title: "Bulleted list", value: "bullet" },
+            { title: "Numbered list", value: "number" },
+          ],
+        },
+        { type: "image", options: { hotspot: true }, fields: INLINE_IMAGE_FIELDS },
+      ],
       hidden: ({ document }: FieldRuleContext) => document?.kind !== "own",
       validation: (Rule: FieldRule) =>
         Rule.custom((value, context) => {
