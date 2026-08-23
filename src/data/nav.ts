@@ -56,6 +56,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
       { key: "all",        label: "View All Portfolios",  href: "/portfolios",                 description: "Complete portfolio overview." },
     ],
   },
+  { key: "news",      label: "News",       href: "/news" },
   { key: "locations", label: "Locations", href: "/locations" },
   { key: "contact",   label: "Contact Us", href: "/contact" },
 ];

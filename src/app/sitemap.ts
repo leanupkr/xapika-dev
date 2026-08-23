@@ -63,6 +63,7 @@ const ROUTES: ReadonlyArray<RouteConfig> = [
     changeFrequency: "monthly",
     priority: 0.8,
   },
+  { path: "/news", changeFrequency: "daily", priority: 0.7 },
   { path: "/locations", changeFrequency: "monthly", priority: 0.8 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
@@ -72,7 +73,7 @@ const ROUTES: ReadonlyArray<RouteConfig> = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const origin = await getRequestOrigin();
   const lastModified = new Date();
-  return ROUTES.map((route) => {
+  const staticEntries: MetadataRoute.Sitemap = ROUTES.map((route) => {
     const cleanPath = route.path.replace(/^\/+/, "");
     const selfUrl = cleanPath ? `${origin}/${cleanPath}` : origin;
     const plUrl = cleanPath ? `${PL_ORIGIN}/${cleanPath}` : PL_ORIGIN;
@@ -91,4 +92,43 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     };
   });
+
+  // News slugs are fetched dynamically and appended below (rather than
+  // hardcoded in ROUTES) because they come from Sanity, not this file.
+  // Wrapped in try/catch, with the Sanity modules loaded via dynamic
+  // import(), so that a missing/unreachable Sanity project (see
+  // src/sanity/env.ts — no project has been created yet) degrades to
+  // "skip the dynamic entries" instead of failing sitemap generation, and
+  // by extension `next build`, entirely. The 32 static pages above must
+  // always ship regardless of Sanity's state.
+  let newsEntries: MetadataRoute.Sitemap = [];
+  try {
+    const { sanityFetch } = await import("@/sanity/fetch");
+    const { newsSlugsQuery } = await import("@/sanity/queries");
+    const slugs = await sanityFetch<{ slug: string }[]>({
+      query: newsSlugsQuery,
+      tags: ["news"],
+    });
+    newsEntries = slugs.map((s) => {
+      const cleanPath = `news/${s.slug}`;
+      const selfUrl = `${origin}/${cleanPath}`;
+      const plUrl = `${PL_ORIGIN}/${cleanPath}`;
+      const krUrl = `${KR_ORIGIN}/${cleanPath}`;
+      return {
+        url: selfUrl,
+        lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: {
+          languages: { "en-PL": plUrl, "en-KR": krUrl, "x-default": plUrl },
+        },
+      };
+    });
+  } catch (err) {
+    console.error("[sitemap] news slug fetch failed", err);
+  }
+
+  // Note: ?lang=ko detail URLs are intentionally never registered here —
+  // canonical for every /news/[slug] page is always the query-less English URL.
+  return [...staticEntries, ...newsEntries];
 }

@@ -1,0 +1,68 @@
+name: Sanity dataset backup (daily, docs only)
+
+# Purpose: cheap, automatic, daily safety net for the single most common
+# accident — someone deletes one news article by mistake. Sanity's own
+# document history only lets you undo that for 3 days (Free plan), so this
+# workflow gives a second, longer-lived copy.
+#
+# Deliberately NOT included here: uploaded photos/images (Sanity "assets").
+# This export is `--no-assets`, so the archive is text/JSON only — normally
+# a few hundred KB even with dozens of articles. That keeps this workflow
+# safe to run every day forever without ever approaching GitHub's free
+# storage limits. Full backups (with photos) are a separate, manually
+# triggered workflow — see sanity-backup-full.yml and
+# docs/NEWS_BACKUP.md for why the split matters and how to restore.
+#
+# See NEWS_CMS_PLAN.md §10 (Day 3) and §11 (checklist item ⑧) for the full
+# reasoning and the storage-growth math behind this design.
+
+on:
+  schedule:
+    - cron: "0 18 * * *" # 18:00 UTC daily = 03:00 KST the next day
+  workflow_dispatch: {} # allows a manual "Run workflow" click for testing
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify required secrets and variables are configured
+        run: |
+          missing=0
+          if [ -z "${{ secrets.SANITY_AUTH_TOKEN }}" ]; then
+            echo "::error::Repository secret SANITY_AUTH_TOKEN is not set. Add it under Settings > Secrets and variables > Actions > Secrets. See docs/NEWS_BACKUP.md."
+            missing=1
+          fi
+          if [ -z "${{ vars.SANITY_PROJECT_ID }}" ]; then
+            echo "::error::Repository variable SANITY_PROJECT_ID is not set. Add it under Settings > Secrets and variables > Actions > Variables. See docs/NEWS_BACKUP.md."
+            missing=1
+          fi
+          if [ "$missing" = "1" ]; then
+            exit 1
+          fi
+
+      - uses: pnpm/action-setup@v4
+        with: { version: 10 }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Export documents only (no assets)
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+        run: |
+          mkdir -p backups
+          npx sanity datasets export production \
+            "backups/production-docs-$(date +%Y-%m-%d).tar.gz" \
+            -p "${{ vars.SANITY_PROJECT_ID }}" \
+            --no-assets
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sanity-backup-daily-${{ github.run_id }}
+          path: backups/*.tar.gz
+          retention-days: 14
+          if-no-files-found: error

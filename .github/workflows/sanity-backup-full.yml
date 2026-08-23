@@ -1,0 +1,72 @@
+name: Sanity dataset backup (full, manual trigger only)
+
+# Purpose: disaster-recovery backup that includes every uploaded photo, not
+# just article text. This is intentionally NOT scheduled — see
+# NEWS_CMS_PLAN.md §11 (checklist item ⑧) for the exact math, but in short:
+# a scheduled full export that runs automatically forever eventually grows
+# past GitHub's free storage allowance (500MB on private repos) in roughly
+# a month and a half even under optimistic upload volume, because every run
+# re-exports the entire dataset from scratch (not just what changed).
+#
+# Instead, run this by hand — from the Actions tab, "Run workflow" — a few
+# times a year (e.g. right before testing the delete/recovery procedure, or
+# during the quarterly self-check in NEWS_CMS_PLAN.md §11-⑫), and then
+# IMMEDIATELY download the resulting archive to a computer or to
+# info@xapika.pl's Google Drive. Do not rely on the 7-day GitHub artifact
+# retention below as long-term storage — see docs/NEWS_BACKUP.md.
+#
+# Command name note: the correct CLI subcommand is `sanity datasets export`
+# (plural "datasets"), not `sanity dataset export`. If this step ever fails
+# with an "unknown command" error, run `npx sanity datasets --help` to
+# re-check the exact syntax for whatever CLI version is installed at the
+# time.
+
+on:
+  workflow_dispatch: {} # manual trigger only — do NOT add `schedule:` here,
+  # see the comment block above for why.
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify required secrets and variables are configured
+        run: |
+          missing=0
+          if [ -z "${{ secrets.SANITY_AUTH_TOKEN }}" ]; then
+            echo "::error::Repository secret SANITY_AUTH_TOKEN is not set. Add it under Settings > Secrets and variables > Actions > Secrets. See docs/NEWS_BACKUP.md."
+            missing=1
+          fi
+          if [ -z "${{ vars.SANITY_PROJECT_ID }}" ]; then
+            echo "::error::Repository variable SANITY_PROJECT_ID is not set. Add it under Settings > Secrets and variables > Actions > Variables. See docs/NEWS_BACKUP.md."
+            missing=1
+          fi
+          if [ "$missing" = "1" ]; then
+            exit 1
+          fi
+
+      - uses: pnpm/action-setup@v4
+        with: { version: 10 }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Export full dataset (with assets)
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+        run: |
+          mkdir -p backups
+          npx sanity datasets export production \
+            "backups/production-full-$(date +%Y-%m-%d).tar.gz" \
+            -p "${{ vars.SANITY_PROJECT_ID }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sanity-backup-full-${{ github.run_id }}
+          path: backups/*.tar.gz
+          retention-days: 7 # short on purpose — download this artifact
+          # yourself right after the run finishes; see docs/NEWS_BACKUP.md.
+          if-no-files-found: error

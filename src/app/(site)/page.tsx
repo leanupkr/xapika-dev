@@ -7,6 +7,7 @@ import SolutionsGrid, { type SolutionMetric } from "@/components/sections/Soluti
 import PortfoliosPreview from "@/components/sections/PortfoliosPreview";
 import TrustedBy from "@/components/sections/TrustedBy";
 import GlobalPresence from "@/components/sections/GlobalPresence";
+import NewsPreview from "@/components/sections/NewsPreview";
 
 export async function generateMetadata(): Promise<Metadata> {
   const origin = await getRequestOrigin();
@@ -14,6 +15,9 @@ export async function generateMetadata(): Promise<Metadata> {
     origin,
     path: "",
     title: "Xapika Engineering",
+    // The homepage title is the brand itself, so the root layout's
+    // "%s — Xapika Engineering" template would double it.
+    titleAbsolute: true,
     description: "Delivering precision maintenance with uncompromising safety.",
   });
 }
@@ -170,6 +174,7 @@ export default function HomePage() {
         stat3Value="7"
         stat3Unit="Offices"
       />
+      <NewsPreview />
     </>
   );
 }

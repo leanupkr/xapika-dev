@@ -24,9 +24,21 @@ export function siteUrl(path: string = ""): string {
 type PageMetadataInput = {
   origin: string; // pass result of await getRequestOrigin() here
   path: string; // e.g. '/about' or '' for home
+  /** Page title WITHOUT the brand suffix — the root layout's
+   *  `title.template` ("%s — Xapika Engineering") appends it. Passing a
+   *  title that already ends in the brand renders it twice. */
   title: string;
   description: string;
   ogPath?: string;
+  /** Suppresses the root layout's `title.template` brand suffix.
+   *
+   *  Only the homepage needs this: its title *is* the brand, so the
+   *  template would render "Xapika Engineering — Xapika Engineering".
+   *  This started mattering when the public pages moved into the `(site)`
+   *  route group — `title.template` applies only to *child* segments, and
+   *  while the homepage lived at src/app/page.tsx it shared a segment with
+   *  the root layout, so the template never reached it. */
+  titleAbsolute?: boolean;
 };
 
 function buildOpenGraph(
@@ -72,9 +84,12 @@ function buildTwitter(
 }
 
 export function buildPageMetadata(input: PageMetadataInput): Metadata {
-  const { origin, path, title, description, ogPath } = input;
+  const { origin, path, title, description, ogPath, titleAbsolute } = input;
   return {
-    title,
+    // `{ absolute }` is Next's documented opt-out from a parent layout's
+    // title.template. openGraph/twitter titles below stay plain strings —
+    // templates never applied to them in the first place.
+    title: titleAbsolute ? { absolute: title } : title,
     description,
     alternates: buildHostAlternates(origin, path),
     openGraph: buildOpenGraph(origin, path, title, description, ogPath),

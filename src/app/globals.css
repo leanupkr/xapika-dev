@@ -295,3 +295,128 @@ h1, h2, h3, h4 {
 .contact-offices-link:hover {
   color: rgb(var(--color-primary)) !important;
 }
+
+/* ─── News CMS — `.prose-news` ───
+   Self-authored article typography for the /news/[slug] PortableText body
+   (§8.10 of NEWS_CMS_PLAN.md). No @tailwindcss/typography dependency —
+   this codebase's own ink/primary tokens drive it directly. Scoped to the
+   article body only; does not touch any global heading/paragraph rule
+   above. `word-break: keep-all` is intentionally re-introduced here only
+   (the site-wide rule above was dropped for the English-only nav/marketing
+   copy) because the Korean toggle (titleKo/bodyKo) renders through this
+   class and needs correct CJK line-breaking.
+
+   Wrapped in `@layer base`: Tailwind v4's `@import "tailwindcss"` (top of
+   this file) generates its own utility classes inside named cascade layers
+   (`theme`/`base`/`components`/`utilities`). Per the CSS cascade-layers
+   spec, any rule left *outside* an `@layer` block is treated as living in
+   an implicit final layer that outranks every named layer regardless of
+   selector specificity or source order — so an unlayered `.prose-news`
+   would always beat NewsBody.tsx's per-element Tailwind classes (e.g.
+   `leading-relaxed`, `text-ink/85`) on every overlapping property,
+   silently turning those classes into dead code. Placing this block in
+   `@layer base` puts it back below `components`/`utilities` in priority,
+   so it acts as the intended baseline that NewsBody.tsx's element-level
+   classes can still override. */
+@layer base {
+  .prose-news {
+    max-width: 68ch;
+    color: rgb(var(--color-ink) / 0.78);
+    font-family: var(--font-body);
+    font-size: clamp(0.9375rem, 0.85rem + 0.3vw, 1.0625rem);
+    line-height: 1.75;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .prose-news > *:first-child {
+    margin-top: 0;
+  }
+
+  .prose-news h2 {
+    margin-top: clamp(2rem, 1.4rem + 2.5vw, 2.75rem);
+    margin-bottom: 0.75em;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.375rem, 1.05rem + 1.1vw, 1.75rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: rgb(var(--color-ink));
+  }
+
+  .prose-news h3 {
+    margin-top: clamp(1.75rem, 1.3rem + 1.8vw, 2.25rem);
+    margin-bottom: 0.6em;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.375rem);
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+    color: rgb(var(--color-ink));
+  }
+
+  .prose-news p {
+    margin-top: 1.35em;
+    font-size: clamp(0.9375rem, 0.85rem + 0.3vw, 1.0625rem);
+    line-height: 1.75;
+    color: rgb(var(--color-ink) / 0.78);
+  }
+
+  .prose-news ul,
+  .prose-news ol {
+    margin-top: 1.25em;
+    padding-left: 1.4em;
+    font-size: clamp(0.9375rem, 0.85rem + 0.3vw, 1.0625rem);
+    line-height: 1.7;
+    color: rgb(var(--color-ink) / 0.78);
+  }
+
+  .prose-news ul {
+    list-style: disc;
+  }
+
+  .prose-news ol {
+    list-style: decimal;
+  }
+
+  .prose-news li + li {
+    margin-top: 0.5em;
+  }
+
+  .prose-news li::marker {
+    color: rgb(var(--color-primary));
+  }
+
+  .prose-news blockquote {
+    margin: 1.75em 0;
+    padding: 0.25em 0 0.25em 1.25em;
+    border-left: 2px solid rgb(var(--color-primary));
+    font-style: italic;
+    color: rgb(var(--color-ink) / 0.7);
+  }
+
+  .prose-news a {
+    color: rgb(var(--color-ink));
+    text-decoration: underline;
+    text-decoration-color: rgb(var(--color-primary) / 0.5);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .prose-news a:hover {
+    text-decoration-color: rgb(var(--color-primary));
+  }
+
+  .prose-news img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 2em 0;
+    border: 1px solid rgb(var(--color-ink) / 0.12);
+  }
+
+  .prose-news strong {
+    font-weight: 600;
+    color: rgb(var(--color-ink));
+  }
+}

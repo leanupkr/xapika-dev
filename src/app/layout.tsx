@@ -6,10 +6,6 @@ import { getRequestOrigin } from "@/lib/seo-host";
 import { spaceGrotesk } from "@/app/fonts";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import PageTransition from "@/components/motion/PageTransition";
-import SiteJsonLd from "@/components/seo/SiteJsonLd";
 
 export async function generateMetadata(): Promise<Metadata> {
   const origin = await getRequestOrigin();
@@ -59,19 +55,18 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
+      {/*
+        This layout deliberately renders nothing but <body> and the two Vercel
+        scripts. The site chrome (skip link, Header, Footer, PageTransition,
+        SiteJsonLd) lives in `(site)/layout.tsx` instead, so that routes
+        outside that group — most importantly the embedded Sanity Studio at
+        `/studio` — are not wrapped in it. Studio expects to own the full
+        viewport; when it was nested inside `<main>` between the Header and
+        Footer it rendered correctly but was squeezed to an unusable height.
+        The `(site)` group is a route group, so no public URL changes.
+      */}
       <body className="overflow-x-hidden">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-[9999] focus:left-4 focus:top-4 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:font-medium focus:rounded focus:shadow-lg"
-        >
-          Skip to content
-        </a>
-
-        <SiteJsonLd />
-        <PageTransition />
-        <Header />
-        <main id="main-content">{children}</main>
-        <Footer />
+        {children}
 
         <SpeedInsights />
         <Analytics />
