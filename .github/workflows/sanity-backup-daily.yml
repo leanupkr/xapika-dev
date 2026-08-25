@@ -46,7 +46,11 @@ jobs:
         with: { version: 10 }
 
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: pnpm }
+        # Matches package.json's engines.node (>=22.12.0), which the
+        # installed sanity CLI enforces at runtime — 20 fails immediately
+        # with "Node.js version >=22.12 required" before ever reaching the
+        # export step.
+        with: { node-version: 22, cache: pnpm }
 
       - run: pnpm install --frozen-lockfile
 
