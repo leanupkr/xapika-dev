@@ -25,7 +25,7 @@ const VISION_ITEMS: ReadonlyArray<VisionItem> = [
   {
     index: "02",
     title: "Safe Operations.",
-    body: "A ten-year zero-incident record across six countries. Safety is not a campaign — it is the operating boundary inside which speed, cost, and uptime are negotiated.",
+    body: "A ten-year zero-incident record across five countries. Safety is not a campaign — it is the operating boundary inside which speed, cost, and uptime are negotiated.",
   },
   {
     index: "03",

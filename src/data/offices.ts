@@ -1,7 +1,7 @@
 /**
  * Office locations SSOT — previously split between:
- *   - src/app/locations/page.tsx  (full schema, 7 entries)
- *   - src/components/layout/Footer.tsx  (partial schema, same 7 entries)
+ *   - src/app/locations/page.tsx  (full schema)
+ *   - src/components/layout/Footer.tsx  (partial schema, same entries)
  *
  * Verified: all city/country pairs match between the two sources.
  * Display order follows the locations page (canonical). Footer order
@@ -9,6 +9,16 @@
  *
  * `footerName` and `footerDetail` carry the Footer-specific display strings.
  * All other fields are consumed by the locations page and its child components.
+ *
+ * The Kyiv (Ukraine) entry was removed in 2026-08 at the client's request:
+ * the Ukrainian entity was merged into the Polish one during the war, so
+ * there is no separate corporate presence in Kyiv to list. The Ukraine
+ * HRCS2 programme itself is unaffected and still lives at
+ * /portfolios/ukraine-emu — that page is a delivery record, not a location.
+ * Anything derived from this file (footer, office directory, world maps,
+ * contact-form office picker, Place JSON-LD) drops Kyiv automatically;
+ * the headline counts that quote it do not — see the "6 offices / 5
+ * countries" strings in locations/page.tsx, page.tsx and manifest.ts.
  */
 
 export type OfficeRow = {
@@ -60,20 +70,6 @@ export const OFFICES: ReadonlyArray<OfficeRow> = [
     blurb: "Tram & metro maintenance program — Tramwaje Warszawskie partnership.",
     footerName: "Warsaw",
     footerDetail: "Tram & Metro Office",
-  },
-  {
-    id: "kyiv",
-    city: "Kyiv",
-    country: "Ukraine",
-    flag: "🇺🇦",
-    role: "office",
-    since: "2018.11",
-    lat: 50.4501,
-    lng: 30.5234,
-    showOnMap: true,
-    blurb: "EMU heavy-maintenance crew — operating through wartime conditions since 2022.",
-    footerName: "Kyiv",
-    footerDetail: "EMU Crew",
   },
   {
     id: "seoul",

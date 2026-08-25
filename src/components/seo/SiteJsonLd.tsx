@@ -18,7 +18,7 @@ export default async function SiteJsonLd() {
     url: hostSiteUrl(origin),
     logo: `${origin}/logo.png`,
     description:
-      "Precision rail maintenance with uncompromised safety — operations across Poland, Ukraine, Türkiye, USA, South Korea, and Uzbekistan.",
+      "Precision rail maintenance with uncompromised safety — operations across Poland, Türkiye, USA, South Korea, and Uzbekistan.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Warsaw",

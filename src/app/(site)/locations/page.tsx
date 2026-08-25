@@ -19,8 +19,11 @@ import { OFFICES } from "@/data/offices";
 import { HISTORY_EVENTS } from "@/data/companyHistory";
 
 // Internal portfolio links — kept in code so translations can't redirect users.
+// Ukraine is deliberately absent: this section pairs an *office* with the
+// programme that justified opening it, and there is no longer a Kyiv office
+// (see src/data/offices.ts). The Ukraine HRCS2 programme itself is untouched
+// and still reachable from /portfolios.
 const OPS_HREFS = {
-  ukraine: "/portfolios/ukraine-emu",
   poland: "/portfolios/warsaw-tram",
   uzbekistan: "/portfolios/uzbekistan-rail",
 } as const;
@@ -32,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
     path: "/locations",
     title: "Locations",
     description:
-      "Seven Xapika offices across Europe, North America, and Central Asia — local crews, regional warehouses, regulator-aligned operations.",
+      "Six Xapika offices across Europe, North America, and Central Asia — local crews, regional warehouses, regulator-aligned operations.",
   });
 }
 
@@ -100,11 +103,11 @@ export default async function LocationsPage() {
 
       <LocationsHero
         overline="Locations"
-        title="Seven offices. One operating clock."
+        title="Six offices. One operating clock."
         subtitle="From Warsaw to Tashkent — local crews, regional warehouses, regulator-aligned operations."
         stats={[
-          { value: "7", label: "Offices" },
-          { value: "6", label: "Countries" },
+          { value: "6", label: "Offices" },
+          { value: "5", label: "Countries" },
           { value: "3", label: "Continents" },
         ]}
       />
@@ -112,11 +115,11 @@ export default async function LocationsPage() {
       <NetworkAtScale
         overline="Global footprint"
         title="A network built over a decade."
-        subtitle="Seven operating sites across six countries — each one a full depot or engineering team, not a representative office."
-        citiesValue="7"
+        subtitle="Six operating sites across five countries — each one a full depot or engineering team, not a representative office."
+        citiesValue="6"
         citiesLabel="Offices"
         citiesNote="From Warsaw to Tashkent"
-        countriesValue="6"
+        countriesValue="5"
         countriesLabel="Countries"
         countriesNote="Europe · Asia · North America"
         continentsValue="3"
@@ -129,7 +132,7 @@ export default async function LocationsPage() {
 
       <LocationsWorldMap
         overline="Where we operate"
-        title="A live network across seven cities."
+        title="A live network across five cities."
         subtitle="Hover any marker to read the office record. Warsaw is our headquarters; the rest are full operating sites — not sales outposts."
         hqLabel="Headquarters"
         officeLabel="Office"
@@ -138,7 +141,7 @@ export default async function LocationsPage() {
         comingLabel="Coming"
         legendHq="HQ"
         legendOffice="Office"
-        liveTag="7 Sites · Live"
+        liveTag="6 Sites · Live"
         offices={mapOffices}
       />
 
@@ -167,17 +170,8 @@ export default async function LocationsPage() {
       <OperationsContext
         overline="Operations in context"
         title="Where offices meet programs."
-        subtitle="Each site exists because a specific program required it. Three examples of what that means in practice."
+        subtitle="Each site exists because a specific program required it. Two examples of what that means in practice."
         cards={{
-          ukraine: {
-            office: "Kyiv",
-            flag: "🇺🇦",
-            project: "Ukraine HRCS2 — EMU heavy maintenance",
-            blurb: "Ukraine high-speed intercity EMU — maintenance operations since 2017, sustained through wartime.",
-            metric: "90 cars · 82,000+ maintenance delivered",
-            cta: "View program record",
-            href: OPS_HREFS.ukraine,
-          },
           poland: {
             office: "Warsaw",
             flag: "🇵🇱",

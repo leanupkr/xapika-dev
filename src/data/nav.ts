@@ -27,7 +27,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
     href: "/about",
     children: [
       { key: "ceo",          label: "CEO Message",         href: "/about/ceo",                   description: "A note from the founder." },
-      { key: "history",      label: "Our History",         href: "/about/history",               description: "Ten years across six countries." },
+      { key: "history",      label: "Our History",         href: "/about/history",               description: "Ten years across five countries." },
       { key: "vision",       label: "Vision & Principles", href: "/about/vision",                description: "Perfect work, safe operations." },
       { key: "organization", label: "Organization",        href: "/about/organization",          description: "Cross-functional teams." },
       { key: "clients",      label: "Our Clients",         href: "/about/clients",               description: "National rail operators." },

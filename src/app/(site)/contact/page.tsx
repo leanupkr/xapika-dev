@@ -40,7 +40,7 @@ export default async function ContactPage() {
             hqLabel="Headquarters"
             hqValue={HQ_ADDRESS}
             hoursLabel="Business hours"
-            officeLink="View 7 offices"
+            officeLink="View 6 offices"
             openInMaps="Open in Google Maps"
           />
         }

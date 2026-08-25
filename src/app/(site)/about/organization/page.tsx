@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     path: "/about/organization",
     title: "Organization",
     description:
-      "Cross-functional teams across six countries — how Xapika Engineering is structured to operate as one unit.",
+      "Cross-functional teams across five countries — how Xapika Engineering is structured to operate as one unit.",
   });
 }
 
@@ -31,7 +31,7 @@ export default async function OrganizationPage() {
       />
       <AboutHeader
         overline="Organization"
-        title="Cross-functional teams across six countries."
+        title="Cross-functional teams across five countries."
         subtitle="From Warsaw to Seoul and Virginia — international offices aligned on one operational standard."
       />
       <OrgChart

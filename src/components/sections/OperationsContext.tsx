@@ -24,7 +24,6 @@ export type OperationsContextProps = {
   title: string;
   subtitle: string;
   cards: {
-    ukraine: OpsCard;
     poland: OpsCard;
     uzbekistan: OpsCard;
   };
@@ -156,7 +155,7 @@ export default function OperationsContext({
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.12 });
 
-  const items: OpsCard[] = [cards.ukraine, cards.poland, cards.uzbekistan];
+  const items: OpsCard[] = [cards.poland, cards.uzbekistan];
 
   return (
     <section
@@ -210,8 +209,13 @@ export default function OperationsContext({
           </motion.p>
         </div>
 
+        {/* Column count tracks the card count so a short list fills the row
+            instead of leaving a hole — dropping the Kyiv card took this from
+            three cards to two. */}
         <ul
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-6"
+          className={`grid grid-cols-1 sm:grid-cols-2 ${
+            items.length >= 3 ? "md:grid-cols-3" : "md:grid-cols-2"
+          } gap-3 md:gap-6`}
           role="list"
         >
           {items.map((card, i) => (

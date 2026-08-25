@@ -45,7 +45,7 @@ export default function HomePage() {
       <KeyNumbers
         overline="By the Numbers"
         title="Measured in fleet, miles, and uptime."
-        subtitle="Operational scale across six countries, verified by customers and regulators."
+        subtitle="Operational scale across five countries, verified by customers and regulators."
         stats={[
           {
             value: "213",
@@ -58,7 +58,7 @@ export default function HomePage() {
             note: "Verified service actions",
           },
           {
-            value: "6",
+            value: "5",
             unit: "countries",
             label: "Countries of Operations",
             note: "Active depots and crews",
@@ -165,13 +165,13 @@ export default function HomePage() {
       <TrustedBy overline="Strategic partners enabling global operations" />
       <GlobalPresence
         overline="Global Network"
-        title="Six countries. One standard."
+        title="Five countries. One standard."
         subtitle="Active depots and engineering crews across Europe, Asia, and North America."
         stat1Value="3"
         stat1Unit="Warehouses"
-        stat2Value="5"
+        stat2Value="4"
         stat2Unit="Engineering Locations"
-        stat3Value="7"
+        stat3Value="6"
         stat3Unit="Offices"
       />
       <NewsPreview />

@@ -25,13 +25,15 @@ type Pin = {
   /** Where to place the country name relative to the dot. "top" (default)
       sits above; "bottom"/"left"/"right" peel the label off in that
       direction when two pins are close enough that top-anchored labels
-      would collide (Poland↔Ukraine). */
+      would collide (Poland↔Türkiye on the narrow mobile projection). */
   labelAnchor?: "top" | "bottom" | "left" | "right";
 };
 
+// Offices only — mirrors src/data/offices.ts, which is why Kyiv is absent
+// (see the note at the top of that file). Warsaw appears once even though
+// two offices share the city.
 const PINS: Pin[] = [
   { id: "poland",     name: "Poland",      label: "HQ · Warsaw", coords: [21.0118, 52.2297], countryId: "616", isHQ: true },
-  { id: "ukraine",    name: "Ukraine",     label: "Kyiv",        coords: [30.52, 50.45],     countryId: "804", labelAnchor: "left" },
   { id: "turkey",     name: "Türkiye",     label: "Istanbul",    coords: [28.98, 41.01],     countryId: "792", labelAnchor: "right" },
   { id: "uzbekistan", name: "Uzbekistan",  label: "Tashkent",    coords: [69.28, 41.30],     countryId: "860" },
   { id: "korea",      name: "South Korea", label: "Seoul",       coords: [126.98, 37.57],    countryId: "410" },
@@ -325,7 +327,7 @@ export default function GlobalPresence({
                   animation: "livepulse 1.8s ease-in-out infinite",
                 }}
               />
-              7 Sites · Live
+              6 Sites · Live
             </div>
 
             {!mounted && (

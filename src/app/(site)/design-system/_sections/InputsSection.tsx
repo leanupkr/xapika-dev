@@ -83,7 +83,7 @@ function InputGroup({ title, description }: { title: string; description: string
                   Select country
                 </option>
                 <option>Poland</option>
-                <option>Ukraine</option>
+                <option>Uzbekistan</option>
                 <option>Korea</option>
                 <option>Turkey</option>
               </select>
@@ -97,7 +97,7 @@ function InputGroup({ title, description }: { title: string; description: string
                 defaultValue="Poland"
               >
                 <option>Poland</option>
-                <option>Ukraine</option>
+                <option>Uzbekistan</option>
                 <option>Korea</option>
                 <option>Turkey</option>
               </select>
@@ -112,7 +112,7 @@ function InputGroup({ title, description }: { title: string; description: string
                     Select country
                   </option>
                   <option>Poland</option>
-                  <option>Ukraine</option>
+                  <option>Uzbekistan</option>
                   <option>Korea</option>
                   <option>Turkey</option>
                 </select>

@@ -32,12 +32,12 @@ export default async function HistoryPage() {
       />
       <AboutHeader
         overline="History"
-        title="A decade of precision across six countries."
+        title="A decade of precision across five countries."
         subtitle="Each milestone is verified by client records, regulator logs, and our internal incident-free index."
       />
       <HistoryTimeline
         overline="History"
-        title="A decade of precision across six countries."
+        title="A decade of precision across five countries."
         subtitle="Each milestone is verified by client records, regulator logs, and our internal incident-free index."
         sinceWar="Operating uninterrupted since 2022 invasion."
         comingBadge="Coming"

@@ -3,7 +3,6 @@ import { z } from "zod";
 export const CONTACT_LOCATION_IDS = [
   "warsaw-hq",
   "warsaw-office",
-  "kyiv",
   "seoul",
   "virginia",
   "istanbul",
@@ -20,7 +19,6 @@ export type ContactLocationId = (typeof CONTACT_LOCATION_IDS)[number];
 export const CONTACT_LOCATION_LABELS: Record<ContactLocationId, string> = {
   "warsaw-hq": "Warsaw — HQ",
   "warsaw-office": "Warsaw — Office",
-  kyiv: "Kyiv",
   seoul: "Seoul",
   virginia: "Virginia",
   istanbul: "Istanbul",

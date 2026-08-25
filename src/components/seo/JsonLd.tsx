@@ -34,7 +34,7 @@ export function organizationLd() {
     url: PL_ORIGIN,
     logo: `${PL_ORIGIN}/logo.png`,
     description:
-      "Precision rail maintenance with uncompromised safety — operations across Poland, Ukraine, Türkiye, USA, South Korea, and Uzbekistan.",
+      "Precision rail maintenance with uncompromised safety — operations across Poland, Türkiye, USA, South Korea, and Uzbekistan.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Warsaw",
@@ -108,7 +108,6 @@ export function serviceLd(
     serviceType: "Rail maintenance",
     areaServed: [
       "Poland",
-      "Ukraine",
       "Türkiye",
       "USA",
       "South Korea",

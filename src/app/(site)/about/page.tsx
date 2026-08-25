@@ -12,14 +12,14 @@ export async function generateMetadata(): Promise<Metadata> {
     path: "/about",
     title: "About Us",
     description:
-      "A decade of precision rail maintenance across six countries — Xapika Engineering's history, principles, and operating standard.",
+      "A decade of precision rail maintenance across five countries — Xapika Engineering's history, principles, and operating standard.",
   });
 }
 
 export default async function AboutPage() {
   const origin = await getRequestOrigin();
   const description =
-    "A decade of precision rail maintenance across six countries — Xapika Engineering's history, principles, and operating standard.";
+    "A decade of precision rail maintenance across five countries — Xapika Engineering's history, principles, and operating standard.";
   return (
     <>
       <JsonLd
@@ -35,7 +35,7 @@ export default async function AboutPage() {
       <AboutHeader
         overline="Our Story"
         title="From Istanbul to Tashkent, one operating discipline."
-        subtitle="Ten years of rail maintenance precision, delivered across six countries without a single contract default."
+        subtitle="Ten years of rail maintenance precision, delivered across five countries without a single contract default."
       />
       <AboutCardGrid
         overline="Explore Sections"
@@ -59,7 +59,7 @@ export default async function AboutPage() {
           organization: {
             title: "Organization",
             description:
-              "Cross-functional teams across six countries, operating as one unit.",
+              "Cross-functional teams across five countries, operating as one unit.",
           },
           clients: {
             title: "Our Clients",

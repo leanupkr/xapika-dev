@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     path: "/about/ceo",
     title: "CEO Message",
     description:
-      "A founder note on continuous rail operations across six countries.",
+      "A founder note on continuous rail operations across five countries.",
   });
 }
 
